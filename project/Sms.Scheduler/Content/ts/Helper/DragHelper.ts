@@ -262,8 +262,18 @@ export class Drag extends DragHelper {
 			}
 		}
 
-		const resourceIds = leafRecords.map(r => r["ResourceKey"] as string);
-		const resources = schedule.resourceStore.allRecords.filter(r => resourceIds.includes(r["ResourceKey"])) as ResourceModel[];
+		const resourceIds = leafRecords.map(r => r["ResourceKey"] as string).filter(Boolean);
+		let resources = schedule.resourceStore.allRecords.filter(r => resourceIds.includes(r["ResourceKey"])) as ResourceModel[];
+
+		// Fallback: group header nodes sometimes don't resolve leaf ResourceKeys reliably during drag
+		if (!resources.length && resourceRecord) {
+			const firstTechnician = window.Sms?.Scheduler?.Timeline?.getFirstTechnicianChild?.(resourceRecord as any) as any;
+			const key = firstTechnician?.["ResourceKey"] as string;
+			if (key) {
+				resources = schedule.resourceStore.allRecords.filter(r => r["ResourceKey"] === key) as ResourceModel[];
+			}
+		}
+
 		const resource = resources?.[0];
 		const calendar = (resource && (resource["calendar"] as CalendarModel)) ?? (schedule.project.calendar as CalendarModel);
 		// Coordinates required when used in vertical mode, since it does not use actual columns
@@ -280,17 +290,14 @@ export class Drag extends DragHelper {
 
 			if (schedule.isHorizontal) {
 				// Remove previous highlight (if any)
-				const prevHighlightRecord = context.highlightRecord as ResourceModel;
-				const prevRow = prevHighlightRecord && schedule.getRowFor(prevHighlightRecord);
-				prevRow?.removeCls('target-resource');
+				const prevRowEl = context.highlightRowEl as HTMLElement;
+				prevRowEl?.classList.remove('target-resource');
 
-				// Prefer a record that actually exists in the resourceStore, fallback to leaf resource
-				const storeRecord = resourceRecord?.id ? (schedule.resourceStore as any).getById?.(resourceRecord.id) as ResourceModel : null;
-				const highlightRecord = (storeRecord ?? resourceRecord ?? resource) as ResourceModel;
-				const row = highlightRecord && schedule.getRowFor(highlightRecord);
-				row?.addCls('target-resource');
+				// Highlight the hovered row element directly (record instances for generated group nodes are not always stable)
+				const rowEl = (context.target as HTMLElement)?.closest?.('.b-grid-row') as HTMLElement;
+				rowEl?.classList.add('target-resource');
 
-				context.highlightRecord = highlightRecord;
+				context.highlightRowEl = rowEl;
 			}
 
 			let isValid = true;
@@ -394,28 +401,11 @@ export class Drag extends DragHelper {
 		} else {
 			// Clear highlight when not over a valid resource/date
 			if (schedule.isHorizontal) {
-				const prevHighlightRecord = context.highlightRecord as ResourceModel;
-				const prevRow = prevHighlightRecord && schedule.getRowFor(prevHighlightRecord);
-				prevRow?.removeCls('target-resource');
+				const prevRowEl = context.highlightRowEl as HTMLElement;
+				prevRowEl?.classList.remove('target-resource');
 			}
-			context.highlightRecord = null;
+			context.highlightRowEl = null;
 			context.canDrop = context.valid = false;
-		}
-	};
-
-	// @ts-ignore
-	onDrop = async ({context, event}) => {
-		let
-			me = this,
-			{schedule} = me,
-			{canDrop, resource, resources, valid} = context;
-
-		if (!resource || !canDrop) {
-			context.valid = false;
-			if (me.tip.isVisible) {
-				me.tip.hide();
-			}
-			return;
 		}
 
 		let targetDispatch = this.schedule.resolveEventRecord(context.target) as Dispatch;
