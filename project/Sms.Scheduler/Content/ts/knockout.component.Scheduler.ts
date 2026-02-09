@@ -2135,6 +2135,56 @@ export class Scheduler extends window.Main.ViewModels.ViewModelBase {
 		let prevResourceRecord: ResourceModel = null;
 		let prevHighlightRowEl: HTMLElement = null;
 
+		// Drag debug overlay (enable via DevTools console):
+		// localStorage.setItem('Sms.Scheduler:dragDebug', '1'); location.reload();
+		const DRAG_DEBUG_KEY = 'Sms.Scheduler:dragDebug';
+		const isDragDebugEnabled = () => BrowserHelper.getLocalStorageItem(DRAG_DEBUG_KEY) === '1';
+
+		const escapeHtml = (s: any) => String(s ?? '')
+			.replaceAll('&', '&amp;')
+			.replaceAll('<', '&lt;')
+			.replaceAll('>', '&gt;')
+			.replaceAll('"', '&quot;')
+			.replaceAll("'", '&#39;');
+
+		const ensureDragDebugOverlay = (): HTMLDivElement | null => {
+			if (!isDragDebugEnabled()) return null;
+			let el = document.getElementById('sms-drag-debug-overlay') as HTMLDivElement;
+			if (el) return el;
+
+			el = document.createElement('div');
+			el.id = 'sms-drag-debug-overlay';
+			el.style.position = 'fixed';
+			el.style.right = '12px';
+			el.style.bottom = '12px';
+			el.style.zIndex = '999999';
+			el.style.maxWidth = '520px';
+			el.style.maxHeight = '55vh';
+			el.style.overflow = 'auto';
+			el.style.pointerEvents = 'none';
+			el.style.background = 'rgba(0,0,0,0.78)';
+			el.style.color = '#fff';
+			el.style.border = '1px solid rgba(255,255,255,0.18)';
+			el.style.borderRadius = '10px';
+			el.style.boxShadow = '0 12px 40px rgba(0,0,0,0.35)';
+			el.style.backdropFilter = 'blur(6px)';
+			el.style.padding = '10px 12px';
+			el.style.fontFamily = 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace';
+			el.style.fontSize = '12px';
+			el.style.lineHeight = '1.35';
+
+			document.body.appendChild(el);
+			return el;
+		};
+
+		const setDragDebugOverlay = (title: string, lines: string[]) => {
+			const el = ensureDragDebugOverlay();
+			if (!el) return;
+			el.innerHTML = `
+				<div style="font-weight:700; margin-bottom:6px;">${escapeHtml(title)} <span style="font-weight:500; opacity:0.75;">(dragDebug=1)</span></div>
+				<pre style="white-space:pre-wrap; margin:0;">${escapeHtml(lines.join('\n'))}</pre>
+			`;
+		};
 		const resolveResourceRecordFromDom = (targetEl: HTMLElement, offsetX: number, offsetY: number): ResourceModel => {
 			if (!targetEl) return null;
 			let record = self.scheduler.resolveResourceRecord(targetEl, [offsetX, offsetY]) as ResourceModel;
@@ -2225,6 +2275,28 @@ export class Scheduler extends window.Main.ViewModels.ViewModelBase {
 					}
 
 					const resource = resources?.[0] as any;
+					let endDateForAvailability = startDate;
+
+					// When overlap is disallowed, validate based on actual availability (previously blocked all drops)
+					if (isTechnician(resource)) {
+						try {
+							const serviceorderId = e.dataTransfer.getData('crm/serviceorder');
+							if (serviceorderId) {
+								const order = (self.pipeline.store as Store).find((so: GridRowModel) => so.id == serviceorderId) as ServiceOrder;
+								if (order) {
+									const duration = window.Helper.Scheduler.determineNewEventDuration(
+										order,
+										self.scheduler.defaultEventDuration,
+										self.scheduler.serviceOrderDispatchMaximumDuration,
+										self.scheduler.ServiceOrderDispatchIgnoreCalculatedDuration
+									);
+									endDateForAvailability = moment(startDate).add(duration).toDate();
+								}
+							}
+						} catch {
+							// ignore debug-only dataTransfer quirks
+						}
+					}
 
 					if (isTechnician(resource) /*|| resource.constructor === Tool*/) {
 						if (isHorizontal) {
@@ -2234,11 +2306,30 @@ export class Scheduler extends window.Main.ViewModels.ViewModelBase {
 							prevHighlightRowEl = rowEl;
 							prevResourceRecord = resourceRecord;
 						}
-						isValid = true;
+						isValid = Boolean(allowOverlap) || self.scheduler.isDateRangeAvailable(startDate, endDateForAvailability, null, resource);
 					}
-					isValid &&= allowOverlap;
-				}
 
+					if (isDragDebugEnabled()) {
+						const rowEl = (targetEl.closest?.('.b-grid-row') ?? targetEl.closest?.('.b-sch-timeaxis-row')) as HTMLElement;
+						const rowId = rowEl?.getAttribute?.('data-id') ?? (rowEl as any)?.dataset?.id;
+						const ugCtor = (window as any).Main?.Rest?.Model?.Main_Usergroup;
+						const isTeamGroup = Boolean(ugCtor && resourceRecord && (resourceRecord as any)["key"] instanceof ugCtor);
+						setDragDebugOverlay('dragover', [
+							`startDate: ${window.moment(startDate).format('YYYY-MM-DD HH:mm:ss')}`,
+							`endDate(availability): ${window.moment(endDateForAvailability).format('YYYY-MM-DD HH:mm:ss')}`,
+							`offset: ${e.offsetX}, ${e.offsetY} | mode: ${self.scheduler.mode}`,
+							`rowId: ${rowId ?? 'null'}`,
+							`resourceRecord: ${resourceRecord ? `${(resourceRecord as any).id} (${(resourceRecord as any).name ?? ''})` : 'null'} | teamGroup: ${isTeamGroup}`,
+							`leafResources: ${resources.length} | first: ${resources[0] ? `${(resources[0] as any).id} (${(resources[0] as any).name ?? ''})` : 'null'}`,
+							`allowOverlap: ${Boolean(allowOverlap)} | isValid: ${isValid}`,
+						]);
+					}
+				} else if (isDragDebugEnabled()) {
+					setDragDebugOverlay('dragover', [
+						'startDate: null (not over time axis)',
+						`offset: ${e.offsetX}, ${e.offsetY} | mode: ${self.scheduler.mode}`,
+					]);
+				}
 				if (!isValid) {
 					e.dataTransfer.dropEffect = "none";
 					prevHighlightRowEl?.classList.remove('target-resource');
@@ -2272,6 +2363,18 @@ export class Scheduler extends window.Main.ViewModels.ViewModelBase {
 				}
 
 				const resource = (resources?.[0] ?? null) as Technician;
+
+				if (isDragDebugEnabled()) {
+					const ugCtor = (window as any).Main?.Rest?.Model?.Main_Usergroup;
+					const isTeamGroup = Boolean(ugCtor && resourceRecord && (resourceRecord as any)["key"] instanceof ugCtor);
+					setDragDebugOverlay('drop', [
+						`serviceorderId: ${serviceorderId}`,
+						`resourceRecord: ${resourceRecord ? `${(resourceRecord as any).id} (${(resourceRecord as any).name ?? ''})` : 'null'} | teamGroup: ${isTeamGroup}`,
+						`leafResources: ${resources.length} | first: ${resources[0] ? `${(resources[0] as any).id} (${(resources[0] as any).name ?? ''})` : 'null'}`,
+						`resource(used): ${resource ? `${(resource as any).id} (${(resource as any).name ?? ''})` : 'null'}`,
+					]);
+				}
+
 				if (resource) {
 					let order = (self.pipeline.store as Store).find((so: GridRowModel) => so.id == serviceorderId) as ServiceOrder;
 					if (order) {
@@ -2290,8 +2393,19 @@ export class Scheduler extends window.Main.ViewModels.ViewModelBase {
 							self.scheduler.ServiceOrderDispatchIgnoreCalculatedDuration
 						);
 
-						const endDate = moment(date).add(duration).toDate();
-						if (!self.scheduler.isDateRangeAvailable(date, endDate, null, resource)) {
+							const endDate = moment(date).add(duration).toDate();
+							const rangeOk = self.scheduler.isDateRangeAvailable(date, endDate, null, resource);
+
+							if (isDragDebugEnabled()) {
+								setDragDebugOverlay('drop', [
+									`serviceorderId: ${serviceorderId}`,
+									`date: ${window.moment(date).format('YYYY-MM-DD HH:mm:ss')}`,
+									`endDate: ${window.moment(endDate).format('YYYY-MM-DD HH:mm:ss')}`,
+									`isDateRangeAvailable: ${rangeOk}`,
+								]);
+							}
+
+							if (!rangeOk) {
 							e.dataTransfer.dropEffect = "none";
 							return;
 						}
