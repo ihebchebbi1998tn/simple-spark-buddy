@@ -365,12 +365,13 @@ export class Timeline extends SchedulerPro {
 		const parentNodes: ResourceModel[] = [];
 		
 		const checkParentHasHighlightedChild = (parent: ResourceModel): boolean => {
-			const children = parent.children as ResourceModel[];
-			if (!children?.length) return false;
+			const children = parent.children;
+			if (!Array.isArray(children) || children.length === 0) return false;
 			
-			for (const child of children) {
+			for (const child of children as ResourceModel[]) {
 				if (highlightedIds.has(child.id)) return true;
-				if (child.children?.length && checkParentHasHighlightedChild(child)) return true;
+				const childChildren = child.children;
+				if (Array.isArray(childChildren) && childChildren.length > 0 && checkParentHasHighlightedChild(child)) return true;
 			}
 			return false;
 		};
