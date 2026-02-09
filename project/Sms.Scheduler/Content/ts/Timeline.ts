@@ -206,6 +206,44 @@ export class Timeline extends SchedulerPro {
 		};
 	}
 
+	/**
+	 * Checks if a resource is a generated parent node (created by treeGroup feature)
+	 * These nodes are virtual grouping containers, not actual resources
+	 */
+	static isGeneratedParentNode(resource: SchedulerResourceModel): boolean {
+		return Boolean(resource?.["generatedParent"]);
+	}
+
+	/**
+	 * Finds the first valid technician child within a generated parent node
+	 * Used for validating drops on group headers
+	 */
+	static getFirstTechnicianChild(resource: SchedulerResourceModel): Technician | null {
+		if (!this.isGeneratedParentNode(resource)) {
+			return isTechnician(resource) ? resource as Technician : null;
+		}
+		
+		const children = resource.children as ResourceModel[];
+		if (!children?.length) return null;
+		
+		for (const child of children) {
+			if (isTechnician(child)) {
+				return child as Technician;
+			}
+			// Recursively check nested groups
+			const nestedTechnician = this.getFirstTechnicianChild(child as SchedulerResourceModel);
+			if (nestedTechnician) return nestedTechnician;
+		}
+		return null;
+	}
+
+	/**
+	 * Checks if a generated parent node contains at least one valid technician
+	 */
+	static hasValidTechnicianChildren(resource: SchedulerResourceModel): boolean {
+		return this.getFirstTechnicianChild(resource) !== null;
+	}
+
 	static eventDragValidator(data: {
 		startDate: Date,
 		endDate: Date,
@@ -215,6 +253,19 @@ export class Timeline extends SchedulerPro {
 		targetEventRecord: SchedulerEventModel
 	}) {
 		let {eventRecords, newResource, startDate, endDate} = data;
+		
+		// Handle generated parent nodes (resource groups)
+		// Allow drop indicator if the group contains valid technician children
+		if (this.isGeneratedParentNode(newResource)) {
+			if (isDispatch(eventRecords[0])) {
+				const hasValidChildren = this.hasValidTechnicianChildren(newResource);
+				return {
+					valid: hasValidChildren,
+					message: hasValidChildren ? '' : window.Helper.getTranslatedString("NoValidResourcesInGroup")
+				};
+			}
+		}
+		
 		if (!isDispatch(eventRecords[0])) {
 			if ((isTechnician(newResource) && (eventRecords[0] as Absence).AbsenceTypeData instanceof Crm.PerDiem.Rest.Model.Lookups.CrmPerDiem_TimeEntryType) ||
 				(!isTechnician(newResource) && (eventRecords[0] as Absence).AbsenceTypeData instanceof Crm.Article.Model.Lookups.CrmArticle_ArticleDowntimeReason)) {
@@ -305,6 +356,36 @@ export class Timeline extends SchedulerPro {
 		return nrOfRows;
 	}
 
+	/**
+	 * Collects generated parent nodes that contain at least one of the highlighted resources
+	 * This ensures group headers show the drop indicator when their children are valid targets
+	 */
+	private collectParentNodesForHighlightedResources(highlightedResources: ResourceModel[]): ResourceModel[] {
+		const highlightedIds = new Set(highlightedResources.map(r => r.id));
+		const parentNodes: ResourceModel[] = [];
+		
+		const checkParentHasHighlightedChild = (parent: ResourceModel): boolean => {
+			const children = parent.children as ResourceModel[];
+			if (!children?.length) return false;
+			
+			for (const child of children) {
+				if (highlightedIds.has(child.id)) return true;
+				if (child.children?.length && checkParentHasHighlightedChild(child)) return true;
+			}
+			return false;
+		};
+		
+		// Find all generated parent nodes that contain highlighted resources
+		this.resourceStore.forEach((resource: ResourceModel) => {
+			if (Timeline.isGeneratedParentNode(resource as SchedulerResourceModel) && 
+				checkParentHasHighlightedChild(resource)) {
+				parentNodes.push(resource);
+			}
+		});
+		
+		return parentNodes;
+	}
+
 	getResourcesToHighlight(eventRecords: SchedulerEventModel[]): SchedulerResourceModel[] {
 		let dispatches = eventRecords?.filter(isDispatch);
 		let absences = eventRecords?.filter((r): r is Absence => isAbsence(r) && r.AbsenceTypeData instanceof Crm.PerDiem.Rest.Model.Lookups.CrmPerDiem_TimeEntryType);
@@ -331,6 +412,12 @@ export class Timeline extends SchedulerPro {
 		if (articleDowntimes.length > 0) {
 			resourcesToHighlight = this.resourceStore.query((resourceRecord: ResourceModel) => isTool(resourceRecord) || isVehicle(resourceRecord)) as Article[];
 		}
+		
+		// Include generated parent nodes that contain highlighted resources
+		// This ensures the blue line indicator appears on group headers as well
+		const parentNodes = this.collectParentNodesForHighlightedResources(resourcesToHighlight);
+		resourcesToHighlight.push(...parentNodes);
+		
 		return resourcesToHighlight;
 	}
 
