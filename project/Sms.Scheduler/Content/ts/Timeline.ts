@@ -223,10 +223,10 @@ export class Timeline extends SchedulerPro {
 			return isTechnician(resource) ? resource as Technician : null;
 		}
 		
-		const children = resource.children as ResourceModel[];
-		if (!children?.length) return null;
+		const children = resource.children;
+		if (!Array.isArray(children) || children.length === 0) return null;
 		
-		for (const child of children) {
+		for (const child of children as ResourceModel[]) {
 			if (isTechnician(child)) {
 				return child as Technician;
 			}
