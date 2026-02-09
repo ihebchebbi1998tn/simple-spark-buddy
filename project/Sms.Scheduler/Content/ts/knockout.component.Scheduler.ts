@@ -1870,11 +1870,12 @@ export class Scheduler extends window.Main.ViewModels.ViewModelBase {
 					self.scheduler.resourceStore.forEach((resource: ResourceModel) => {
 						if (window.Sms.Scheduler.Timeline.isGeneratedParentNode(resource as SchedulerResourceModel)) {
 							const hasHighlightedChild = (parent: ResourceModel): boolean => {
-								const children = parent.children as ResourceModel[];
-								if (!children?.length) return false;
-								for (const child of children) {
+								const children = parent.children;
+								if (!Array.isArray(children) || children.length === 0) return false;
+								for (const child of children as ResourceModel[]) {
 									if (highlightedIds.has(child.id)) return true;
-									if (child.children?.length && hasHighlightedChild(child)) return true;
+									const childChildren = child.children;
+									if (Array.isArray(childChildren) && childChildren.length > 0 && hasHighlightedChild(child)) return true;
 								}
 								return false;
 							};
