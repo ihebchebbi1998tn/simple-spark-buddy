@@ -1833,7 +1833,7 @@ export class Scheduler extends window.Main.ViewModels.ViewModelBase {
 					calendarHighlight.unhighlightCalendars();
 					return;
 				}
-				let resourcesToHighlight: Model[] = [];
+			let resourcesToHighlight: Model[] = [];
 				if(jobs.length > 0) {
 					if (jobs[0].serviceOrder.OriginalData.RequiredSkillKeys?.length == 0 && jobs[0].serviceOrder.OriginalData.RequiredAssetKeys?.length == 0) {
 						resourcesToHighlight = self.scheduler.resourceStore.query((resourceRecord: ResourceModel): resourceRecord is Technician => isTechnician(resourceRecord));
@@ -1862,6 +1862,29 @@ export class Scheduler extends window.Main.ViewModels.ViewModelBase {
 				if (articleDowntimes.length > 0) {
 					resourcesToHighlight = self.scheduler.resourceStore.query(isArticle);
 				}
+				
+				// Include generated parent nodes that contain highlighted resources
+				// This ensures the blue line indicator appears on group headers when dragging from pipeline
+				if (resourcesToHighlight.length > 0) {
+					const highlightedIds = new Set(resourcesToHighlight.map(r => r.id));
+					self.scheduler.resourceStore.forEach((resource: ResourceModel) => {
+						if (window.Sms.Scheduler.Timeline.isGeneratedParentNode(resource as SchedulerResourceModel)) {
+							const hasHighlightedChild = (parent: ResourceModel): boolean => {
+								const children = parent.children as ResourceModel[];
+								if (!children?.length) return false;
+								for (const child of children) {
+									if (highlightedIds.has(child.id)) return true;
+									if (child.children?.length && hasHighlightedChild(child)) return true;
+								}
+								return false;
+							};
+							if (hasHighlightedChild(resource)) {
+								resourcesToHighlight.push(resource);
+							}
+						}
+					});
+				}
+				
 				if (!calendarHighlight.disabled && resourcesToHighlight.length > 0) {
 					calendarHighlight.highlightResourceCalendars(resourcesToHighlight as ResourceModel[]);
 				} else {
