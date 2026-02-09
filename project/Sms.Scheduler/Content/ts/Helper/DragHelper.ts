@@ -232,17 +232,40 @@ export class Drag extends DragHelper {
 	onDrag = ({event, context}) => {
 		const tasks = context.tasks as EventModel[];
 		const orders = context.orders.map(x => isJob(x) ? x.serviceOrder : x) as ServiceOrder[];
-		const
-			me = this,
-			{schedule} = me,
-			coordinate = DomHelper[`getTranslate${schedule.isHorizontal ? 'X' : 'Y'}`](
-				context.element
-			),
-			resourceRecord = context.target && schedule.resolveResourceRecord(context.target, [event.offsetX, event.offsetY]) as ResourceModel,
-			resourceIds = ((resourceRecord?.isLeaf ? [resourceRecord] : resourceRecord?.allChildren?.filter(r => r.isLeaf)) ?? []).map(r => r["ResourceKey"] as string),
-			resources = schedule.resourceStore.allRecords.filter(r => resourceIds.includes(r["ResourceKey"])) as ResourceModel[],
-			resource = resources?.[0],
-			calendar = (resource && resource["calendar"] as CalendarModel) ?? (schedule.project.calendar as CalendarModel);
+		const me = this;
+		const { schedule } = me;
+		const coordinate = DomHelper[`getTranslate${schedule.isHorizontal ? 'X' : 'Y'}`](
+			context.element
+		);
+		
+		const resourceRecord = (context.target && schedule.resolveResourceRecord(context.target, [event.offsetX, event.offsetY])) as ResourceModel;
+
+		// Resolve leaf resources robustly (tree grouping nodes may not expose allChildren as an array)
+		const leafRecords: ResourceModel[] = [];
+		const collectLeafRecords = (node: any) => {
+			if (!node) return;
+			const children = node.children;
+			if (Array.isArray(children) && children.length > 0) {
+				for (const child of children) collectLeafRecords(child);
+				return;
+			}
+			if (node.isLeaf) leafRecords.push(node as ResourceModel);
+		};
+
+		if (resourceRecord) {
+			if (resourceRecord.isLeaf) {
+				leafRecords.push(resourceRecord);
+			} else if (Array.isArray((resourceRecord as any).allChildren)) {
+				leafRecords.push(...((resourceRecord as any).allChildren as ResourceModel[]).filter(r => r.isLeaf));
+			} else {
+				collectLeafRecords(resourceRecord);
+			}
+		}
+
+		const resourceIds = leafRecords.map(r => r["ResourceKey"] as string);
+		const resources = schedule.resourceStore.allRecords.filter(r => resourceIds.includes(r["ResourceKey"])) as ResourceModel[];
+		const resource = resources?.[0];
+		const calendar = (resource && (resource["calendar"] as CalendarModel)) ?? (schedule.project.calendar as CalendarModel);
 		// Coordinates required when used in vertical mode, since it does not use actual columns
 
 		const startDate = schedule.getDateFromCoordinate(coordinate, 'round', false, true);
@@ -256,10 +279,18 @@ export class Drag extends DragHelper {
 			}
 
 			if (schedule.isHorizontal) {
-				if (context.resourceRecord) {
-					schedule.getRowFor(resourceRecord).removeCls('target-resource');
-				}
-				schedule.getRowFor(resourceRecord).addCls('target-resource');
+				// Remove previous highlight (if any)
+				const prevHighlightRecord = context.highlightRecord as ResourceModel;
+				const prevRow = prevHighlightRecord && schedule.getRowFor(prevHighlightRecord);
+				prevRow?.removeCls('target-resource');
+
+				// Prefer a record that actually exists in the resourceStore, fallback to leaf resource
+				const storeRecord = resourceRecord?.id ? (schedule.resourceStore as any).getById?.(resourceRecord.id) as ResourceModel : null;
+				const highlightRecord = (storeRecord ?? resourceRecord ?? resource) as ResourceModel;
+				const row = highlightRecord && schedule.getRowFor(highlightRecord);
+				row?.addCls('target-resource');
+
+				context.highlightRecord = highlightRecord;
 			}
 
 			let isValid = true;
@@ -361,6 +392,13 @@ export class Drag extends DragHelper {
 				me.tip.showBy(context.element);
 			}
 		} else {
+			// Clear highlight when not over a valid resource/date
+			if (schedule.isHorizontal) {
+				const prevHighlightRecord = context.highlightRecord as ResourceModel;
+				const prevRow = prevHighlightRecord && schedule.getRowFor(prevHighlightRecord);
+				prevRow?.removeCls('target-resource');
+			}
+			context.highlightRecord = null;
 			context.canDrop = context.valid = false;
 		}
 	};
