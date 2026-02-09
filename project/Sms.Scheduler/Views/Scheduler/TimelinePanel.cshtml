@@ -1,0 +1,11 @@
+@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Modularization.Extensions
+@using Crm.Rest.Model
+@using Crm.Library.Globalization.Extensions
+
+<div id="scheduler">
+	<div id="schedulertimelinepanel"></div>
+</div>
+
+<div id="leftOverlayDiv" class="overlayDiv" style="display:none"><span>@(Html.Localize("Previous"))</span></div>
+<div id="rightOverlayDiv" class="overlayDiv" style="display:none"><span>@(Html.Localize("Next"))</span></div>

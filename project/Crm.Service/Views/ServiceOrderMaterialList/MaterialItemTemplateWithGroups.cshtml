@@ -1,0 +1,211 @@
+﻿@using Crm.Library.Globalization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div id="{{Id}}" class="lv-item media"
+     data-bind="infiniteScrollItem: { index: $index(), array: $parent.items }, visible: $parent.isVisible($data)">
+	<button class="expand-collapse-service-order-material-positions waves-button pull-right" data-bind="click: () => $parent.togglePosition($data)">
+		<i class="zmdi zmdi-hc-lg"
+		   data-bind="css: { 'zmdi-chevron-up': $parent.isExpanded($data)(), 'zmdi-chevron-down': !$parent.isExpanded($data)() }"></i>
+	</button>
+	<div class="media-body">
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="lv-title">
+					<span data-bind="text: ItemNo"></span> - <span data-bind="text: ItemDescription"></span>
+				</div>
+			</div>
+			<div class="col-xs-11 col-sm-3"
+			     data-bind="css: { 'col-sm-push-4': !Crm.Service.Settings.ServiceOrderMaterial.ShowPricesInMobileClient}">
+				<div class="row">
+					<span class="col-xs-2 p-r-5 visible-xs">@(Html.Localize("EstimatedQty")):</span>
+					<span class="col-xs-5 col-sm-5 text-right p-r-5 p-l-5"
+					      data-bind="money: $parent.getEstimatedQuantity($data)"></span>
+					<span class="col-xs-4 col-sm-7 p-0 text-nowrap">
+						<span data-bind="lookupValue: QuantityUnitKey, lookups: $root.lookups.quantityUnits"></span>
+						<span class="hidden-xs c-black p-l-5">(@(Html.Localize("EstimatedQty")))</span>
+					</span>
+				</div>
+				<div class="row visible-xs"
+				     data-bind="if: Crm.Service.Settings.ServiceOrderMaterial.ShowPricesInMobileClient">
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">*</span>&nbsp;<span data-bind="money: Helper.ServiceOrderMaterial.getEstimatedPrice($data)"></span>&nbsp;<span
+							data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+					</span>
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">-</span>&nbsp;<span
+							data-bind="text: Helper.ServiceOrderMaterial.getEstimatedDiscount($data, $root.serviceOrder().CurrencyKey() ? $root.lookups.currencies[$root.serviceOrder().CurrencyKey()].Value : '')"></span>
+					</span>
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">=</span>&nbsp;<span
+							data-bind="money: Helper.ServiceOrderMaterial.getEstimatedTotalPrice($data)"></span>&nbsp;<span
+							data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+					</span>
+				</div>
+				<div class="row">
+					<span class="col-xs-2 p-r-5 visible-xs">@(Html.Localize("ActualQty")):</span>
+					<span class="col-xs-5 col-sm-5 text-right p-r-5 p-l-5"
+					      data-bind="money: $parent.getActualQuantity($data)"></span>
+					<span class="col-xs-4 col-sm-7 p-0 text-nowrap">
+						<span data-bind="lookupValue: QuantityUnitKey, lookups: $root.lookups.quantityUnits"></span>
+						<span class="hidden-xs c-black p-l-5">(@(Html.Localize("ActualQty")))</span>
+					</span>
+				</div>
+				<div class="row visible-xs"
+				     data-bind="if: Crm.Service.Settings.ServiceOrderMaterial.ShowPricesInMobileClient">
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">*</span>&nbsp;<span data-bind="money: Helper.ServiceOrderMaterial.getActualPrice($data)"></span>&nbsp;<span
+							data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+					</span>
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">-</span>&nbsp;<span
+							data-bind="text: Helper.ServiceOrderMaterial.getActualDiscount($data, $root.serviceOrder().CurrencyKey() ? $root.lookups.currencies[$root.serviceOrder().CurrencyKey()].Value : '')"></span>
+					</span>
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">=</span>&nbsp;<span
+							data-bind="money: Helper.ServiceOrderMaterial.getActualTotalPrice($data)"></span>&nbsp;<span
+							data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+					</span>
+				</div>
+				<div class="row" data-bind="if: ko.unwrap($root.showInvoiceData)">
+					<span class="col-xs-2 p-r-5 visible-xs">@(Html.Localize("InvoiceQty")):</span>
+					<span class="col-xs-5 col-sm-5 text-right p-r-5 p-l-5"
+					      data-bind="money: $parent.getInvoiceQuantity($data)"></span>
+					<span class="col-xs-4 col-sm-7 p-0 text-nowrap">
+						<span data-bind="lookupValue: QuantityUnitKey, lookups: $root.lookups.quantityUnits"></span>
+						<span class="hidden-xs c-black p-l-5">(@(Html.Localize("InvoiceQty")))</span>
+					</span>
+				</div>
+				<div class="row visible-xs"
+				     data-bind="if: Crm.Service.Settings.ServiceOrderMaterial.ShowPricesInMobileClient && ko.unwrap($root.showInvoiceData)">
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">*</span>&nbsp;<span data-bind="money: Helper.ServiceOrderMaterial.getInvoicePrice($data)"></span>&nbsp;<span
+							data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+					</span>
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">-</span>&nbsp;<span
+							data-bind="text: Helper.ServiceOrderMaterial.getInvoiceDiscount($data, $root.serviceOrder().CurrencyKey() ? $root.lookups.currencies[$root.serviceOrder().CurrencyKey()].Value : '')"></span>
+					</span>
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">=</span>&nbsp;<span
+							data-bind="money: Helper.ServiceOrderMaterial.getInvoiceTotalPrice($data)"></span>&nbsp;<span
+							data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+					</span>
+				</div>
+			</div>
+			<!-- ko if: Crm.Service.Settings.ServiceOrderMaterial.ShowPricesInMobileClient -->
+			<div class="hidden-xs col-sm-4">
+				<div class="row">
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">*</span>&nbsp;<span data-bind="money: Helper.ServiceOrderMaterial.getEstimatedPrice($data)"></span>&nbsp;<span
+							data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+					</span>
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">-</span>&nbsp;<span
+							data-bind="text: Helper.ServiceOrderMaterial.getEstimatedDiscount($data, $root.serviceOrder().CurrencyKey() ? $root.lookups.currencies[$root.serviceOrder().CurrencyKey()].Value : '')"></span>
+					</span>
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">=</span>&nbsp;<span
+							data-bind="money: Helper.ServiceOrderMaterial.getEstimatedTotalPrice($data)"></span>&nbsp;<span
+							data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+					</span>
+				</div>
+				<div class="row">
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">*</span>&nbsp;<span data-bind="money: Helper.ServiceOrderMaterial.getActualPrice($data)"></span>&nbsp;<span
+							data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+					</span>
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">-</span>&nbsp;<span
+							data-bind="text: Helper.ServiceOrderMaterial.getActualDiscount($data, $root.serviceOrder().CurrencyKey() ? $root.lookups.currencies[$root.serviceOrder().CurrencyKey()].Value : '')"></span>
+					</span>
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">=</span>&nbsp;<span
+							data-bind="money: Helper.ServiceOrderMaterial.getActualTotalPrice($data)"></span>&nbsp;<span
+							data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+					</span>
+				</div>
+				<div class="row" data-bind="if: $root.showInvoiceData">
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">*</span>&nbsp;<span data-bind="money: Helper.ServiceOrderMaterial.getInvoicePrice($data)"></span>&nbsp;<span
+							data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+					</span>
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">-</span>&nbsp;<span
+							data-bind="text: Helper.ServiceOrderMaterial.getInvoiceDiscount($data, $root.serviceOrder().CurrencyKey() ? $root.lookups.currencies[$root.serviceOrder().CurrencyKey()].Value : '')"></span>
+					</span>
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">=</span>&nbsp;<span
+							data-bind="money: Helper.ServiceOrderMaterial.getInvoiceTotalPrice($data)"></span>&nbsp;<span
+							data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+					</span>
+				</div>
+			</div>
+			<!-- /ko -->
+		</div>
+	</div>
+	<!-- ko if: $parent.isExpanded($data) -->
+	<div class="animated fadeIn">
+		<hr/>
+		<!-- ko foreach: $parent.getAllPositions($data) -->
+		<!-- ko let: { $parent: $parentContext.$parent } -->
+		<div class="lv-item">
+			@await Html.PartialAsync("GenericListBulkControl")
+			<div class="media-body">
+				<div class="row">
+					<div class="col-sm-4">
+						@await Html.PartialAsync("../ServiceOrderMaterialList/MaterialItemTemplateDetails")
+					</div>
+					<div class="col-xs-11 col-sm-3"
+					     data-bind="css: { 'col-sm-push-4': !Crm.Service.Settings.ServiceOrderMaterial.ShowPricesInMobileClient}">
+						<div class="row">
+							<span class="col-xs-2 p-r-5 visible-xs">@(Html.Localize("Quantity")):</span>
+							<span class="col-xs-5 col-sm-5 text-right p-r-5 p-l-5" data-bind="money: Quantity"></span>
+							<span class="col-xs-4 col-sm-7 p-0 text-nowrap">
+							<span data-bind="lookupValue: QuantityUnitKey, lookups: $root.lookups.quantityUnits"></span>
+						</span>
+						</div>
+						<div class="row visible-xs"
+						     data-bind="if: Crm.Service.Settings.ServiceOrderMaterial.ShowPricesInMobileClient">
+						<span class="col-xs-4 text-right text-nowrap">
+							<span class="pull-left">*</span>&nbsp;<span data-bind="money: Price"></span>&nbsp;<span
+								data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+						</span>
+							<span class="col-xs-4 text-right text-nowrap">
+							<span class="pull-left">-</span>&nbsp;<span
+									data-bind="text: Helper.ServiceOrderMaterial.getDiscount($data, $root.serviceOrder().CurrencyKey() ? $root.lookups.currencies[$root.serviceOrder().CurrencyKey()].Value : '')"></span>
+						</span>
+							<span class="col-xs-4 text-right text-nowrap">
+							<span class="pull-left">=</span>&nbsp;<span
+									data-bind="money: Helper.ServiceOrderMaterial.getTotalPrice($data)"></span>&nbsp;<span
+									data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+						</span>
+						</div>
+					</div>
+					<!-- ko if: Crm.Service.Settings.ServiceOrderMaterial.ShowPricesInMobileClient -->
+					<div class="hidden-xs col-sm-4">
+						<div class="row">
+						<span class="col-xs-4 text-right text-nowrap">
+							<span class="pull-left">*</span>&nbsp;<span data-bind="money: Price"></span>&nbsp;<span
+								data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+						</span>
+							<span class="col-xs-4 text-right text-nowrap">
+							<span class="pull-left">-</span>&nbsp;<span
+									data-bind="text: Helper.ServiceOrderMaterial.getDiscount($data, $root.serviceOrder().CurrencyKey() ? $root.lookups.currencies[$root.serviceOrder().CurrencyKey()].Value : '')"></span>
+						</span>
+							<span class="col-xs-4 text-right text-nowrap">
+							<span class="pull-left">=</span>&nbsp;<span
+									data-bind="money: Helper.ServiceOrderMaterial.getTotalPrice($data)"></span>&nbsp;<span
+									data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+						</span>
+						</div>
+					</div>
+					<!-- /ko -->
+				</div>
+				@await Html.PartialAsync("../ServiceOrderMaterialList/MaterialItemTemplateActions")
+			</div>
+		</div>
+		<!-- /ko -->
+		<!-- /ko -->
+	</div>
+	<!-- /ko -->
+</div>

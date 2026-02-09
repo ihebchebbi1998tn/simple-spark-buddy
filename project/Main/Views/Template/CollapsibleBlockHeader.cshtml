@@ -1,0 +1,26 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div class="panel-heading" data-bind="css: $parent.collapsed() ? '' : 'active', attr: { id: 'collapse-heading-' + $parent.id }">
+	<div class="card-header p-0 ch-alt" data-bind="css: customCss">
+		<h2 class="panel-title max-width-100">
+			<a data-toggle="collapse" class="p-20"
+				 data-bind="attr: { href: '#collapse-' + $parent.id, 'aria-controls': 'collapse-' + $parent.id, 'aria-expanded': !$parent.collapsed() }">
+				<span class="d-flex flex-v-center f-17">
+					<!-- ko if: swapIcons || icon -->
+					<span>
+						<i class="zmdi m-r-10" data-bind="css: swapIcons ? 'zmdi-chevron-down collapse-action f-700' : 'zmdi-' +  icon"></i>
+					</span>
+					<!-- /ko -->
+					<!-- ko with: viewContext -->
+					<!-- ko template: { nodes: $componentTemplateNodes } --><!-- /ko -->
+					<!-- /ko -->
+					<!-- ko if: !swapIcons || icon -->
+					<span class="m-l-auto">
+						<i class="zmdi" data-bind="css: swapIcons ? 'zmdi-' + icon : 'zmdi-chevron-down collapse-action f-700'"></i>
+					</span>
+					<!-- /ko -->
+				</span>
+			</a>
+		</h2>
+	</div>
+</div>

@@ -1,0 +1,59 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl<Main.ViewModels.CrmModelItem<FilterDefinition>>
+@using Crm.Library.EntityConfiguration
+@using Crm.Library.Globalization.Extensions
+
+@{
+	var filterDefinition = (DependantLookupsFilterDefinition)Model.Item;
+	var properties = filterDefinition.InnerFilterDefinitions;
+	var i = 0;
+	int j;
+	List<string> names = new List<string>();
+	List<string> followList = new List<string>();
+}
+
+@foreach (var prop in properties)
+   {
+	   followList.Add(prop.PropertyInfo.Name + "Key");
+   }
+
+
+@{
+	Func<string, string> GetSelect2Data = delegate(string modelPath)
+	{
+		var read = $"function() {{ var value = ko.unwrap(this.getFilter('{modelPath}'));return value && value.Operator ? value.Value : value; }}";
+		var write = $"function(newValue) {{ this.getFilter('{modelPath}').extend({{ filterOperator: '===' }})(newValue); }}";
+		return $"ko.pureComputed({{ read: {read}, write: {write} }}, $data)";
+	};
+}
+
+@foreach (var item in properties)
+	{
+		var onSelect = $"function (item){{ if(item){{ var filter=$root.getFilter('{item.PropertyInfo.Name + "Key"}')(); if(filter){{ filter.displayedValue=item.Value; }} }} }}";
+		names.Add(item.PropertyInfo.Name + "Key");
+		i++;
+	   @if (i== 1)
+	      { 
+	<div class="filter-element form-group">
+		<p class="m-b-5">@(Html.Localize(item.Caption ?? item.PropertyInfo.Name))</p>
+		<select class="form-control" name="@(Model.Item.GetModelPath())" data-bind="select2autocompleter: { data: @(GetSelect2Data(item.GetModelPath()+"Key")), autocompleteOptions: { table: '@(PluginProvider.FindPluginDescriptor(item.FilterType).PluginName.Replace(".",String.Empty)+"_"+ item.FilterType.Name)', getElementByIdQuery: Helper.Lookup.getLookupByKeyQuery, mapDisplayObject: Helper.Lookup.mapLookupForSelect2Display, customFilter: Helper.Lookup.queryLookup, onSelect: @(onSelect), placeholder: Helper.String.getTranslatedString('All') } }, event: { change: function() { $root.getFilter('@(followList[i])')(null); } }">
+		</select>
+	</div>	
+	      } else if(i>1 && i<= properties.Length - 1) {
+		      j = i;
+		<div class="filter-element form-group" data-bind="visible: ko.unwrap($root.getFilter('@(names[i-2])')) !== null">
+			<p class="m-b-5">@(Html.Localize(item.Caption ?? item.PropertyInfo.Name))</p>
+			<select class="form-control" name="@(Model.Item.GetModelPath())" data-bind="select2autocompleter: { data: @(GetSelect2Data(item.GetModelPath()+"Key")), autocompleteOptions: { table: '@(PluginProvider.FindPluginDescriptor(item.FilterType).PluginName.Replace(".",String.Empty)+"_"+ item.FilterType.Name)', getElementByIdQuery: Helper.Lookup.getLookupByKeyQuery, mapDisplayObject: Helper.Lookup.mapLookupForSelect2Display, customFilter: function (query, term) { return Helper.Lookup.filterLookupWithParent(query, term, $root.getFilter('@(names[i-2])')()); }, onSelect: @(onSelect), placeholder: Helper.String.getTranslatedString('All') } }, event: { change: function() { $root.getFilter('@(followList[j])')(null); } }">
+			</select>
+		</div>
+}	        else
+	        { 
+		        
+	        <div class="filter-element form-group" data-bind="visible: ko.unwrap($root.getFilter('@(names[i-2])')) !== null">
+	        <p class="m-b-5">@(Html.Localize(item.Caption ?? item.PropertyInfo.Name))</p>
+		<select class="form-control" name="@(Model.Item.GetModelPath())" data-bind="select2autocompleter: { data: @(GetSelect2Data(item.GetModelPath()+"Key")), autocompleteOptions: { table: '@(PluginProvider.FindPluginDescriptor(item.FilterType).PluginName.Replace(".",String.Empty)+"_"+ item.FilterType.Name)', getElementByIdQuery: Helper.Lookup.getLookupByKeyQuery, mapDisplayObject: Helper.Lookup.mapLookupForSelect2Display, customFilter: function (query, term) { return Helper.Lookup.filterLookupWithParent(query, term, $root.getFilter('@(names[i-2])')()); }, onSelect: @(onSelect), placeholder: Helper.String.getTranslatedString('All') } }">
+		</select>
+		</div>
+	        } 
+ } 
+
+

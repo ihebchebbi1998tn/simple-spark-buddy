@@ -1,0 +1,35 @@
+<!-- ko if: ["CrmService_StatisticsKeyMainAssembly", "CrmService_StatisticsKeySubAssembly", "CrmService_StatisticsKeyAssemblyGroup", "CrmService_StatisticsKeyFaultImage", "CrmService_StatisticsKeyRemedy","CrmService_StatisticsKeyCause","CrmService_StatisticsKeyCauser","CrmService_StatisticsKeyWeighting"].indexOf($root.table) !== -1 -->
+<form-element params="value: ProductTypeKey, caption: 'ProductTypeKey', type: 'select2'">
+	<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_StatisticsKeyProductType'), placeholder: placeholder }">
+	</select>
+</form-element>
+<!-- /ko -->
+<!-- ko if: $root.table === "CrmService_StatisticsKeyFaultImage" -->
+<form-element params="value: InstallationTypeKey, caption: 'InstallationTypeKey', type: 'select2'">
+	<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_InstallationType'), placeholder: placeholder }">
+	</select>
+</form-element>
+<form-element params="value: AssemblyGroupKey, caption: 'AssemblyGroupKey', type: 'select2'">
+	<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_StatisticsKeyAssemblyGroup'), placeholder: placeholder }">
+	</select>
+</form-element>
+<!-- /ko -->
+<!-- ko if: $root.table === "CrmService_StatisticsKeyCause" -->
+<form-element params="value: ErrorTypes, caption: 'ErrorTypes', type: 'select'">
+	<select class="form-control" multiple="multiple" data-bind="select2autocompleter: { data: $root.getErrorTypesFromKeys.call($root, $root.lookup().ErrorTypes()), autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_StatisticsKeyFaultImage') }, selectedOptions: $root.selectedErrorTypes">
+	</select>
+</form-element>
+<!-- /ko -->
+<!-- ko if: $root.table === "CrmService_StatisticsKeyAssemblyGroup" || $root.table === "CrmService_StatisticsKeySubAssembly" -->
+<form-element params="value: MainAssemblyKey, caption: 'MainAssemblyKey', type: 'select'">
+	<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_StatisticsKeyMainAssembly'), placeholder: placeholder }">
+	</select>
+</form-element>
+<!-- /ko -->
+<!-- ko if: $root.table === "CrmService_StatisticsKeyAssemblyGroup" -->
+<form-element params="value: SubAssemblyKey, caption: 'SubAssemblyKey', type: 'select'">
+	<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_StatisticsKeySubAssembly'), placeholder: placeholder }">
+	</select>
+</form-element>
+<!-- /ko -->
+

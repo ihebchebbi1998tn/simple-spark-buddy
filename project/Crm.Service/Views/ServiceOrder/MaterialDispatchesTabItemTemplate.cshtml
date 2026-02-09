@@ -1,0 +1,96 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div id="{{Id}}" class="lv-item media" data-bind="infiniteScrollItem: { index: $index(), array: $parent.items }">
+	<!-- ko with: DispatchedUser -->
+	<!-- ko if: Avatar -->
+	<div class="lv-avatar pull-left" data-bind="userAvatar: $data, visible: !$parentContext.$parent.selectedItems || $parentContext.$parent.selectedItems().length === 0"></div>
+	<!-- /ko -->
+	<!-- ko ifnot: Avatar -->
+	<div class="lv-avatar bgm-blue pull-left" data-bind="text: Helper.Person.getInitials(Helper.User.getDisplayName($data)), visible: !$parentContext.$parent.selectedItems || $parentContext.$parent.selectedItems().length === 0"></div>
+	<!-- /ko -->
+	<!-- /ko -->
+	<div class="media-body">
+		<div class="row">
+			<div class="col-sm-3 col-sm-push-8">
+				<div class="f-500">
+					<i class="zmdi zmdi-time"></i>
+					<span data-bind="dateText: { value: Date, timeZone: TimeZone, pattern: { datetime: 'short' } }"></span>
+					<!-- ko if: !Helper.Date.isTimeZoneSame(TimeZone) && $parent.getLocalTimeZoneText($data) -->
+					<i>(<span data-bind="text: Helper.Date.getUtcOffsetString(TimeZone, Date)"></span>)</i> 
+					<a href="#" tabindex="0" role="button" data-bind="popover: { content: $parent.getLocalTimeZoneText($data), placement: 'auto right', html: true }, tooltip: true" title="@(Html.Localize("Hint"))">
+						<i class="f-20 zmdi zmdi-info-outline"></i>
+					</a>
+					<!-- /ko -->
+					<span class="c-red" data-bind="if: IsFixed">
+						@(Html.Localize("Fix"))
+					</span>
+				</div>
+				<div class="f-500">
+					<i class="zmdi zmdi-time"></i>
+					<span data-bind="dateText: { value: EndDate, pattern: { datetime: 'short' } }"></span>
+				</div>
+				<div class="f-500">
+					<i class="zmdi zmdi-time-interval"></i>
+					<span data-bind="durationText: window.Helper.Dispatch.calculateDuration($data).toISOString()"></span>
+				</div>
+			</div>
+			<div class="col-sm-8 col-sm-pull-3">
+				<div class="lv-title">
+					<a id="template-view-details" href="#/Crm.Service/Dispatch/DetailsTemplate/{{Id}}">
+						<span data-bind="text: (DispatchNo() !== null ? DispatchNo() + ' - ' : '')"></span>
+					</a>
+					<!-- ko with: DispatchedUser -->
+					<span data-bind="text: Helper.User.getDisplayName($data)" class="dispatched-user"></span>
+					<!-- /ko -->
+					<div data-bind="if: Remark">
+						@(Html.Localize("Remark")):
+						<span data-bind="text: Remark" class="remark"></span>
+					</div>
+				</div>
+				<ul class="lv-attrs">
+					<!-- ko ifnot: RejectReasonKey -->
+					<li>
+						@(Html.Localize("Status")):
+						<span data-bind="lookupValue: StatusKey, lookups: $parent.lookups.serviceOrderDispatchStatuses"></span>
+					</li>
+					<!-- /ko -->
+					<!-- ko if: RejectReasonKey -->
+					<li>
+						<span data-bind="lookupValue: StatusKey, lookups: $parent.lookups.serviceOrderDispatchStatuses"></span>:
+						<span data-bind="lookupValue: RejectReasonKey, lookups: $parent.lookups.serviceOrderDispatchRejectReasons"></span>
+						<!-- ko if: RejectRemark -->
+						(<span data-bind="text: RejectRemark"></span>)
+						<!-- /ko -->
+					</li>
+					<!-- /ko -->
+					<!-- ko if: RequiredOperations -->
+					<li>
+						<i class="zmdi zmdi-alert-circle c-red"></i>
+						@(Html.Localize("RequiredOperations")):
+						<span data-bind="text: RequiredOperations"></span>
+					</li>
+					<!-- /ko -->
+					<!-- ko if: FollowUpServiceOrder() -->
+					<li>
+						<i class="zmdi zmdi-alert-circle c-red"></i>
+						<span>@Html.Localize("FollowUpServiceOrderNeeded")</span>
+					</li>
+					<!-- ko if: FollowUpServiceOrderRemark() -->
+					<li>
+						<i class="zmdi zmdi-alert-circle c-red"></i>
+						<span>@Html.Localize("Remark"):</span>
+						<span data-bind="text: FollowUpServiceOrderRemark"></span>
+					</li>
+					<!-- /ko -->
+					<!-- /ko -->
+					@Html.PluginRenderActions("ServiceOrderDispatchItemTemplateAttributes")
+				</ul>
+			</div>
+		</div>
+		<lv-actions>
+			@Html.PluginRenderActions("ServiceOrderDispatchItemTemplateActions")
+		</lv-actions>
+	</div>
+</div>

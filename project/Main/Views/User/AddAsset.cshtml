@@ -1,0 +1,28 @@
+@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<div class="modal-header card-header ch-alt" data-bind="with: userAsset">
+	<button type="button" class="close" data-dismiss="modal" aria-label="@(Html.Localize("Close"))">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title" data-bind="text: innerInstance.entityState === window.$data.EntityState.Added ? Helper.String.getTranslatedString('AddAsset') : Helper.String.getTranslatedString('EditAsset')"></h4>
+</div>
+<div class="modal-body card-body card-padding">
+	<form role="form" action="#" data-bind="with: userAsset">
+		<form-element id="AssetKey" params="value: AssetKey, caption: 'AssetKey', type: 'select', disable: innerInstance.entityState !== window.$data.EntityState.Added">
+			<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { table: 'Main_Asset', customFilter: $root.queryLookup.bind($root), mapDisplayObject: Helper.Lookup.mapLookupForSelect2Display, getElementByIdQuery: Helper.Lookup.getLookupByKeyQuery, placeholder: $parent.placeholder } }, disable: disable">
+			</select>
+		</form-element>
+		<form-element params="value: ValidFrom, caption: 'ValidFrom', type: 'datePicker'"></form-element>
+		<form-element params="value: ValidTo, caption: 'ValidTo', type: 'datePicker'"></form-element>
+		<form-element params="value: DaysToNotifyBeforeExpiration, caption: 'DaysToNotifyBeforeExpiration', type: 'number', disable: ValidTo() === null"></form-element>
+	</form>
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button name="Cancel" type="button" class="btn btn-lg btn-default f-13 waves-effect" data-bind="click: Helper.Database.clearTrackedEntities" data-dismiss="modal">
+		@(Html.Localize("Cancel"))
+	</button>
+	<button name="Save" type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: save, disable: loading">
+		@(Html.Localize("Save"))
+	</button>
+</div>

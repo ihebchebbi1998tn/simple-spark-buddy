@@ -1,0 +1,10 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<!-- ko if: StatusKey() === 'Scheduled' || StatusKey() === 'Released' || StatusKey() === 'Read' -->
+<li>
+	<a href="#" id="template-reject" data-route="Crm.Service/Dispatch/RejectTemplate/{{Id}}" data-toggle="modal" data-target="#modal">
+		@(Html.Localize("Reject"))
+	</a>
+</li>
+<!-- /ko -->

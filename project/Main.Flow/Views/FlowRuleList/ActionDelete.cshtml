@@ -1,0 +1,8 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<li>
+	<a href="#" data-bind="click: $root.deleteRule.bind($root, $data)">
+		@(Html.Localize("Delete"))
+	</a>
+</li>

@@ -1,0 +1,346 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+@using Crm.Service.Model
+
+<ul class="top-menu">
+	@Html.PluginRenderActions("ServiceContractDetailsTopMenu")
+	@Html.PluginRenderActions("ContactDetailsTopMenu")
+</ul>
+
+<div class="container">
+	<div id="profile-main" class="divided-detail">
+		<div class="pm-overview c-overflow hide-print card w-100" tabindex="4">
+			<block>
+				<block-header>
+					<div class="min-title-width">
+						<div data-bind="text: $root.title"></div>
+						<div class="f-13 m-t-5">
+							<span data-bind="text: $root.additionalTitle"></span>
+						</div>
+					</div>
+					<div class="m-l-auto">
+						<status-chooser params="currentStatus: $root.serviceContract().StatusKey, statuses: $root.lookups.serviceContractStatuses.$array.filter(x => x.Key !== null), settableStatuses: $root.settableStatuses, setStatus: $root.setStatus.bind($root), canSetStatus: $root.canSetStatus.bind($root)"></status-chooser>
+					</div>
+				</block-header>
+				<block-content>
+					<div class="flex-block">
+						<div class="pmo-block">
+							<!-- ko with: $root.serviceContract -->
+							<div data-bind="with: ServiceObject">
+								@(Html.Localize("ServiceObject"))
+								<!-- ko requiredPermission: { name: 'Read', group: 'ServiceObject' } -->
+								<a href="#/Crm.Service/ServiceObject/DetailsTemplate/{{Id}}">
+									<span data-bind="text: Helper.ServiceObject.getDisplayName($data)"></span>
+								</a>
+								<!-- /ko -->
+								<!-- ko noRequiredPermission: { name: 'Read', group: 'ServiceObject' } -->
+								<span data-bind="text: Helper.ServiceObject.getDisplayName($data)"></span>
+								<!-- /ko -->
+							</div>
+							<div data-bind="with: ParentCompany">
+								@(Html.Localize("At"))
+								<!-- ko requiredPermission: { name: 'Read', group: 'Company' } -->
+								<a href="#/Crm/Company/DetailsTemplate/{{Id}}">
+									<span data-bind="text: Helper.Company.getDisplayName($data)"></span>
+								</a>
+								<!-- /ko -->
+								<!-- ko noRequiredPermission: { name: 'Read', group: 'Company' } -->
+								<span data-bind="text: Helper.Company.getDisplayName($data)"></span>
+								<!-- /ko -->
+							</div>
+							<!-- /ko -->
+						</div>
+						<!-- ko with: $root -->
+						@Html.PluginRenderActions("MaterialServiceContractHeaderExtensions")
+						<!-- /ko -->
+					</div>
+				</block-content>
+			</block>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-8">
+				<div class="card detail-main-block">
+					<div class="pm-overview">
+						<ul class="tab-nav morph" role="tablist" tabindex="1">
+							@Html.PluginRenderActions("ServiceContractDetailsMaterialTabHeader")
+						</ul>
+					</div>
+					<div class="pm-body clearfix">
+						<div class="tab-content">
+							@Html.PluginRenderActions("ServiceContractDetailsMaterialTab")
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<!-- ko requiredPermission: { name: 'TasksBlock', group: 'ServiceContract' } -->
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="card detail-side-block">
+							<task-list-block params="parentViewModel: $root">
+							</task-list-block>
+						</div>
+					</div>
+				</div>
+				<!-- /ko -->
+				<div class="row">
+					<div class="col-lg-12 col-md-6">
+						<div class="card detail-side-block">
+							<collapsible-block params="id: 'tags'">
+								<collapsible-block-header params="icon: 'tag'">
+									<span>@(Html.Localize("Tags"))</span>
+								</collapsible-block-header>
+								<collapsible-block-content>
+									<!-- ko with: $root -->
+									@await Html.PartialAsync("ContactDetailsTagBlock", typeof(ServiceContract))
+									<!-- /ko -->
+								</collapsible-block-content>
+							</collapsible-block>
+						</div>
+					</div>
+					<div class="col-lg-12 col-md-6">
+						<div class="card detail-side-block">
+							<collapsible-block params="id: 'background-info'">
+								<collapsible-block-header params="icon: 'equalizer'">
+									<span>@(Html.Localize("BackgroundInfo"))</span>
+								</collapsible-block-header>
+								<collapsible-block-content>
+									<pmb-block params="context: { serviceContract: $root.serviceContract }, condition: window.AuthorizationManager.isAuthorizedForAction('ServiceContract', 'Edit')">
+										<pmbb-view>
+											<!-- ko with: serviceContract -->
+											<span data-bind="text: BackgroundInfo"></span>
+											<span data-bind="translatedText: 'BackgroundInformationEmptyState', ifnot: BackgroundInfo"></span>
+											<!-- /ko -->
+										</pmbb-view>
+										<pmbb-edit>
+											<!-- ko with: serviceContract -->
+											<div class="fg-line">
+												<textarea class="form-control" rows="5" placeholder="@(Html.Localize("BackgroundInfo"))..." data-bind="value: BackgroundInfo"></textarea>
+											</div>
+											<!-- /ko -->
+										</pmbb-edit>
+									</pmb-block>
+								</collapsible-block-content>
+							</collapsible-block>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12 col-md-6">
+						<div class="card detail-side-block">
+							<collapsible-block params="id: 'invoice-conditions'">
+								<collapsible-block-header params="icon: 'money-box'">
+									<span>@(Html.Localize("InvoiceConditions"))</span>
+								</collapsible-block-header>
+								<collapsible-block-content>
+									<pmb-block params="context: { serviceContract: $root.serviceContract }, condition: window.AuthorizationManager.isAuthorizedForAction('ServiceContract', 'Edit')">
+										<pmbb-view>
+											<!-- ko with: serviceContract -->
+											<pmbb-view-entry params="caption: 'Price'">
+												<!-- ko if: Price -->
+												<span data-bind="if: PriceCurrencyKey, lookupValue: PriceCurrencyKey, lookups: $root.lookups.currencies"></span>
+												<span data-bind="money: Price"></span>
+												<!-- /ko -->
+												<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: Price"></span>
+											</pmbb-view-entry>
+											<pmbb-view-entry params="caption: 'NoPaymentsUntil'">
+												<span data-bind="if: NoPaymentsUntil, dateText: NoPaymentsUntil"></span>
+												<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: NoPaymentsUntil"></span>
+											</pmbb-view-entry>
+											<pmbb-view-entry params="caption: 'PriceGuaranteedUntil'">
+												<span data-bind="if: PriceGuaranteedUntil, dateText: PriceGuaranteedUntil"></span>
+												<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: PriceGuaranteedUntil"></span>
+											</pmbb-view-entry>
+											<pmbb-view-entry params="caption: 'PaymentType'">
+												<span data-bind="if: PaymentTypeKey, lookupValue: PaymentTypeKey, lookups: $root.lookups.paymentTypes"></span>
+												<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: PaymentTypeKey"></span>
+											</pmbb-view-entry>
+											<pmbb-view-entry params="caption: 'PaymentInterval'">
+												<span data-bind="if: PaymentIntervalKey, lookupValue: PaymentIntervalKey, lookups: $root.lookups.paymentIntervals"></span>
+												<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: PaymentIntervalKey"></span>
+											</pmbb-view-entry>
+											<pmbb-view-entry params="caption: 'PaymentCondition'">
+												<span data-bind="if: PaymentConditionKey, lookupValue: PaymentConditionKey, lookups: $root.lookups.paymentConditions"></span>
+												<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: PaymentConditionKey"></span>
+											</pmbb-view-entry>
+											<pmbb-view-entry params="caption: 'InvoiceSpecialConditions'">
+												<span data-bind="text: InvoiceSpecialConditions"></span>
+												<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: InvoiceSpecialConditions"></span>
+											</pmbb-view-entry>
+											<pmbb-view-entry params="caption: 'InternalInvoiceInformation'">
+												<span data-bind="text: InternalInvoiceInformation"></span>
+												<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: InternalInvoiceInformation"></span>
+											</pmbb-view-entry>
+											<!-- /ko -->
+											@Html.PluginRenderActions("ServiceContractDetailsInvoiceConditionsView")
+										</pmbb-view>
+										<pmbb-edit>
+											<!-- ko with: serviceContract -->
+											<pmbb-edit-entry params="caption: 'Price', validationElement: Price">
+												<input type="number" step="0.01" class="form-control" data-bind="value: Price">
+											</pmbb-edit-entry>
+											<pmbb-edit-entry params="caption: 'Currency', validationElement: PriceCurrencyKey">
+												<select class="form-control" data-bind="select2autocompleter: { data: PriceCurrencyKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('Main_Currency'), placeholder: $parent.placeholder}">
+												</select>
+											</pmbb-edit-entry>
+											<pmbb-edit-entry params="caption: 'NoPaymentsUntil', validationElement: NoPaymentsUntil">
+												<input type="text" class="form-control date-picker" data-bind="datePicker: NoPaymentsUntil" placeholder="@(Html.Localize("ClickHere"))">
+											</pmbb-edit-entry>
+											<pmbb-edit-entry params="caption: 'PriceGuaranteedUntil', validationElement: PriceGuaranteedUntil">
+												<input type="text" class="form-control date-picker" data-bind="datePicker: PriceGuaranteedUntil" placeholder="@(Html.Localize("ClickHere"))">
+											</pmbb-edit-entry>
+											<pmbb-edit-entry params="caption: 'PaymentType', validationElement: PaymentTypeKey">
+												<select class="form-control" data-bind="select2autocompleter: { data: PaymentTypeKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('Main_PaymentType'), placeholder: $parent.placeholder}">
+												</select>
+											</pmbb-edit-entry>
+											<pmbb-edit-entry params="caption: 'PaymentInterval', validationElement: PaymentIntervalKey">
+												<select class="form-control" data-bind="select2autocompleter: { data: PaymentIntervalKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('Main_PaymentInterval'), placeholder: $parent.placeholder}">
+												</select>
+											</pmbb-edit-entry>
+											<pmbb-edit-entry params="caption: 'PaymentCondition', validationElement: PaymentConditionKey">
+												<select class="form-control" data-bind="select2autocompleter: { data: PaymentConditionKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('Main_PaymentCondition'), placeholder: $parent.placeholder}">
+												</select>
+											</pmbb-edit-entry>
+											<pmbb-edit-entry params="caption: 'InvoiceSpecialConditions', validationElement: InvoiceSpecialConditions">
+												<textarea class="form-control" data-bind="value: InvoiceSpecialConditions"></textarea>
+											</pmbb-edit-entry>
+											<pmbb-edit-entry params="caption: 'InternalInvoiceInformation', validationElement: InternalInvoiceInformation">
+												<textarea class="form-control" data-bind="value: InternalInvoiceInformation"></textarea>
+											</pmbb-edit-entry>
+											@Html.PluginRenderActions("ServiceContractDetailsInvoiceConditionsEdit")
+											<!-- /ko -->
+										</pmbb-edit>
+									</pmb-block>
+								</collapsible-block-content>
+							</collapsible-block>
+						</div>
+					</div>
+					<div class="col-lg-12 col-md-6">
+						<div class="card detail-side-block">
+							<collapsible-block params="id: 'reaction-times'">
+								<collapsible-block-header params="icon: 'alarm'">
+									<span>@(Html.Localize("ReactionTimes"))</span>
+								</collapsible-block-header>
+								<collapsible-block-content>
+									<pmb-block params="context: { serviceContract: $root.serviceContract }, condition: window.AuthorizationManager.isAuthorizedForAction('ServiceContract', 'Edit')">
+										<pmbb-view>
+											<!-- ko with: serviceContract -->
+											<pmbb-view-entry params="caption: 'ReactionTimeFirstAnswer'">
+												<!-- ko if: FirstAnswerValue -->
+												<span data-bind="text: FirstAnswerValue"></span>
+												<span data-bind="if: FirstAnswerUnitKey, lookupValue: FirstAnswerUnitKey, lookups: $root.lookups.timeUnits"></span>
+												<!-- /ko -->
+												<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: FirstAnswerValue"></span>
+											</pmbb-view-entry>
+											<pmbb-view-entry params="caption: 'ReactionTimeServiceCompleted'">
+												<!-- ko if: ServiceCompletedValue -->
+												<span data-bind="text: ServiceCompletedValue"></span>
+												<span data-bind="if: ServiceCompletedUnitKey, lookupValue: ServiceCompletedUnitKey, lookups: $root.lookups.timeUnits"></span>
+												<!-- /ko -->
+												<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ServiceCompletedValue"></span>
+											</pmbb-view-entry>
+											@Html.PluginRenderActions("ServiceContractDetailsReactionTimesView")
+											<!-- /ko -->
+										</pmbb-view>
+										<pmbb-edit>
+											<!-- ko with: serviceContract -->
+											<pmbb-edit-entry params="caption: 'ReactionTimeFirstAnswer', validationElement: FirstAnswerValue">
+												<input type="number" step="1" class="form-control" data-bind="value: FirstAnswerValue">
+											</pmbb-edit-entry>
+											<pmbb-edit-entry params="validationElement: FirstAnswerUnitKey">
+												<select class="form-control" data-bind="select2autocompleter: { data: FirstAnswerUnitKey, autocompleteOptions: { table: 'Main_TimeUnit', mapDisplayObject: Helper.Lookup.mapLookupForSelect2Display, getElementByIdQuery: Helper.Lookup.getLookupByKeyQuery, customFilter: $root.rhythmUnitFilter.bind($root), placeholder: $parent.placeholder } }">
+												</select>
+											</pmbb-edit-entry>
+											<pmbb-edit-entry params="caption: 'ReactionTimeServiceCompleted', validationElement: ServiceCompletedValue">
+												<input type="number" step="1" class="form-control" data-bind="value: ServiceCompletedValue">
+											</pmbb-edit-entry>
+											<pmbb-edit-entry params="validationElement: ServiceCompletedUnitKey">
+												<select class="form-control" data-bind="select2autocompleter: { data: ServiceCompletedUnitKey, autocompleteOptions: { table: 'Main_TimeUnit', mapDisplayObject: Helper.Lookup.mapLookupForSelect2Display, getElementByIdQuery: Helper.Lookup.getLookupByKeyQuery, customFilter: $root.rhythmUnitFilter.bind($root), placeholder: $parent.placeholder } }">
+												</select>
+											</pmbb-edit-entry>
+											@Html.PluginRenderActions("ServiceContractDetailsReactionTimesEdit")
+											<!-- /ko -->
+										</pmbb-edit>
+									</pmb-block>
+								</collapsible-block-content>
+							</collapsible-block>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="card detail-side-block">
+							<collapsible-block params="id: 'budgets'">
+								<collapsible-block-header params="icon: 'money-box'">
+									<span>@(Html.Localize("Budgets"))</span>
+								</collapsible-block-header>
+								<collapsible-block-content>
+									<pmb-block params="context: { serviceContract: $root.serviceContract }, condition: window.AuthorizationManager.isAuthorizedForAction('ServiceContract', 'Edit')">
+										<pmbb-view>
+											<!-- ko with: serviceContract -->
+											<pmbb-view-entry params="caption: 'BudgetServiceProvision'">
+												<!-- ko if: ServiceProvisionValue -->
+												<span data-bind="text: ServiceProvisionValue"></span>
+												<span data-bind="if: ServiceProvisionUnitKey, lookupValue: ServiceProvisionUnitKey, lookups: $root.lookups.timeUnits"></span>
+												<span data-bind="if: ServiceProvisionPerTimeSpanUnitKey, lookupValue: ServiceProvisionPerTimeSpanUnitKey, lookups: $root.lookups.sparePartsBudgetTimeSpanUnits"></span>
+												<!-- /ko -->
+												<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ServiceProvisionValue"></span>
+											</pmbb-view-entry>
+											<pmbb-view-entry params="caption: 'BudgetSpareParts'">
+												<!-- ko if: SparePartsValue -->
+												<span data-bind="text: SparePartsValue"></span>
+												<span data-bind="if: SparePartsUnitKey, lookupValue: SparePartsUnitKey, lookups: $root.lookups.currencies"></span>
+												<span data-bind="if: SparePartsPerTimeSpanUnitKey, lookupValue: SparePartsPerTimeSpanUnitKey, lookups: $root.lookups.sparePartsBudgetTimeSpanUnits"></span>
+												<!-- ko if: SparePartsBudgetInvoiceTypeKey -->
+												(<span data-bind="lookupValue: SparePartsBudgetInvoiceTypeKey, lookups: $root.lookups.sparePartsBudgetInvoiceTypes"></span>)
+												<!-- /ko -->
+												<!-- /ko -->
+												<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: SparePartsValue"></span>
+											</pmbb-view-entry>
+											@Html.PluginRenderActions("ServiceContractDetailsBudgetsView")
+											<!-- /ko -->
+										</pmbb-view>
+										<pmbb-edit>
+											<!-- ko with: serviceContract -->
+											<pmbb-edit-entry params="caption: 'BudgetServiceProvision', validationElement: ServiceProvisionValue">
+												<input type="number" step="0.01" class="form-control" data-bind="value: ServiceProvisionValue">
+											</pmbb-edit-entry>
+											<pmbb-edit-entry params="validationElement: ServiceProvisionUnitKey">
+												<select class="form-control" data-bind="select2autocompleter: { data: ServiceProvisionUnitKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('Main_TimeUnit'), placeholder: $parent.placeholder}">
+												</select>
+											</pmbb-edit-entry>
+											<pmbb-edit-entry params="validationElement: ServiceProvisionPerTimeSpanUnitKey">
+												<select class="form-control" data-bind="select2autocompleter: { data: ServiceProvisionPerTimeSpanUnitKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_SparePartsBudgetTimeSpanUnit'), placeholder: $parent.placeholder}">
+												</select>
+											</pmbb-edit-entry>
+											<pmbb-edit-entry params="caption: 'BudgetSpareParts', validationElement: SparePartsValue">
+												<input type="number" step="0.01" class="form-control" data-bind="value: SparePartsValue">
+											</pmbb-edit-entry>
+											<pmbb-edit-entry params="validationElement: SparePartsUnitKey">
+												<select class="form-control" data-bind="select2autocompleter: { data: SparePartsUnitKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('Main_Currency'), placeholder: $parent.placeholder}">
+												</select>
+											</pmbb-edit-entry>
+											<pmbb-edit-entry params="validationElement: SparePartsPerTimeSpanUnitKey">
+												<select class="form-control" data-bind="select2autocompleter: { data: SparePartsPerTimeSpanUnitKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_SparePartsBudgetTimeSpanUnit'), placeholder: $parent.placeholder}">
+												</select>
+											</pmbb-edit-entry>
+											<pmbb-edit-entry params="validationElement: SparePartsBudgetInvoiceTypeKey">
+												<select class="form-control" data-bind="select2autocompleter: { data: SparePartsBudgetInvoiceTypeKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_SparePartsBudgetInvoiceType'), placeholder: $parent.placeholder}">
+												</select>
+											</pmbb-edit-entry>
+											@Html.PluginRenderActions("ServiceContractDetailsBudgetsEdit")
+											<!-- /ko -->
+										</pmbb-edit>
+									</pmb-block>
+								</collapsible-block-content>
+							</collapsible-block>
+						</div>
+					</div>
+				</div>
+				@Html.PluginRenderActions("MaterialServiceContractSidebarExtensions")
+			</div>
+		</div>
+	</div>
+</div>

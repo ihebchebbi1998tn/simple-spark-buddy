@@ -1,0 +1,43 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+<!-- ko if: serviceContract -->
+<pmb-block params="icon: 'city-alt', caption: 'ServiceContract', context: $data, condition: false">
+	<pmbb-view>
+		<!-- ko with: serviceContract -->
+		<pmbb-view-entry params="caption: 'Name'">
+			<!-- ko requiredPermission: { name: 'Read', group: 'ServiceContract' } -->
+			<a href="#" data-bind="attr: { href: '#/Crm.Service/ServiceContract/DetailsTemplate/' + Id() }">
+				<span data-bind="text: ContractNo"></span>
+			</a>
+			<!-- /ko -->
+			<!-- ko noRequiredPermission: { name: 'Read', group: 'ServiceContract' } -->
+			<span data-bind="text: ContractNo"></span>
+			<!-- /ko -->
+		</pmbb-view-entry>
+		<pmbb-view-entry params="caption: 'ServiceContractType'">
+			<span data-bind="if: ContractTypeKey, lookupValue: ContractTypeKey, lookups: $root.lookups.serviceContractTypes"></span>
+			<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ContractTypeKey"></span>
+		</pmbb-view-entry>
+		<pmbb-view-entry params="caption: 'ValidFrom'">
+			<span data-bind="if: ValidFrom, dateText: ValidFrom"></span>
+			<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ValidFrom"></span>
+		</pmbb-view-entry>
+		<pmbb-view-entry params="caption: 'ValidTo'">
+			<span data-bind="if: ValidTo, dateText: ValidTo"></span>
+			<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ValidTo"></span>
+		</pmbb-view-entry>
+		<pmbb-view-entry params="caption: 'BusinessPartner'">
+			<!-- ko with: ParentCompany -->
+			<!-- ko requiredPermission: { name: 'Read', group: 'Company' } -->
+			<a href="#/Crm/Company/DetailsTemplate/{{Id}}">
+				<span data-bind="text: Helper.Company.getDisplayName($data)"></span>
+			</a>
+			<!-- /ko -->
+			<!-- ko noRequiredPermission: { name: 'Read', group: 'Company' } -->
+			<span data-bind="text: Helper.Company.getDisplayName($data)"></span>
+			<!-- /ko -->
+			<!-- /ko -->
+		</pmbb-view-entry>
+		<!-- /ko -->
+	</pmbb-view>
+</pmb-block>
+<!-- /ko -->

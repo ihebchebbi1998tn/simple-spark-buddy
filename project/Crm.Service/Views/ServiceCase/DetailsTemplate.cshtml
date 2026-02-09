@@ -1,0 +1,303 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+@using Crm.Service.Model
+
+<ul class="top-menu">
+	@Html.PluginRenderActions("ServiceCaseDetailsTopMenu")
+	@Html.PluginRenderActions("ContactDetailsTopMenu")
+</ul>
+
+<div class="container">
+	<div id="profile-main" class="divided-detail">
+		<div class="pm-overview c-overflow hide-print card w-100" tabindex="4">
+			<block>
+				<block-header>
+					<div class="min-title-width max-title-width p-r-20">
+						<div class="text-justify" data-bind="text: { value: $root.title, expand: true, limit: 100 }"></div>
+						<!-- ko with: $root.serviceCase -->
+						<!-- ko with: AffectedCompany -->
+						<div class="d-flex flex-wrap f-13 p-t-5">
+							<div class="p-r-5" data-bind="translatedText: 'at'"></div>
+							<div>
+								<!-- ko requiredPermission: { name: 'Read', group: 'Company' } -->
+								<a href="#" data-bind="attr: { href: '#/Crm/Company/DetailsTemplate/' + Id() }">
+									<span data-bind="text: Helper.Company.getDisplayName($data)"></span>
+								</a>
+								<!-- /ko -->
+								<!-- ko noRequiredPermission: { name: 'Read', group: 'Company' } -->
+								<span data-bind="text: Helper.Company.getDisplayName($data)"></span>
+								<!-- /ko -->
+							</div>
+						</div>
+						<!-- /ko -->
+						<!-- ko requiredPermission: { name: 'ServiceObject', group: 'WebAPI' } -->
+						<!-- ko with: ServiceObject -->
+						<div class="d-flex flex-wrap f-13 p-t-5">
+							<div class="p-r-5" data-bind="translatedText: 'ServiceObject'"></div>
+							<div>
+								<!-- ko requiredPermission: { name: 'Read', group: 'ServiceObject' } -->
+								<a href="#" data-bind="attr: { href: '#/Crm.Service/ServiceObject/DetailsTemplate/' + Id() }">
+									<span data-bind="text: Helper.ServiceObject.getDisplayName($data)"></span>
+								</a><!-- /ko -->
+								<!-- ko noRequiredPermission: { name: 'Read', group: 'ServiceObject' } -->
+								<span data-bind="text: Helper.ServiceObject.getDisplayName($data)"></span>
+								<!-- /ko -->
+							</div>
+						</div>
+						<!-- /ko -->
+						<!-- /ko -->
+						<!-- /ko -->
+					</div>
+					<div class="m-l-auto">
+						<status-chooser params="currentStatus: $root.serviceCase().StatusKey, statuses: $root.lookups.serviceCaseStatuses.$array.filter(x => x.Key !== null), setStatus: $root.setStatus.bind($root), canSetStatus: $root.canSetStatus.bind($root)"></status-chooser>
+					</div>
+				</block-header>
+				<block-content>
+					<pmb-block id="header-general-pmb" params="context: { serviceCase: $root.serviceCase }, condition: window.AuthorizationManager.isAuthorizedForAction('ServiceCase', 'Edit')">
+						<pmbb-view>
+							<!-- ko with: serviceCase -->
+							<div class="field-block">
+								<div>
+									<pmbb-view-entry params="caption: 'Category'">
+										<span data-bind="if: CategoryKey, lookupValue: CategoryKey, lookups: $root.lookups.serviceCaseCategories"></span>
+										<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: CategoryKey"></span>
+									</pmbb-view-entry>
+								</div>
+								<div>
+									<pmbb-view-entry params="caption: 'Priority'">
+										<!-- ko if: PriorityKey -->
+										<i class="zmdi zmdi-circle" data-bind="style: { color: Helper.Lookup.getLookupColor($root.lookups.servicePriorities, $data.PriorityKey) }"></i>
+										<!-- /ko -->
+										<span data-bind="if: PriorityKey, lookupValue: PriorityKey, lookups: $root.lookups.servicePriorities"></span>
+										<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: PriorityKey"></span>
+									</pmbb-view-entry>
+								</div>
+								<div>
+									<pmbb-view-entry params="caption: 'Usergroup'">
+										<!-- ko if: UserGroup -->
+										<span data-bind="text: UserGroup().Name"></span>
+										<!-- /ko -->
+										<!-- ko ifnot: UserGroup -->
+										<span class="c-gray" data-bind="translatedText: 'Unspecified'"></span>
+										<!-- /ko -->
+									</pmbb-view-entry>
+								</div>
+								<div>
+									<pmbb-view-entry params="caption: 'ResponsibleUser'">
+										<!-- ko if: ResponsibleUserUser -->
+										<span data-bind="text: Helper.User.getDisplayName(ResponsibleUserUser)"></span>
+										<!-- /ko -->
+										<!-- ko ifnot: ResponsibleUserUser -->
+										<span class="c-gray" data-bind="translatedText: 'Unspecified'"></span>
+										<!-- /ko -->
+									</pmbb-view-entry>
+								</div>
+								<!-- ko requiredPermission: { name: 'ServiceObject', group: 'WebAPI' } -->
+								<div>
+									<pmbb-view-entry params="caption: 'ServiceObject'">
+										<!-- ko with: ServiceObject -->
+										<a href="#" data-bind="attr: { href: '#/Crm.Service/ServiceObject/DetailsTemplate/' + Id() }">
+											<span data-bind="text: Helper.ServiceObject.getDisplayName($data)"></span>
+										</a>
+										<!-- /ko -->
+										<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ServiceObject"></span>
+									</pmbb-view-entry>
+								</div>
+								<!-- /ko -->
+								<div>
+									<pmbb-view-entry params="caption: 'AffectedCompany'">
+										<!-- ko with: AffectedCompany -->
+										<a href="#" data-bind="attr: { href: '#/Crm/Company/DetailsTemplate/' + Id() }">
+											<span data-bind="text: Helper.Company.getDisplayName($data)"></span>
+										</a>
+										<!-- /ko -->
+										<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: AffectedCompany"></span>
+									</pmbb-view-entry>
+								</div>
+								<div>
+									<pmbb-view-entry params="caption: 'ContactPerson'">
+										<!-- ko with: ContactPerson -->
+										<a href="#" data-bind="attr: { href: '#/Crm/Person/DetailsTemplate/' + Id() }">
+											<span data-bind="text: Helper.Person.getDisplayName($data)"></span>
+										</a>
+										<!-- /ko -->
+										<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ContactPerson"></span>
+									</pmbb-view-entry>
+								</div>
+								<div>
+									<pmbb-view-entry params="caption: 'AffectedInstallation'">
+										<!-- ko with: AffectedInstallation -->
+										<a href="#" data-bind="attr: { href: '#/Crm.Service/Installation/DetailsTemplate/' + Id() }">
+											<span data-bind="text: Helper.Installation.getDisplayName($data)"></span>
+										</a>
+										<!-- /ko -->
+										<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: AffectedInstallation"></span>
+									</pmbb-view-entry>
+								</div>
+							</div>
+							<!-- /ko -->
+						</pmbb-view>
+						<pmbb-edit class="text-left">
+							<!-- ko with: serviceCase -->
+							<div class="field-block">
+								<div>
+									<pmbb-edit-entry params="caption: 'ServiceCaseCategory', validationElement: CategoryKey">
+										<select class="form-control" data-bind="select2autocompleter: { data: CategoryKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_ServiceCaseCategory'), placeholder: $parent.placeholder }"></select>
+									</pmbb-edit-entry>
+								</div>
+								<div>
+									<pmbb-edit-entry params="caption: 'Priority', validationElement: PriorityKey">
+										<select class="form-control" data-bind="select2autocompleter: { data: PriorityKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_ServicePriority'), placeholder: $parent.placeholder }"></select>
+									</pmbb-edit-entry>
+								</div>
+								<div>
+									<pmbb-edit-entry params="caption: 'Usergroup', validationElement: UserGroupKey">
+										<select class="form-control" data-bind="select2autocompleter: { data: UserGroupKey, autocompleteOptions: { orderBy: ['Name'], table: 'Main_Usergroup', customFilter: Helper.User.filterUsergroupQuery, mapDisplayObject: Helper.User.mapUsergroupForSelect2Display, onSelect: (ug) => $root.onUserGroupSelect($data, ug), placeholder: $parent.placeholder } }"></select>
+									</pmbb-edit-entry>
+								</div>
+								<div>
+									<pmbb-edit-entry params="caption: 'ResponsibleUser', validationElement: ResponsibleUser">
+										<select class="form-control" data-bind="select2autocompleter: { data: ResponsibleUser, autocompleteOptions: { orderBy: ['LastName'], table: 'Main_User', mapDisplayObject: Helper.User.mapForSelect2Display, customFilter: (query, term) => window.Helper.User.filterUserQuery(query, term, $data.UserGroupKey()), onSelect: val => $root.onResponsibleUserSelect($data, val), placeholder: $parent.placeholder } }"></select>
+									</pmbb-edit-entry>
+									<div style="margin-top: -10px">
+										<!-- ko if: $data.ResponsibleUser() !== window.Helper.User.getCurrentUserName() -->
+										<span data-bind="translatedText: 'Or'" class="p-t-5"></span> <a href="#" data-bind="translatedText: 'AssignToMe', click: () => $root.assignToMe($data)"></a>
+										<!-- /ko -->
+										<!-- ko ifnot: $data.ResponsibleUser() !== window.Helper.User.getCurrentUserName() -->
+										&nbsp;
+										<!-- /ko -->
+									</div>
+								</div>
+								<!-- ko requiredPermission: { name: 'ServiceObject', group: 'WebAPI' } -->
+								<div>
+									<pmbb-edit-entry params="caption: 'ServiceObject', validationElement: ServiceObjectId">
+										<select class="form-control" data-bind="select2autocompleter: { data: ServiceObjectId, autocompleteOptions: { orderBy: ['ObjectNo', 'Name'], table: 'CrmService_ServiceObject', mapDisplayObject: Helper.ServiceObject.mapForSelect2Display, placeholder: $parent.placeholder, onSelect: function(value) { ServiceObject(value ? value.asKoObservable() : null); } } }"></select>
+									</pmbb-edit-entry>
+								</div>
+								<!-- /ko -->
+								<div>
+									<pmbb-edit-entry params="caption: 'AffectedCompany', validationElement: AffectedCompanyKey">
+										<select class="form-control" data-bind="select2autocompleter: { data: AffectedCompanyKey, autocompleteOptions: { orderBy: ['Name'], table: 'Crm_Company', mapDisplayObject: Helper.Company.mapForSelect2Display, customFilter: Helper.Company.getSelect2Filter.bind($data), onSelect: val => $root.onAffectedCompanySelect($data, val), placeholder: $parent.placeholder } }"></select>
+									</pmbb-edit-entry>
+								</div>
+								<div>
+									<pmbb-edit-entry params="caption: 'ContactPerson', validationElement: ContactPersonId">
+										<select class="form-control" data-bind="select2autocompleter: { data: ContactPersonId, autocompleteOptions: { orderBy: ['Surname', 'Firstname'], table: 'Crm_Person', customFilter: (query, term) => $root.contactPersonFilter(query, term), mapDisplayObject: Helper.Person.mapForSelect2Display, onSelect: val => $root.onContactPersonSelect($data, val), placeholder: $parent.placeholder } }, disable: !AffectedCompanyKey()"></select>
+									</pmbb-edit-entry>
+								</div>
+								<div>
+									<pmbb-edit-entry params="caption: 'AffectedInstallation', validationElement: AffectedInstallationKey">
+										<select class="form-control" data-bind="select2autocompleter: { data: AffectedInstallationKey, autocompleteOptions: { orderBy: ['InstallationNo', 'Description'], table: 'CrmService_Installation', customFilter: $root.installationFilter.bind($parentContext.$parentContext.$parentContext.$parent.editContext()), mapDisplayObject: Helper.Installation.mapForSelect2Display, onSelect: val => $root.onAffectedInstallationSelect($data, val), placeholder: $parent.placeholder } }"></select>
+									</pmbb-edit-entry>
+								</div>
+							</div>
+							<!-- /ko -->
+						</pmbb-edit>
+					</pmb-block>
+				</block-content>
+			</block>
+			<div class="top-separator"></div>
+			<collapsible-block params="id: 'additional-head-info', collapsed: true">
+				<collapsible-block-header params="customCss: 'bg-white', swapIcons: true">
+					<span class="f-15">@(Html.Localize("AdditionalInformation"))</span>
+				</collapsible-block-header>
+				<collapsible-block-content>
+					<div class="flex-block">
+						<!-- ko with: $root -->
+						@Html.PluginRenderActions("MaterialServiceCaseHeaderExtensions")
+						@Html.PluginRenderActions("MaterialContactHeaderExtensions")
+						<!-- /ko -->
+					</div>
+				</collapsible-block-content>
+			</collapsible-block>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-8">
+				<div class="card detail-main-block">
+					<div class="pm-overview">
+						<ul class="tab-nav morph" role="tablist" tabindex="1">
+							@Html.PluginRenderActions("ServiceCaseDetailsMaterialTabHeader")
+						</ul>
+					</div>
+					<div class="pm-body clearfix">
+						<div class="tab-content">
+							@Html.PluginRenderActions("ServiceCaseDetailsMaterialTab")
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<!-- ko requiredPermission: { name: 'TasksBlock', group: 'ServiceCase' } -->
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="card detail-side-block">
+							<task-list-block params="parentViewModel: $root">
+							</task-list-block>
+						</div>
+					</div>
+				</div>
+				<!-- /ko -->
+				<div class="row">
+					<div class="col-lg-12 col-md-6">
+						<div class="card detail-side-block">
+							<collapsible-block params="id: 'tags'">
+								<collapsible-block-header params="icon: 'tag'">
+									<span>@(Html.Localize("Tags"))</span>
+								</collapsible-block-header>
+								<collapsible-block-content>
+									<!-- ko with: $root -->
+									@await Html.PartialAsync("ContactDetailsTagBlock", typeof(ServiceCase))
+									<!-- /ko -->
+								</collapsible-block-content>
+							</collapsible-block>
+						</div>
+					</div>
+					<div class="col-lg-12 col-md-6">
+						<div class="card detail-side-block">
+							<collapsible-block params="id: 'statistics-key'">
+								<collapsible-block-header params="icon: 'equalizer'">
+									<span>@(Html.Localize("StatisticsKey"))</span>
+								</collapsible-block-header>
+								<collapsible-block-content>
+									<statisticskey-info params="entity: $root.serviceCase, condition: $root.isEditable, showHeader: false"></statisticskey-info>
+								</collapsible-block-content>
+							</collapsible-block>
+						</div>
+					</div>
+				</div>
+				<!-- ko if: window.Crm.Service.Settings.ServiceContract.MaintenanceOrderGenerationMode === "JobPerInstallation" -->
+				<!-- ko if: $root.serviceOrderTimeOrder -->
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="card detail-side-block">
+							<collapsible-block params="id: 'service-order'">
+								<collapsible-block-header>
+									<span>@(Html.Localize("ServiceOrder"))</span>
+								</collapsible-block-header>
+								<collapsible-block-content>
+									<!-- ko with: $root -->
+									<!-- ko requiredPermission: { name: 'Read', group: 'ServiceOrder' } -->
+									<div class="pmo-block">
+										<div data-bind="with: serviceOrderTimeOrder">
+											<a href="#" data-bind="attr: { href: '#/Crm.Service/ServiceOrder/DetailsTemplate/' + Id() }">
+												<span data-bind="text: Helper.ServiceOrder.getDisplayName($data)"></span>
+											</a>
+										</div>
+									</div>
+									<!-- /ko -->
+									<!-- /ko -->
+								</collapsible-block-content>
+							</collapsible-block>
+						</div>
+					</div>
+				</div>
+				<!-- /ko -->
+				<!-- /ko -->
+				@Html.PluginRenderActions("MaterialServiceCaseSidebarExtensions")
+				@Html.PluginRenderActions("MaterialContactSidebarExtensions")
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,9 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl<Main.ViewModels.GenericListViewModel>
+@using Crm.Library.Extensions
+
+@{ var routeValues = new { plugin = Model.PluginName }; }
+
+<script type="text/html" id="item-@(Model.ControllerName)">
+	 @await Html.PartialAsync("GenericListItemGroup") 
+	@Html.RenderAction("MaterialItemTemplate", Model.ControllerName, routeValues)
+</script>

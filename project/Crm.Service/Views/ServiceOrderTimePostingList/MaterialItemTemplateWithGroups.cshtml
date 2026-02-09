@@ -1,0 +1,77 @@
+﻿@using Crm.Library.Globalization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div class="lv-item media"
+     data-bind="infiniteScrollItem: { index: $index(), array: $parent.items }, visible: $parent.isVisible($data)">
+	<button class="expand-collapse-service-order-timeposting-positions waves-button pull-right"
+	        data-bind="click: () => $parent.togglePosition($data)">
+		<i class="zmdi zmdi-hc-lg"
+		   data-bind="css: { 'zmdi-chevron-up': $parent.isExpanded($data)(), 'zmdi-chevron-down': !$parent.isExpanded($data)() }"></i>
+	</button>
+	<div class="media-body">
+		<div class="row">
+			<div class="col-sm-7">
+				<div class="lv-title">
+					<span class="timeposting-itemno" data-bind="text: ItemNo"></span> - <span
+						data-bind="text: ItemDescription"></span>
+				</div>
+			</div>
+			<div class="col-xs-11 col-sm-4">
+				<div class="row">
+					<span class="col-xs-2 p-r-5 visible-xs">@(Html.Localize("EstimatedQty")):</span>
+					<span class="col-xs-6 col-sm-5 text-right p-r-5 p-l-5"
+					      data-bind="durationText: $parent.getEstimatedDuration($data)"></span>
+					<span class="col-xs-4 col-sm-7 p-0 text-nowrap">
+						<span>@(Html.Localize("HourAbbreviation"))</span>
+						<span class="hidden-xs c-black p-l-5">(@(Html.Localize("EstimatedQty")))</span>
+					</span>
+				</div>
+				<div class="row">
+					<span class="col-xs-2 p-r-5 visible-xs">@(Html.Localize("ActualQty")):</span>
+					<span class="col-xs-6 col-sm-5 text-right p-r-5 p-l-5"
+					      data-bind="durationText: $parent.getActualDuration($data)"></span>
+					<span class="col-xs-4 col-sm-7 p-0 text-nowrap">
+						<span>@(Html.Localize("HourAbbreviation"))</span>
+						<span class="hidden-xs c-black p-l-5">(@(Html.Localize("ActualQty")))</span>
+					</span>
+				</div>
+				<div class="row" data-bind="if: $root.showInvoiceData">
+					<span class="col-xs-2 p-r-5 visible-xs">@(Html.Localize("InvoiceQty")):</span>
+					<span class="col-xs-5 col-sm-5 text-right p-r-5 p-l-5"
+					      data-bind="durationText: $parent.getInvoiceDuration($data)"></span>
+					<span class="col-xs-4 col-sm-7 p-0 text-nowrap">
+						<span>@(Html.Localize("HourAbbreviation"))</span>
+						<span class="hidden-xs c-black p-l-5">(@(Html.Localize("InvoiceQty")))</span>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ko if: $parent.isExpanded($data) -->
+	<div class="animated fadeIn">
+		<hr/>
+		<!-- ko foreach: $parent.getAllPositions($data) -->
+		<!-- ko let: { $parent: $parentContext.$parent } -->
+		<div class="lv-item">
+			@await Html.PartialAsync("GenericListBulkControl")
+			<div class="media-body">
+				@await Html.PartialAsync("../ServiceOrderTimePostingList/MaterialItemTemplateDetails")
+				<div class="col-xs-11 col-sm-4">
+					<div class="row"
+					     data-bind="if: $root.showInvoiceData() || ServiceOrderTimePostingType() !== Crm.Service.ServiceOrderTimePostingType.Invoice">
+						<span class="col-xs-2 p-r-5 visible-xs">@(Html.Localize("Duration")):</span>
+						<span class="col-xs-5 col-sm-5 text-right p-r-5 p-l-5"
+						      data-bind="durationText: Duration"></span>
+						<span class="col-xs-4 col-sm-7 p-0 text-nowrap">
+							<span>@(Html.Localize("HourAbbreviation"))</span>
+						</span>
+					</div>
+				</div>
+				@await Html.PartialAsync("../ServiceOrderTimePostingList/MaterialItemTemplateActions")
+			</div>
+		</div>
+		<!-- /ko -->
+		<!-- /ko -->
+	</div>
+	<!-- /ko -->
+</div>

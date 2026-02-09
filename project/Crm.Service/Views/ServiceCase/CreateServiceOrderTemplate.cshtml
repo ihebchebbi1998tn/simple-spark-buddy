@@ -1,0 +1,81 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div class="modal-header card-header ch-alt" data-bind="mProgress: loading">
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title">
+		@(Html.Localize("CreateServiceOrder"))
+	</h4>
+</div>
+<div class="modal-body card-body card-padding">
+	<form data-bind="with: serviceOrder">
+		<!-- ko if: $root.showServiceObjectSelection -->
+		<!-- ko requiredPermission: { name: 'ServiceObject', group: 'WebAPI' } -->
+		<form-element params="value: ServiceObjectId, caption: 'ServiceObject', type: 'select'">
+			<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['ObjectNo', 'Name'], table: 'CrmService_ServiceObject', mapDisplayObject: Helper.ServiceObject.mapForSelect2Display, placeholder: placeholder } }">
+			</select>
+		</form-element>
+		<!-- /ko -->
+		<!-- /ko -->
+		<!-- ko requiredPermission: { name: 'Index', group: 'ServiceOrderTemplate' } -->
+		<form-element id="ServiceOrderTemplateId" params="value: ServiceOrderTemplateId, caption: 'ServiceOrderTemplate', type: 'select2'">
+			<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['OrderNo', 'ErrorMessage'], table: 'CrmService_ServiceOrderHead', mapDisplayObject: Helper.ServiceOrder.mapForSelect2Display, customFilter: Helper.ServiceOrder.getServiceOrderTemplateAutocompleteFilter, onSelect: $root.onServiceOrderTemplateSelect.bind($root), placeholder: placeholder } }">
+			</select>
+		</form-element>
+		<!-- /ko -->
+		<!-- ko if: $root.showCompanySelection -->
+		<form-element params="value: CustomerContactId, caption: 'CustomerContact', type: 'select'">
+			<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Name'], table: 'Crm_Company', customFilter: Helper.Company.getSelect2Filter, mapDisplayObject: Helper.Company.mapForSelect2Display, placeholder: placeholder } }">
+			</select>
+		</form-element>
+		<!-- /ko -->
+		<form-element id="TypeKey" params="value: TypeKey, caption: 'ServiceOrderType', type: 'select2'">
+			<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { customFilter: Helper.ServiceOrder.queryServiceOrderType, table: 'CrmService_ServiceOrderType', mapDisplayObject: Helper.Lookup.mapLookupForSelect2Display, getElementByIdQuery: Helper.Lookup.getLookupByKeyQuery, onSelect: $root.selectedServiceOrderType, placeholder: placeholder }}">
+			</select>
+		</form-element>
+		<form-element params="value: ErrorMessage, caption: 'ErrorMessage', type: 'text'"></form-element>
+		<form-element params="value: $root.selectedAddress, caption: 'ServiceLocation', type: 'select'">
+			<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Name1', 'Name2', 'Name3', 'ZipCode', 'City', 'Street'], table: 'Crm_Address', mapDisplayObject: Helper.Address.mapForSelect2Display, customFilter: $root.addressFilter.bind($root), onSelect: $root.selectedAddressOnSelect.bind($root), placeholder: placeholder } }">
+			</select>
+		</form-element>
+		<form-element params="value: PriorityKey, caption: 'Priority', type: 'select'">
+			<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_ServicePriority'), placeholder: placeholder }">
+			</select>
+		</form-element>
+		<form-element params="value: ResponsibleUser, caption: 'ResponsibleUser', type: 'select'">
+			<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['LastName'], table: 'Main_User', mapDisplayObject: Helper.User.mapForSelect2Display, customFilter: Helper.User.filterUserQuery, placeholder: placeholder } }">
+			</select>
+		</form-element>
+		<form-element params="value: StationKey, caption: 'Station', type: 'select'">
+			<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Name'], table: 'Crm_Station', customFilter: Helper.Station.getSelect2Filter.bind($data), mapDisplayObject: Helper.Station.mapForSelect2Display, placeholder: placeholder } }">
+			</select>
+		</form-element>
+		<!-- ko if: $root.multipleServiceCasesSelected && window.Crm.Service.Settings.ServiceContract.MaintenanceOrderGenerationMode === 'JobPerInstallation' && $root.parentViewModel instanceof window.Crm.Service.ViewModels.ServiceCaseListIndexViewModel -->
+		<form-element params="value: $root.jobPerServiceCase, caption: 'JobPerServiceCase', type: 'checkbox'"></form-element>
+		<!-- /ko -->
+		<!-- ko if: $root.lookups.skills.$array.length > 0 -->
+		<form-element id="RequiredSkillKeys" params="caption: 'Skills', type: 'select2', value: RequiredSkillKeys">
+			<select class="form-control" multiple="multiple" data-bind="select2autocompleter: { data: value, autocompleteOptions: { table: 'Main_Skill', customFilter: Helper.Lookup.queryLookup, mapDisplayObject: Helper.Lookup.mapLookupForSelect2Display, getElementByIdQuery: Helper.Lookup.getLookupByKeyQuery, placeholder: placeholder } }">
+			</select>
+		</form-element>
+		<!-- /ko -->
+		<!-- ko if: $root.lookups.assets.$array.length > 0 -->
+		<form-element id="RequiredAssetKeys" params="caption: 'Assets', type: 'select2', value: RequiredAssetKeys">
+			<select class="form-control" multiple="multiple" data-bind="select2autocompleter: { data: value, autocompleteOptions: { table: 'Main_Asset', customFilter: Helper.Lookup.queryLookup, mapDisplayObject: Helper.Lookup.mapLookupForSelect2Display, getElementByIdQuery: Helper.Lookup.getLookupByKeyQuery, placeholder: placeholder } }">
+			</select>
+		</form-element>
+		<!-- /ko -->
+		@Html.PluginRenderActions("ServiceCaseCreateServiceOrderTemplate")
+	</form>
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-bind="click: Helper.Database.clearTrackedEntities" data-dismiss="modal" data-bind="disable: loading">
+		@(Html.Localize("Cancel"))
+	</button>
+	<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: submit, disable: loading">
+		@(Html.Localize("Create"))
+	</button>
+</div>

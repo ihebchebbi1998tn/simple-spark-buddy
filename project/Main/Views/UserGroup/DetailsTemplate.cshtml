@@ -1,0 +1,33 @@
+﻿@using Crm.Library.Modularization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<ul class="top-menu">
+	@Html.PluginRenderActions("UserGroupDetailsTopMenu")
+</ul>
+<div class="container">
+	<div id="profile-main" class="divided-detail">
+		<div class="pm-overview c-overflow hide-print card w-100" tabindex="4">
+			<div class="panel-heading active">
+				<!-- ko with: userGroup -->
+				<div class="card-header ch-alt p-20 c-black">
+					<h2 class="panel-title max-width-100">
+						<span data-bind="text: Name"></span>
+					</h2>
+				</div>
+				<!-- /ko -->
+			</div>
+		</div>
+		<div class="card detail-main-block">
+			<div class="pm-overview">
+				<ul class="tab-nav morph" role="tablist" tabindex="1">
+					@Html.PluginRenderActions("UserGroupDetailsMaterialTabHeader")
+				</ul>
+			</div>
+			<div class="pm-body clearfix">
+				<div class="tab-content">
+					@Html.PluginRenderActions("UserGroupDetailsMaterialTab")
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

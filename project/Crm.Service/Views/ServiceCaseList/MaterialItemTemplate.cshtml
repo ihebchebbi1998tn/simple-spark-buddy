@@ -1,0 +1,150 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div id="{{Id}}" class="lv-item media" data-bind="infiniteScrollItem: { index: $index(), array: $parent.items }" name="ServiceCaseForInstallationMaterialItem">
+	@await Html.PartialAsync("GenericListBulkControl")
+	<div class="lv-avatar pull-left" data-bind="text: Helper.ServiceCase.getCategoryAbbreviation($data, $parent.lookups.serviceCaseCategories), style: { backgroundColor: Helper.Lookup.getLookupColor($parent.lookups.serviceCaseCategories, $data.TypeKey) }, visible: !$parent.selectedItems || $parent.selectedItems().length === 0"></div>
+	<div class="media-body">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="lv-title">
+					<!-- ko requiredPermission: { name: 'Read', group: 'ServiceCase' } --> 
+					<a href="#/Crm.Service/ServiceCase/DetailsTemplate/{{Id}}">
+						<span data-bind="text: ServiceCaseNo"></span>
+					</a>
+					<!-- /ko -->
+					<!-- ko noRequiredPermission: { name: 'Read', group: 'ServiceCase' } -->
+					<span data-bind="text: ServiceCaseNo"></span>
+					<!-- /ko -->
+					<small class="c-gray" data-bind="lookupValue: CategoryKey, lookups: $parent.lookups.serviceCaseCategories"></small>
+				</div>
+			</div>
+		</div>
+		<div class="row media-body">
+			<div data-bind="class: $parent.context !== 'dashboard' ? 'col-xs-6' : 'col-xs-11'">
+				<!-- ko if: AffectedInstallation -->
+				<div class="small" data-bind="with: AffectedInstallation">
+					@(Html.Localize("for"))
+					<!-- ko requiredPermission: { name: 'Read', group: 'Installation' } -->
+					<a data-bind="attr: { href: '#/Crm.Service/Installation/DetailsTemplate/' + Id() }, text: Helper.Installation.getDisplayName($data)"></a>
+					<!-- /ko -->
+					<!-- ko noRequiredPermission: { name: 'Read', group: 'Installation' } -->
+					<span data-bind="text: Helper.Installation.getDisplayName($data)"></span>
+					<!-- /ko -->
+				</div>
+				<!-- /ko -->
+				<!-- ko if: AffectedCompany -->
+				<div class="small" data-bind="with: AffectedCompany">
+					@(Html.Localize("at"))
+					<!-- ko requiredPermission: { name: 'Read', group: 'Company' } -->
+					<a data-bind="attr: { href: '#/Crm/Company/DetailsTemplate/' + Id() }, text: Helper.Company.getDisplayName($data)"></a>
+					<!-- /ko -->
+					<!-- ko noRequiredPermission: { name: 'Read', group: 'Company' } -->
+					<span data-bind="text: Helper.Company.getDisplayName($data)"></span>
+					<!-- /ko -->
+				</div>
+				<!-- /ko -->
+				<!-- ko if: ServiceObject -->
+				<div class="small" data-bind="with: ServiceObject">
+					@(Html.Localize("ServiceObject"))
+					<!-- ko requiredPermission: { name: 'Read', group: 'ServiceObject' } -->
+					<a data-bind="attr: { href: '#/Crm.Service/ServiceObject/DetailsTemplate/' + Id() }, text: Helper.ServiceObject.getDisplayName($data)"></a>
+					<!-- /ko -->
+					<!-- ko noRequiredPermission: { name: 'Read', group: 'ServiceObject' } -->
+					<span data-bind="text: Helper.ServiceObject.getDisplayName($data)"></span>
+					<!-- /ko -->
+				</div>
+				<!-- /ko -->
+				<strong data-bind="text: { value: ErrorMessage, expand: true }"></strong>
+				<ul class="lv-attrs">
+					<!-- ko if: ResponsibleUserUser -->
+					<li>
+						<i class="zmdi zmdi-account-o"></i>
+						<span data-bind="text: Helper.User.getDisplayName(ResponsibleUserUser)"></span>
+					</li>
+					<!-- /ko -->
+					<!-- ko if: UserGroup -->
+					<li>
+						<i class="zmdi zmdi-accounts-outline"></i>
+						<span data-bind="text: UserGroup().Name"></span>
+					</li>
+					<!-- /ko -->
+					<li data-bind="visible: StatusKey() !== null">
+						<i class="zmdi zmdi-circle" data-bind="style: { color: Helper.Lookup.getLookupColor($parent.lookups.serviceCaseStatuses, $data.StatusKey) }"></i>
+						@(Html.Localize("Status")):
+						<span data-bind="lookupValue: StatusKey, lookups: $parent.lookups.serviceCaseStatuses"></span>
+					</li>
+					<li data-bind="visible: ErrorCodeKey()">
+						@(Html.Localize("ErrorCode")):
+						<span data-bind="lookupValue: ErrorCodeKey, lookups: $parent.lookups.errorCodes"></span>
+					</li>
+					<li data-bind="visible: PriorityKey() !== null">
+						<i class="zmdi zmdi-circle" data-bind="style: { color: Helper.Lookup.getLookupColor($parent.lookups.servicePriorities, $data.PriorityKey) }"></i>
+						@(Html.Localize("Priority")):
+						<span data-bind="lookupValue: PriorityKey, lookups: $parent.lookups.servicePriorities"></span>
+					</li>
+					<li data-bind="visible: ServiceCaseCreateDate">
+						@(Html.Localize("CreateDate")):
+						<span data-bind="dateText: ServiceCaseCreateDate"></span>
+					</li>
+					<li data-bind="visible: ServiceCaseCreateUser">
+						@(Html.Localize("CreatedBy")):
+						<!-- ko if: CreateUserUser() -->
+						<span data-bind="text: Helper.User.getDisplayName(CreateUserUser)"></span>
+						<!-- /ko -->
+						<!-- ko if: !CreateUserUser() -->
+						<span data-bind="text: ServiceCaseCreateUser"></span>
+						<!-- /ko -->
+					</li>
+					@Html.PluginRenderActions("ServiceCaseItemTemplateAttributes")
+				</ul>
+				@Html.PluginRenderActions("ServiceCaseItemExtensions")
+				@Html.PluginRenderActions("MaterialContactItemExtensions")
+			</div>
+			
+			<!-- ko if: $parent.context !== 'dashboard' -->
+			<div class="col-xs-4">
+				<ul class="lv-attrs" data-bind="foreach: Tags">
+					<li data-bind="text: Name"></li>
+				</ul>
+			</div>
+			<!-- /ko -->
+			<!-- ko if: $parent.isEditing && $parent.isEditing() !== Id() -->
+			<lv-actions>@Html.PluginRenderActions("ServiceCaseItemTemplateActions")</lv-actions>
+			<!-- /ko -->
+		</div>
+	</div>
+	<div class="inline-editor" data-bind="if: $parent.isEditing && $parent.isEditing() === Id()">
+		<inline-editor params="context: $data ">
+			<div class="row">
+				<div class="col-xs-4">
+					<form-element id="PriorityKey" params="value: PriorityKey, caption: 'Priority', type: 'select2'">
+						<select class="form-control" data-bind="select2autocompleter: { data: value, default: Helper.Lookup.getLookupValue($root.lookups.servicePriorities, value), autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_ServicePriority'), placeholder: placeholder }">
+						</select>
+					</form-element>
+				</div>
+				<div class="col-xs-4">
+					<form-element id="UserGroupKey" params="value: UserGroupKey, caption: 'Usergroup', type: 'select2'">
+						<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Name'], table: 'Main_Usergroup', customFilter: Helper.User.filterUsergroupQuery, mapDisplayObject: Helper.User.mapUsergroupForSelect2Display, onSelect: (ug) => $parents[3].onUserGroupSelect($parent, ug), placeholder: placeholder } }">
+						</select>
+					</form-element>
+				</div>
+				<div class="col-xs-4">
+					<form-element id="ResponsibleUser" params="value: ResponsibleUser, caption: 'ResponsibleUser', type: 'select2'">
+						<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['LastName'], table: 'Main_User', mapDisplayObject: Helper.User.mapForSelect2Display, customFilter: (query, term) => window.Helper.User.filterUserQuery(query, term, $parent.UserGroupKey()), placeholder: placeholder } }">
+						</select>
+						<div class="m-t-15">
+							<!-- ko if: $parent.ResponsibleUser() !== window.Helper.User.getCurrentUserName() -->
+							<span data-bind="translatedText: 'Or'" class="p-t-5"></span> <a href="#" data-bind="translatedText: 'AssignToMe', click: () => $parents[3].assignToMe($parent)"></a>
+							<!-- /ko -->
+							<!-- ko ifnot: $parent.ResponsibleUser() !== window.Helper.User.getCurrentUserName() -->
+							&nbsp;
+							<!-- /ko -->
+						</div>
+					</form-element>
+				</div>
+			</div>
+		</inline-editor>
+	</div>
+</div>

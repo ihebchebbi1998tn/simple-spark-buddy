@@ -1,0 +1,105 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<div class="modal-header card-header ch-alt" data-bind="with: installationPosition">
+	<button type="button" class="close" data-dismiss="modal" aria-label="@(Html.Localize("Close"))">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title" data-bind="visible: innerInstance.entityState === 20">@(Html.Localize("CreateInstallationPos"))</h4>
+	<h4 class="modal-title" data-bind="visible: innerInstance.entityState !== 20">@(Html.Localize("EditInstallationPos"))</h4>
+</div>
+<div class="modal-body card-body card-padding">
+	<form role="form" action="#" data-bind="with: installationPosition">
+		<form-element id="ArticleId" params="value: ArticleId, caption: 'Material'">
+			<select data-bind="select2autocompleter: { autocompleteOptions: { orderBy: ['ItemNo'], table: 'CrmArticle_Article', customFilter: $root.getArticleSelect2Filter, mapDisplayObject: $root.mapArticleForSelect2Display.bind($root), onSelect: $root.onArticleSelect.bind($root), placeholder: placeholder }, data: value }"></select>
+		</form-element>
+		<div class="row">
+			<div class="col-md-6">
+				<form-element id="Quantity" params="value: Quantity, caption: $parent.quantityUnit() ?  window.Helper.String.getTranslatedString('Quantity') + ' (' + $parent.quantityUnit().Value + ')' : 'Quantity', type: 'number', disable: $root.selectedArticle()?.IsSerial"></form-element>
+			</div>
+			<div class="col-md-6">
+				<form-element id="QuantityUnitKey" params="value: QuantityUnitEntryKey, caption: 'QuantityUnit', type: 'select2'">
+					<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.QuantityUnit.getQuantityUnitEntryAutocompleteOptions($root, $root.quantityUnitGroupKey) }"></select>
+				</form-element>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<form-element params="value: IsGroupItem, caption: 'IsGroupItem', type: 'checkbox', disable: innerInstance.entityState !== 20 || !!RelatedInstallationId()"></form-element>
+			</div>
+			<div class="col-md-6">
+				<form-element id="ReferenceId" params="value: ReferenceId, caption: 'ReferenceId'">
+					@await Html.PartialAsync("AutocompleteTemplate")
+					<select name="ReferenceId" class="form-control" data-bind="select2autocompleter: { autocompleteOptions: { orderBy: ['PosNo'], table: 'CrmService_InstallationPos', nestedProperty: 'ReferenceId', nested: true,templateResultId: 'installation-pos-autocomplete-options', customFilter: $root.installationPosFilter.bind($root), mapDisplayObject: x => Helper.Installation.mapInstallationPositionForSelect2Display(x, $root.lookups.articleTypes), joins:['Article'], placeholder: placeholder  }, data: value }">
+					</select>
+				</form-element>
+			</div>
+		</div>
+		<form-element id="RelatedInstallationId" params="value: RelatedInstallationId, caption: 'RelatedInstallation'">
+			<select name="RelatedInstallationId" class="form-control" data-bind="select2autocompleter: { autocompleteOptions: { orderBy: ['InstallationNo'], table: 'CrmService_Installation', mapDisplayObject: Helper.Installation.mapForSelect2Display.bind($root) , customFilter: $root.relatedInstallationFilter.bind($root), onSelect: $root.onRelatedInstallationSelected.bind($root)}, data: value }">
+					</select>
+		</form-element>
+		<div class="row">
+			<div class="col-md-6">
+				<form-element params="value: RdsPpClassification, caption: 'RdsPpClassification', type: 'text'"></form-element>
+			</div>
+			<div class="col-md-6">
+				<form-element params="value: LegacyInstallationId, caption: 'LegacyInstallationId', type: 'text'"></form-element>
+			</div>
+		</div>
+		<div class="row" data-bind="if: $root.selectedArticle()?.IsBatch">
+			<div class="col-md-6">
+				<form-element params="value: BatchNo, caption: 'BatchNo', type: 'text'"></form-element>
+			</div>	
+		</div>
+		<div class="row" data-bind="if: $root.selectedArticle()?.IsSerial">
+			<div class="col-md-6">
+				<form-element params="value: SerialNo, caption: 'SerialNo', type: 'text'"></form-element>
+			</div>	
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<form-element params="value: IsInstalled, caption: 'IsInstalled', type: 'checkbox'"></form-element>
+			</div>
+			<div class="col-md-4">
+				<form-element params="value: InstallDate, caption: 'InstallDate', type: 'datePicker', datePickerOptions: { config: { stepping: parseInt(Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval) } }"></form-element>
+			</div>
+			<div class="col-md-4">
+				<form-element params="value: RemoveDate, caption: 'RemoveDate', type: 'datePicker', datePickerOptions: { config: { stepping: parseInt(Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval) } }"></form-element>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6 col-xs-12">
+				<div class="row">
+					<div class="col-xs-6">
+						<form-element params="value: WarrantyStartSupplier, caption: 'WarrantySupplier', type: 'datePicker', placeholder: 'From', datePickerOptions: { config: { stepping: parseInt(Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval) } }"></form-element>
+					</div>
+					<div class="col-xs-6">
+						<form-element params="value: WarrantyEndSupplier, caption: '&nbsp;', type: 'datePicker', placeholder: 'To', datePickerOptions: { config: { stepping: parseInt(Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval) } }"></form-element>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 col-xs-12">
+				<div class="row">
+					<div class="col-xs-6">
+						<form-element params="value: WarrantyStartCustomer, caption: 'WarrantyCustomer', type: 'datePicker', placeholder: 'From', datePickerOptions: { config: { stepping: parseInt(Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval) } }"></form-element>
+					</div>
+					<div class="col-xs-6">
+						<form-element params="value: WarrantyEndCustomer, caption: '&nbsp;', type: 'datePicker', placeholder: 'To', datePickerOptions: { config: { stepping: parseInt(Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval) } }"></form-element>
+					</div>
+				</div>
+			</div>
+		</div>
+		<form-element params="value: Supplier, caption: 'Supplier', type: 'textarea'"></form-element>
+		<form-element params="value: Comment, caption: 'Comment', type: 'textarea'"></form-element>
+
+	</form>
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-bind="click: Helper.Database.clearTrackedEntities" data-dismiss="modal">
+		@(Html.Localize("Cancel"))
+	</button>
+	<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: save, disable: loading">
+		@(Html.Localize("Save"))
+	</button>
+</div>

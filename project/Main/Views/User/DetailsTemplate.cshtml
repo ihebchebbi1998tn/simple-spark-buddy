@@ -1,0 +1,105 @@
+﻿@using Crm.Library.Modularization.Extensions
+@using Crm.Library.Globalization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<ul class="top-menu">
+	<li data-bind="ifnot: window.Main.Settings.UseActiveDirectoryAuthenticationService || window.Main.Settings.UseOpenIdAuthentication">
+		<a href="#" data-toggle="modal" data-target="#smModal" data-route="Main/User/ResetPassword/{{user().Id}}" data-bind="translatedText: 'ResetPassword'">x</a>
+	</li>
+	<li>
+		<a href="#" data-bind="click: () => toggleActive(user()), translatedText: user().Discharged() ? 'ActivateUser' : 'DischargeUser'">x</a>
+	</li>
+	<li data-bind="if: window.Helper.User.hasValidLicense(user()) && window.AuthorizationManager.currentUserHasPermission('UserAdmin::RevokeLicense')">
+		<a href="#" data-toggle="modal" data-target="#modal" data-route="Main/User/AssignLicense/{{user().Id}}?revoke=true" data-bind="translatedText: 'RevokeLicense'">x</a>
+	</li>
+	<li data-bind="if: !window.Helper.User.hasValidLicense(user()) && window.AuthorizationManager.currentUserHasPermission('UserAdmin::AssignLicense') && $root.availableUserLicenses()">
+		<a href="#" data-toggle="modal" data-target="#modal" data-route="Main/User/AssignLicense/{{user().Id}}" data-bind="translatedText: 'AssignLicense'">x</a>
+	</li>
+	@Html.PluginRenderActions("UserDetailsTopMenu")
+</ul>
+
+<div class="container">
+	<div id="profile-main" class="divided-detail">
+		<div class="pm-overview c-overflow hide-print card w-100" tabindex="4">
+			<block>
+				<block-header>
+					<span data-bind="text: $root.title"></span>
+				</block-header>
+				<block-content>
+					<!-- ko with: $root.user -->
+					<div class="alert alert-success" data-bind="css: {'alert-danger': !window.Helper.User.hasValidLicense($data)}">
+						<!-- ko if: window.Helper.User.hasValidLicense($data) -->
+						<span data-bind="translatedText: 'LicensedAt'"></span>:<br />
+						<span data-bind="text: Globalize.formatDate(LicensedAt())"></span>
+						<!-- /ko -->
+						<!-- ko ifnot: window.Helper.User.hasValidLicense($data) -->
+						<span data-bind="translatedText: 'NotLicensed'"></span>
+						<!-- /ko -->
+					</div>
+					<div class="alert alert-warning" data-bind="visible: window.Main.Settings.UseActiveDirectoryAuthenticationService && AdName() === null">
+						<span data-bind="translatedText: 'AdNameMissingAlert'"></span>
+					</div>
+					<!-- /ko -->
+
+					<div class="flex-block">
+						<!-- ko with: $root.user -->
+						<div class="pmo-block">
+							<h4>
+								<small data-bind="text: Id"></small>
+							</h4>
+						</div>
+						<!-- /ko -->
+
+						<pmb-block params="context: { user: $root.user }, onAfterSave: $root.onAfterSave.bind($root)">
+							<pmbb-view params="caption: 'Remark'">
+								<!-- ko with: user -->
+								<pmbb-view-entry params="caption: 'Remark'">
+									<span data-bind="text: Remark"></span>
+									<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: Remark"></span>
+								</pmbb-view-entry>
+								<!-- /ko -->
+							</pmbb-view>
+							<pmbb-edit>
+								<!-- ko with: user -->
+								<div class="fg-line">
+									<textarea class="form-control" rows="5" placeholder="@(Html.Localize("Remark"))..." data-bind="value: Remark"></textarea>
+								</div>
+								<!-- /ko -->
+							</pmbb-edit>
+						</pmb-block>
+
+						<!-- ko if: $root.user().Avatar -->
+						<div class="col-lg-1 m-0 p-0">
+							<!-- ko with: $root.user -->
+							<div class="pmo-pic user-avatar">
+								<div class="p-relative">
+									<img class="img-responsive user-avatar-img" style="max-width:200px; max-height:200px" data-bind="attr: { src: 'data:image;base64,' + Avatar() }" />
+								</div>
+							</div>
+							<!-- /ko -->
+						</div>
+						<!-- /ko -->
+					</div>
+
+					<div class="flex-block">
+						<!-- ko with: $root -->
+						@Html.PluginRenderActions("MaterialUserHeaderExtensions")
+						<!-- /ko -->
+					</div>
+				</block-content>
+			</block>
+		</div>
+		<div class="card detail-main-block">
+			<div class="pm-overview">
+				<ul class="tab-nav morph" role="tablist" tabindex="1">
+					@Html.PluginRenderActions("UserDetailsMaterialTabHeader")
+				</ul>
+			</div>
+			<div class="pm-body clearfix">
+				<div class="tab-content">
+					@Html.PluginRenderActions("UserDetailsMaterialTab")
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,13 @@
+@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<div class="flex-input-row" data-bind="with: dispatch">
+	<div>
+		<p class="control-label">
+			@(Html.Localize("Status"))
+		</p>
+		<form-element params="value: IsFixed, caption: 'Fix', type: 'checkbox'"></form-element>
+		<form-element params="value: release, caption: 'ReleaseDispatchImmediately', type: 'checkbox'"></form-element>
+		<small>@(Html.Localize("ReleaseDispatchImmediatelyInfo"))</small>
+	</div>
+</div>

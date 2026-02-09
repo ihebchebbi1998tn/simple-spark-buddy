@@ -1,0 +1,8 @@
+﻿@using Crm.Library.Globalization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<li  data-bind="with: serviceOrder">
+	<a download="{{OrderNo}}.pdf" href="@(Url.Content("~/Crm.Service/ServiceOrder/DownloadAsPdf?OrderId=")){{Id}}">
+		@(Html.Localize("DownloadAsPdf"))
+	</a>
+</li>

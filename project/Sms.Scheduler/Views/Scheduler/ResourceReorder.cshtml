@@ -1,0 +1,42 @@
+@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<div class="modal-header card-header ch-alt">
+	<button type="button" class="close" data-dismiss="modal" aria-label="@(Html.Localize("Close"))">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title">@(Html.Localize("Resources"))</h4>
+</div>
+<div class="modal-body card-body card-padding">
+	<div class="form-group resource-reorder">
+		<div class="schedulablePrioritySortable m-b-20" data-bind="sortable: { data: $root.schedulablePriority, connectClass: 'schedulablePrioritySortable', options: {handle: '.move', forceFallback: true} }">
+			<div class="col-md-12 col-xs-12 m-b-5 p-5">
+				<a href="#" class="btn btn-default btn-xs move" style="cursor: move; width:100%">
+					<span class="pull-left" data-bind="text: name"></span>
+					<div class="pull-right">
+						<i class="b-fa b-fa-arrows-up-down"></i>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="dropdown">
+		<a href="#" data-toggle="dropdown" aria-expanded="false">
+			@(Html.Localize("Reset"))
+		</a>
+		<ul class="dropdown-menu dropdown-menu-left" data-bind="foreach: sorters">
+			<li>
+				<a data-bind="text: title, click: $parent.resetSchedulablePriority" href="#"></a>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-dismiss="modal" data-bind="click: cancel, disable: loading">
+		@(Html.Localize("Cancel"))
+	</button>
+	<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: ok, disable: loading">
+		@(Html.Localize("Ok"))
+	</button>
+</div>

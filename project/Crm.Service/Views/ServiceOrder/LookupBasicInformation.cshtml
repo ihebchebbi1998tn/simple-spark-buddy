@@ -1,0 +1,6 @@
+<!-- ko if: database.CrmService_ServiceOrderType && $data.innerInstance instanceof database.CrmService_ServiceOrderType.CrmService_ServiceOrderType -->
+<div>
+	<small class="f-500" data-bind="text: window.Helper.String.getTranslatedString('NumberingSequence') + ': '"></small>
+	<small data-bind="text: NumberingSequence() || Helper.String.getTranslatedString('Unspecified')"></small>
+</div>
+<!-- /ko -->

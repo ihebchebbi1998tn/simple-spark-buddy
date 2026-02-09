@@ -1,0 +1,49 @@
+@using Crm.Service
+<!-- ko requiredPermission: {name: 'View', group: '@(ServicePlugin.PermissionGroup.StatisticsKey)'} -->
+<!-- ko if: $data.innerInstance instanceof database.CrmService_StatisticsKeyMainAssembly.CrmService_StatisticsKeyMainAssembly ||
+$data.innerInstance instanceof database.CrmService_StatisticsKeySubAssembly.CrmService_StatisticsKeySubAssembly ||
+$data.innerInstance instanceof database.CrmService_StatisticsKeyAssemblyGroup.CrmService_StatisticsKeyAssemblyGroup ||
+$data.innerInstance instanceof database.CrmService_StatisticsKeyFaultImage.CrmService_StatisticsKeyFaultImage ||
+$data.innerInstance instanceof database.CrmService_StatisticsKeyRemedy.CrmService_StatisticsKeyRemedy ||
+$data.innerInstance instanceof database.CrmService_StatisticsKeyCause.CrmService_StatisticsKeyCause ||
+$data.innerInstance instanceof database.CrmService_StatisticsKeyCauser.CrmService_StatisticsKeyCauser ||
+$data.innerInstance instanceof database.CrmService_StatisticsKeyWeighting.CrmService_StatisticsKeyWeighting 
+-->
+<div>
+	<small class="f-500" data-bind="text: window.Helper.String.getTranslatedString('ProductTypeKey') + ': '"></small>
+	<small data-bind="text: ProductTypeKey() ? ProductTypeKey() : window.Helper.String.getTranslatedString('All')"></small>
+</div>
+<!-- /ko -->
+
+<!-- ko if: $data.innerInstance instanceof database.CrmService_StatisticsKeyFaultImage.CrmService_StatisticsKeyFaultImage-->
+<div>
+	<small class="f-500" data-bind="text: window.Helper.String.getTranslatedString('InstallationTypeKey') + ': '"></small>
+	<small data-bind="text: InstallationTypeKey() ? InstallationTypeKey() : window.Helper.String.getTranslatedString('All')"></small>
+</div>
+<div>
+	<small class="f-500" data-bind="text: window.Helper.String.getTranslatedString('AssemblyGroupKey') + ': '"></small>
+	<small data-bind="text: AssemblyGroupKey() ? AssemblyGroupKey() : window.Helper.String.getTranslatedString('All')"></small>
+</div>
+<!-- /ko -->
+
+<!-- ko if: $data.innerInstance instanceof database.CrmService_StatisticsKeyCause.CrmService_StatisticsKeyCause-->
+<div>
+	<small class="f-500" data-bind="text: window.Helper.String.getTranslatedString('ErrorTypes') + ': '"></small>
+	<small data-bind="text: ErrorTypes() ? ErrorTypes() : window.Helper.String.getTranslatedString('All')"></small>
+</div>
+<!-- /ko -->
+
+<!-- ko if: $data.innerInstance instanceof database.CrmService_StatisticsKeyAssemblyGroup.CrmService_StatisticsKeyAssemblyGroup || $data.innerInstance instanceof database.CrmService_StatisticsKeySubAssembly.CrmService_StatisticsKeySubAssembly -->
+<div>
+	<small class="f-500" data-bind="text: window.Helper.String.getTranslatedString('MainAssemblyKey') + ': '"></small>
+	<small data-bind="text: MainAssemblyKey() ? MainAssemblyKey() : window.Helper.String.getTranslatedString('All')"></small>
+</div>
+<!-- /ko -->
+
+<!-- ko if: $data.innerInstance instanceof database.CrmService_StatisticsKeyAssemblyGroup.CrmService_StatisticsKeyAssemblyGroup -->
+<div>
+	<small class="f-500" data-bind="text: window.Helper.String.getTranslatedString('SubAssemblyKey') + ': '"></small>
+	<small data-bind="text: SubAssemblyKey() ? SubAssemblyKey() : window.Helper.String.getTranslatedString('All')"></small>
+</div>
+<!-- /ko -->
+<!-- /ko -->

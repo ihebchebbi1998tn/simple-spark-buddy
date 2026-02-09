@@ -1,0 +1,29 @@
+﻿@using Crm.Library.Modularization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+<div class="container">
+	<div class="card">
+		<div class="card-body card-padding">
+			<form role="form" data-bind="with: role">
+				<div class="flex-input-row">
+					<div>
+						<form-element id="SourcePermissionSchemaRoleId" params="value: SourcePermissionSchemaRoleId, caption: 'SourcePermissionSchemaRoleId', type: 'select'">
+							<select name="SourcePermissionSchemaRoleId" class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { table: () => database.Main_PermissionSchemaRole.GetTemplates(), orderBy: ['Name'], placeholder: placeholder, mapDisplayObject: function (x) { return { id: x.UId, text: $root.getNameDisplay(x.Name)}; } } }"></select>
+						</form-element>
+					</div>
+					<div>
+						<form-element params="value: Name, caption: 'Name', type: 'text'"></form-element>
+					</div>
+				</div>
+				<div class="flex-input-row">
+					<div>
+						<!-- ko with: ExtensionValues -->
+						<form-element params="value: Description, caption: 'Description', type: 'textarea'"></form-element>
+						<!-- /ko -->
+					</div>
+				</div>
+				@Html.PluginRenderActions("RoleCreateForm")
+			</form>
+		</div>
+		@await Html.PartialAsync("CreateFormFooter")
+	</div>
+</div>

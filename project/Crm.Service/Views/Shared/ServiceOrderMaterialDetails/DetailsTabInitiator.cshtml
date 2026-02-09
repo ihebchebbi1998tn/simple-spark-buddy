@@ -1,0 +1,82 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<pmb-block params="context: { serviceOrder: $root.serviceOrder }, condition: $root.canEditInitiator, onSave: $root.onSaveInitiator">
+	<pmbb-view>
+		<!-- ko with: $root -->
+		<!-- ko if: initiatorAddress -->
+		<!-- ko with: initiatorAddress -->
+		<pmbb-view-entry params="caption: 'Name'">
+			<!-- ko requiredPermission: { name: 'Read', group: 'Company' } -->
+				<a href="#" data-bind="attr: { href: '#/Crm/Company/DetailsTemplate/' + CompanyId() }">
+					<!-- ko if: $parentContext.$parentContext.$parent.customerContact()?.CompanyNo --><span data-bind="text: $parentContext.$parentContext.$parent.customerContact().CompanyNo"></span> -<!-- /ko -->
+					<!-- ko if: Name1 --><span data-bind="text: Name1"></span><br/><!-- /ko -->
+					<!-- ko ifnot: Name1 -->
+					<!-- ko if: $parentContext.$parentContext.$parent.customerContact()?.Name -->
+					<span data-bind="text: $parentContext.$parentContext.$parent.customerContact().Name"></span><br/>
+					<!-- /ko -->
+					<!-- /ko -->
+				</a>
+			<!-- /ko -->
+			<!-- ko noRequiredPermission: { name: 'Read', group: 'Company' } -->
+				<!-- ko if: Name1 --><span data-bind="text: Name1"></span><br/><!-- /ko -->
+			<!-- /ko -->
+			<!-- ko if: Name2 --><span data-bind="text: Name2"></span><br/><!-- /ko -->
+			<!-- ko if: Name3 --><span data-bind="text: Name3"></span><br/><!-- /ko -->
+		</pmbb-view-entry>
+		<!-- /ko -->
+		<pmbb-view-entry params="caption: 'Address'">
+			<!-- ko with: initiatorAddress -->
+				<address-block params="address: $data, lookups: $root.lookups"></address-block>
+			<!-- /ko -->
+		</pmbb-view-entry>
+		<!-- /ko -->
+		<!-- ko ifnot: initiatorAddress -->
+		<pmbb-view-entry params="caption: 'Name'">
+			<span class="c-gray" data-bind="translatedText: 'Unspecified'"></span>
+		</pmbb-view-entry>
+		<!-- /ko -->
+		<!-- ko if: initiatorPerson -->
+			<!-- ko with: initiatorPerson -->
+			<pmbb-view-entry params="caption: 'InitiatorPerson'">
+				<div data-bind="text: Helper.Person.getDisplayName($data)"></div>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'Phone'">
+				<!-- ko foreach: Phones -->
+				<a data-bind="attr: { href: 'tel:' + window.Helper.Address.getPhoneNumberAsString($data, false, $root.lookups.countries) }, text: window.Helper.Address.getPhoneNumberAsString($data, true, $root.lookups.countries)" target="_blank"></a>
+				<!-- ko if: TypeKey -->
+				(<span data-bind="lookupValue: TypeKey, lookups: $root.lookups.phoneTypes"></span>)
+				<!-- /ko -->
+				<br/>
+				<!-- /ko -->
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', if: Phones().length === 0"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'Email'">
+				<!-- ko with: Helper.Address.getPrimaryCommunication(Emails) || {} -->
+					<!-- ko if: $data.Data -->
+						<a data-bind="attr: { href: 'mailto:' + $data.Data() + $root.currentUserDropboxAddress() }, text: $data.Data" target="_blank"></a>
+					<!-- /ko -->
+					<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: $data.Data"></span>
+				<!-- /ko -->
+			</pmbb-view-entry>
+			<!-- /ko -->
+		<!-- /ko -->
+		<!-- ko ifnot: initiatorPerson -->
+		<pmbb-view-entry params="caption: 'InitiatorPerson'">
+			<span class="c-gray" data-bind="translatedText: 'Unspecified'"></span>
+		</pmbb-view-entry>
+		<!-- /ko -->
+		<!-- /ko -->
+	</pmbb-view>
+	<pmbb-edit>
+		<!-- ko with: serviceOrder -->
+		<pmbb-edit-entry id="InitiatorId" params="caption: 'Initiator', validationElement: InitiatorId">
+			<select class="form-control" data-bind="select2autocompleter: { data: InitiatorId, autocompleteOptions: { orderBy: ['Name'], table: 'Crm_Company', joins: [{ Selector: 'Addresses', Operation: 'filter(function(x) { x.IsCompanyStandardAddress === true; })' }], mapDisplayObject: Helper.Company.mapForSelect2Display, customFilter: $root.initiatorFilter.bind($root), onSelect: $root.onInitiatorSelect.bind($parentContext.$parentContext.$parent), placeholder: $parent.placeholder } }">
+			</select>
+		</pmbb-edit-entry>
+		<pmbb-edit-entry id="InitiatorPersonId" params="caption: 'InitiatorPerson', validationElement: InitiatorPersonId">
+			<select class="form-control" data-bind="select2autocompleter: { data: InitiatorPersonId, autocompleteOptions: { orderBy: ['Surname', 'Firstname'], table: 'Crm_Person', joins: ['Emails', 'Phones'], customFilter: (query, term) => $root.initiatorPersonFilter($parentContext.$parentContext.$parent.serviceOrder(), query, term), mapDisplayObject: Helper.Person.mapForSelect2Display, placeholder: $parent.placeholder, onSelect: function(value) { InitiatorPerson(value ? value.asKoObservable() : null); } } }, disable: !InitiatorId()">
+			</select>
+		</pmbb-edit-entry>
+		<!-- /ko -->
+	</pmbb-edit>
+</pmb-block>

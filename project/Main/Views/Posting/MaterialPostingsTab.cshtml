@@ -1,0 +1,34 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div role="tabpanel" class="tab-pane animated fadeIn" id="tab-postings" data-bind="with: tabs()['tab-postings']">
+	<div class="content-header placeholder">
+		<div class="lv-header-alt generic-list-header main-section listview">
+			<div class="card-header d-flex flex-auto">
+				<div class="caption d-flex flex-auto">
+					<h2>&nbsp;</h2>
+				</div>
+				<ul class="top-menu section-menu actions generic-list-actions">
+					<li data-bind="visible: true, tooltip: true" data-placement="bottom">
+						<a id="open-generic-list-filter" data-trigger="#right-nav" href="#" data-route="@("Main/PostingList/FilterTemplate")">
+							<i class="tm-icon zmdi zmdi-filter-list"></i>
+							<div class="small">@(Html.Localize("Filter"))</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<ul class="top-menu">
+		@Html.PluginRenderActions("PostingsTabTopMenu")
+	</ul>
+	<empty-state-box params="mood: 'happy', title: 'PostingsEmptyStateTitle', text: 'PostingsEmptyState'" data-bind="visible: items().length === 0">
+	</empty-state-box>
+	<div class="generic-list listview lv-bordered">
+		<div class="lv-body" data-bind="foreach: items">
+			@await Html.PartialAsync("MaterialPosting") 
+		</div>
+	</div>
+	@await Html.PartialAsync("MaterialPaging") 
+</div>

@@ -1,0 +1,56 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div role="tabpanel" class="tab-pane animated fadeIn" id="tab-service-orders" data-bind="with: tabs()['tab-service-orders']">
+	<div class="content-header placeholder">
+		<div class="lv-header-alt generic-list-header main-section listview">
+			<div class="card-header d-flex flex-auto">
+				<div class="caption d-flex flex-auto">
+					<h2>&nbsp;</h2>
+				</div>
+				<ul class="top-menu section-menu actions generic-list-actions">
+					<li data-bind="visible: true, tooltip: true" data-placement="bottom">
+						<a id="open-generic-list-filter" data-trigger="#right-nav" href="#" data-route="@("Crm.Service/ServiceOrderHeadList/FilterTemplate")">
+							<i class="tm-icon zmdi zmdi-filter-list"></i>
+							<div class="small">@(Html.Localize("Filter"))</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- ko requiredPermission: { name: 'Create', group: 'ServiceOrder' } -->
+		<floating-action-button params="position: 'top', showWhenDropdownIsToggled: true">
+			<li data-bind="with: $root">
+				<a data-mfb-label="@(Html.Localize("CreateServiceOrder"))" href="#/Crm.Service/ServiceOrder/CreateTemplate?serviceObjectId={{$root.serviceObject().Id()}}">
+					<i class="zmdi zmdi-plus"></i>
+				</a>
+			</li>
+		</floating-action-button>
+		<!-- /ko -->
+	</div>
+	<ul class="top-menu">
+		@Html.PluginRenderActions("ServiceObjectServiceOrdersTabTopMenu")
+	</ul>
+	<empty-state-box params="mood: 'happy', title: 'ServiceOrders', text: 'ServiceObjectServiceOrdersEmptyState'" data-bind="visible: items().length === 0 && !isFiltered()">
+	</empty-state-box>
+	@Html.PluginRenderActions("MaterialGenericListResourceExtensions")
+	<div class="generic-list listview lv-bordered">
+		<div class="lv-body">
+			<div data-bind="foreach: items">
+				@await Html.PartialAsync("GenericListItemGroup")
+				@await Html.PartialAsync("../ServiceOrderHeadList/MaterialItemTemplate")
+			</div>
+			<!-- ko if: items().length === 0 && isFiltered() -->
+			<div id="generic-list-empty-state" class="lv-item media">
+				<div class="row media-body">
+					<div class="col-xs-12">
+						<small class="lv-small">@(Html.Localize("NoRecordsForSearchCriteria"))</small>
+					</div>
+				</div>
+			</div>
+			<!-- /ko -->
+		</div>
+	</div>
+	@await Html.PartialAsync("Material/GenericListPreloader")
+</div>

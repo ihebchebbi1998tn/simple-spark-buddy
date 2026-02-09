@@ -1,0 +1,24 @@
+﻿@using Crm.Library.Globalization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div class="fg-line">
+	<label class="fg-label control-label">
+		<span>@(Html.Localize("SiteLogo"))</span>
+	</label><br/>
+	<div class="fileinput d-block" data-provides="fileinput" data-bind="css: { 'fileinput-exists': logoUrl, 'fileinput-new': logoUrl() == null }, validationElement: logoBlob">
+		<div class="fileinput-preview thumbnail" data-trigger="fileinput" style="line-height: 150px;">
+			<!-- ko if: logoUrl -->
+			<img data-bind="attr: { src: logoUrl }"/>
+			<!-- /ko -->
+		</div>
+		<div>
+			<small class="help-block" data-bind="validationMessage: logoBlob"></small>
+			<span class="btn btn-lg btn-primary f-13 btn-file waves-effect">
+				<span class="fileinput-new">@(Html.Localize("SelectFile"))</span>
+				<span class="fileinput-exists">@(Html.Localize("Change"))</span>
+				<input type="file" data-bind="fileInput: { content: logoContent, blob: logoBlob }" accept="image/*"/>
+			</span>
+			<a href="#" class="btn btn-danger btn-lg f-13 fileinput-exists waves-effect" data-dismiss="fileinput">@(Html.Localize("Remove"))</a>
+		</div>
+	</div>
+</div>

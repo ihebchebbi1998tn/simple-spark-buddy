@@ -1,0 +1,65 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Service.Rest.Model
+@using Main.Offline.Extensions
+
+<!-- ko if: $parent.showGroupHeader($data) -->
+<table class="table head-data" style="page-break-inside: avoid">
+	<tr>
+		<td class="bgm-gray col-xs-2 b-0 p-r-0 text-center align-middle" style="vertical-align: middle;" data-bind="visible: $parent.maintenanceOrderGenerationMode() === 'JobPerInstallation';">
+			<div class="p-10 f-700">
+				@using (Html.TemplateContext("ServiceOrderTime"))
+				{
+					<b>@(Html.TemplateText<ServiceOrderTimeRest>(x => x.PosNo).AddClass("c-white"))</b>
+				}
+				@using (Html.TemplateCondition("ServiceOrderTime", false))
+				{
+					<b class="c-white">N/A</b>
+				}
+			</div>
+		</td>
+		<td class="b-0 col-xs-7" data-bind="css: { 'p-l-0': $parent.maintenanceOrderGenerationMode() !== 'JobPerInstallation' }">
+			@using (Html.TemplateContext("ServiceOrderTime"))
+			{
+				<h4 class="m-t-0 m-b-0">@(Html.TemplateText<ServiceOrderTimeRest>(x => x.Description))</h4>
+			}
+			@using (Html.TemplateContext("Installation"))
+			{
+				<div>
+					<h4 class="m-t-0 m-b-0" data-bind="text: Helper.Installation.getDisplayName($data)"></h4>
+				</div>
+			}
+		</td>
+		@using (Html.TemplateContext("$parent.filterPositions($data, 'Time')"))
+		{
+			<td class="b-0 col-xs-5 text-right">
+				<div data-bind="visible: $data.length">
+					<div>
+						<h4 class="m-t-0 m-b-0">
+							<p class="m-b-0" data-bind="translatedText: { key: 'Sum', language: $parentContext.$parent.selectedLanguage }">@(Html.Localize("Sum")):</p>
+							<p class="m-b-0" data-bind="if: $root.showEstimatedData">
+								<span data-bind="translatedText: { key: 'EstimatedQty', language: $parentContext.$parent.selectedLanguage }">@(Html.Localize("EstimatedQty")):</span>
+								<span data-bind="durationText: $data.reduce(function(previousValue = 0, currentValue){return moment.duration(previousValue).add($root.getEstimatedDuration(currentValue)) || moment.duration(0)}, moment.duration(0))"></span>
+								<span data-bind="translatedText: { key: 'HourAbbreviation', language: $parentContext.$parent.selectedLanguage }">@(Html.Localize("HourAbbreviation"))</span>
+							</p>
+							<p class="m-b-0">
+								<span data-bind="visible: $root.showEstimatedData() || $root.showInvoiceData(),translatedText: { key: 'ActualQty', language: $parentContext.$parent.selectedLanguage }">@(Html.Localize("ActualQty")):</span>
+								<span data-bind="durationText: $data.reduce(function(previousValue = 0, currentValue){return moment.duration(previousValue).add($root.getActualDuration(currentValue)) || moment.duration(0)}, moment.duration(0))"></span>
+								<span data-bind="translatedText: { key: 'HourAbbreviation', language: $parentContext.$parent.selectedLanguage }">@(Html.Localize("HourAbbreviation"))</span>
+							</p>
+							<p class="m-b-0" data-bind="if: $root.showInvoiceData">
+								<span data-bind="translatedText: { key: 'InvoiceQty', language: $parentContext.$parent.selectedLanguage }">@(Html.Localize("InvoiceQty")):</span>
+								<span data-bind="durationText: $data.reduce(function(previousValue = 0, currentValue){return moment.duration(previousValue).add($root.getInvoiceDuration(currentValue)) || moment.duration(0)}, moment.duration(0))"></span>
+								<span data-bind="translatedText: { key: 'HourAbbreviation', language: $parentContext.$parent.selectedLanguage }">@(Html.Localize("HourAbbreviation"))</span>
+							</p>
+						</h4>
+					</div>
+				</div>
+			</td>
+		}
+	</tr>
+</table>
+<div class="m-b-10">
+	@await Html.PartialAsync("DispatchReportGroupHeaderInstallation")
+</div>
+<!-- /ko -->

@@ -1,0 +1,139 @@
+@using Crm.Library.Globalization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div
+	style="margin: 20px"
+	role="tabpanel"
+	class="tab-pane animated fadeIn"
+	id="tab-menu-entries"
+	data-bind="with: tabs()['tab-menu-entries']">
+	<div style="display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 18px">
+		<h2>
+			<div style="display: flex;
+						align-items: center;
+						gap: 5px;
+						font-size: 20px">
+				<i class="zmdi zmdi-menu zmdi-hc-fw"></i>
+				@(Html.Localize("Priority"))
+			</div>
+		</h2>
+		<a
+			style="color: #adadad;
+					font-size: 20px;"
+			href="#"
+			data-bind="click: onEdit, tooltip: true"
+			title="@(Html.Localize("Edit"))">
+			<i class="zmdi zmdi-edit"></i>
+		</a>
+	</div>
+	<!-- ko if: !isEdit() -->
+	<ul
+		style="list-style-type: none;
+				padding-left: .75em"
+		data-bind="foreach: menuEntryGroups">
+		<li style="margin: 10px 0;">
+			<div style="font-weight: 700;
+						display: flex;
+						align-items: center;
+						gap: 5px">
+				<i data-bind="class: iconClass"></i>
+				<div data-bind="text: title"></div>
+			</div>
+			<ul
+				style="padding-left: 30px"
+				data-bind="foreach: items">
+				<li
+					style="margin: 5px 0;"
+					data-bind="text: title">
+				</li>
+			</ul>
+		</li>
+	</ul>
+	<!-- /ko -->
+	<!-- ko if: isEdit() -->
+	<ul
+		style="padding-left: .75em;
+				list-style-type: none"
+		data-bind="sortable: { 
+						data: menuEntryGroups, 
+						afterMove: afterMenuEntryMove.bind($data),
+						options: {
+							...getSortableOptions(),
+							containment: 'parent'
+						}
+					}">
+		<li class="sortable-item" style="margin: 10px 0;">
+			<div style="display: flex; 
+						align-items: center; 
+						gap: 5px">
+				<!-- copied from: SVG Repo, www.svgrepo.com -->
+				<svg
+					style="align-self: start; cursor: all-scroll"
+					class="move"
+					width="20px" height="20px" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path fill-rule="evenodd" clip-rule="evenodd"
+						  d="M9.5 8C10.3284 8 11 7.32843 11 6.5C11 5.67157 10.3284 5 9.5 5C8.67157 5 8 5.67157 8 6.5C8 7.32843 8.67157 8 9.5 8ZM9.5 14C10.3284 14 11 13.3284 11 12.5C11 11.6716 10.3284 11 9.5 11C8.67157 11 8 11.6716 8 12.5C8 13.3284 8.67157 14 9.5 14ZM11 18.5C11 19.3284 10.3284 20 9.5 20C8.67157 20 8 19.3284 8 18.5C8 17.6716 8.67157 17 9.5 17C10.3284 17 11 17.6716 11 18.5ZM15.5 8C16.3284 8 17 7.32843 17 6.5C17 5.67157 16.3284 5 15.5 5C14.6716 5 14 5.67157 14 6.5C14 7.32843 14.6716 8 15.5 8ZM17 12.5C17 13.3284 16.3284 14 15.5 14C14.6716 14 14 13.3284 14 12.5C14 11.6716 14.6716 11 15.5 11C16.3284 11 17 11.6716 17 12.5ZM15.5 20C16.3284 20 17 19.3284 17 18.5C17 17.6716 16.3284 17 15.5 17C14.6716 17 14 17.6716 14 18.5C14 19.3284 14.6716 20 15.5 20Z"
+						  fill="#121923"/>
+				</svg>
+				<div style="width: 100%">
+					<div style="font-weight: 700;
+										display: flex;
+										align-items: center;
+										gap: 5px">
+						<i data-bind="class: iconClass"></i>
+						<div data-bind="text: title"></div>
+					</div>
+					<ul
+						style="padding-left: 0;
+								list-style-type: none"
+						data-bind="sortable: { 
+										data: items, 
+										afterMove: $parent.afterMenuEntryMove.bind($data),
+										connectClass: 'child-sortable-container-' + $data.id,
+										options: $parent.getSortableOptions() 
+									}">
+						<li 
+							class="sortable-item"
+							style="margin: 5px 0;
+									display: flex; 
+									align-items: center; 
+									gap: 5px">
+							<!-- copied from: SVG Repo, www.svgrepo.com -->
+							<svg
+								style="align-self: start; cursor: all-scroll"
+								class="move"
+								width="20px" height="20px" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path fill-rule="evenodd" clip-rule="evenodd"
+									  d="M9.5 8C10.3284 8 11 7.32843 11 6.5C11 5.67157 10.3284 5 9.5 5C8.67157 5 8 5.67157 8 6.5C8 7.32843 8.67157 8 9.5 8ZM9.5 14C10.3284 14 11 13.3284 11 12.5C11 11.6716 10.3284 11 9.5 11C8.67157 11 8 11.6716 8 12.5C8 13.3284 8.67157 14 9.5 14ZM11 18.5C11 19.3284 10.3284 20 9.5 20C8.67157 20 8 19.3284 8 18.5C8 17.6716 8.67157 17 9.5 17C10.3284 17 11 17.6716 11 18.5ZM15.5 8C16.3284 8 17 7.32843 17 6.5C17 5.67157 16.3284 5 15.5 5C14.6716 5 14 5.67157 14 6.5C14 7.32843 14.6716 8 15.5 8ZM17 12.5C17 13.3284 16.3284 14 15.5 14C14.6716 14 14 13.3284 14 12.5C14 11.6716 14.6716 11 15.5 11C16.3284 11 17 11.6716 17 12.5ZM15.5 20C16.3284 20 17 19.3284 17 18.5C17 17.6716 16.3284 17 15.5 17C14.6716 17 14 17.6716 14 18.5C14 19.3284 14.6716 20 15.5 20Z"
+									  fill="#121923"/>
+							</svg>
+							<div data-bind="text: title"></div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</li>
+	</ul>
+	<div
+		style="display: flex;
+				justify-content: end;
+				align-items: center;
+				gap: 10px">
+		<button class="btn btn-default btn-lg f-13 waves-effect" data-bind="click: onCancel">
+			@(Html.Localize("Cancel"))
+		</button>
+		<button class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: onSubmit, disable: loading">
+			@(Html.Localize("Save"))
+		</button>
+	</div>
+	<!-- /ko -->
+</div>
+
+<style>
+	.sortable-placeholder {
+		border: 1px dashed #dddddd;
+	}
+</style>

@@ -1,0 +1,43 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<collapsible-block params="id: 'general'" class="morph">
+	<collapsible-block-header params="customCss: 'bg-white', swapIcons: true">
+		<span>@(Html.Localize("General"))</span>
+	</collapsible-block-header>
+	<collapsible-block-content params="context: { serviceOrderTemplate: $root.serviceOrderTemplate }">
+		<!-- ko with: serviceOrderTemplate -->
+		@Html.PluginRenderActions("ServiceOrderTemplateCreateFormGeneralTop")
+		<div class="flex-input-row">
+			<div>
+				<form-element params="value: ErrorMessage, caption: 'Name', type: 'text'">
+				</form-element>
+			</div>
+		</div>
+		<div class="flex-input-row">
+			<div>
+				<form-element id="TypeKey" params="value: TypeKey, caption: 'ServiceOrderType', type: 'select2'">
+					<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { customFilter: Helper.ServiceOrder.queryServiceOrderType, table: 'CrmService_ServiceOrderType', mapDisplayObject: Helper.Lookup.mapLookupForSelect2Display, getElementByIdQuery: Helper.Lookup.getLookupByKeyQuery, placeholder: placeholder }}">
+					</select>
+				</form-element>
+			</div>
+			<div>
+				<form-element id="InvoicingTypeKey" params="value: InvoicingTypeKey, caption: 'InvoicingType', type: 'select2'">
+					<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('Main_InvoicingType'), placeholder: placeholder}">
+					</select>
+				</form-element>
+			</div>
+		</div>
+		<div class="flex-input-row">
+			<div>
+				<form-element id="PriorityKey" params="value: PriorityKey, caption: 'Priority', type: 'select2'">
+					<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_ServicePriority'), placeholder: $parent.placeholder}">
+					</select>
+				</form-element>
+			</div>
+		</div>
+		@Html.PluginRenderActions("ServiceOrderTemplateCreateFormGeneralBottom")
+		<!-- /ko -->
+	</collapsible-block-content>
+</collapsible-block>

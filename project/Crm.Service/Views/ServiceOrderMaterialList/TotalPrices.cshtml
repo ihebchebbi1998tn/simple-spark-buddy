@@ -1,0 +1,43 @@
+﻿@using Crm.Library.Globalization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<!-- ko if: items().length > 0 && Crm.Service.Settings.ServiceOrderMaterial.ShowPricesInMobileClient && ko.unwrap($root.showTotalPrices) -->
+<div class="lv-item media item-group-summary">
+	<div class="media-body p-r-25">
+		<div class="row m-t-15">
+			<div class="col-xs-11 text-right">
+				<strong>
+					<span>@(Html.Localize("TotalPrice"))</span>
+				</strong>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-11 text-right">
+				<strong>
+					<span>@(Html.Localize("EstimatedQty")):</span>
+					<span data-bind="money: $data.accumulatedTotalPricePreplanned"></span>
+					<span data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+				</strong>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-11 text-right">
+				<strong>
+					<span>@(Html.Localize("ActualQty")):</span>
+					<span data-bind="money: $data.accumulatedTotalPriceUsed"></span>
+					<span data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+				</strong>
+			</div>
+		</div>
+		<div class="row" data-bind="if: ko.unwrap($root.showInvoiceData)">
+			<div class="col-xs-11 text-right">
+				<strong>
+					<span>@(Html.Localize("InvoiceQty")):</span>
+					<span data-bind="money: $data.accumulatedTotalPriceInvoice"></span>
+					<span data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+				</strong>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /ko -->

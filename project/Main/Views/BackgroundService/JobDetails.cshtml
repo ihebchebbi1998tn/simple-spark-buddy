@@ -1,0 +1,55 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div class="lv-item media" data-bind="style: { border-bottom: $index() + 1 < $root.allJobs().length ?  '1px solid #f0f0f0' : ''}">
+	<div class="lv-avatar pull-left" data-bind="css: haveTrigger, text: avatarChar"></div>
+	<div class="media-body">
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="lv-title">
+					<span data-bind="text: fullName"></span>
+				</div>
+				<div class="m-t-5" style="overflow-wrap: break-word">
+					<span data-bind="text: jobType"></span>
+				</div>
+				<div class="m-t-5">
+					<span data-bind="text: jobDescription"></span>
+				</div>
+			</div>
+			<div class="col-sm-5">
+				<div class="m-t-5" data-bind="foreach: triggers">
+					<div class="lv-title">
+						<i class="zmdi zmdi-info-outline"></i>
+						<span class=" m-t-5" data-bind="text: Name"></span>
+					</div>
+					<div class=" m-t-5">
+						<i class="zmdi zmdi-comment-outline"></i>
+						<span data-bind="text: Description"></span> <br />
+					</div>
+					<div class=" m-t-5">
+						<i class="zmdi zmdi-time"></i>
+						<span data-bind="text: NextFireTime"></span>
+						(<span data-bind="text: TriggerState"></span>)
+					</div>
+				</div>
+			</div>
+			<div class="lv-actions actions dropdown pull-right">
+				<a href="#" data-toggle="dropdown" aria-expanded="true">
+					<i class="zmdi zmdi-more-vert"></i>
+				</a>
+				<ul class="dropdown-menu dropdown-menu-right">
+					<li>
+						<a href="#" data-bind="click: runJob , translatedText: 'Run'">
+						</a>
+					</li>
+					<li data-bind="translatedText: 'TriggerState'"></li>
+					<!-- ko if: triggers().length > 0 -->
+					<!-- ko if: triggers()[0].TriggerState === 'Normal' -->
+					<li><a data-bind="click: pauseTrigger, translatedText: 'Pause'"></a></li>
+					<!-- /ko  -->
+					<!-- /ko  -->
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+

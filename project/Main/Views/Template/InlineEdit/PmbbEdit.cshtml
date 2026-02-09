@@ -1,0 +1,19 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<!-- ko if: $parent.isToggled -->
+<div class="pmbb-edit" data-bind="with: $parent">
+	<!-- ko with: editContext -->
+		<!-- ko template: { nodes: $componentTemplateNodes } --><!-- /ko -->
+	<!-- /ko -->
+
+	<div class="m-t-30 text-right">
+		<button data-pmb-action="reset" class="btn btn-lg btn-default f-13 waves-effect" data-bind="click: cancel">
+			@(Html.Localize("Cancel"))
+		</button>
+		<button data-pmb-action="submit" class="btn btn-lg btn-primary f-13 waves-effect waves-float m-l-5" data-bind="click: save, disable: loading">
+			@(Html.Localize("Save"))
+		</button>
+	</div>
+</div>
+<!-- /ko -->

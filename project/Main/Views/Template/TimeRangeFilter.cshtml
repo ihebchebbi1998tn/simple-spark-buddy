@@ -1,0 +1,22 @@
+@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<div class="form-group">
+	<div class="fg-line">
+		<p class="m-b-5" data-bind="text: caption"></p>
+	</div>
+</div>
+<div class="row">
+	<div class="form-group has-feedback col-md-6">
+		<label class="control-label">@(Html.Localize("From"))</label>
+		<div class="dtp-container fg-line">
+			<input type="text" class="form-control" data-bind="datePicker: minInput, datePickerOptions: { pickDuration: true, pickTime: false }">
+		</div>
+	</div>
+	<div class="form-group has-feedback col-md-6">
+		<label class="control-label">@(Html.Localize("To"))</label>
+		<div class="dtp-container fg-line">
+			<input type="text" class="form-control" data-bind="datePicker: maxInput, datePickerOptions: { pickDuration: true, pickTime: false }">
+		</div>
+	</div>
+</div>

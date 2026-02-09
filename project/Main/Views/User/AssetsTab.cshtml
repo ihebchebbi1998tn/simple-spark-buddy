@@ -1,0 +1,45 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Modularization.Extensions
+@using Crm.Library.Globalization.Extensions
+
+<div role="tabpanel" class="tab-pane animated fadeIn" id="tab-assets" data-bind="with: tabs()['tab-assets']">
+	<div class="content-header placeholder">
+		<div class="lv-header-alt generic-list-header main-section listview">
+			<div class="card-header d-flex flex-auto">
+				<div class="caption d-flex flex-auto">
+					<h2>&nbsp;</h2>
+				</div>
+				<ul class="top-menu section-menu actions generic-list-actions">
+                	<li data-bind="visible: true, tooltip: true" data-placement="bottom">
+                		<a id="open-generic-list-filter" data-trigger="#right-nav" href="#" data-route="@("Main/UserAssetList/FilterTemplate")">
+                			<i class="tm-icon zmdi zmdi-filter-list"></i>
+                			<div class="small">@(Html.Localize("Filter"))</div>
+                		</a>
+                	</li>
+                </ul>
+			</div>
+		</div>
+		<floating-action-button params="position: 'top', showWhenDropdownIsToggled: true">
+			<li data-bind="with: $root">
+				<a href="#" data-mfb-label="@(Html.Localize("AddAssets"))" data-route="Main/User/AddAsset/" data-toggle="modal" data-target="#lgModal">
+					<i class="zmdi zmdi-plus"></i>
+				</a>
+			</li>
+		</floating-action-button>
+	</div>
+	
+	<empty-state-box params="mood: 'sad', title: 'AssetsEmptyStateTitle', text: 'AssetsEmptyState'" data-bind="visible: items().length === 0 && !isFiltered()">
+	</empty-state-box>
+	<p class="p-10" data-bind="visible: items().length === 0 && isFiltered()">
+		@(Html.Localize("NoRecordsForSearchCriteria"))
+	</p>
+	<div class="generic-list listview lv-bordered">
+		<div class="lv-body">
+			<div data-bind="foreach: items">
+				@await Html.PartialAsync("GenericListItemGroup")
+				@await Html.PartialAsync("MaterialUserDetailsAssetsTabItemTemplate")
+			</div>
+		</div>
+	</div>
+	@await Html.PartialAsync("MaterialPaging")
+</div>

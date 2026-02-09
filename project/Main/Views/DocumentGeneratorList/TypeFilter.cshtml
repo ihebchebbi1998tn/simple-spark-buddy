@@ -1,0 +1,7 @@
+﻿<div class="filter-element form-group" id="service-filter">
+	<div class="fg-line">
+		<label class="fg-label control-label" data-bind="translatedText: 'Source'"></label>
+		<select class="form-control" data-bind="select2autocompleter: { data: ko.pureComputed({ read: function() { var value = ko.unwrap(this.getFilter('GeneratorService')); return value !== null && value !== undefined && value.Operator ? value.Value : value; }, write: function(newValue) { this.getFilter('GeneratorService').extend({ filterOperator: '===' })(newValue); } }, $data), autocompleteOptions: { table: 'Main_DocumentGeneratorEntry', getElementByIdQuery: $root.typeFilterFilter.bind($root), mapDisplayObject:function (x) { return { id: x.Type, text: $root.typeFilterDisplay.bind($root)(x) }; }, customFilter: $root.typeFilterFilter.bind($root), placeholder: Helper.String.getTranslatedString('All') } }" >
+		</select>
+	</div>
+</div>

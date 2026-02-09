@@ -1,0 +1,36 @@
+﻿@using Crm.Library.Globalization.Extensions
+@using MimeKit.Text
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<ul class="top-menu bgm-blue p-5">
+	<li class="dropdown" data-bind="tooltip: true" data-placement="bottom">
+		<a id="close-generic-list-filter" href="#" data-trigger="#right-nav">
+			<i class="tm-icon zmdi zmdi-close"></i>
+			<div class="small">@(Html.Localize("Close"))</div>
+		</a>
+	</li>
+	<li class="dropdown pull-right" data-bind="tooltip: true" data-placement="bottom">
+		<a id="apply-generic-list-filter" href="#" data-trigger="#right-nav" data-bind="click: $root.filter">
+			<i class="tm-icon zmdi zmdi-check"></i>
+			<div class="small">@(Html.Localize("Filter"))</div>
+		</a>
+	</li>
+	<li class="dropdown pull-right" data-bind="tooltip: true" data-placement="bottom">
+		<a id="reset-generic-list-filter" href="#" data-trigger="#right-nav" data-bind="click: resetFilter">
+			<i class="tm-icon zmdi zmdi-undo"></i>
+			<div class="small">@(Html.Localize("Reset"))</div>
+		</a>
+	</li>
+</ul>
+<div class="listview lv-bordered">
+	<div class="lv-item">
+		<form role="form" action="#">
+			<div class="filter-element form-group" id="name-filter">
+				<div class="fg-line">
+					<label class="fg-label control-label">Name</label>
+					<input name="Name" type="text" class="form-control" data-bind="value: $root.searchCriteria">
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

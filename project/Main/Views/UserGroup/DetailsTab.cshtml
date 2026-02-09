@@ -1,0 +1,58 @@
+﻿@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div role="tabpanel" class="tab-pane animated fadeIn" id="tab-details">
+	<pmb-block params="icon: 'equalizer', caption: 'General', context: { userGroup: userGroup }, onAfterSave: onAfterSave.bind($root), onSave: onSave.bind($root), condition: window.AuthorizationManager.isAuthorizedForAction('WebAPI', 'SetUsers')">
+		<pmbb-view>
+			<!-- ko with: userGroup -->
+			<pmbb-view-entry params="caption: 'Name'">
+				<span data-bind="text: Name"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'Users'">
+				<span data-bind="text: $root.userGroupMembers().map(x => Helper.User.getDisplayName(x)).sort((a,b) => a.localeCompare(b)).join('\n')"></span>
+				<span class="c-gray" data-bind="translatedText: 'NotAssigned', visible: $root.userGroupMembers().length === 0"></span>
+			</pmbb-view-entry>
+			<!-- ko ifnot: window.Main.Settings.UseOpenIdAuthentication -->
+			<!-- ko requiredPermission: { name: 'ManageMultiFactorAuthentication', group: 'UserAdmin' } -->
+			<!-- ko if: $root.site.ExtensionValues.MultiFactorAuthenticationModeKey === $root.relatedMultiFactorAuthenticationModeKey -->
+			<pmbb-view-entry params="caption: 'MultiFactorAuthentication'">
+				<!-- ko if: MultiFactorAuthenticationMandatory -->
+				<span class="c-red" data-bind="translatedText: 'Mandatory'"></span>
+				<!-- /ko -->
+				<!-- ko ifnot: MultiFactorAuthenticationMandatory -->
+				<span class="c-green" data-bind="translatedText: 'Optional'"></span>
+				<!-- /ko -->
+			</pmbb-view-entry>
+			<!-- /ko -->
+			<!-- /ko -->
+			<!-- /ko -->
+			@Html.PluginRenderActions("UserGroupDetailsGeneralView")
+			<!-- /ko -->
+		</pmbb-view>
+		<!-- ko requiredPermission: { name: 'EditUserGroup', group: 'UserAdmin' } -->
+		<pmbb-edit>
+			<!-- ko with: userGroup -->
+			<pmbb-edit-entry params="caption: 'Name', validationElement: Name">
+				<input type="text" class="form-control" data-bind="value: Name">
+			</pmbb-edit-entry>
+			<pmbb-edit-entry id="Members" params="caption: 'Users', validationElement: Members">
+				<select class="form-control" name="Members" multiple="multiple" data-bind="select2autocompleter: $root.membersSelect2autocompleter(), selectedOptions: $root.Members">
+				</select>
+			</pmbb-edit-entry>
+			<!-- ko ifnot: window.Main.Settings.UseOpenIdAuthentication -->
+			<!-- ko requiredPermission: { name: 'ManageMultiFactorAuthentication', group: 'UserAdmin' } -->
+			<!-- ko if: $root.site.ExtensionValues.MultiFactorAuthenticationModeKey === $root.relatedMultiFactorAuthenticationModeKey -->
+			<pmbb-edit-entry id="MultiFactorAuthenticationMandatory" params="caption: 'Mandatory', validationElement: MultiFactorAuthenticationMandatory">
+				<input type="checkbox" class="form-control" data-bind="value: MultiFactorAuthenticationMandatory, checked: MultiFactorAuthenticationMandatory">
+			</pmbb-edit-entry>
+			<!-- /ko -->
+			<!-- /ko -->
+			<!-- /ko -->
+			@Html.PluginRenderActions("UserGroupDetailsGeneralEdit")
+			<!-- /ko -->
+		</pmbb-edit>
+		<!-- /ko -->
+	</pmb-block>
+	@Html.PluginRenderActions("UserGroupDetailsTabExtensions")
+</div>

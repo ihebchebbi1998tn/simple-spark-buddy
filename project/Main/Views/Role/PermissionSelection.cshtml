@@ -1,0 +1,44 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<div id="permission-selection" class="modal animated fadeIn" data-backdrop="static" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header card-header ch-alt">
+				<button type="button" class="close" data-dismiss="modal" aria-label="@(Html.Localize("Close"))">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">
+					@(Html.Localize("Permissions"))
+				</h4>
+			</div>
+			<div class="modal-body card-body card-padding">
+				<div class="listview lv-bordered">
+					<div class="lv-header-alt">
+						<div class="row">
+							<div class="col-xs-12 p-l-0">
+								<div class="input-group">
+									<span class="input-group-addon" style="vertical-align: middle;"><i class="zmdi zmdi-search"></i></span>
+									<div class="fg-line">
+										<input type="text" class="form-control search-text" placeholder="@(Html.Localize("Search"))" data-bind="textInput: permissionFilter"/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="lv-body" data-bind="foreach: selectablePermissions">
+						@await Html.PartialAsync("PermissionSelectionItem") 
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer card-header ch-alt p-15">
+				<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-dismiss="modal">
+					@(Html.Localize("Cancel"))
+				</button>
+				<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: applyPermissions, disable: loading">
+					@(Html.Localize("Apply"))
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

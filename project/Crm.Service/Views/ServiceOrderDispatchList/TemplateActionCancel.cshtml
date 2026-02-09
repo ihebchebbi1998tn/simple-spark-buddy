@@ -1,0 +1,15 @@
+@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<!-- ko if: StatusKey() === 'InProgress' -->
+<li>
+	<a 
+	href="#" 
+	id="template-cancel" 
+	data-route="Crm.Service/Dispatch/Cancel/{{Id}}" 
+	data-toggle="modal" 
+	data-target="#modal">
+		@(Html.Localize("Cancel"))
+	</a>
+</li>
+<!-- /ko -->

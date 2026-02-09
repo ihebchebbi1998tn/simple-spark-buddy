@@ -1,0 +1,14 @@
+﻿<!-- ko if: $root.table === "CrmService_ServiceOrderType" -->
+<div class="form-group" data-orig-title="">
+	<div class="checkbox m-b-15">
+		<label>
+			<input type="checkbox" data-bind="checked: MaintenanceOrder, disable: !$root.isMaintenanceOrderEditable()" name="MaintenanceOrder">
+			<i class="input-helper"></i>
+			<span data-bind="css: { 'text-muted': !$root.isMaintenanceOrderEditable() }">
+				<span class="pre-line word-break-word" data-bind="text: window.Helper.String.getTranslatedString('MaintenanceOrder')"></span>
+			</span>
+		</label>
+	</div>
+	<small class="help-block pre-line c-yellow" data-bind="text: $root.maintenanceOrderValidationMessage(), visible: !$root.isMaintenanceOrderEditable()"></small>
+</div>
+<!-- /ko -->

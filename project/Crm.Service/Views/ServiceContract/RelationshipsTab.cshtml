@@ -1,0 +1,44 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl<Main.ViewModels.CrmModel>
+@using Crm.Library.Globalization.Extensions
+
+<div role="tabpanel" class="tab-pane" id="tab-relationships" data-bind="with: tabs()['tab-relationships']">
+	<!-- ko requiredPermission: { name: 'EditAddressRelationship', group: 'ServiceContract' } -->
+	<div class="content-header placeholder">
+		<div class="lv-header-alt generic-list-header main-section listview">
+			<div class="card-header d-flex flex-auto">
+				<div class="caption d-flex flex-auto">
+					<h2>&nbsp;</h2>
+				</div>
+			</div>
+		</div>
+		<floating-action-button params="position: 'top', showWhenDropdownIsToggled: true">
+			<li data-bind="with: $root">
+				<a id="add-servicecontract-address-relationship" href="#" data-mfb-label="@(Html.Localize("AddRelationship"))" data-route="Crm.Service/ServiceContractAddressRelationship/EditTemplate/" data-toggle="modal" data-target="#modal">
+					<i class="zmdi zmdi-plus"></i>
+				</a>
+			</li>
+		</floating-action-button>
+	</div>
+	<!-- /ko -->
+
+	<empty-state-box params="mood: 'sad', title: 'RelationshipsEmptyStateTitle', text: 'NoRelationshipInfo'" data-bind="visible: items().length === 0 && !isFiltered()"></empty-state-box>
+
+	<div class="generic-list listview lv-bordered">
+		<div class="lv-body">
+			<div data-bind="foreach: items">
+				 @await Html.PartialAsync("GenericListItemGroup") 
+				 @await Html.PartialAsync("../ServiceContractAddressRelationshipList/MaterialItemTemplate") 
+			</div>
+			<!-- ko if: items().length === 0 && isFiltered() -->
+			<div id="generic-list-empty-state" class="lv-item media">
+				<div class="row media-body">
+					<div class="col-xs-12">
+						<small class="lv-small">@(Html.Localize("NoRecordsForSearchCriteria"))</small>
+					</div>
+				</div>
+			</div>
+			<!-- /ko -->
+		</div>
+	</div>
+	 @await Html.PartialAsync("Material/GenericListPreloader") 
+</div>

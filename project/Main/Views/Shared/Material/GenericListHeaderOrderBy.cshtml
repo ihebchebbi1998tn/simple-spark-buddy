@@ -1,0 +1,55 @@
+@using Crm.Library.Globalization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl<Main.ViewModels.GenericListViewModel>
+
+@if (Model != null && Model.OrderByProperties.Any())
+{
+	<div class="dropdown">
+		<button id="sort-dropdown" class="btn btn-default btn-icon-text waves-effect border-round dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+			<span class="d-flex flex-v-center">
+				<span class="d-flex flex-v-center">
+					<i class="zmdi zmdi-long-arrow-up f-15" data-bind="visible: orderByDirection() === 'ASC' || (Array.isArray(orderByDirection()) && orderByDirection().every(x => x === 'ASC'))"></i>
+					<i class="zmdi zmdi-long-arrow-down f-15" data-bind="visible: orderByDirection() === 'DESC' || (Array.isArray(orderByDirection()) && orderByDirection().every(x => x === 'DESC'))"></i>
+				</span>
+				<span class="m-l-5 caption">
+					<!-- ko if: getDefaultSortProperties().length > 0 -->
+					<span data-bind="visible: orderBy().toString() === getDefaultSortProperties().toString(), text: getDefaultSortPropertyNames">
+					</span>
+					<!-- /ko -->
+					@foreach (var orderByProperty in Model.OrderByProperties)
+					{
+						var name = orderByProperty.LambdaPath ?? orderByProperty.PropertyInfo.Name;
+						<span data-bind="visible: orderBy()?.toString() === '@(name)'">
+							@(Html.Localize(orderByProperty.SortCaption ?? orderByProperty.PropertyInfo.Name))
+						</span>
+					}
+				</span>
+			</span>
+			<i class="zmdi zmdi-chevron-down border-round bg-primary text-primary circle-icon-right"></i>
+		</button>
+		<ul class="dropdown-menu dropdown-menu-left">
+			<li class="orderby-direction-element" data-bind="css: { 'active': orderByDirection() === 'ASC' || (Array.isArray(orderByDirection()) && orderByDirection().every(x => x === 'ASC')) }">
+				<a href="#" class="normal-white-space" data-bind="click: setOrderByDirection.bind($data, 'ASC')">
+					@(Html.Localize("Ascending"))
+				</a>
+			</li>
+			<li class="orderby-direction-element" data-bind="css: { 'active': orderByDirection() === 'DESC' || (Array.isArray(orderByDirection()) && orderByDirection().every(x => x === 'DESC')) }">
+				<a href="#" class="normal-white-space" data-bind="click: setOrderByDirection.bind($data, 'DESC')">
+					@(Html.Localize("Descending"))
+				</a>
+			</li>
+			<li class="divider"></li>
+			<!-- ko if: getDefaultSortProperties().length > 0 -->
+			<li class="orderby-element" data-bind="attr: { 'id': 'default-filter' }, css: { 'active': orderBy().toString() === getDefaultSortProperties().toString() }">
+				<a href="#" class="normal-white-space" data-bind="click: setOrderBy.bind($data, getDefaultSortProperties()), text: getDefaultSortPropertyNames"></a>
+			</li>
+			<!-- /ko -->
+			@foreach (var orderByProperty in Model.OrderByProperties.OrderBy(x => x.SortCaption ?? x.PropertyInfo.Name))
+			{
+				var name = orderByProperty.LambdaPath ?? orderByProperty.PropertyInfo.Name;
+				<li class="orderby-element" data-bind="attr: { 'id': '@(name.ToLower().Replace(".", "-") + "-filter")' }, css: { 'active': orderBy() === '@(name)' || (Array.isArray(orderBy()) && orderBy().length === 1 && orderBy()[0] === '@(name)') }">
+					<a href="#" data-bind="click: setOrderBy.bind($data, '@(orderByProperty.LambdaPath ?? orderByProperty.PropertyInfo.Name)')">@(Html.Localize(orderByProperty.SortCaption ?? orderByProperty.PropertyInfo.Name))</a>
+				</li>
+			}
+		</ul>
+	</div>
+}

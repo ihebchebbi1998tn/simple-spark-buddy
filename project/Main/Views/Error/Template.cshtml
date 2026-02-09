@@ -1,0 +1,15 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+<div class="container">
+	<div id="error" class="card col-xs-12 col-sm-8 col-sm-offset-2">
+		<empty-state-box params="mood: 'excited', title: errorTitle, text: errorText">
+		</empty-state-box>
+		<p class="text-center">
+			<button class="btn btn-default btn-icon waves-effect waves-circle waves-float" data-bind="click: back">
+				<i class="zmdi zmdi-arrow-back"></i>
+			</button>
+			<a class="btn btn-default btn-icon waves-effect waves-circle waves-float" href="#/Main/Dashboard/IndexTemplate">
+				<i class="zmdi zmdi-home"></i>
+			</a>
+		</p>
+	</div>
+</div>

@@ -1,0 +1,23 @@
+{
+  "Version": 1,
+  "Hash": "2vm3C8IGO9UIUtUvCwCcpeKBgIrXKfc8dKVMLf8uUC4=",
+  "Source": "Main.Flow",
+  "BasePath": "_content/Main.Flow",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "C:\\Source\\crm6\\src\\Crm.Web\\Plugins\\Main\\Main.csproj",
+      "Version": 2,
+      "Source": "Main",
+      "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework;RuntimeIdentifier;SelfContained"
+    }
+  ],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

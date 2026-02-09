@@ -1,0 +1,15 @@
+﻿@using Crm.Library.Globalization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+<!-- ko if: $root.userGroup().ExtensionValues().IsServiceTeam -->
+<pmbb-edit-entry params="caption: 'MainResource', validationElement: $root.MainResourceId">
+	<select class="form-control" data-bind="select2autocompleter: $root.mainResourceSelect2autocompleter()"></select>
+</pmbb-edit-entry>
+<!-- ko with: ExtensionValues -->
+<pmbb-edit-entry params="caption: 'ValidFrom', validationElement: ValidFrom">
+	<input type="text" class="form-control date-picker" data-bind="datePicker: ValidFrom" placeholder="@(Html.Localize("ClickHere"))">
+</pmbb-edit-entry>
+<pmbb-edit-entry params="caption: 'ValidTo', validationElement: ValidTo">
+	<input type="text" class="form-control date-picker" data-bind="datePicker: ValidTo" placeholder="@(Html.Localize("ClickHere"))">
+</pmbb-edit-entry>
+<!-- /ko -->
+<!-- /ko -->

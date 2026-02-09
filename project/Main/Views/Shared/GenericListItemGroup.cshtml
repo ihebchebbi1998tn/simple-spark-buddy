@@ -1,0 +1,11 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<!-- ko if: $data.itemGroup && ($index() === 0 || !_.isEqual(($parent.items()[$index() -1] || {}).itemGroup, $data.itemGroup)) -->
+<!-- ko if: $data.itemGroup.css && $data.itemGroup.css.indexOf('hidden') === -1 || !$data.itemGroup.css -->
+	<div data-bind="css: { 'p-t-30': $index() > 0 }"></div>
+<!-- /ko -->
+	<div class="lv-header" data-bind="css: $data.itemGroup.css">
+		<span data-bind="text: $data.itemGroup.title"></span>
+		<p class="small" data-bind="text: $data.itemGroup.subtitle, visible: $data.itemGroup.subtitle"></p>
+	</div>
+<!-- /ko -->

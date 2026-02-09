@@ -1,0 +1,149 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Extensions
+@using Crm.Library.Globalization.Extensions
+
+<table style="width: 100%; page-break-inside: avoid;" class="m-t-20 m-b-20 break-word">
+	<tr>
+		<td class="col-xs-6 p-l-0 p-r-15 border-right border-light">
+			<div data-bind="with: customerContactAddress">
+				<div>
+					<b data-bind="translatedText: { key: 'Customer', language: $parent.selectedLanguage }">@(Html.Localize("Customer"))</b>
+					<span data-bind="visible: $parent.initiatorAddress() && Id() === $parent.initiatorAddress().Id()">
+						/
+						<b data-bind="translatedText: { key: 'Initiator', language: $parent.selectedLanguage }">@(Html.Localize("Initiator"))</b>
+					</span>
+				</div>
+				<div class="p-l-5">
+					<div data-bind="with: $parent.customerContact">
+						<div data-bind="text: Helper.Company.getDisplayName($data)"></div>
+					</div>
+					<div data-bind="text: Name1, visible: Helper.Company.getDisplayName($parent.customerContact()) !== Name1()"></div>
+					<div data-bind="text: Street"></div>
+					<div>
+						<span data-bind="text: ZipCode"></span>
+						<span data-bind="text: City"></span>
+					</div>
+					<div>
+						<span data-bind="text: window.Helper.Lookup.getLookupValue($parent.lookups.regions, RegionKey()), visible: RegionKey"></span>
+						<span data-bind="text: window.Helper.Lookup.getLookupValue($parent.lookups.countries, CountryKey()), visible: CountryKey"></span>
+					</div>
+				</div>
+			</div>
+			<div class="listview" data-bind="with: $data.customerContact">
+				@Html.RenderAction("MaterialItemTemplateExtension", "AttributeForm", new { plugin = "Crm.AttributeForms" })
+			</div>
+			<div class="p-10" data-bind="visible: initiatorAddress() && customerContactAddress().Id() !== initiatorAddress().Id()"></div>
+			<div data-bind="with: initiatorAddress, visible: initiatorAddress() && customerContactAddress().Id() !== initiatorAddress().Id()">
+				<div>
+					<b data-bind="translatedText: { key: 'Initiator', language: $parent.selectedLanguage }">@(Html.Localize("Initiator"))</b>
+				</div>
+				<div class="p-l-5">
+					<div data-bind="with: $parent.initiator">
+						<div data-bind="text: Helper.Company.getDisplayName($data)"></div>
+					</div>
+					<div data-bind="text: Name1, visible: Helper.Company.getDisplayName($parent.initiator()) !== Name1()"></div>
+					<div data-bind="text: Street"></div>
+					<div>
+						<span data-bind="text: ZipCode"></span>
+						<span data-bind="text: City"></span>
+					</div>
+					<div>
+						<span data-bind="text: window.Helper.Lookup.getLookupValue($parent.lookups.regions, RegionKey()), visible: RegionKey"></span>
+						<span data-bind="text: window.Helper.Lookup.getLookupValue($parent.lookups.countries, CountryKey()), visible: CountryKey"></span>
+					</div>
+				</div>
+			</div>
+			<div class="listview" data-bind="with: $data.initiator">
+				@Html.RenderAction("MaterialItemTemplateExtension", "AttributeForm", new { plugin = "Crm.AttributeForms" })
+			</div>
+			<div data-bind="with: initiatorPerson, css: { 'p-t-5' : initiatorPerson() }">
+				<div>
+					<b data-bind="translatedText: { key: 'LocationPersonId', language: $parent.selectedLanguage }">@(Html.Localize("LocationPersonId"))</b>
+				</div>
+				<div class="p-l-5">
+					<div data-bind="text: Helper.Person.getDisplayName($data)"></div>
+				</div>
+			</div>
+			<div data-bind="with: initiatorPhone, css: { 'p-t-5' : initiatorPhone() }">
+				<div>
+					<b data-bind="translatedText: { key: 'Phone', language: $parent.selectedLanguage }">@(Html.Localize("Phone"))</b>
+				</div>
+				<div class="p-l-5">
+					<span data-bind="text: window.Helper.Address.getPhoneNumberAsString($data, true, $root.lookups.countries)"></span>
+				</div>
+			</div>
+			<div data-bind="with: initiatorMobile, css: { 'p-t-5' : initiatorMobile() }">
+				<div>
+					<b data-bind="translatedText: { key: 'Mobile', language: $parent.selectedLanguage }">@(Html.Localize("Mobile"))</b>
+				</div>
+				<div class="p-l-5">
+					<span data-bind="text: window.Helper.Address.getPhoneNumberAsString($data, true, $root.lookups.countries)"></span>
+				</div>
+			</div>
+			<div class="p-t-5" data-bind="with: initiatorEmail, css: { 'p-t-5' : initiatorEmail() }">
+				<div>
+					<b data-bind="translatedText: { key: 'Email', language: $parent.selectedLanguage }">@(Html.Localize("Email"))</b>
+				</div>
+				<div class="p-l-5">
+					<span data-bind="text: Data"></span>
+				</div>
+			</div>
+			<div class="listview" data-bind="with: $data.initiatorPerson">
+				@Html.RenderAction("MaterialItemTemplateExtension", "AttributeForm", new { plugin = "Crm.AttributeForms" })
+			</div>
+		</td>
+
+		<td class="col-xs-6 p-l-15 p-r-0" data-bind="with: serviceOrder">
+			<div data-bind="visible: Name1() || Street() || CountryKey() || ZipCode() || City()">
+				<div>
+					<b data-bind="translatedText: { key: 'DispatchLocation', language: $parent.selectedLanguage }">@(Html.Localize("DispatchLocation"))</b>
+				</div>
+				<div class="p-l-5">
+					<div data-bind="text: Name1"></div>
+					<div data-bind="text: Street"></div>
+					<div>
+						<span data-bind="text: ZipCode"></span>
+						<span data-bind="text: City"></span>
+					</div>
+					<div>
+						<span data-bind="text: window.Helper.Lookup.getLookupValue($parent.lookups.regions, RegionKey()), visible: RegionKey"></span>
+						<span data-bind="text: window.Helper.Lookup.getLookupValue($parent.lookups.countries, CountryKey()), visible: CountryKey"></span>
+					</div>
+				</div>
+			</div>
+			<div class="p-10" data-bind="visible: ServiceLocationResponsiblePerson() || ServiceLocationPhone() || ServiceLocationMobile() || ServiceLocationEmail()"></div>
+			<div data-bind="visible: ServiceLocationResponsiblePerson">
+				<div>
+					<b data-bind="translatedText: { key: 'LocationPersonId', language: $parent.selectedLanguage }">@(Html.Localize("LocationPersonId"))</b>
+				</div>
+				<div class="p-l-5">
+					<span data-bind="text: ServiceLocationResponsiblePerson"></span>
+				</div>
+			</div>
+			<div class="p-t-5" data-bind="visible: ServiceLocationPhone, css: { 'p-t-5' : ServiceLocationPhone() }">
+				<div>
+					<b data-bind="translatedText: { key: 'Phone', language: $parent.selectedLanguage }">@(Html.Localize("Phone"))</b>
+				</div>
+				<div class="p-l-5">
+					<span data-bind="text: ServiceLocationPhone"></span>
+				</div>
+			</div>
+			<div class="p-t-5" data-bind="visible: ServiceLocationMobile, css: { 'p-t-5' : ServiceLocationMobile() }">
+				<div>
+					<b data-bind="translatedText: { key: 'Mobile', language: $parent.selectedLanguage }">@(Html.Localize("Mobile"))</b>
+				</div>
+				<div class="p-l-5">
+					<span data-bind="text: ServiceLocationMobile"></span>
+				</div>
+			</div>
+			<div class="p-t-5" data-bind="visible: ServiceLocationEmail, css: { 'p-t-5' : ServiceLocationEmail() }">
+				<div>
+					<b data-bind="translatedText: { key: 'Email', language: $parent.selectedLanguage }">@(Html.Localize("Email"))</b>
+				</div>
+				<div class="p-l-5">
+					<span data-bind="text: ServiceLocationEmail"></span>
+				</div>
+			</div>
+		</td>
+	</tr>
+</table>

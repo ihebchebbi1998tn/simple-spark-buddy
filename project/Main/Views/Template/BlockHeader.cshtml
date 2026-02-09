@@ -1,0 +1,18 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div class="panel-heading active">
+	<div class="card-header p-20 ch-alt" data-bind="css: customCss">
+		<div class="panel-title max-width-100">
+			<div class="d-flex flex-v-center f-17 c-black">
+				<!-- ko if: icon -->
+				<div>
+					<i class="zmdi m-r-10" data-bind="css: 'zmdi-' + icon"></i>
+				</div>
+				<!-- /ko -->
+				<!-- ko with: viewContext -->
+				<!-- ko template: { nodes: $componentTemplateNodes } --><!-- /ko -->
+				<!-- /ko -->
+			</div>
+		</div>
+	</div>
+</div>

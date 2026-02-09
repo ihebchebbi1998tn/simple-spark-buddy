@@ -1,0 +1,37 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div id="{{Id}}" class="lv-item media">
+	<div class="media-body">
+		<div class="row">
+			<div class="col-sm-5">
+				<address>
+					<address-block params="address: Child, lookups: $root.lookups"></address-block>
+				</address>
+				<small class="small" data-bind="text: Information"></small>
+				<ul class="lv-attrs">
+					@Html.PluginRenderActions("ServiceContractAddressRelationshipItemTemplateAttributes")
+				</ul>
+				@Html.PluginRenderActions("ServiceContractAddressRelationshipItemTemplateExtensions")
+			</div>
+		</div>
+		<lv-actions>
+			<!-- ko requiredPermission: { name: 'EditAddressRelationship', group: 'ServiceContract' } -->
+			<li>
+				<a href="#" data-route="Crm.Service/ServiceContractAddressRelationship/EditTemplate/{{Id}}" data-toggle="modal" data-target="#modal">
+					@(Html.Localize("Edit"))
+				</a>
+			</li>
+			<!-- /ko -->
+			<!-- ko requiredPermission: { name: 'RemoveAddressRelationship', group: 'ServiceContract' } -->
+			<li>
+				<a href="#" data-bind="click: $parentContext.$parentContext.$parent.deleteRelationship">
+					@(Html.Localize("Remove"))
+				</a>
+			</li>
+			<!-- /ko -->
+			@Html.PluginRenderActions("ServiceContractAddressRelationshipItemTemplateActions")
+		</lv-actions>
+	</div>
+</div>

@@ -1,0 +1,5 @@
+<!-- ko if: $root.table === "CrmService_ServiceOrderType" -->
+<form-element params="value: DefaultInvoicingTypeKey, caption: 'DefaultInvoicingType', type: 'select2'">
+	<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('Main_InvoicingType'), placeholder: Helper.String.getTranslatedString('Unspecified') }"></select>
+</form-element>
+<!-- /ko -->

@@ -1,0 +1,37 @@
+﻿@using Crm.Library.Globalization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div class="modal-header card-header ch-alt">
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title" data-bind="translatedText: 'LogEntries'"></h4>
+</div>
+<div class="modal-body card-body card-padding">
+	<!-- ko if: logEntry -->
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="form-group">
+				<textarea class="form-control bgm-white" data-bind="value: JSON.stringify(logEntry(), null, '  '), autosize: true" style="font-family: monospace, monospace" readonly></textarea>
+			</div>
+		</div>
+	</div>
+	<!-- /ko -->
+	<h4 data-bind="visible: localStorageLogEntries().length > 0">LocalStorage</h4>
+	<!-- ko foreach: localStorageLogEntries -->
+	<div>
+		<a href="#" data-bind="click: () => $root.showLogEntry($data, 'LocalStorage'), dateText: { value: $root.getDate($data), pattern: { datetime: 'full' } }"></a>
+	</div>
+	<!-- /ko -->
+	<h4 data-bind="visible: localDatabaseLogEntries().length > 0">LocalDatabase</h4>
+	<!-- ko foreach: localDatabaseLogEntries -->
+	<div>
+		<a href="#" data-bind="click: () => $root.showLogEntry($data, 'LocalDatabase'), dateText: { value: $root.getDate($data), pattern: { datetime: 'full' } }"></a>
+	</div>
+	<!-- /ko -->
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-dismiss="modal">
+		@(Html.Localize("Close"))
+	</button>
+</div>

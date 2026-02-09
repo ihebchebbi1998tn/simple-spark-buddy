@@ -1,0 +1,54 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div class="lv-item media">
+	<!-- ko if: $parent.bulkActions && $parent.bulkActions().length > 0  -->
+	<div class="checkbox pull-left bulk-control p-l-10 p-r-10 p-t-10">
+		<label>
+			<input type="checkbox" data-bind="checked: $parent.selectedItems, checkedValue: $data, disable: !$parent.bulkActionAllowed.bind($root)($data)">
+			<i class="input-helper" data-bind="visible: $parent.bulkActionAllowed.bind($root)($data)"></i>
+		</label>
+	</div>
+	<!-- /ko -->
+	<div class="lv-avatar pull-left" data-bind="css: Color, text: Helper.String.getTranslatedString(Crm.Library.Model.PostingState.getEnumName(PostingState))[0], visible: !$parent.selectedItems || $parent.selectedItems().length === 0"></div>
+	<div class="media-body panel-heading">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="lv-title">
+					<span data-bind="text: Id"></span>
+					<!-- ko if: Name -->
+					(<span data-bind="translatedText: $root.getEntityTypeName(EntityTypeName)"></span> <span data-bind="text: Name"></span>)
+					<!-- /ko -->
+					<!-- ko if: StateDetails -->
+					<span class="pull-right" style="cursor: pointer" role="button" data-toggle="collapse" data-bind="attr: {data-target: '#collapse' + $index(), aria-controls: 'collapse' + $index(), enable: StateDetails}"><i class="zmdi zmdi-chevron-down"></i></span>
+					<!-- /ko -->
+				</div>
+				<ul class="lv-attrs">
+					<li>
+						<span data-bind="translatedText: Crm.Library.Model.PostingState.getEnumName(PostingState)"></span>
+					</li>
+					<li>
+						<i class="zmdi zmdi-calendar"></i>
+						<span data-bind="dateText: { value: CreateDate, pattern: { datetime: 'short'} }"></span>
+					</li>
+					<li>
+						<i class="zmdi zmdi-account-o"></i>
+						<span data-bind="userDisplayName: { UserName: CreateUser, Users: $root.users }"></span>
+					</li>
+					<li>
+						<i class="zmdi zmdi-refresh-sync-alert"></i>
+						<span>@(Html.Localize("Retries"))</span>:&nbsp;<span data-bind="text: Retries"></span>
+						<span data-bind="if: RetryAfter">,&nbsp;@(Html.Localize("Next")):&nbsp;<span data-bind="dateText: { value: RetryAfter, pattern: { datetime: 'short'} }"></span>
+						</span>
+					</li>
+					@Html.PluginRenderActions("FlowItemItemTemplateAttributes")
+				</ul>
+				<div class="collapse" data-bind="attr: {id: 'collapse' + $index()}">
+					<pre class="m-t-5" data-bind="text: StateDetails" style="max-height: 25rem"></pre>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

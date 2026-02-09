@@ -1,0 +1,10 @@
+﻿@using Crm.Library.Globalization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<!-- ko if: $data -->
+<span class="input-group-addon">
+	<a class="btn btn-default btn-icon waves-effect waves-circle waves-float" href="#" data-bind="tooltip: true, click: scan" title="@(Html.Localize("ScanBarcode"))">
+		<i class="zmdi zmdi-camera" data-bind="css: { 'zmdi-camera': loading() === false, 'zmdi-spinner zmdi-hc-spin': loading() === true }"></i>
+	</a>
+</span>
+<!-- /ko -->

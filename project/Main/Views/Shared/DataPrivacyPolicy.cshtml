@@ -1,0 +1,73 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Extensions
+@using Crm.Library.Globalization.Extensions
+
+@Html.HiddenTranslations(
+	"DataProtectionTitle",
+	"DataProtectionDescription",
+	"DP_Main1Title",
+	"DP_Main1Paragraph1Title",
+	"DP_Main1Paragraph1",
+	"DP_Main1Paragraph2Title",
+	"DP_Main1Paragraph2",
+	"DP_Main1Paragraph3Title",
+	"DP_Main1Paragraph3",
+	"DP_Main1Paragraph4Title",
+	"DP_Main1Paragraph4",
+	"DP_Main1Paragraph5Title",
+	"DP_Main1Paragraph5",
+	"DP_Main2Title",
+	"DP_Main2",
+	"DP_Main3Title",
+	"DP_Main3",
+	"DP_Main4Title",
+	"DP_Main4"
+	)
+
+<div data-bind="if: ($data.site || $root.site)">
+	<div class="p-t-10" id="gdpr-container" style="page-break-before: auto; page-break-inside: avoid; font-size: x-small; line-height: normal; text-align: left;">
+		<h1 class="text-center" data-bind="translatedText: { key: 'DataProtectionTitle', language: $data.selectedLanguage }">@(Html.Localize("DataProtectionTitle"))</h1>
+
+		<div data-bind="translatedText: { key: 'DataProtectionDescription', language: $data.selectedLanguage, args: [ko.unwrap(ko.unwrap($data.site || $root.site).ExtensionValues).CompanyName] }">@(Html.Localize("DataProtectionDescription"))</div>
+
+		<h4>A. <span data-bind="translatedText: { key: 'DP_Main1Title', language: $data.selectedLanguage }">@(Html.Localize("DP_Main1Title"))</span></h4>
+
+		<div>
+			<b>I. <span data-bind="translatedText: { key: 'DP_Main1Paragraph1Title', language: $data.selectedLanguage }">@(Html.Localize("DP_Main1Paragraph1Title"))</span></b>
+		</div>
+		<div data-bind="translatedText: { key: 'DP_Main1Paragraph1', language: $data.selectedLanguage, args: [ko.unwrap(ko.unwrap($data.site || $root.site).ExtensionValues).ResponsibleAddress] }">@(Html.Localize("DP_Main1Paragraph1"))</div>
+		<div>
+			<b>II. <span data-bind="translatedText: { key: 'DP_Main1Paragraph2Title', language: $data.selectedLanguage }">@(Html.Localize("DP_Main1Paragraph2Title"))</span></b><br/>
+		</div>
+		<div data-bind="translatedText: { key: 'DP_Main1Paragraph2', language: $data.selectedLanguage }">@(Html.Localize("DP_Main1Paragraph2"))</div>
+		<div>
+			<b>III. <span data-bind="translatedText: { key: 'DP_Main1Paragraph3Title', language: $data.selectedLanguage }">@(Html.Localize("DP_Main1Paragraph3Title"))</span></b><br/>
+		</div>
+		<div data-bind="translatedText: { key: 'DP_Main1Paragraph3', language: $data.selectedLanguage }">@(Html.Localize("DP_Main1Paragraph3"))</div>
+		<div>
+			<b>IV. <span data-bind="translatedText: { key: 'DP_Main1Paragraph4Title', language: $data.selectedLanguage }">@(Html.Localize("DP_Main1Paragraph4Title"))</span></b><br/>
+		</div>
+		<div data-bind="translatedText: { key: 'DP_Main1Paragraph4', language: $data.selectedLanguage }">@(Html.Localize("DP_Main1Paragraph4"))</div>
+		<div>
+			<b>V. <span data-bind="translatedText: { key: 'DP_Main1Paragraph5Title', language: $data.selectedLanguage }">@(Html.Localize("DP_Main1Paragraph5Title"))</span></b><br/>
+		</div>
+		<div data-bind="translatedText: { key: 'DP_Main1Paragraph5', language: $data.selectedLanguage }">@(Html.Localize("DP_Main1Paragraph5"))</div>
+
+		<h4>B. <span data-bind="translatedText: { key: 'DP_Main2Title', language: $data.selectedLanguage }">@(Html.Localize("DP_Main2Title"))</span></h4>
+
+		<div data-bind="translatedText: { key: 'DP_Main2', language: $data.selectedLanguage }">@(Html.Localize("DP_Main2"))</div>
+
+		<h4>C. <span data-bind="translatedText: { key: 'DP_Main3Title', language: $data.selectedLanguage }">@(Html.Localize("DP_Main3Title"))</span></h4>
+
+		<div data-bind="translatedText: { key: 'DP_Main3', language: $data.selectedLanguage }">@(Html.Localize("DP_Main3"))</div>
+
+		<h4>D. <span data-bind="translatedText: { key: 'DP_Main4Title', language: $data.selectedLanguage }">@(Html.Localize("DP_Main4Title"))</span></h4>
+
+		<div>
+			<span data-bind="translatedText: { key: 'DP_Main4', language: $data.selectedLanguage, args: [ko.unwrap(ko.unwrap($data.site || $root.site).ExtensionValues).CompanyName] }">@(Html.Localize("DP_Main4"))</span>
+		</div>
+		<div>
+			<span data-bind="text: ko.unwrap(ko.unwrap($data.site || $root.site).ExtensionValues).DataProtectionOfficer"></span>
+		</div>
+	</div>
+</div>

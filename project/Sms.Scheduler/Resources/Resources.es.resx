@@ -1,0 +1,626 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddSeparator" xml:space="preserve">
+    <value>Añadir separador</value>
+  </data>
+  <data name="Map" xml:space="preserve">
+    <value>Mapa</value>
+  </data>
+  <data name="NonWorkingTime" xml:space="preserve">
+    <value>tiempo no laborable</value>
+  </data>
+  <data name="ServiceOrder.Company" xml:space="preserve">
+    <value>Cliente</value>
+  </data>
+  <data name="ServiceOrder.Company.Tooltip" xml:space="preserve">
+    <value>Cliente</value>
+  </data>
+  <data name="ServiceOrder.Installation.Description" xml:space="preserve">
+    <value>Instalación</value>
+  </data>
+  <data name="ServiceOrder.Installation.Description.Tooltip" xml:space="preserve">
+    <value>Instalación</value>
+  </data>
+  <data name="ServiceOrder.Installation.InstallationNo" xml:space="preserve">
+    <value>Número de instalación</value>
+  </data>
+  <data name="ServiceOrder.Installation.InstallationNo.Tooltip" xml:space="preserve">
+    <value>Número de instalación</value>
+  </data>
+  <data name="ServiceObjectNo" xml:space="preserve">
+    <value>Número del objeto de servicio</value>
+  </data>
+  <data name="ServiceOrderDispatch.Duration" xml:space="preserve">
+    <value>Duración de la orden de trabajo (horas totales)</value>
+  </data>
+  <data name="ServiceOrderDispatch.Duration.Tooltip" xml:space="preserve">
+    <value>Duración de la orden de trabajo (horas totales)</value>
+  </data>
+  <data name="ServiceOrderDispatch.StartTime" xml:space="preserve">
+    <value>Hora de inicio de la orden de trabajo</value>
+  </data>
+  <data name="ServiceOrderDispatch.StartTime.Tooltip" xml:space="preserve">
+    <value>Inicio</value>
+  </data>
+  <data name="AddResources" xml:space="preserve">
+    <value>Añadir recursos al perfil</value>
+    <comment>recursos al perfil</comment>
+  </data>
+  <data name="LoadProfile" xml:space="preserve">
+    <value>Cargar perfil</value>
+  </data>
+  <data name="EditProfile" xml:space="preserve">
+    <value>Editar perfil</value>
+  </data>
+  <data name="Autosave" xml:space="preserve">
+    <value>Autoguardado</value>
+  </data>
+  <data name="ToggleMap" xml:space="preserve">
+    <value>Alternar mapa</value>
+  </data>
+  <data name="ResourceType" xml:space="preserve">
+    <value>Tipo de recurso</value>
+  </data>
+  <data name="MakeDefaultProfile" xml:space="preserve">
+    <value>Haga este perfil por defecto</value>
+  </data>
+  <data name="DefaultProfile" xml:space="preserve">
+    <value>Perfil por defecto</value>
+  </data>
+  <data name="LowerBound" xml:space="preserve">
+    <value>Límite inferior</value>
+  </data>
+  <data name="UpperBound" xml:space="preserve">
+    <value>Límite superior</value>
+  </data>
+  <data name="PipelineGroup" xml:space="preserve">
+    <value>Grupo de tuberías</value>
+  </data>
+  <data name="ResourceTooltip" xml:space="preserve">
+    <value>Información sobre herramientas de recursos</value>
+  </data>
+  <data name="ServiceOrderTooltip" xml:space="preserve">
+    <value>Información sobre herramientas para órdenes de servicio</value>
+  </data>
+  <data name="ServiceOrderDispatchTooltip" xml:space="preserve">
+    <value>Información sobre herramientas para llamadas de servicio</value>
+  </data>
+  <data name="ShowOtherUsersProfiles" xml:space="preserve">
+    <value>Mostrar perfiles de otros usuarios</value>
+  </data>
+  <data name="ShowDispatchInScheduler" xml:space="preserve">
+    <value>Abrir despacho en el Programador</value>
+  </data>
+  <data name="Unassign" xml:space="preserve">
+    <value>Desasignar</value>
+  </data>
+  <data name="Restrictions" xml:space="preserve">
+    <value>Restricciones</value>
+  </data>
+  <data name="NotValidFor" xml:space="preserve">
+    <value>No es válido para</value>
+  </data>
+  <data name="MinResourceNumber" xml:space="preserve">
+    <value>Seleccione al menos {0} recurso(s)</value>
+  </data>
+  <data name="TimesOrderAscending" xml:space="preserve">
+    <value>¡Los tiempos deben estar en orden ascendente!</value>
+  </data>
+  <data name="DispatchStatus.Scheduled" xml:space="preserve">
+    <value>Programado</value>
+  </data>
+  <data name="DispatchStatus.Read" xml:space="preserve">
+    <value>Leído</value>
+  </data>
+  <data name="DispatchStatus.Released" xml:space="preserve">
+    <value>Publicado</value>
+  </data>
+  <data name="DispatchStatus.SignedByCustomer" xml:space="preserve">
+    <value>Firmado por el cliente</value>
+  </data>
+  <data name="DispatchStatus.ClosedNotComplete" xml:space="preserve">
+    <value>Cerrado (se requiere una orden de seguimiento)</value>
+  </data>
+  <data name="DispatchStatus.ClosedComplete" xml:space="preserve">
+    <value>Cerrado</value>
+  </data>
+  <data name="ResourceUtilization" xml:space="preserve">
+    <value>Utilización de recursos</value>
+  </data>
+  <data name="UserGroupFilter" xml:space="preserve">
+    <value>Esto sirve para filtrar únicamente el selector de técnico y establece el campo TeamId del envío.</value>
+  </data>
+  <data name="CurrentWeekTooltip" xml:space="preserve">
+    <value>Acceso directo para centrar la línea de tiempo alrededor de la semana actual</value>
+  </data>
+  <data name="Open Dispatch" xml:space="preserve">
+    <value>Despacho abierto</value>
+  </data>
+  <data name="FilterResources" xml:space="preserve">
+    <value>Filtrar recursos</value>
+  </data>
+  <data name="FilterPipeline" xml:space="preserve">
+    <value>Tubería de filtro</value>
+  </data>
+  <data name="FilterEvents" xml:space="preserve">
+    <value>Filtrar eventos</value>
+  </data>
+  <data name="Absence.From" xml:space="preserve">
+    <value>Desde</value>
+  </data>
+  <data name="Absence.To" xml:space="preserve">
+    <value>Para</value>
+  </data>
+  <data name="PromoteToLeader" xml:space="preserve">
+    <value>Promocionar a líder</value>
+  </data>
+  <data name="Go to date" xml:space="preserve">
+    <value>Ir a la fecha</value>
+  </data>
+  <data name="Current Week" xml:space="preserve">
+    <value>Semana actual</value>
+  </data>
+  <data name="FixDispatch" xml:space="preserve">
+    <value>Fijar orden</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Perfil</value>
+  </data>
+  <data name="#.#" xml:space="preserve">
+    <value>Separador</value>
+  </data>
+  <data name="Open Order" xml:space="preserve">
+    <value>Abrir orden de servicio</value>
+  </data>
+  <data name="New Profile" xml:space="preserve">
+    <value>Nuevo perfil</value>
+  </data>
+  <data name="Delete Profile" xml:space="preserve">
+    <value>Borrar perfil</value>
+  </data>
+  <data name="DispatchStatus.InProgress" xml:space="preserve">
+    <value>En progreso</value>
+  </data>
+  <data name="AddNonWorkingTime" xml:space="preserve">
+    <value>Añadir {NonWorkingTime}</value>
+  </data>
+  <data name="Capacity" xml:space="preserve">
+    <value>Capacidad</value>
+  </data>
+  <data name="Teams" xml:space="preserve">
+    <value>Equipos</value>
+  </data>
+  <data name="DisplayPlannedDate" xml:space="preserve">
+    <value>Cita planeada</value>
+  </data>
+  <data name="DisplayPreferredUser" xml:space="preserve">
+    <value>Técnico preferido</value>
+  </data>
+  <data name="Absence" xml:space="preserve">
+    <value>Ausencia</value>
+  </data>
+  <data name="OneMonth" xml:space="preserve">
+    <value>Un mes</value>
+  </data>
+  <data name="OneQuarter" xml:space="preserve">
+    <value>Un cuarto de año</value>
+  </data>
+  <data name="OneWeek" xml:space="preserve">
+    <value>Una semana</value>
+  </data>
+  <data name="OneYear" xml:space="preserve">
+    <value>Un año</value>
+  </data>
+  <data name="TwoMonths" xml:space="preserve">
+    <value>Dos meses</value>
+  </data>
+  <data name="TwoWeeks" xml:space="preserve">
+    <value>Dos semanas</value>
+  </data>
+  <data name="StatusGroup" xml:space="preserve">
+    <value>Grupo de estado</value>
+  </data>
+  <data name="ScheduleFollowUpDispatchInScheduler" xml:space="preserve">
+    <value>Programar el seguimiento del orden en el programador</value>
+  </data>
+  <data name="MaterialAvailability" xml:space="preserve">
+    <value>Disponibilidad de materiales</value>
+  </data>
+  <data name="WebSchedulerLoginTitle" xml:space="preserve">
+    <value>Planificador</value>
+  </data>
+  <data name="FullyStocked" xml:space="preserve">
+    <value>Completamente abastecido</value>
+  </data>
+  <data name="WebSchedulerLoginDescription" xml:space="preserve">
+    <value>Todo lo que necesita saber de un vistazo</value>
+  </data>
+  <data name="WebScheduler" xml:space="preserve">
+    <value>Planificador</value>
+  </data>
+  <data name="PartsMissing" xml:space="preserve">
+    <value>Faltan piezas</value>
+  </data>
+  <data name="WebSchedulerOnline" xml:space="preserve">
+    <value>Planificador</value>
+  </data>
+  <data name="WebSchedulerOffline" xml:space="preserve">
+    <value>Planificador</value>
+  </data>
+  <data name="ServiceObjectName" xml:space="preserve">
+    <value>Nombre del objeto de servicio</value>
+  </data>
+  <data name="DeadlineWarning" xml:space="preserve">
+    <value>La fecha seleccionada ya pasó la fecha límite ({0}) de la orden de servicio, ¡confirme su decisión!</value>
+  </data>
+  <data name="Legend" xml:space="preserve">
+    <value>Leyenda</value>
+  </data>
+  <data name="Technicians" xml:space="preserve">
+    <value>Técnicos</value>
+  </data>
+  <data name="AutosaveOffWarning" xml:space="preserve">
+    <value>Autoguardado está desactivado, sus cambios no se guardarán en el servidor hasta que lo vuelva a activar o haga clic en el botón de sincronización.</value>
+  </data>
+  <data name="PlannedDateWarning" xml:space="preserve">
+    <value>La fecha seleccionada no es la fecha planificada ({0}) de la Orden de Servicio, ¡confirme su decisión!</value>
+  </data>
+  <data name="UnsavedChanges" xml:space="preserve">
+    <value>Cambios no guardados</value>
+  </data>
+  <data name="PreferredTechnicianWarning" xml:space="preserve">
+    <value>El técnico seleccionado no es el técnico preferido ({0}) de ServiceOrder, ¡confirme su decisión!</value>
+  </data>
+  <data name="SmsScheduler_DispatchArticleAssignment" xml:space="preserve">
+    <value>Artículo asignaciones de despachos</value>
+  </data>
+  <data name="EnablePlanningConfirmations" xml:space="preserve">
+    <value>Habilitar confirmaciones de planificación</value>
+  </data>
+  <data name="SmsScheduler_DispatchPersonAssignment" xml:space="preserve">
+    <value>Asignaciones personales de envíos</value>
+  </data>
+  <data name="EnablePlanningConfirmationsTooltip" xml:space="preserve">
+    <value>Mostrar advertencias si no se cumplen los requisitos de planificación preferidos de la orden de servicio (técnico, fecha planificada, fecha límite)</value>
+  </data>
+  <data name="SmsScheduler_Profile" xml:space="preserve">
+    <value>Perfiles</value>
+  </data>
+  <data name="PreferredUserGroupWarning" xml:space="preserve">
+    <value>El técnico seleccionado no forma parte del grupo de usuarios preferido de ServiceOrder ({0}), ¡confirme su decisión!</value>
+  </data>
+  <data name="SmsScheduler_ProfileResource" xml:space="preserve">
+    <value>Recursos del perfil</value>
+  </data>
+  <data name="ExpiredAssets" xml:space="preserve">
+    <value>Recursos de usuario caducados
+</value>
+  </data>
+  <data name="PreferredTechnicianRemovedWarning" xml:space="preserve">
+    <value>Está a punto de cancelar la asignación del técnico preferido de ServiceOrder ({0}), ¡confirme su decisión!</value>
+  </data>
+  <data name="ValidAssets" xml:space="preserve">
+    <value>Recursos de usuario válidos</value>
+  </data>
+  <data name="PreferredUserGroupRemovedWarning" xml:space="preserve">
+    <value>Está a punto de cancelar la asignación del último técnico del grupo de usuarios preferido de ServiceOrder ({0}). ¡Confirme su decisión!</value>
+  </data>
+  <data name="ExpiredSkills" xml:space="preserve">
+    <value>Habilidades caducadas</value>
+  </data>
+  <data name="ValidSkills" xml:space="preserve">
+    <value>Habilidades válidas</value>
+  </data>
+  <data name="MissingSkillsOrAssetsValidation" xml:space="preserve">
+    <value>No se puede planificar el envío en este momento debido a que faltan habilidades o recursos de usuario para el técnico</value>
+  </data>
+  <data name="ExpireInDays" xml:space="preserve">
+    <value>{0}d</value>
+  </data>
+  <data name="Pipeline" xml:space="preserve">
+    <value>Tubería</value>
+  </data>
+  <data name="GetRoute" xml:space="preserve">
+    <value>Obtener ruta</value>
+  </data>
+  <data name="Timeline" xml:space="preserve">
+    <value>Línea de tiempo</value>
+  </data>
+  <data name="GetRouteAdvanced" xml:space="preserve">
+    <value>Obtener ruta (Avanzado)</value>
+  </data>
+  <data name="Routes" xml:space="preserve">
+    <value>Rutas</value>
+  </data>
+  <data name="SelectResourceForRouteWarning" xml:space="preserve">
+    <value>Seleccione los recursos para los que desea mostrar la ruta.</value>
+  </data>
+  <data name="Resources" xml:space="preserve">
+    <value>Recursos</value>
+  </data>
+  <data name="ClearRoute" xml:space="preserve">
+    <value>Descartar ruta</value>
+  </data>
+  <data name="RouteCouldNotBeCalculatedWarning" xml:space="preserve">
+    <value>No se pudo calcular la ruta para {0}; el cálculo de la ruta requiere al menos 2 despachos con coordenadas válidas</value>
+  </data>
+  <data name="LoadClosedServiceOrders" xml:space="preserve">
+    <value>Cargar órdenes de servicio cerradas</value>
+  </data>
+  <data name="ResetPlanning" xml:space="preserve">
+    <value>Restablecer planificación</value>
+  </data>
+  <data name="ResetPlanningConfirmation" xml:space="preserve">
+    <value>¿Estás seguro de que quieres restablecer la planificación?</value>
+  </data>
+  <data name="ReorderResources" xml:space="preserve">
+    <value>Reordenar recursos</value>
+  </data>
+  <data name="ZipCodeArea" xml:space="preserve">
+    <value>Código postal</value>
+  </data>
+  <data name="TooltipIsNotConfigured" xml:space="preserve">
+    <value>Tooltip no está configurado, por favor vaya a la configuración del perfil para configurarlo.</value>
+  </data>
+  <data name="SmsScheduler_Absence" xml:space="preserve">
+    <value>Ausencia</value>
+  </data>
+  <data name="CreateAdHocServiceOrderHere" xml:space="preserve">
+    <value>Crea una orden de servicio ad hoc aquí</value>
+  </data>
+  <data name="ShowNonWorkingHours" xml:space="preserve">
+    <value>Mostrar todas las horas no laborables</value>
+  </data>
+  <data name="HideNonWorkingHours" xml:space="preserve">
+    <value>Ocultar todas las horas no laborables</value>
+  </data>
+  <data name="ShowDayNonWorkingHours" xml:space="preserve">
+    <value>Mostrar las horas no laborables de este día</value>
+  </data>
+  <data name="CurrentProfile" xml:space="preserve">
+    <value>Actual</value>
+  </data>
+  <data name="EditAbsence" xml:space="preserve">
+    <value>Editar ausencia</value>
+  </data>
+  <data name="DeleteAbsence" xml:space="preserve">
+    <value>Borrar ausencia</value>
+  </data>
+  <data name="FunctionalityNotAvailableWarning" xml:space="preserve">
+    <value>Funcionalidad no disponible con el autoguardado desactivado</value>
+  </data>
+  <data name="RouteOptions" xml:space="preserve">
+    <value>Opciones de ruta</value>
+  </data>
+  <data name="RouteTechnicianHomeAddressAsOrigin" xml:space="preserve">
+    <value>Utilice la dirección particular del técnico como origen</value>
+  </data>
+  <data name="RouteTechnicianHomeAddressAsFinalDestination" xml:space="preserve">
+    <value>Utilice la dirección particular del técnico como destino final</value>
+  </data>
+  <data name="RoutePerDay" xml:space="preserve">
+    <value>Una ruta separada por día.</value>
+  </data>
+  <data name="DefaultDuration" xml:space="preserve">
+    <value>Duración predeterminada</value>
+  </data>
+  <data name="MaximumDuration" xml:space="preserve">
+    <value>Duración máxima</value>
+  </data>
+  <data name="LimitMaximumDuration" xml:space="preserve">
+    <value>Limitar la duración máxima</value>
+  </data>
+  <data name="IgnoreCalculatedDuration" xml:space="preserve">
+    <value>Ignorar la duración calculada</value>
+  </data>
+  <data name="ForceMaximumDuration" xml:space="preserve">
+    <value>Evitar la ampliación manual de la duración en el tablero de planificación</value>
+  </data>
+  <data name="MaterialsNotInDefaultStoreWarning" xml:space="preserve">
+    <value>¡Hay materiales en esta orden de servicio que no se encuentran en la tienda predeterminada del técnico!</value>
+  </data>
+  <data name="Dispatch.CreateDate" xml:space="preserve">
+    <value>Fecha de Creación</value>
+  </data>
+  <data name="Dispatch.CreateUser" xml:space="preserve">
+    <value>Crear usuario</value>
+  </data>
+  <data name="Dispatch.ModifyDate" xml:space="preserve">
+    <value>Fecha de modificació</value>
+  </data>
+  <data name="Dispatch.ModifyUser" xml:space="preserve">
+    <value>Usuario de la modificación</value>
+  </data>
+  <data name="NetWorkMinutes" xml:space="preserve">
+    <value>Duración</value>
+  </data>
+  <data name="TechnicianHomeAddress" xml:space="preserve">
+    <value>Domicilio del técnico</value>
+  </data>
+  <data name="SmsAbsenceEntryTooltip" xml:space="preserve">
+    <value>Mostrar las ausencias registradas en el tablero de planificación</value>
+  </data>
+  <data name="AllowSchedulingForPast" xml:space="preserve">
+    <value>Permitir la programación en el pasado</value>
+  </data>
+  <data name="SchedulingForPastIsNotAllowed" xml:space="preserve">
+    <value>No está permitido planificar para el pasado</value>
+  </data>
+  <data name="EditingDispatchesInPastWarning" xml:space="preserve">
+    <value>Estás haciendo cambios a un trabajo que está programado en el pasado.</value>
+  </data>
+  <data name="GroupDispatches" xml:space="preserve">
+    <value>Agrupar ordenes de trabajo</value>
+  </data>
+  <data name="ResourceGroup" xml:space="preserve">
+    <value>Grupo de recursos</value>
+  </data>
+  <data name="PipelineFirstLine" xml:space="preserve">
+    <value>¿Qué debe aparecer en la primera línea?</value>
+  </data>
+  <data name="UngroupDispatches" xml:space="preserve">
+    <value>Desagrupar ordenes de trabajo</value>
+  </data>
+  <data name="PipelineSecondLine" xml:space="preserve">
+    <value>¿Qué debe aparecer en la segunda línea?</value>
+  </data>
+  <data name="ServiceOrderTimeTooltip" xml:space="preserve">
+    <value>Información sobre herramientas para trabajos</value>
+  </data>
+  <data name="OpenInPlanningBoard" xml:space="preserve">
+    <value>Abrir en el planificador</value>
+  </data>
+  <data name="DataForFirstRow" xml:space="preserve">
+    <value>¿Qué mostrar en la primera fila?</value>
+  </data>
+  <data name="DataForSecondRow" xml:space="preserve">
+    <value>¿Qué mostrar en la segunda fila?</value>
+  </data>
+  <data name="DataForThirdRow" xml:space="preserve">
+    <value>¿Qué debe mostrarse en la tercera fila?</value>
+  </data>
+  <data name="SnapFirstEventOfDayToStartOfDay" xml:space="preserve">
+    <value>Mover el primer evento del día al principio del día cuando se planifican las ordenes de servicio</value>
+  </data>
+  <data name="ServiceOrderTimesScheduling" xml:space="preserve">
+    <value>Permitir la programación de trabajos</value>
+  </data>
+  <data name="ShowCurrentTime" xml:space="preserve">
+    <value>Mostrar la hora actual</value>
+  </data>
+  <data name="TooManyResourcesSelected" xml:space="preserve">
+    <value>Límite excedido. Por favor, seleccione hasta {0} recursos.</value>
+  </data>
+  <data name="TooltipDisplayDelay" xml:space="preserve">
+    <value>Retraso en la visualización de la información sobre herramientas en segundos</value>
+  </data>
+  <data name="DisplayClosedDispatches" xml:space="preserve">
+    <value>Mostrar los servicios cerrados</value>
+  </data>
+  <data name="DisplayRejectedDispatches" xml:space="preserve">
+    <value>Mostrar los servicios rechazados</value>
+  </data>
+  <data name="ErrorOccuredWhileSaving" xml:space="preserve">
+    <value>Se produjo un error durante el guardado, los cambios no guardados se perderán.</value>
+  </data>
+  <data name="AlreadyReplicatedWarning" xml:space="preserve">
+    <value>El despacho ya se ha replicado en el cliente de un técnico, por lo tanto, no se puede eliminar.</value>
+  </data>
+</root>

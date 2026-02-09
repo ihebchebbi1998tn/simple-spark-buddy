@@ -1,0 +1,22 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<dl class="dl-horizontal" data-bind="validationElement: validationElement, validationOptions: { grouping: { deep: true} }">
+	<dt class="p-t-10">
+		<label class="control-label">
+			<span data-bind="text: caption"></span>
+			<span class="required" data-bind="visible: isRequired">*</span>
+		</label>
+	</dt>
+	<dd data-bind="css: { 'p-t-10 p-b-5' : !hasInput() && !hasSelect() }">
+		<div data-bind="css: { 'checkbox': hasCheckbox, 'dtp-container': hasDatePicker, 'fg-line': !hasCheckbox(), 'select': hasSelect }, with: $parent">
+			<!-- ko template: { nodes: $componentTemplateNodes } --><!-- /ko -->
+			<!-- ko if: $parent.hasCheckbox -->
+				<i class="input-helper"></i>
+			<!-- /ko -->
+			<!-- ko if: $parent.hasDatePicker -->
+				<span class="zmdi zmdi-calendar form-control-feedback"></span>
+			<!-- /ko -->
+		</div>
+	<small class="help-block" data-bind="validationMessage: validationElement"></small>
+	</dd>
+</dl>

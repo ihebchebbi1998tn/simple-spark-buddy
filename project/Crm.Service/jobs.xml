@@ -1,0 +1,159 @@
+﻿<job-scheduling-data xmlns="http://quartznet.sourceforge.net/JobSchedulingData"
+			 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			 version="2.0">
+
+	<processing-directives>
+		<overwrite-existing-data>true</overwrite-existing-data>
+	</processing-directives>
+
+	<schedule>
+		<job>
+			<name>ReplenishmentOrderReportSenderAgent</name>
+			<group>Crm.Service</group>
+			<description>Sends pending ReplenishmentOrderReports every 30 minutes</description>
+			<job-type>Crm.Service.BackgroundServices.ReplenishmentOrderReportSenderAgent, Crm.Service</job-type>
+			<durable>true</durable>
+			<recover>false</recover>
+		</job>
+		<trigger>
+			<cron>
+				<name>ReplenishmentOrderReportSenderAgentTrigger</name>
+				<group>Crm.Service</group>
+				<description>Runs every 30 minutes to send pending ReplenishmentOrderReports</description>
+				<job-name>ReplenishmentOrderReportSenderAgent</job-name>
+				<job-group>Crm.Service</job-group>
+				<cron-expression>0 0/30 * ? * MON-FRI</cron-expression>
+			</cron>
+		</trigger>
+	
+		<job>
+			<name>MaintenanceOrderAgent</name>
+			<group>Crm.Service</group>
+			<description>Create new Maintenance orders from eligible Service contracts</description>
+			<job-type>Crm.Service.BackgroundServices.MaintenanceOrderAgent, Crm.Service</job-type>
+			<durable>true</durable>
+			<recover>false</recover>
+		</job>
+		<trigger>
+			<cron>
+				<name>MaintenanceOrderAgentTrigger</name>
+				<group>Crm.Service</group>
+				<description>Runs daily to create upcoming orders upfront</description>
+				<job-name>MaintenanceOrderAgent</job-name>
+				<job-group>Crm.Service</job-group>
+				<cron-expression>0 0 6 ? * MON-FRI</cron-expression>
+			</cron>
+		</trigger>
+
+		<job>
+			<name>ServiceOrderGeocodingAgent</name>
+			<group>Crm.Service</group>
+			<description>Try to reverse Geocode Lat/Lon coordinates for Service orders based upon their primary address</description>
+			<job-type>Crm.Service.BackgroundServices.ServiceOrderGeocodingAgent, Crm.Service</job-type>
+			<durable>true</durable>
+			<recover>false</recover>
+		</job>
+		<trigger>
+			<cron>
+				<name>ServiceOrderGeocodingAgentTrigger</name>
+				<group>Crm.Service</group>
+				<description>Runs every 15 minute to update incoming orders</description>
+				<job-name>ServiceOrderGeocodingAgent</job-name>
+				<job-group>Crm.Service</job-group>
+				<cron-expression>0 0/15 6-18 ? * MON-FRI</cron-expression>
+			</cron>
+		</trigger>
+
+		<job>
+			<name>DispatchReportSenderAgent</name>
+			<group>Crm.Service</group>
+			<description>Sends dispatch reports</description>
+			<job-type>Crm.Service.BackgroundServices.DispatchReportSenderAgent, Crm.Service</job-type>
+			<durable>true</durable>
+			<recover>false</recover>
+		</job>
+		<trigger>
+			<cron>
+				<name>DispatchReportSenderAgentTrigger</name>
+				<group>Crm.Service</group>
+				<description>Runs every minute to send unsent reports</description>
+				<job-name>DispatchReportSenderAgent</job-name>
+				<job-group>Crm.Service</job-group>
+				<cron-expression>0 * * * * ?</cron-expression>
+			</cron>
+		</trigger>
+		<job>
+			<name>ServiceOrderReportSenderAgent</name>
+			<group>Crm.Service</group>
+			<description>Sends service order reports</description>
+			<job-type>Crm.Service.BackgroundServices.ServiceOrderReportSenderAgent, Crm.Service</job-type>
+			<durable>true</durable>
+			<recover>false</recover>
+		</job>
+		<trigger>
+			<cron>
+				<name>ServiceOrderReportSenderAgentTrigger</name>
+				<group>Crm.Service</group>
+				<description>Runs every minute to send unsent reports</description>
+				<job-name>ServiceOrderReportSenderAgent</job-name>
+				<job-group>Crm.Service</job-group>
+				<cron-expression>0 * * * * ?</cron-expression>
+			</cron>
+		</trigger>
+		<job>
+			<name>DispatchDocumentSaverAgent</name>
+			<group>Crm.Service</group>
+			<description>Saves dispatch reports to the filesystem</description>
+			<job-type>Crm.Service.BackgroundServices.DispatchDocumentSaverAgent, Crm.Service</job-type>
+			<durable>true</durable>
+			<recover>false</recover>
+		</job>
+		<trigger>
+			<cron>
+				<name>DispatchDocumentSaverAgentTrigger</name>
+				<group>Crm.Service</group>
+				<description>Runs every minute to save unsaved reports</description>
+				<job-name>DispatchDocumentSaverAgent</job-name>
+				<job-group>Crm.Service</job-group>
+				<cron-expression>0 * * * * ?</cron-expression>
+			</cron>
+		</trigger>
+		<job>
+			<name>ServiceOrderDocumentSaverAgent</name>
+			<group>Crm.Service</group>
+			<description>Saves service order reports to the filesystem</description>
+			<job-type>Crm.Service.BackgroundServices.ServiceOrderDocumentSaverAgent, Crm.Service</job-type>
+			<durable>true</durable>
+			<recover>false</recover>
+		</job>
+		<trigger>
+			<cron>
+				<name>ServiceOrderDocumentSaverAgentTrigger</name>
+				<group>Crm.Service</group>
+				<description>Runs every minute to save unsaved reports</description>
+				<job-name>ServiceOrderDocumentSaverAgent</job-name>
+				<job-group>Crm.Service</job-group>
+				<cron-expression>0 * * * * ?</cron-expression>
+			</cron>
+		</trigger>
+		
+		<job>
+			<name>ServiceContractValidationCheckerAgent</name>
+			<group>Crm.Service</group>
+			<description>Check and change service contract status depends on from and to valid date</description>
+			<job-type>Crm.Service.BackgroundServices.ServiceContractValidationCheckerAgent, Crm.Service</job-type>
+			<durable>true</durable>
+			<recover>false</recover>
+		</job>
+		<trigger>
+			<cron>
+				<name>ServiceContractValidationCheckerAgentTrigger</name>
+				<group>Crm.Service</group>
+				<description>Runs daily to check if service contract is valid or already expired</description>
+				<job-name>ServiceContractValidationCheckerAgent</job-name>
+				<job-group>Crm.Service</job-group>
+				<cron-expression>0 0 3 * * ?</cron-expression>
+			</cron>
+		</trigger>
+	</schedule>
+</job-scheduling-data>

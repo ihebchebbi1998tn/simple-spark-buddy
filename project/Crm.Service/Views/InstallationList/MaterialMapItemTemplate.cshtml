@@ -1,0 +1,36 @@
+@using Crm.Library.Globalization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<template id="MapItemTemplate">
+	<div class="lv-body media">
+		<div class="lv-title">
+			<!-- ko requiredPermission: { name: 'Read', group: 'Installation' } -->
+			<a data-bind="attr: { href: '#/Crm.Service/Installation/DetailsTemplate/' + Id() }">
+				<span class="installation-title" data-bind="text: Helper.Installation.getDisplayName($data)"></span>
+			</a>
+			<!-- /ko -->
+			<!-- ko noRequiredPermission: { name: 'Read', group: 'Installation' } -->
+			<span data-bind="text: Helper.Installation.getDisplayName($data)"></span>
+			<!-- /ko -->
+			<small class="c-gray" data-bind="lookupValue: StatisticsKeyProductTypeKey, lookups: $parent.lookups.statisticsKeyProductTypes"></small>
+			<small class="c-gray" data-bind="visible: StatisticsKeyProductTypeKey"> - </small>
+			<small class="c-gray" data-bind="lookupValue: InstallationTypeKey, lookups: $parent.lookups.installationTypes"></small>
+		</div>
+		<!-- ko if: LocationAddressKey -->
+		<small class="lv-small" data-bind="with: Address">
+			<address-block params="address: $data, lookups: $parentContext.$parent.lookups, showNames: false, showLink: false"></address-block>
+		</small>
+		<!-- /ko -->
+		<!-- ko if: Company -->
+		<div class="small" data-bind="with: Company">
+			@(Html.Localize("Company")):
+			<!-- ko requiredPermission: { name: 'Read', group: 'Company' } -->
+			<a data-bind="attr: { href: '#/Crm/Company/DetailsTemplate/' + Id() }, text: Helper.Company.getDisplayName($data)"></a>
+			<!-- /ko -->
+			<!-- ko noRequiredPermission: { name: 'Read', group: 'Company' } -->
+			<span data-bind="text: Helper.Company.getDisplayName($data)"></span>
+			<!-- /ko -->
+		</div>
+		<!-- /ko -->
+	</div>
+</template>

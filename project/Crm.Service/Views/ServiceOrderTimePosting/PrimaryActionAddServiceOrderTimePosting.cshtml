@@ -1,0 +1,10 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<!-- ko requiredPermission: { name: 'TimePostingAdd', group: 'ServiceOrder' } -->
+<li data-bind="with: $parent, visible: $parent.timePostingsCanBeAdded">
+	<a id="add-service-order-time-posting" href="#" data-mfb-label="@(Html.Localize("CreateTimePosting"))" data-route="Crm.Service/ServiceOrderTimePosting/EditTemplate/" data-toggle="modal" data-target="#lgModal">
+		<i class="zmdi zmdi-plus"></i>
+	</a>
+</li>
+<!-- /ko -->

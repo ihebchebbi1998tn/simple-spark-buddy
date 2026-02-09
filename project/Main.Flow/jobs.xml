@@ -1,0 +1,20 @@
+﻿<job-scheduling-data xmlns="http://quartznet.sourceforge.net/JobSchedulingData"
+										xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+										version="2.0">
+
+	<processing-directives>
+		<overwrite-existing-data>true</overwrite-existing-data>
+	</processing-directives>
+
+	<schedule>
+		<job>
+			<name>FlowProcessingService</name>
+			<group>Main.Flow</group>
+			<description>Sends the requests to the flow processing endpoint.</description>
+			<job-type>Main.Flow.BackgroundServices.FlowProcessingService, Main.Flow</job-type>
+			<durable>true</durable>
+			<recover>false</recover>
+		</job>
+	</schedule>
+
+</job-scheduling-data>

@@ -1,0 +1,88 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div class="dropdown hidden-sm hidden-xs flex-centering" style="gap: 10px">
+	<!-- ko foreach: previousStatuses -->
+	<!-- ko if: $parent.setStatusRoute -->
+	<button data-toggle="modal" data-target="#modal" class="btn btn-default btn-icon-text waves-effect border-round btn-status-previous" data-bind="attr: { 'data-route': $parent.setStatusRoute + $data.Key }, enable: $parent.canSetStatus()">
+		<i class="zmdi zmdi-chevron-left border-round bg-primary text-primary circle-icon-left"></i>
+		<span data-bind="lookups: $parent.statuses, lookupValue: Key"></span>
+	</button>
+	<!-- /ko -->
+	<!-- ko ifnot: $parent.setStatusRoute -->
+	<button class="btn btn-default btn-icon-text waves-effect border-round btn-status-previous" data-bind="click: $parent.canSetStatus() ? $parent.setStatus : () => {}, enable: $parent.canSetStatus()">
+		<i class="zmdi zmdi-chevron-left border-round bg-primary text-primary circle-icon-left"></i>
+		<span data-bind="lookups: $parent.statuses, lookupValue: Key"></span>
+	</button>
+	<!-- /ko -->
+	<!-- /ko -->
+	<!-- ko with: currentStatus -->
+	<button class="btn btn-success btn-icon-text waves-effect border-round btn-status-current disabled" data-bind="lookups: $parent.statuses, lookupValue: Key, enable: $parent.canSetStatus()"></button>
+	<!-- /ko -->
+	<!-- ko foreach: nextStatuses -->
+	<!-- ko if: $parent.setStatusRoute -->
+	<button data-toggle="modal" data-target="#modal" class="btn btn-default btn-icon-text waves-effect border-round btn-status-next" data-bind="attr: { 'data-route': $parent.setStatusRoute + $data.Key }, enable: $parent.canSetStatus()">
+		<span data-bind="lookups: $parent.statuses, lookupValue: Key"></span>
+		<i class="zmdi zmdi-chevron-right border-round bg-primary text-primary circle-icon-right"></i>
+	</button>
+	<!-- /ko -->
+	<!-- ko ifnot: $parent.setStatusRoute -->
+	<button class="btn btn-default btn-icon-text waves-effect border-round btn-status-next" data-bind="click: $parent.canSetStatus() ? $parent.setStatus : () => {}, enable: $parent.canSetStatus()">
+		<span data-bind="lookups: $parent.statuses, lookupValue: Key"></span>
+		<i class="zmdi zmdi-chevron-right border-round bg-primary text-primary circle-icon-right"></i>
+	</button>
+	<!-- /ko -->
+	<!-- /ko -->
+</div>
+
+<div class="dropdown hidden-md hidden-lg">
+	<!-- ko with: currentStatus -->
+	<button class="btn btn-default btn-icon-text waves-effect border-round btn-status-current dropdown-toggle" data-toggle="dropdown"
+					aria-expanded="false" data-bind="enable: $parent.canSetStatus()">
+		<span data-bind="lookups: $parent.statuses, lookupValue: Key"></span>
+		<i class="zmdi zmdi-chevron-down border-round bg-primary text-primary circle-icon-right"></i>
+	</button>
+	<!-- /ko -->
+	<ul class="dropdown-menu dropdown-menu-right" role="menu">
+		<!-- ko if: previousStatuses && previousStatuses().length > 0 -->
+		<li role="presentation" class="dropdown-header text-right">
+			<span data-bind="translatedText: 'Previous'">
+			</span>
+			<i class="zmdi zmdi-chevron-left pull-left"></i>
+		</li>
+		<!-- /ko -->
+		<!-- ko foreach: previousStatuses -->
+		<!-- ko if: $parent.setStatusRoute -->
+		<li data-toggle="modal" data-target="#modal" data-bind="attr: { 'data-route': $parent.setStatusRoute + $data.Key }">
+			<a href="#" class="normal-white-space" data-bind="lookupValue: Key, lookups: $parent.statuses"></a>
+		</li>
+		<!-- /ko -->
+		<!-- ko ifnot: $parent.setStatusRoute -->
+		<li>
+			<a href="#" class="normal-white-space" data-bind="lookupValue: Key, lookups: $parent.statuses, click: $parent.canSetStatus() ? $parent.setStatus : () => {}"></a>
+		</li>
+		<!-- /ko -->
+		<!-- /ko -->
+		<!-- ko if: previousStatuses && nextStatuses && previousStatuses().length > 0 && nextStatuses().length > 0 -->
+		<li class="divider"></li>
+		<!-- /ko -->
+		<!-- ko if: nextStatuses && nextStatuses().length > 0 -->
+		<li role="presentation" class="dropdown-header text-right">
+			<span data-bind="translatedText: 'Next'">
+			</span>
+			<i class="zmdi zmdi-chevron-right pull-left"></i>
+		</li>
+		<!-- /ko -->
+		<!-- ko foreach: nextStatuses -->
+		<!-- ko if: $parent.setStatusRoute -->
+		<li data-toggle="modal" data-target="#modal" data-bind="attr: { 'data-route': $parent.setStatusRoute + $data.Key }">
+			<a href="#" class="normal-white-space" data-bind="lookupValue: Key, lookups: $parent.statuses"></a>
+		</li>
+		<!-- /ko -->
+		<!-- ko ifnot: $parent.setStatusRoute -->
+		<li>
+			<a href="#" class="normal-white-space" data-bind="lookupValue: Key, lookups: $parent.statuses, click: $parent.canSetStatus() ? $parent.setStatus : () => {}"></a>
+		</li>
+		<!-- /ko -->
+		<!-- /ko -->
+	</ul>
+</div>

@@ -1,0 +1,57 @@
+@using Crm.Library.Modularization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+<div id="accordion" class="panel panel-collapse lv-item media">
+	<div class="panel-heading" role="tab">
+		<div class="lv-avatar pull-left m-r-10" style="background-color: #9E9E9E" data-bind="text: $data.Name()[0]"></div>
+		<div class="media-body">
+			<div class="row">
+				<div class="col-sm-5">
+					<div class="lv-title">
+						<a href="#/Main/UserGroup/DetailsTemplate/{{Id}}">
+							<p data-bind="text: $data.Name"></p>
+						</a>
+					</div>
+					<ul class="lv-attrs">
+						<!-- ko ifnot: window.Main.Settings.UseOpenIdAuthentication -->
+						<!-- ko if: $root.site.ExtensionValues.MultiFactorAuthenticationModeKey === $root.relatedMultiFactorAuthenticationModeKey -->
+						<!-- ko if: MultiFactorAuthenticationMandatory -->
+						<li data-bind="translatedText: 'MultiFactorAuthenticationMandatory'">
+						</li>
+						<!-- /ko -->
+						<!-- /ko -->
+						<!-- /ko -->
+						@Html.PluginRenderActions("MaterialUsergroupItemExtensions")
+					</ul>
+				</div>
+			</div>
+			<!-- ko if: window.AuthorizationManager.isAuthorizedForAction('UserAdmin', 'EditUserGroup') || window.AuthorizationManager.isAuthorizedForAction('UserAdmin', 'RemoveUserGroup') || (!window.Main.Settings.UseOpenIdAuthentication && window.AuthorizationManager.isAuthorizedForAction('UserAdmin', 'ManageMultiFactorAuthentication')) -->
+			<div class="lv-actions actions dropdown">
+				<a href="#" data-toggle="dropdown" aria-expanded="false">
+					<i class="zmdi zmdi-more-vert" style="float: none"></i>
+				</a>
+				<ul class="dropdown-menu dropdown-menu-right">
+					<!-- ko requiredPermission: { name: 'EditUserGroup', group: 'UserAdmin' } -->
+					<li>
+						<a href="#/Main/UserGroup/DetailsTemplate/{{Id}}" data-bind="translatedText: 'Details'"></a>
+					</li>
+					<!-- /ko -->
+					<!-- ko ifnot: window.Main.Settings.UseOpenIdAuthentication -->
+					<!-- ko requiredPermission: { name: 'ManageMultiFactorAuthentication', group: 'UserAdmin' } -->
+					<!-- ko if: $root.site.ExtensionValues.MultiFactorAuthenticationModeKey === $root.relatedMultiFactorAuthenticationModeKey -->
+					<li>
+						<a href="#" class="toggle-mfa-mandatory" data-bind="click: () => $root.toggleMultiFactorAuthenticationMandatory($data), translatedText: MultiFactorAuthenticationMandatory() ? 'MakeMultiFactorAuthenticationOptional' : 'MakeMultiFactorAuthenticationMandatory'"></a>
+					</li>
+					<!-- /ko -->
+					<!-- /ko -->
+					<!-- /ko -->
+					<!-- ko requiredPermission: { name: 'RemoveUserGroup', group: 'UserAdmin' } -->
+					<li>
+						<a href="#" data-bind="translatedText: 'Remove', click: () => $root.deleteUserGroup($data)"></a>
+					</li>
+					<!-- /ko -->
+				</ul>
+			</div>
+			<!-- /ko -->
+		</div>
+	</div>
+</div>

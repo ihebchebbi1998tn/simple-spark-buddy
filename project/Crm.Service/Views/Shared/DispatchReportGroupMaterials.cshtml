@@ -1,0 +1,108 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Service.Rest.Model
+@using Main.Offline.Extensions
+
+<table class="table m-b-10 body-data" style="page-break-inside: avoid" data-bind="visible: $parent.showMaterialsTable($data)">
+	<thead>
+		<tr>
+			<th class="bgm-bluegray" colspan="5">
+				<b class="c-white" data-bind="translatedText: { key: 'Material', language: $parent.selectedLanguage }">@(Html.Localize("Material"))</b>
+			</th>
+		</tr>
+		@using (Html.TemplateCondition("ServiceOrderMaterials.length > 0"))
+		{
+			<tr>
+				<th>
+					<b class="c-gray" data-bind="translatedText: { key: 'PosNo', language: $parent.selectedLanguage }">@(Html.Localize("PosNo"))</b>
+				</th>
+				<th>
+					<b class="c-gray" data-bind="translatedText: { key: 'Article', language: $parent.selectedLanguage }">@(Html.Localize("Article"))</b>
+				</th>
+				<th>
+					<b class="c-gray" data-bind="translatedText: { key: 'Description', language: $parent.selectedLanguage }">@(Html.Localize("Description"))</b>
+				</th>
+				<th class="text-right">
+					<b class="c-gray" data-bind="translatedText: { key: 'Quantity', language: $parent.selectedLanguage }">@(Html.Localize("Quantity"))</b>
+				</th>
+				<th class="text-left">
+					<b class="c-gray" data-bind="translatedText: { key: 'Unit', language: $parent.selectedLanguage }">@(Html.Localize("Quantity"))</b>
+				</th>
+			</tr>
+		}
+	</thead>
+	<tbody>
+		@using (Html.TemplateCondition("ServiceOrderMaterials.length === 0"))
+		{
+			<tr>
+				<td colspan="4" data-bind="translatedText: { key: 'NoUsedMaterial', language: $parent.selectedLanguage }">
+					@(Html.Localize("NoUsedMaterial"))
+				</td>
+			</tr>
+		}
+		@using (Html.TemplateContext("$parent.filterPositions($data, ['Cost', 'Material'])"))
+		{
+			@using (Html.TemplateForEach("$data"))
+			{
+				<tr class="report-material">
+					<td>
+						<b>@(Html.TemplateText<ServiceOrderMaterialRest>(x => x.PosNo))</b>
+					</td>
+					<td>
+						<b>@(Html.TemplateText<ServiceOrderMaterialRest>(x => x.ItemNo))</b>
+					</td>
+					<td>
+						<div class="normal-white-space">
+							<b data-bind="text: Helper.ServiceOrderMaterial.getServiceOrderMaterialDescription($data, $parentContext.$parentContext.$parent.lookups.articleDescriptions)"></b>
+						</div>
+						<div data-bind="text: ExternalRemark"></div>
+						@using (Html.TemplateCondition<ServiceOrderMaterialRest>(x => x.IsSerial))
+						{
+							<!-- ko if: $data.SerialNo -->
+							<p>
+								<span data-bind="translatedText: { key: 'SN_new', language: $parentContext.$parentContext.$parent.selectedLanguage }">@(Html.Localize("SN_new"))</span>:
+								<span data-bind="text: SerialNo"></span>
+							</p>
+							<p>
+								<span data-bind="translatedText: { key: 'SN_old', language: $parentContext.$parentContext.$parent.selectedLanguage }">@(Html.Localize("SN_old"))</span>:
+								<!-- ko if: NoPreviousSerialNoReasonKey -->
+									<span data-bind="lookupValue: NoPreviousSerialNoReasonKey, lookups: $parentContext.$parentContext.$parent.lookups.noPreviousSerialNoReasons"></span>
+								<!-- /ko -->
+								<span data-bind="text: PreviousSerialNo"></span>
+							</p>
+							<!-- /ko -->
+						}
+					</td>
+					<td class="text-right">
+						<p class="m-b-0" data-bind="if: $root.showEstimatedData">
+							<span data-bind="translatedText: { key: 'EstimatedQty', language: $parentContext.$parentContext.$parent.selectedLanguage }">@(Html.Localize("EstimatedQty")):</span>
+							<b data-bind="money: $root.getEstimatedQuantity($data)"></b>
+						</p>
+						<p class="m-b-0">
+							<span data-bind="visible: $root.showEstimatedData() || $root.showInvoiceData(),translatedText: { key: 'ActualQty', language: $parentContext.$parentContext.$parent.selectedLanguage }">
+								@(Html.Localize("ActualQty")):
+							</span>
+							<b data-bind="money: $root.getActualQuantity($data)"></b>
+						</p>
+						<p class="m-b-0" data-bind="if: $root.showInvoiceData">
+							<span data-bind="translatedText: { key: 'InvoiceQty', language: $parentContext.$parentContext.$parent.selectedLanguage }">@(Html.Localize("InvoiceQty")):</span>
+							<b data-bind="money: $root.getInvoiceQuantity($data)"></b>
+						</p>
+					</td>
+					<td class="text-left">
+						<div data-bind="text: window.Helper.Lookup.getLookupValue($parentContext.$parentContext.$parent.lookups.quantityUnits, QuantityUnitKey())"></div>
+					</td>
+				</tr>
+			}
+			@using (Html.TemplateContext("{ types: $parentContext.$parent.getLumpSumPositionTypes($parent), language: $parentContext.$parent.selectedLanguage }"))
+			{
+				@using (Html.TemplateCondition("types.Cost || types.Material"))
+				{
+					<tr>
+						<td colspan="4" data-bind="translatedText: { key: 'ContainsLumpSumPositions', args: [Helper.String.getTranslatedString(types.Material && types.Cost ? 'CostsAndMaterial' : types.Cost ? 'Costs' : 'Material') ], language: language }"></td>
+					</tr>
+				}
+			}
+		}
+	</tbody>
+</table>

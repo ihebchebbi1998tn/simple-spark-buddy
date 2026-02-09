@@ -1,0 +1,75 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<div class="modal-header card-header ch-alt">
+	<button type="button" class="close" data-dismiss="modal" aria-label="@(Html.Localize("Close"))">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title">@(Html.Localize("StatisticsKey"))</h4>
+</div>
+<div class="modal-body card-body card-padding">
+	<form role="form" action="#" data-bind="with: entity">
+		<!-- ko if: $root.parentViewModel.lookups.statisticsKeyProductType -->
+		<form-element id="StatisticsKeyProductType" params="value: $parent.getProperty('CrmService_StatisticsKeyProductType'), caption: 'StatisticsKeyProductType'">
+			<select name="StatisticsKeyProductType" class="form-control" data-bind="select2autocompleter: { data: value, placeholder: placeholder, autocompleteOptions: Helper.StatisticsKey.getAutocompleteOptions('CrmService_StatisticsKeyProductType', $parent, { onSelect: $root.onSelectStatisticsKey.bind($root) }) }">
+			</select>
+		</form-element>
+		<!-- /ko -->
+		<!-- ko if: $root.parentViewModel.lookups.statisticsKeyMainAssembly -->
+		<form-element id="StatisticsKeyMainAssembly" params="value: $parent.getProperty('CrmService_StatisticsKeyMainAssembly'), caption: 'StatisticsKeyMainAssembly'">
+			<select name="StatisticsKeyMainAssembly" class="form-control" data-bind="select2autocompleter: { data: value, placeholder: placeholder, autocompleteOptions: Helper.StatisticsKey.getAutocompleteOptions('CrmService_StatisticsKeyMainAssembly', $parent, { onSelect: $root.onSelectStatisticsKey.bind($root) }) }, disable: window.ko.pureComputed(() => !$parentContext.$parent.getProperty('CrmService_StatisticsKeyProductType')())">
+			</select>
+		</form-element>
+		<!-- /ko -->
+		<!-- ko if: $root.parentViewModel.lookups.statisticsKeySubAssembly -->
+		<form-element id="StatisticsKeySubAssembly" params="value: $parent.getProperty('CrmService_StatisticsKeySubAssembly'), caption: 'StatisticsKeySubAssembly'">
+			<select name="StatisticsKeySubAssembly" class="form-control" data-bind="select2autocompleter: { data: value, placeholder: placeholder, autocompleteOptions: Helper.StatisticsKey.getAutocompleteOptions('CrmService_StatisticsKeySubAssembly', $parent, { onSelect: $root.onSelectStatisticsKey.bind($root) }) }, disable: window.ko.pureComputed(() => !$parentContext.$parent.getProperty('CrmService_StatisticsKeyMainAssembly')())">
+			</select>
+		</form-element>
+		<!-- /ko -->
+		<!-- ko if: $root.parentViewModel.lookups.statisticsKeyAssemblyGroup -->
+		<form-element id="StatisticsKeyAssemblyGroup" params="value: $parent.getProperty('CrmService_StatisticsKeyAssemblyGroup'), caption: 'StatisticsKeyAssemblyGroup'">
+			<select name="StatisticsKeyAssemblyGroup" class="form-control" data-bind="select2autocompleter: { data: value, placeholder: placeholder, autocompleteOptions: Helper.StatisticsKey.getAutocompleteOptions('CrmService_StatisticsKeyAssemblyGroup', $parent, { onSelect: $root.onSelectStatisticsKey.bind($root) }) }, disable: window.ko.pureComputed(() => !$parentContext.$parent.getProperty('CrmService_StatisticsKeySumAssembly')())">
+			</select>
+		</form-element>
+		<!-- /ko -->
+		<!-- ko if: $root.parentViewModel.lookups.statisticsKeyFaultImage -->
+		<form-element id="StatisticsKeyFaultImage" params="value: $parent.getProperty('CrmService_StatisticsKeyFaultImage'), caption: 'StatisticsKeyFaultImage'">
+			<select name="StatisticsKeyFaultImage" class="form-control" data-bind="select2autocompleter: { data: value, placeholder: placeholder, autocompleteOptions: Helper.StatisticsKey.getAutocompleteOptions('CrmService_StatisticsKeyFaultImage', $parent, { onSelect: $root.onSelectStatisticsKey.bind($root) }) }">
+			</select>
+		</form-element>
+		<!-- /ko -->
+		<!-- ko if: $root.parentViewModel.lookups.statisticsKeyRemedy -->
+		<form-element id="StatisticsKeyRemedy" params="value: $parent.getProperty('CrmService_StatisticsKeyRemedy'), caption: 'StatisticsKeyRemedy'">
+			<select name="StatisticsKeyRemedy" class="form-control" data-bind="select2autocompleter: { data: value, placeholder: placeholder, autocompleteOptions: Helper.StatisticsKey.getAutocompleteOptions('CrmService_StatisticsKeyRemedy', $parent, { onSelect: $root.onSelectStatisticsKey.bind($root) }) }">
+			</select>
+		</form-element>
+		<!-- /ko -->
+		<!-- ko if: $root.parentViewModel.lookups.statisticsKeyCause -->
+		<form-element id="StatisticsKeyCause" params="value: $parent.getProperty('CrmService_StatisticsKeyCause'), caption: 'StatisticsKeyCause'">
+			<select name="StatisticsKeyCause" class="form-control" data-bind="select2autocompleter: { data: value, placeholder: placeholder, autocompleteOptions: Helper.StatisticsKey.getAutocompleteOptions('CrmService_StatisticsKeyCause', $parent, { onSelect: $root.onSelectStatisticsKey.bind($root) }) }">
+			</select>
+		</form-element>
+		<!-- /ko -->
+		<!-- ko if: $root.parentViewModel.lookups.statisticsKeyWeighting -->
+		<form-element id="StatisticsKeyWeighting" params="value: $parent.getProperty('CrmService_StatisticsKeyWeighting'), caption: 'StatisticsKeyWeighting'">
+			<select name="StatisticsKeyWeighting" class="form-control" data-bind="select2autocompleter: { data: value, placeholder: placeholder, autocompleteOptions: Helper.StatisticsKey.getAutocompleteOptions('CrmService_StatisticsKeyWeighting', $parent, { onSelect: $root.onSelectStatisticsKey.bind($root) }) }">
+			</select>
+		</form-element>
+		<!-- /ko -->
+		<!-- ko if: $root.parentViewModel.lookups.statisticsKeyCauser -->
+		<form-element id="StatisticsKeyCauser" params="value: $parent.getProperty('CrmService_StatisticsKeyCauser'), caption: 'StatisticsKeyCauser'">
+			<select name="StatisticsKeyCauser" class="form-control" data-bind="select2autocompleter: { data: value, placeholder: placeholder, autocompleteOptions: Helper.StatisticsKey.getAutocompleteOptions('CrmService_StatisticsKeyCauser', $parent, { onSelect: $root.onSelectStatisticsKey.bind($root) }) }">
+			</select>
+		</form-element>
+		<!-- /ko -->
+	</form>
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-bind="click: Helper.Database.clearTrackedEntities" data-dismiss="modal">
+		@(Html.Localize("Cancel"))
+	</button>
+	<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: save, disable: loading">
+		@(Html.Localize("Save"))
+	</button>
+</div>

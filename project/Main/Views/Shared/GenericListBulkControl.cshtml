@@ -1,0 +1,10 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<!-- ko if: !!$parent.bulkActions && $parent.bulkActions().length > 0 && !!$parent.isEditing() === false -->
+<div class="checkbox pull-left bulk-control p-l-10 p-r-10 p-t-10">
+	<label>
+		<input type="checkbox" data-bind="checked: $parent.selectedItems, checkedValue: $data">
+		<i class="input-helper"></i>
+	</label>
+</div>
+<!-- /ko -->

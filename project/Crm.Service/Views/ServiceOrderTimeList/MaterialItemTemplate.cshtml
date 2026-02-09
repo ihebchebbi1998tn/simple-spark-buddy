@@ -1,0 +1,258 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Article.Model.Enums
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div class="lv-item media" data-bind="infiniteScrollItem: { index: $index(), array: $parent.items }">
+	<div class="lv-avatar pull-left" data-bind="text: $data.PosNo, style: { backgroundColor: $parent.getAvatarColor($data) }"></div>
+	<div class="media-body">
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="lv-title m-b-5 m-r-10">
+					<span data-bind="text: Description"></span>
+					<!-- ko if: Article -->
+					<span data-bind="text: ' - ' + Article().ItemNo()"></span>
+					<span data-bind="text: ' - ' + Helper.Article.getArticleDescription(Article())"></span>
+					<!-- /ko -->
+					<div data-bind="with: Installation">
+						@(Html.Localize("Installation")):
+						<span data-bind="text: InstallationNo"></span>
+						<span data-bind="text: Description"></span>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-11 col-sm-3" data-bind="css: { 'col-sm-push-4': !Crm.Service.Settings.ServiceOrderTimes.ShowPricesInMobileClient || !$root.showTotalPrices()}">
+				<div class="row">
+					<span class="col-xs-2 p-r-5 visible-xs">@(Html.Localize("L_EstimatedDuration")):</span>
+					<span class="col-xs-5 col-sm-5 text-right p-r-5 p-l-5" data-bind="durationText: EstimatedDuration"></span>
+					<span class="col-xs-4 col-sm-7 p-0 text-nowrap">
+						<span class="hidden-xs c-black p-l-5">(@(Html.Localize("L_EstimatedDuration")))</span>
+					</span>
+				</div>
+				<div class="row visible-xs" data-bind="if: Crm.Service.Settings.ServiceOrderTimes.ShowPricesInMobileClient && $root.showTotalPrices()">
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">*</span>&nbsp;<span data-bind="money: Price"></span>&nbsp;<span data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+					</span>
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">-</span>&nbsp;<span data-bind="money: Discount"></span>&nbsp;<span data-bind="text: DiscountType() == @((int)DiscountType.Percentage) ? '%' : ($root.serviceOrder().CurrencyKey() ? $root.lookups.currencies[$root.serviceOrder().CurrencyKey()].Value : '')"></span>
+					</span>
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">=</span>&nbsp;<span data-bind="money: totalPricePreplanned"></span>&nbsp;<span data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+					</span>
+				</div>
+				<div class="row">
+					<span class="col-xs-2 p-r-5 visible-xs">@(Html.Localize("L_ActualDuration")):</span>
+					<span class="col-xs-5 col-sm-5 text-right p-r-5 p-l-5" data-bind="durationText: ActualDuration"></span>
+					<span class="col-xs-4 col-sm-7 p-0 text-nowrap">
+						<span class="hidden-xs c-black p-l-5">(@(Html.Localize("L_ActualDuration")))</span>
+					</span>
+				</div>
+				<div class="row visible-xs" data-bind="if: Crm.Service.Settings.ServiceOrderTimes.ShowPricesInMobileClient && $root.showTotalPrices()">
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">*</span>&nbsp;<span data-bind="money: Price"></span>&nbsp;<span data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+					</span>
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">-</span>&nbsp;<span data-bind="money: Discount"></span>&nbsp;<span data-bind="text: DiscountType() == @((int)DiscountType.Percentage) ? '%' : ($root.serviceOrder().CurrencyKey() ? $root.lookups.currencies[$root.serviceOrder().CurrencyKey()].Value : '')"></span>
+					</span>
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">=</span>&nbsp;<span data-bind="money: totalPriceUsed"></span>&nbsp;<span data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+					</span>
+				</div>
+				<div class="row" data-bind="if: $root.showInvoiceData">
+					<span class="col-xs-2 p-r-5 visible-xs">@(Html.Localize("L_InvoiceDuration")):</span>
+					<span class="col-xs-5 col-sm-5 text-right p-r-5 p-l-5" data-bind="durationText: InvoiceDuration"></span>
+					<span class="col-xs-4 col-sm-7 p-0 text-nowrap">
+						<span class="hidden-xs c-black p-l-5">(@(Html.Localize("L_InvoiceDuration")))</span>
+					</span>
+				</div>
+				<div class="row visible-xs" data-bind="if: Crm.Service.Settings.ServiceOrderTimes.ShowPricesInMobileClient && $root.showInvoiceData() && $root.showTotalPrices()">
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">*</span>&nbsp;<span data-bind="money: Price"></span>&nbsp;<span data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+					</span>
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">-</span>&nbsp;<span data-bind="money: Discount"></span>&nbsp;<span data-bind="text: DiscountType() == @((int)DiscountType.Percentage) ? '%' : ($root.serviceOrder().CurrencyKey() ? $root.lookups.currencies[$root.serviceOrder().CurrencyKey()].Value : '')"></span>
+					</span>
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">=</span>&nbsp;<span data-bind="money: totalPriceInvoice"></span>&nbsp;<span data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+					</span>
+				</div>
+			</div>
+			<!-- ko if: Crm.Service.Settings.ServiceOrderTimes.ShowPricesInMobileClient && $root.showTotalPrices() -->
+			<div class="hidden-xs col-sm-4">
+				<div class="row">
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">*</span>&nbsp;<span data-bind="money: Price"></span>&nbsp;<span data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+					</span>
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">-</span>&nbsp;<span data-bind="money: Discount"></span>&nbsp;<span data-bind="text: DiscountType() == @((int)DiscountType.Percentage) ? '%' : ($root.serviceOrder().CurrencyKey() ? $root.lookups.currencies[$root.serviceOrder().CurrencyKey()].Value : '')"></span>
+					</span>
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">=</span>&nbsp;<span data-bind="money: totalPricePreplanned"></span>&nbsp;<span data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+					</span>
+				</div>
+				<div class="row">
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">*</span>&nbsp;<span data-bind="money: Price"></span>&nbsp;<span data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+					</span>
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">-</span>&nbsp;<span data-bind="money: Discount"></span>&nbsp;<span data-bind="text: DiscountType() == @((int)DiscountType.Percentage) ? '%' : ($root.serviceOrder().CurrencyKey() ? $root.lookups.currencies[$root.serviceOrder().CurrencyKey()].Value : '')"></span>
+					</span>
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">=</span>&nbsp;<span data-bind="money: totalPriceUsed"></span>&nbsp;<span data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+					</span>
+				</div>
+				<div class="row" data-bind="if: $root.showInvoiceData">
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">*</span>&nbsp;<span data-bind="money: Price"></span>&nbsp;<span data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+					</span>
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">-</span>&nbsp;<span data-bind="money: Discount"></span>&nbsp;<span data-bind="text: DiscountType() == @((int)DiscountType.Percentage) ? '%' : ($root.serviceOrder().CurrencyKey() ? $root.lookups.currencies[$root.serviceOrder().CurrencyKey()].Value : '')"></span>
+					</span>
+					<span class="col-xs-4 text-right text-nowrap">
+						<span class="pull-left">=</span>&nbsp;<span data-bind="money: totalPriceInvoice"></span>&nbsp;<span data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+					</span>
+				</div>
+			</div>
+			<!-- /ko -->
+			<div class="col-xs-11 small" data-bind="visible: Comment">
+				@(Html.Localize("Comment")):
+				<span class="text-muted" data-bind="text: Comment"></span>
+			</div>
+			<div class="col-xs-11 small text-muted" data-bind="if: IsCostLumpSum() || IsMaterialLumpSum() || IsTimeLumpSum()">
+				<span data-bind="translatedText: 'LumpSum'"></span>:
+				<span data-bind="text: Helper.Service.getLumpSumString($data)"></span>
+			</div>
+		</div>
+		<ul class="lv-attrs">
+			<li>
+				<i class="zmdi zmdi-circle" data-bind="style: { color: Helper.Lookup.getLookupColor($root.lookups.serviceOrderTimeStatuses, StatusKey) }"></i>
+				@(Html.Localize("Status")):
+				<span data-bind="lookupValue: StatusKey, lookups: $root.lookups.serviceOrderTimeStatuses"></span>
+			</li>
+			<!-- ko if: Crm.Service.Settings.ServiceOrderTimes.ShowPricesInMobileClient && !$root.showTotalPrices() -->
+			<li data-bind="visible: Price">
+				<span data-bind="money: Price"></span>
+				<span data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+			</li>
+			<!-- /ko -->
+			<li>
+				@(Html.Localize("TimePostings")):
+				<span data-bind="text: postingsCount"></span> (@(Html.Localize("PrePlanned")): <span data-bind="text: preplannedPostingsCount"></span>)
+			</li>
+			<li>
+				@(Html.Localize("Material")):
+				<span data-bind="text: serviceOrderMaterialsCount"></span> (@(Html.Localize("PrePlanned")): <span data-bind="text: preplannedServiceOrderMaterialsCount"></span>)
+			</li>
+			<li>
+				@(Html.Localize("ServiceCases")):
+				<!-- ko if: serviceCasesCount() > 0 -->
+				<span data-bind="text: closedServiceCasesCount"></span> /
+				<!-- /ko -->
+				<span data-bind="text: serviceCasesCount"></span>
+			</li>
+			<!-- ko if: InvoicingTypeKey -->
+			<li>
+				@(Html.Localize("InvoicingType")):
+				<span data-bind="lookupValue: InvoicingTypeKey, lookups: $root.lookups.invoicingTypes"></span>
+			</li>
+			<!-- /ko -->
+			@Html.PluginRenderActions("DispatchJobTemplateAttributes")
+		</ul>
+
+		<lv-actions>
+			<!-- ko if: $parentContext.$parentContext.$parent instanceof Crm.Service.ViewModels.DispatchDetailsJobsTabViewModel -->
+			<li data-bind="visible: window.Helper.Dispatch.dispatchIsEditable($root.dispatch())">
+				<!-- ko with: $parentContext.$parentContext.$parent -->
+				<a href="#" data-bind="click: () => toggleCurrentJob($parent), translatedText: $root.dispatch().CurrentServiceOrderTimeId() !== $parent.Id() ? 'ChooseJob' : 'DeselectJob'">
+				</a>
+				<!-- /ko -->
+			</li>
+			<li data-bind="visible: window.Helper.Dispatch.dispatchIsEditable($root.dispatch()), css: { 'disabled': !$parentContext.$parentContext.$parent.canCompleteJob.call($parentContext.$parentContext.$parent, $data) }">
+				<!-- ko with: $parentContext.$parentContext.$parent -->
+				<a href="#" data-bind="click: () => completeJob($parent), translatedText: 'Complete'">
+				</a>
+				<!-- /ko -->
+			</li>
+			<!-- /ko -->
+			<li class="divider"></li>
+			<!-- ko requiredPermission: { name: 'TimeEdit', group: 'ServiceOrder' } -->
+			<!-- ko with: $parentContext.$parentContext.$parent -->
+			<li data-bind="visible: canEditServiceOrderTime($parent)">
+				<a href="#" data-route="Crm.Service/ServiceOrderTime/EditTemplate/{{$parent.Id}}" data-toggle="modal" data-target="#modal">
+					@(Html.Localize("Edit"))
+				</a>
+			</li>
+			<!-- /ko -->
+			<!-- /ko -->
+			<!-- ko with: $parentContext.$parentContext.$parent -->
+			<li data-bind="visible: canDeleteServiceOrderTime($parent)">
+				<a href="#" data-bind="click: () => confirmDeleteServiceOrderTime($parent)">
+					@(Html.Localize("Delete"))
+				</a>
+			</li>
+			<!-- /ko -->
+			<!-- ko if: $parentContext.$parentContext.$parent instanceof Crm.Service.ViewModels.DispatchDetailsJobsTabViewModel -->
+			<!-- ko with: $parentContext.$parentContext.$parent -->
+			<li data-bind="visible: canReportScheduledMaterial($parent)">
+				<a href="#" data-route="Crm.Service/ServiceOrderMaterial/ReportScheduledMaterial/?dispatchId={{$root.dispatch().Id}}&serviceOrderTimeId={{$parent.Id}}" data-toggle="modal" data-target="#xlModal">
+					@(Html.Localize("ReportScheduledMaterial"))
+				</a>
+			</li>
+			<!-- /ko -->
+			<!-- /ko -->
+			@Html.PluginRenderActions("DispatchJobTemplateActions")
+			<li class="divider"></li>
+			<!-- ko with: $parentContext.$parentContext.$parent -->
+			<li data-bind="visible: canEditServiceOrderTime($parent) && window.Crm.Service.Settings.ServiceContract.MaintenanceOrderGenerationMode === 'JobPerInstallation'">
+				<a href="#" data-route="Crm.Service/ServiceOrderTimePosting/EditTemplate/?articleId={{$parent.ArticleId() || ''}}&serviceOrderTimeId={{$parent.Id}}&serviceOrderId={{$parent.OrderId}}&fromJobs={{true}}" data-toggle="modal" data-target="#lgModal">
+					@(Html.Localize("CreateTimePosting"))
+				</a>
+			</li>
+			<!-- /ko -->
+			<!-- ko with: $parentContext.$parentContext.$parent -->
+			<li data-bind="visible: canEditServiceOrderTime($parent) && window.Crm.Service.Settings.ServiceContract.MaintenanceOrderGenerationMode === 'JobPerInstallation'">
+				<a href="#" data-route="Crm.Service/ServiceOrderMaterial/EditTemplate/?currentServiceOrderTimeId={{$parent.Id}}&serviceOrderId={{$parent.OrderId}}&dispatchId={{ko.unwrap($root?.dispatch)?.Id || ''}}" data-toggle="modal" data-target="#modal">
+					@(Html.Localize("AddMaterial"))
+				</a>
+			</li>
+			<!-- /ko -->
+			@Html.PluginRenderActions("DispatchAddChecklistsAttributes")
+		</lv-actions>
+		<!-- ko if: $parent.items().length > 0 && $index() === $parent.items().length - 1 && Crm.Service.Settings.ServiceOrderMaterial.ShowPricesInMobileClient && $root.showTotalPrices() -->
+		<div class="row m-t-15 item-group-summary">
+			<div class="col-xs-11 text-right">
+				<strong>
+					<span>@(Html.Localize("TotalPrice"))</span>
+				</strong>
+			</div>
+		</div>
+		<div class="row item-group-summary">
+			<div class="col-xs-11 text-right">
+				<strong>
+					<span>@(Html.Localize("L_EstimatedDuration")):</span>
+					<span data-bind="money: $parent.accumulatedTotalPricePreplanned"></span>
+					<span data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+				</strong>
+			</div>
+		</div>
+		<div class="row item-group-summary">
+			<div class="col-xs-11 text-right">
+				<strong>
+					<span>@(Html.Localize("L_ActualDuration")):</span>
+					<span data-bind="money: $parent.accumulatedTotalPriceUsed"></span>
+					<span data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+				</strong>
+			</div>
+		</div>
+		<div class="row item-group-summary" data-bind="if: $root.showInvoiceData()">
+			<div class="col-xs-11 text-right">
+				<strong>
+					<span>@(Html.Localize("L_InvoiceDuration")):</span>
+					<span data-bind="money: $parent.accumulatedTotalPriceInvoice"></span>
+					<span data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+				</strong>
+			</div>
+		</div>
+		<!-- /ko -->
+	</div>
+</div>

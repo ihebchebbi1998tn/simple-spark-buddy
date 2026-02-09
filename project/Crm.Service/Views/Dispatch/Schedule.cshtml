@@ -1,0 +1,75 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Extensions
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div class="modal-header card-header ch-alt">
+	<button type="button" class="close" data-dismiss="modal" aria-label="@(Html.Localize("Close"))">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title">@(Html.Localize("ScheduleDispatch"))</h4>
+</div>
+<div class="modal-body card-body card-padding">
+	<div class="row">
+		<!-- ko with: calendar -->
+		<div class="col-md-6">
+			<!-- ko if: $parent.dispatchedUsernames().length !== 1 -->
+			<div class="alert alert-info">
+				@(Html.Localize("SelectTechnicianToSeeDates"))
+			</div>
+			<!-- /ko -->
+			@Html.RenderAction("CalendarWidgetTemplate", "Dashboard", new { plugin = "Main" })
+		</div>
+		<!-- /ko -->
+		<div class="col-md-6">
+			<!-- ko ifnot: loading -->
+			<form role="form" action="#" data-bind="foreach: dispatches">
+				<div class="text-center" data-bind="if: $parent.dispatches().length > 1">
+					<hr/>
+					<span>@(Html.Localize("Dispatch")) #{{$index() + 1}}</span>
+					<button class="btn bgm-red btn-sm waves-effect pull-right" data-bind="click: () => $parent.removeDispatch($index), tooltip: true" title="@(Html.Localize("Remove"))">
+						<i class="zmdi zmdi-delete"></i>
+					</button>
+					<hr/>
+				</div>
+				<div class="row">
+					<div data-bind="class: Crm.PerDiem.Settings.TimeEntry.ShowTimeZone ? 'col-xs-6' : 'col-xs-12'">
+						<form-element params="value: Date, caption: 'Date', type: 'datePicker', datePickerOptions: { pickDateTime: true, timeZone: TimeZone, config: { stepping: parseInt(Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval) } }"></form-element>
+					</div>
+					<!-- ko if: Crm.PerDiem.Settings.TimeEntry.ShowTimeZone -->
+					<div class="col-xs-6">
+						<form-element params="value: TimeZone, caption: 'TimeZoneName', type: 'select'">
+							<select class="form-control" data-bind="select2autocompleter: Helper.Date.getTimeZoneSelect2Options(), value: value"></select>
+						</form-element>
+					</div>
+					<!-- /ko -->
+				</div>
+				<form-element params="value: EndDate, caption: 'EndDateCaption', type: 'datePicker', datePickerOptions: { pickDateTime: true, config: { stepping: parseInt(Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval) } }"></form-element>
+				@Html.PluginRenderActions("ServiceOrderDispatchScheduleExtension")
+			</form>
+			<div class="text-center" data-bind="if: isAddAllowed">
+				<a href="#" class="btn btn-lg btn-link f-13 waves-effect m-t-10" data-bind="click: () => addNewDispatch($data)">
+					@(Html.Localize("CreateAdditionalDispatch"))
+				</a>
+			</div>
+			<!-- /ko -->
+			<!-- ko if: loading -->
+			<div class="text-center">
+				<div class="preloader pl-lg" data-bind="">
+					<svg class="pl-circular" viewBox="25 25 50 50">
+						<circle class="plc-path" cx="50" cy="50" r="20"></circle>
+					</svg>
+				</div>
+			</div>
+			<!-- /ko -->
+		</div>
+	</div>
+</div>
+<div class="modal-footer card-header ch-alt p-15" data-bind="visible: !loading()">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-bind="click: Helper.Database.clearTrackedEntities" data-dismiss="modal">
+		@(Html.Localize("Cancel"))
+	</button>
+	<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: save, disable: loading">
+		@(Html.Localize("Save"))
+	</button>
+</div>

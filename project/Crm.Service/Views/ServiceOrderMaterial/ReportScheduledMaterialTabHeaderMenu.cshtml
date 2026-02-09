@@ -1,0 +1,12 @@
+﻿@using Crm.Library.Globalization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+<!-- ko if: $root.dispatch && $root.dispatch() && window.Helper.Dispatch.dispatchIsEditable($root.dispatch()) -->
+<!-- ko if: $data.canReportScheduledMaterial() -->
+<li class="keep-in-place">
+	<a id="report-scheduled-material" href="#" data-route="Crm.Service/ServiceOrderMaterial/ReportScheduledMaterial/?dispatchId={{$root.dispatch().Id}}&serviceOrderTimeId={{$root.dispatch().CurrentServiceOrderTimeId}}" data-toggle="modal" data-target="#xlModal">
+		<i class="zmdi zmdi-assignment"></i>
+		<div class="small">@(Html.Localize("ReportScheduledMaterial"))</div>
+	</a>
+</li>
+<!-- /ko -->
+<!-- /ko -->

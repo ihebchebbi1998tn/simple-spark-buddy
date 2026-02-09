@@ -1,0 +1,119 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Modularization.Extensions
+@using Crm.Library.Globalization.Extensions
+
+<div id="{{Id}}" class="lv-item media">
+	@await Html.PartialAsync("GenericListBulkControl")
+	<div class="lv-avatar pull-left" data-bind="text: Helper.ServiceContract.getTypeAbbreviation($data, $parent.lookups.serviceContractTypes), style: { backgroundColor: Helper.Lookup.getLookupColor($parent.lookups.serviceContractTypes, $data.ContractTypeKey) }, visible: !$parent.selectedItems || $parent.selectedItems().length === 0"></div>
+	<div class="row media-body">
+		<div class="col-xs-6">
+			<div class="lv-title">
+				<!-- ko requiredPermission: { name: 'Read', group: 'ServiceContract' } -->
+				<a href="#/Crm.Service/ServiceContract/DetailsTemplate/{{Id}}">
+					<span data-bind="text: ContractNo"></span>
+				</a>
+				<!-- /ko -->
+				<!-- ko noRequiredPermission: { name: 'Read', group: 'ServiceContract' } -->
+				<span data-bind="text: ContractNo"></span>
+				<!-- /ko -->
+				<small class="c-gray" data-bind="lookupValue: ContractTypeKey, lookups: $parent.lookups.serviceContractTypes"></small>
+			</div>
+			<!-- ko if: Installations().length === 1 -->
+			<div data-bind="foreach: Installations">
+				<div class="small" data-bind="with: Child">
+					@(Html.Localize("Installation"))
+					<!-- ko requiredPermission: { name: 'Read', group: 'Installation' } -->
+					<a href="#/Crm.Service/Installation/DetailsTemplate/{{Id}}">
+						<span data-bind="text: Helper.Installation.getDisplayName($data)"></span>
+					</a>
+					<!-- /ko -->
+					<!-- ko noRequiredPermission: { name: 'Read', group: 'Installation' } -->
+					<span data-bind="text: Helper.Installation.getDisplayName($data)"></span>
+					<!-- /ko -->
+				</div>
+			</div>
+			<!-- /ko -->
+			<!-- ko if: Installations().length > 1 -->
+			<div class="small">
+				<span>@Html.Localize("for")</span>
+				<!-- ko requiredPermission: { name: 'Read', group: 'Installation' } -->
+				<a href="#/Crm.Service/ServiceContract/DetailsTemplate/{{Id}}?tab=tab-installations">
+					<span data-bind="text: Installations().length"></span>
+					<span>@Html.Localize("Installations")</span>
+				</a>
+				<!-- /ko -->
+				<!-- ko noRequiredPermission: { name: 'Read', group: 'Installation' } -->
+				<span data-bind="text: Installations().length"></span>
+				<span>@Html.Localize("Installations")</span>
+				<!-- /ko -->
+			</div>
+			<!-- /ko -->
+			<div class="small" data-bind="with: ServiceObject">
+				@(Html.Localize("ServiceObject"))
+				<!-- ko requiredPermission: { name: 'Read', group: 'ServiceObject' } -->
+				<a href="#/Crm.Service/ServiceObject/DetailsTemplate/{{Id}}">
+					<span data-bind="text: Helper.ServiceObject.getDisplayName($data)"></span>
+				</a>
+				<!-- /ko -->
+				<!-- ko noRequiredPermission: { name: 'Read', group: 'ServiceObject' } -->
+				<span data-bind="text: Helper.ServiceObject.getDisplayName($data)"></span>
+				<!-- /ko -->
+			</div>
+			<div class="small" data-bind="with: ParentCompany">
+				@(Html.Localize("At"))
+				<!-- ko requiredPermission: { name: 'Read', group: 'Company' } -->
+				<a href="#/Crm/Company/DetailsTemplate/{{Id}}">
+					<span data-bind="text: Helper.Company.getDisplayName($data)"></span>
+				</a>
+				<!-- /ko -->
+				<!-- ko noRequiredPermission: { name: 'Read', group: 'Company' } -->
+				<span data-bind="text: Helper.Company.getDisplayName($data)"></span>
+				<!-- /ko -->
+			</div>
+			<ul class="lv-attrs">
+				<!-- ko if: ResponsibleUserUser -->
+				<li>
+					<i class="zmdi zmdi-account-o"></i>
+					<span data-bind="text: Helper.User.getDisplayName(ResponsibleUserUser)"></span>
+				</li>
+				<!-- /ko -->
+				<li data-bind="visible: ExternalReference">
+					@(Html.Localize("ExternalReference")):
+					<span data-bind="text: ExternalReference"></span>
+				</li>
+				<li>
+					@(Html.Localize("Status")):
+					<span data-bind="lookupValue: StatusKey, lookups: $parent.lookups.serviceContractStatuses"></span>
+				</li>
+				<li data-bind="visible: ValidFrom">
+					@(Html.Localize("ValidFrom")):
+					<span data-bind="dateText: ValidFrom"></span>
+				</li>
+				<li data-bind="visible: ValidTo">
+					@(Html.Localize("ValidTo")):
+					<span data-bind="dateText: ValidTo"></span>
+				</li>
+				<li data-bind="visible: InvoicedUntil">
+					@(Html.Localize("InvoicedUntil")):
+					<span data-bind="dateText: InvoicedUntil"></span>
+					<span data-bind="text: LastInvoiceNo"></span>
+				</li>
+				<!-- ko if: NextDate -->
+				<li>
+					@(Html.Localize("NextDate")):
+					<span data-bind="dateText: NextDate"></span>
+				</li>
+				<!-- /ko -->
+				@Html.PluginRenderActions("ServiceContractItemTemplateAttributes")
+			</ul>
+			@Html.PluginRenderActions("MaterialServiceContractItemExtensions")
+			@Html.PluginRenderActions("MaterialContactItemExtensions")
+		</div>
+		<div class="col-xs-4">
+			<ul class="lv-attrs" data-bind="foreach: Tags">
+				<li data-bind="text: Name"></li>
+			</ul>
+		</div>
+		<lv-actions>@Html.PluginRenderActions("ServiceContractItemTemplateActions")</lv-actions>
+	</div>
+</div>

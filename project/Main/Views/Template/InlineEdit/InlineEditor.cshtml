@@ -1,0 +1,17 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<div class="card-body card-padding m-l-25">
+	<div class="inlineEditor-body">
+	<!-- ko with: editContext-->
+	<!-- ko template: { nodes: $componentTemplateNodes } -->
+	<!-- /ko -->
+	<!-- /ko -->
+  </div>
+	<div class="row pull-right">
+		<div class="col-xs-12">
+			<button id="resetInline" class="btn btn-default btn-lg f-13 waves-effect" data-bind="click: () => $data.cancel($parents[1], $data)">@(Html.Localize("Cancel"))</button>
+			<button id="saveInline" class="btn btn-lg btn-primary f-13 waves-effect m-l-5" data-bind="click: () => $data.submit($parents[1], $data)">@(Html.Localize("Save"))</button>
+		</div>
+	</div>
+</div>

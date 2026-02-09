@@ -1,0 +1,49 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Modularization.Extensions
+@using Crm.Library.Globalization.Extensions
+
+<div id="{{Id}}" class="lv-item media">
+	@await Html.PartialAsync("GenericListBulkControl")
+	<div class="lv-avatar pull-left bgm-bluegray" data-bind="text: SkillKey()[0], visible: !$parent.selectedItems || $parent.selectedItems().length === 0"></div>
+	<div class="row media-body">
+		<div class="col-xs-6">
+			<div class="lv-title">
+				<a href="#" data-toggle="modal" data-target="#lgModal" data-route="Crm.Service/UserDetails/AddSkill/{{Id}}">
+					<span data-bind="lookupValue: SkillKey, lookups: $root.lookups.skills"></span>
+				</a>
+			</div>
+			<ul class="lv-attrs">
+				<li>
+					<i class="zmdi zmdi-account-o"></i>
+					<span data-bind="text: Helper.User.getDisplayName(User())"></span>
+				</li>
+				<li data-bind="visible: ValidFrom()">
+					@(Html.Localize("ValidFrom")):
+					<span data-bind="dateText: ValidFrom"></span>
+				</li>
+				<li data-bind="visible: ValidTo()">
+					@(Html.Localize("ValidTo")):
+					<span data-bind="dateText: ValidTo"></span>
+				</li>
+				<li data-bind="visible: ValidTo() && ValidTo() < new Date()">
+					<span class="c-red">@(Html.Localize("Expired"))</span>
+				</li>
+				@Html.PluginRenderActions("UserSkillItemTemplateAttributes")
+			</ul>
+		</div>
+		<lv-actions>
+			<li>
+				<a href="#" data-toggle="modal" data-target="#lgModal" data-route="Crm.Service/UserDetails/AddSkill/{{Id}}">
+					@(Html.Localize("Edit"))
+				</a>
+            </li>
+			<!-- ko with: $parentContext.$parentContext.$parent -->
+			<li>
+				<a href="#" data-bind="click: () => $data.deleteUserSkill($parent)">
+					@(Html.Localize("Delete"))
+				</a>
+			</li>
+			<!-- /ko -->
+		</lv-actions>
+	</div>
+</div>

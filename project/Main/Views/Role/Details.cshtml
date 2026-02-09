@@ -1,0 +1,58 @@
+﻿@using Crm.Library.Modularization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<ul class="top-menu">
+	<li data-bind="requiredPermission: { name: 'AssignRole', group: 'UserAdmin' }">
+		<a href="#" data-toggle="modal" data-target="#modal" data-route="Main/Role/Assign/{{role().UId}}" data-bind="translatedText: 'Assign'">x</a>
+	</li>
+	<li data-bind="visible: $root.role().SourcePermissionSchemaRoleId">
+		<a href="#" data-bind="click: $root.reset, translatedText: 'Reset'">x</a>
+	</li>
+	<li>
+		<a href="#" data-bind="click: $root.remove, translatedText: 'Delete'">x</a>
+	</li>
+	@Html.PluginRenderActions("RoleDetailsTopMenu")
+</ul>
+
+<div class="container">
+	<div id="profile-main" class="divided-detail">
+		<div class="pm-overview c-overflow hide-print card w-100" tabindex="4">
+			<block>
+				<block-header>
+					<span data-bind="text: $root.title"></span>
+				</block-header>
+				<block-content>
+					<div class="flex-block">
+						<div class="pmo-block">
+							<h4>
+								<!-- ko with: $root.role -->
+								<!-- ko with: SourcePermissionSchemaRole -->
+								<span class="small">
+									<span data-bind="translatedText: 'SourcePermissionSchemaRoleId'"></span>:
+									<span data-bind="text: Helper.String.getTranslatedString(Name(), Name())"></span>
+								</span>
+								<!-- /ko -->
+								<div data-bind="visible: ExtensionValues().Description">
+									<span class="small" data-bind="text: ExtensionValues().Description"></span>
+								</div>
+								<!-- /ko -->
+							</h4>
+						</div>
+					</div>
+				</block-content>
+			</block>
+		</div>
+		<div class="card detail-main-block">
+			<div class="pm-overview">
+				<ul class="tab-nav morph" role="tablist" tabindex="1">
+					@Html.PluginRenderActions("RoleDetailsTabHeader")
+				</ul>
+			</div>
+			<div class="pm-body clearfix">
+				<div class="tab-content">
+					@Html.PluginRenderActions("RoleDetailsTab")
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

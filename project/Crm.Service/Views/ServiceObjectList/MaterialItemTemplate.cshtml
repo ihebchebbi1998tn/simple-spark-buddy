@@ -1,0 +1,72 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Modularization.Extensions
+@using Crm.Library.Globalization.Extensions
+
+<div id="{{Id}}" class="lv-item media">
+	@await Html.PartialAsync("GenericListBulkControl")
+	<div class="lv-avatar pull-left" data-bind="text: Helper.ServiceObject.getCategoryAbbreviation($data, $parent.lookups.serviceObjectCategories), style: { backgroundColor: Helper.Lookup.getLookupColor($parent.lookups.serviceObjectCategories, $data.CategoryKey) }, visible: !$parent.selectedItems || $parent.selectedItems().length === 0"></div>
+	<div class="row media-body">
+		<div class="col-xs-6">
+			<div class="lv-title">
+				<!-- ko requiredPermission: { name: 'Read', group: 'ServiceObject' } --> 
+				<a class="service-object-title" data-bind="attr: { href: '#/Crm.Service/ServiceObject/DetailsTemplate/' + Id() }, text: Helper.ServiceObject.getDisplayName($data)"></a>
+				<!-- /ko -->
+				<!-- ko noRequiredPermission: { name: 'Read', group: 'ServiceObject' } --> 
+				<span class="service-object-title" data-bind="text: Helper.ServiceObject.getDisplayName($data)"></span>
+				<!-- /ko -->
+				<small class="c-gray" data-bind="lookupValue: CategoryKey, lookups: $parent.lookups.serviceObjectCategories"></small>
+			</div>
+			<!-- ko if: InstallationsCount === 1 -->
+			<small class="small">
+				@(Html.Localize("For"))
+				<!-- ko requiredPermission: { name: 'Read', group: 'Installation' } -->
+				<a href="#/Crm.Service/ServiceObject/DetailsTemplate/{{Id}}?tab=tab-installations">
+					<span data-bind="text: InstallationsCount"></span>
+					<span>@(Html.Localize("Installation"))</span>
+				</a>
+				<!-- /ko -->
+				<!-- ko noRequiredPermission: { name: 'Read', group: 'Installation' } -->
+				<span class="text-muted" data-bind="text: InstallationsCount"></span>
+				<span>@(Html.Localize("Installation"))</span>
+				<!-- /ko -->
+			</small>
+			<!-- /ko -->
+			<!-- ko if: InstallationsCount > 1 -->
+			<small class="small">
+				@(Html.Localize("For"))
+				<!-- ko requiredPermission: { name: 'Read', group: 'Installation' } -->
+				<a href="#/Crm.Service/ServiceObject/DetailsTemplate/{{Id}}?tab=tab-installations">
+					<span data-bind="text: InstallationsCount"></span>
+					<span>@(Html.Localize("Installations"))</span>
+				</a>
+				<!-- /ko -->
+				<!-- ko noRequiredPermission: { name: 'Read', group: 'Installation' } -->
+				<span class="text-muted" data-bind="text: InstallationsCount"></span>
+				<span>@(Html.Localize("Installations"))</span>
+				<!-- /ko -->
+			</small>
+			<!-- /ko -->
+			<small class="lv-small" data-bind="foreach: Addresses">
+				<address-block params="address: $data, lookups: $parentContext.$parent.lookups, showNames: false, showLink: false"></address-block>
+			</small>
+			<ul class="lv-attrs">
+				<!-- ko if: ResponsibleUserUser -->
+				<li>
+					<i class="zmdi zmdi-account-o"></i>
+					<span data-bind="text: Helper.User.getDisplayName(ResponsibleUserUser)"></span>
+				</li>
+				<!-- /ko -->
+				@Html.PluginRenderActions("MaterialServiceObjectItemAttributes")
+			</ul>
+			@Html.PluginRenderActions("MaterialServiceObjectItemExtensions")
+			@Html.PluginRenderActions("MaterialContactItemExtensions")
+		</div>
+		<div class="col-xs-4">
+			<ul class="lv-attrs" data-bind="foreach: Tags">
+				<li data-bind="text: Name"></li>
+			</ul>
+		</div>
+		<lv-actions>@Html.PluginRenderActions("ServiceObjectItemTemplateActions")</lv-actions>
+		@* @await Html.PartialAsync("~/Views/ServiceObjectList/MapItemTemplate.cshtml") *@
+	</div>
+</div>

@@ -1,0 +1,10 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<!-- ko if: Helper.Scheduler.PlanningBoardInteraction.showInSchedulerButton($data) -->
+<li>
+	<a id="show-in-scheduler" href="javascript: void(0);" data-bind="click: () => Helper.Scheduler.PlanningBoardInteraction.openDispatchInPlanningBoard.call($parentContext.$parentContext.$parent, $data)">
+		@(Html.Localize("ShowDispatchInScheduler"))
+	</a>
+</li>
+<!-- /ko -->

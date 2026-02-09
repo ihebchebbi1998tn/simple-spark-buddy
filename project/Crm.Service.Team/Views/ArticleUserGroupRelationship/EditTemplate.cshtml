@@ -1,0 +1,42 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<div class="modal-header card-header ch-alt" data-bind="with: articleUserGroupRelationship">
+	<button type="button" class="close" data-dismiss="modal" aria-label="@(Html.Localize("Close"))">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title" data-bind="text: innerInstance.entityState === window.$data.EntityState.Added ? Helper.String.getTranslatedString('AddRelationship') : Helper.String.getTranslatedString('EditRelationship')"></h4>
+</div>
+<!-- ko if: articleDowntime() -->
+<!-- ko with: articleDowntime -->
+<div class="alert alert-danger animated tada" role="alert">
+	<span data-bind="text: Helper.String.getTranslatedString('ArticleIsOutOfService').replace('{0}', $data.Article.ArticleTypeKey).replace('{1}', Globalize.formatDate($data.From)).replace('{2}', Globalize.formatDate($data.To))"></span>
+</div>
+<!-- /ko -->
+<!-- /ko -->
+<div class="modal-body card-body card-padding">
+	<form role="form" action="#" data-bind="with: articleUserGroupRelationship">
+		<!-- ko if: $root.mode === 'usergroup' -->
+		<form-element id="ArticleKey" params="value: ArticleKey, caption: 'Article', type: 'select' , disable: innerInstance.entityState !== window.$data.EntityState.Added">
+			<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { table: 'CrmArticle_Article', customFilter: $root.getArticleSelect2Filter , orderBy: ['ItemNo'], mapDisplayObject: Helper.Article.mapArticleForSelect2Display, placeholder: placeholder } },disable: disable">
+			</select>
+		</form-element>
+			<!-- /ko -->
+		<!-- ko if: $root.mode === 'article' -->
+		<form-element id="UserGroupKey" params="value: UserGroupKey, caption: 'Team', type: 'select',disable: innerInstance.entityState !== window.$data.EntityState.Added">
+			<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { table: 'Main_Usergroup', orderBy: ['Name'], mapDisplayObject: Helper.User.mapUsergroupForSelect2Display, placeholder: placeholder } },disable: disable">
+			</select>
+		</form-element>
+		<!-- /ko -->
+		<form-element params="value: From, caption: 'From', type: 'datePicker'"></form-element>
+		<form-element params="value: To, caption: 'To', type: 'datePicker'"></form-element>
+	</form>
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button name="Cancel" type="button" class="btn btn-lg btn-default f-13 waves-effect" data-bind="click: Helper.Database.clearTrackedEntities" data-dismiss="modal">
+		@(Html.Localize("Cancel"))
+	</button>
+	<button name="Save" type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: save, disable: loading">
+		@(Html.Localize("Save"))
+	</button>
+</div>

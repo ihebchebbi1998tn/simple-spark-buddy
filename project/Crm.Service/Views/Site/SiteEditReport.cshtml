@@ -1,0 +1,108 @@
+@using Crm.Library.Globalization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<!-- ko with: $root.barcode -->
+<fieldset>
+	<legend class="c-black b-0 f-500 f-14">
+		@(Html.Localize("Barcode"))
+	</legend>
+	<div class="wrap-barcode-options">
+		<div>
+			<label class="fg-label control-label">
+				<span>@(Html.Localize("ShowOn"))</span>
+			</label><br/>
+			<div style="margin-left: 15px">
+				<form-element params="value: showOnServiceReport, caption: 'DispatchReport', type: 'checkbox'"></form-element>
+				<form-element params="value: showOnChecklistPdf, caption: 'ChecklistReport', type: 'checkbox'"></form-element>
+			</div>
+			<label class="fg-label control-label">
+				<span>@(Html.Localize("PrintOnly"))</span>
+			</label>
+			<div style="margin-top: 10px;">
+				<div style="margin-left: 10px">
+					<!-- ko if: printOnly() -->
+					<form-element params="value: printOnly, caption: 'Yes', type: 'checkbox'"></form-element>
+					<!-- /ko -->
+					<!-- ko if: !printOnly() -->
+					<form-element params="value: printOnly, caption: 'No', type: 'checkbox'"></form-element>
+					<!-- /ko -->
+				</div>
+			</div>
+		</div>
+		<div>
+			<div>
+				<label class="fg-label control-label">
+					<span>@(Html.Localize("Preview"))</span>
+				</label><br/>
+				<barcode params="format: format, 
+						value: value,
+						onValidate: $root.handleBarcodeValidation"></barcode>
+			</div>
+		</div>
+		<div>
+			<label class="fg-label control-label">
+				<span>@(Html.Localize("Format"))</span>
+			</label><br/>
+			<div style="display: flex; align-items: center; gap: 20px; margin-top: 5px">
+				<barcode-format params="active: format() === 'CODE39', format: 'CODE39', onClick: () => format('CODE39')"></barcode-format>
+				<barcode-format params="active: format() === 'CODE128', format: 'CODE128', onClick: () => format('CODE128')"></barcode-format>
+				<barcode-format params="active: format() === 'QR-Code', format: 'QR-Code', onClick: () => format('QR-Code')"></barcode-format>
+			</div>
+		</div>
+	</div>
+	<div style="margin-top: 20px;">
+		<label class="fg-label control-label">
+			<span>@(Html.Localize("Value"))</span>
+		</label><br/>
+		<div style="display: flex; gap: 16px; align-items: center;">
+			<div style="flex: 1">
+				<form-element params="value: prefix, name: 'Prefix', caption: 'Prefix', type: 'text'"></form-element>
+			</div>
+			<b style="font-size: 20px">
+				-
+			</b>
+			<div style="flex: 1">
+				<div class="form-group">
+					<label class="control-label">
+						<span data-bind="translatedText: 'Root'"></span>
+					</label><br>
+					<div style="display: flex; align-items: center; gap: 2px">
+						<select
+							class="form-control"
+							multiple="multiple"
+							data-bind="select2autocompleter: { 
+														data: $root.getSelectedColumnsForBarcodeRoot.call($root, $root.selectedColumnsForBarcodeRoot()),
+														autocompleteOptions: { 
+															table: () => database.Main_Site.GetSelectableColumnsForBarcodeRoot(), 
+															mapDisplayObject: $root.mapBarcodeRootColumnForSelect2Display
+														}
+												},
+												selectedOptions: $root.selectedColumnsForBarcodeRoot">
+						</select>
+						<a
+							href="#" class="pull-right m-r-5 icon"
+							role="button"
+							data-bind="popover: { content: 'BarcodeRootHyphenSelectionHint' }, css: 'icon', tooltip: false"
+							data-original-title=""
+							title="">
+							<i class="f-20 zmdi zmdi-info-outline"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+			<b style="font-size: 20px">
+				-
+			</b>
+			<div style="flex: 1">
+				<form-element params="value: suffix, name: 'Suffix', caption: 'Suffix', type: 'text'"></form-element>
+			</div>
+		</div>
+	</div>
+	<small
+		style="font-size: 12px;"
+		class="help-block c-red"
+		data-bind="text: errorMessage">
+	</small>
+</fieldset>
+<!-- /ko -->
+

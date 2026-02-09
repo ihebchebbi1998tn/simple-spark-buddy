@@ -1,0 +1,74 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<div class="modal-header card-header ch-alt" data-bind="with: dispatch">
+	<button type="button" class="close" data-dismiss="modal" aria-label="@(Html.Localize("Close"))">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title">@(Html.Localize("ReportRecipients"))</h4>
+</div>
+<div class="modal-body card-body card-padding">
+	<form role="form" action="#" data-bind="with: dispatch">
+		<div class="row">
+			<div class="col-md-12 m-b-15">
+				<div data-bind="with: $root.selectableContacts, visible: !$root.customRecipient()">
+					<form-element id="ReportRecipients" params="value: $root.email, caption: 'Email', type: 'select'">
+						<select name="ReportRecipients" class="form-control" data-bind="select2autocompleter: { data: $root.selectableContacts, optionsText: 'DisplayName', optionsValue: 'Value', tags: true }, value: value">
+						</select>
+					</form-element>
+					@(Html.Localize("or"))
+					<a href="#" data-bind="click: $root.toggleCustomRecipient">
+						@(Html.Localize("EnterCustomEmail"))
+					</a>
+				</div>		
+				<div data-bind="visible: $root.customRecipient">
+					<form-element params="value: $root.customEmail, caption: 'Email', type: 'email'"></form-element>
+					@(Html.Localize("or"))
+					<a href="#" data-bind="click: $root.toggleCustomRecipient">
+						@(Html.Localize("EmailSelection"))
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<form-element params="value: $root.language, caption: 'Language', type: 'select', disable: !$root.email() && !$root.customEmail()">
+					<select class="form-control" data-bind="select2autocompleter: { data: $root.languages, optionsText: function(x) { return x.Value; }, optionsValue: 'Key' }, value: value, disable: disable">
+					</select>
+				</form-element>
+			</div>
+		</div>
+		<button id="add-recipient" class="btn btn-lg btn-default f-13 btn-icon-text waves-effect" data-bind="click: $root.addRecipient">
+			@(Html.Localize("Add"))
+		</button>
+		<hr />
+		<div class="listview lv-bordered">
+			<!-- ko foreach: ReportRecipients -->
+			<div class="lv-item row">
+				<div class="col-xs-10">
+					<span data-bind="text: $data.Email"></span>
+					<div data-bind="if: $data.Locale() || $data.Language()">
+						<small data-bind="text: Helper.Culture.getDisplayName($data.Locale() || $data.Language())"></small>
+					</div>
+				</div>
+				<div class="col-xs-2">
+					<a href="#" class="btn btn-danger waves-effect" data-bind="click: $root.removeRecipient, tooltip: true" title="@(Html.Localize("Remove"))">
+						<i class="zmdi zmdi-delete"></i>
+					</a>
+				</div>
+			</div>
+			<!-- /ko -->
+			<!-- ko if: ReportRecipients().length === 0 -->
+			@(Html.Localize("NoRecipients"))
+			<!-- /ko -->
+		</div>
+	</form>
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-bind="click: Helper.Database.clearTrackedEntities" data-dismiss="modal">
+		@(Html.Localize("Cancel"))
+	</button>
+	<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: save, disable: loading">
+		@(Html.Localize("Save"))
+	</button>
+</div>

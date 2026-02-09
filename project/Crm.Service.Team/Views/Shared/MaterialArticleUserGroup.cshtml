@@ -1,0 +1,70 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl<Main.ViewModels.GenericListViewModel>
+@using Crm.Library.Modularization.Extensions
+@using Crm.Library.Globalization.Extensions
+
+<div class="lv-item media" id="{{Id}}">
+	<!-- ko if: $root.controller === "Article"-->
+	<!-- ko with: UserGroup -->
+	<div>
+		<div class="lv-avatar pull-left" style=" background-color: #9E9E9E" data-bind="text: $data.Name()[0]"></div>
+			<div class="lv-title">
+				<span data-bind="text: Name"></span>
+		</div>
+	</div>
+	<!-- /ko -->
+	<!-- /ko -->
+	<!-- ko if: $root.controller === "UserGroup"-->
+	<!-- ko with: Article -->
+	<div >
+		<div class="lv-avatar bgm-gray pull-left" data-bind="text: Helper.Article.getArticleTypeAbbreviation($data, $parentContext.$parent.lookups.articleTypes)"></div>
+	</div>
+			<div class="lv-title">
+				<span>
+					<span data-bind="text: Helper.Article.getArticleAutocompleteDisplay($data, window.Helper.String.defaultLanguage)"></span>
+					<small class="c-gray" data-bind="lookupValue: ArticleTypeKey, lookups: $parentContext.$parent.lookups.articleTypes"></small>
+				</span>
+			</div>
+	<!-- /ko -->
+	<!-- /ko -->
+	<div class="media-body panel-heading">
+		<div class="row">
+			<div class="col-sm-12">
+				<ul class="lv-attrs">
+					<li data-bind="visible: From">
+						<span data-bind="translatedText: 'AssignedFrom'"></span>:
+						<span data-bind="dateText: From"></span>
+					</li>
+					<li data-bind="visible: To">
+						<span data-bind="translatedText: 'EndDate'"></span>:
+						<span data-bind="dateText: To"></span>
+					</li>
+					@Html.PluginRenderActions("ArticleUserGroupItemTemplateAttributes")
+				</ul>
+			</div>
+		</div>
+		<lv-actions>
+			<!-- ko if: $root.controller === "Article"-->
+			<!-- ko with: UserGroup -->
+			<li>
+				<a href="#/Main/UserGroup/DetailsTemplate/{{Id}}" data-bind="translatedText: 'Details'"></a>
+			</li>
+			<!-- /ko -->
+			<!-- /ko -->
+			<!-- ko if: $root.controller === "UserGroup"-->
+			<!-- ko with: Article -->
+			<li>
+				<a href="#/Crm.Article/Article/DetailsTemplate/{{Id}}" data-bind="translatedText: 'Details'"></a>
+			</li>
+			<!-- /ko -->
+			<!-- /ko -->
+			<li>
+				<a href="#" data-bind="attr: { 'data-route': 'Crm.Service.Team/ArticleUserGroupRelationship/EditTemplate/' + Id() }" data-toggle="modal" data-target="#modal">
+					@(Html.Localize("Edit"))
+				</a>
+			</li>
+			<li>
+				<a href="#" data-bind="click: $parents[2].delete">@(Html.Localize("Delete"))</a>
+			</li>
+		</lv-actions>
+	</div>
+</div>

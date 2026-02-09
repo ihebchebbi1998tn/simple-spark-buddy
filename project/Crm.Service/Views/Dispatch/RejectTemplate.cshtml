@@ -1,0 +1,39 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<div class="modal-header card-header ch-alt" data-bind="with: dispatch">
+	<button type="button" class="close" data-dismiss="modal" aria-label="@(Html.Localize("Close"))">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title">@(Html.Localize("Reject"))</h4>
+</div>
+<div class="modal-body card-body card-padding">
+	<form role="form" action="#" data-bind="with: dispatch">
+		<div data-bind="validationElement: RejectReasonKey">
+			<label class="fg-label control-label">
+				@(Html.Localize("RejectReason")) <span class="required">*</span>
+			</label>
+			<!-- ko foreach: $root.lookups.serviceOrderDispatchRejectReasons.$array -->
+			<!-- ko if: ShowInMobileClient || AuthorizationManager.isAuthorizedForAction("ServiceOrderDispatchRejectReason", "SelectNonMobileLookupValues")  -->
+			<div class="radio m-b-15">
+				<label>
+					<input type="radio" data-bind="checked: $parent.RejectReasonKey, checkedValue: Key">
+					<i class="input-helper"></i>
+					<span data-bind="text: Value"></span>
+				</label>
+			</div>
+			<!-- /ko -->
+			<!-- /ko -->
+			<small class="help-block" data-bind="validationMessage: RejectReasonKey"></small>
+		</div>
+		<form-element params="value: RejectRemark, caption: 'Remark', type: 'textarea'"></form-element>
+	</form>
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-bind="click: Helper.Database.clearTrackedEntities" data-dismiss="modal">
+		@(Html.Localize("Cancel"))
+	</button>
+	<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: save, disable: loading">
+		@(Html.Localize("Save"))
+	</button>
+</div>

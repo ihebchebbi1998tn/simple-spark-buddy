@@ -1,0 +1,27 @@
+﻿@using Crm.Library.Extensions
+@using Crm.Library.Modularization.Extensions
+@using Crm.Library.ViewModels
+@using Crm.Library.Globalization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<style>
+	body {
+		overflow:hidden;
+	}
+	#main {
+		padding-bottom: 0;
+	}
+</style>
+
+<div class="container">
+	<div class="row">
+		<div id="mapcontainer" class="col-sm-12 col-xs-12 col-lg-12 col-md-12">
+			<map-widget params="markers: markers, mapHeight: mapHeight,mapView :mapView,onMarkerClick: onMarkerClick, modelForParent: mapComponent, clusterGroups: clusterGroups"></map-widget>
+
+			@*			Incoming messages:
+			<ul data-bind="foreach: log">
+			<li data-bind="text: $data"></li>
+			</ul>*@
+		</div>
+	</div>
+</div>

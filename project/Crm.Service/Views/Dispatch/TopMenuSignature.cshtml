@@ -1,0 +1,9 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<li class="prevent-overflow" data-bind="visible: $root.dispatch().StatusKey() === 'InProgress' || $root.dispatch().StatusKey() === 'SignedByCustomer'">
+	<a id="signature" href="#" data-bind="attr: { 'data-route' : 'Crm.Service/Dispatch/SignatureEdit/' + $root.dispatch().Id() }" data-toggle="modal" data-target="#modal">
+		<i class="tm-icon zmdi zmdi-assignment"></i>
+		<div class="small">@(Html.Localize("Signature"))</div>
+	</a>
+</li>

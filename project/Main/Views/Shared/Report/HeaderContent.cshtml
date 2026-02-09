@@ -1,0 +1,25 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<table style="width: 100%;">
+	<tr>
+		<td>
+			<!-- ko with: site -->
+			<!-- ko with: ExtensionValues -->
+			<!-- ko if: ReportLogoBase64 -->
+			<img data-bind="attr: { src: 'data:' + ko.unwrap(ReportLogoContentType) + ';base64,' + ko.unwrap(ReportLogoBase64) }, style: { 'max-height': Main.Settings.Report.HeaderHeight + 'cm' }" alt="logo"/>
+			<!-- /ko -->
+			<!-- /ko -->
+			<!-- /ko -->
+
+			<!-- ko if: !!$data.barcode?.isVisible() -->
+			<div style="display: grid; place-items: end">
+				<barcode
+					params="format: $data.barcode.format, 
+							value: $data.barcode.value,
+							printOnly: $data.barcode.printOnly">
+				</barcode>
+			</div>
+			<!-- /ko -->
+		</td>
+	</tr>
+</table>

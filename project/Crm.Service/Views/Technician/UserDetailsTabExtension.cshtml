@@ -1,0 +1,38 @@
+﻿@using Crm.Library.Modularization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<pmb-block params="icon: 'wrench', caption: 'Service', context: { user: user }, onAfterSave: $root.onAfterSave ? onAfterSave.bind($root) : null, onSave: $root.onSave ? onSave.bind($root) : null">
+	<pmbb-view>
+		<!-- ko with: user().ExtensionValues -->
+		<pmbb-view-entry params="caption: 'DefaultStoreNo'">
+			<span data-bind="text: DefaultStoreNo"></span>
+			<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: DefaultStoreNo"></span>
+		</pmbb-view-entry>
+		<pmbb-view-entry params="caption: 'DefaultStorageAreaNo'">
+			<span data-bind="text: DefaultStorageAreaNo"></span>
+			<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: DefaultStorageAreaNo"></span>
+		</pmbb-view-entry>
+		<pmbb-view-entry params="caption: 'DefaultLocationNo'">
+			<span data-bind="text: DefaultLocationNo"></span>
+			<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: DefaultLocationNo"></span>
+		</pmbb-view-entry>
+		<!-- /ko -->
+		@Html.PluginRenderActions("UserDetailsServiceView")
+	</pmbb-view>
+	<pmbb-edit>
+		<!-- ko with: user().ExtensionValues -->
+		<pmbb-edit-entry params="caption: 'DefaultStoreNo', validationElement: DefaultStoreNo">
+			<select name="DefaultStoreNo" class="form-control" data-bind="select2autocompleter: { data: $root.selectedStoreId, autocompleteOptions: { ...Helper.Store.getAutocompleteOptions($root, ['StorageAreas', 'StorageAreas.Locations']), onSelect: $root.onStoreSelect.bind($root, $data) }}"></select>
+		</pmbb-edit-entry>
+		<!-- ko if: DefaultStoreNo() -->
+		<pmbb-edit-entry params="caption: 'DefaultStorageAreaNo', validationElement: DefaultStorageAreaNo">
+			<select name="DefaultStorageAreaNo" class="form-control" data-bind="select2autocompleter: { data: $root.selectedStorageAreaId, autocompleteOptions: {table: 'CrmArticle_StorageArea', orderBy: ['StorageAreaNo'], joins: ['Locations'] , mapDisplayObject: function (s){ return { id: s.Id, text: s.StorageAreaNo, item: s }; }, customFilter: (query, term) => $root.storageAreaFilter(query, term, $root.selectedStoreId()), onSelect: $root.onStorageAreaSelect.bind($root, $data), placeholder: $parent.placeholder } }"></select>
+		</pmbb-edit-entry>
+		<pmbb-edit-entry params="caption: 'DefaultLocationNo', validationElement: DefaultLocationNo">
+			<select name="DefaultStorageAreaNo" class="form-control" data-bind="select2autocompleter: { data: $root.selectedLocationId, autocompleteOptions: {table: 'CrmArticle_Location', orderBy: ['LocationNo'], joins: ['StorageArea'] , mapDisplayObject: function (s){ return { id: s.Id, text: s.LocationNo, item: s }; }, customFilter: (query, term) => $root.locationFilter(query, term, $root.selectedStoreId(), $root.selectedStorageAreaId()), onSelect: $root.onLocationSelect.bind($root, $data), placeholder: $parent.placeholder } }"></select>
+		</pmbb-edit-entry>
+		<!-- /ko -->
+		<!-- /ko -->
+		@Html.PluginRenderActions("UserDetailsServiceEdit")
+	</pmbb-edit>
+</pmb-block>

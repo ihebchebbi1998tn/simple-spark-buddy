@@ -1,0 +1,23 @@
+﻿@using Crm.Library.Extensions
+@inherits Crm.Library.Modularization.CrmViewPage
+@{Layout = "~/Views/Shared/Layout/ApplicationLayout.cshtml";}
+
+@section TitleContent {
+
+	<title>Test Title</title>
+
+}
+
+@section MainContent {
+
+	Test Content
+	@Html.RenderAction("Action3");
+	@Html.RenderAction("Action3", "Test");
+	@Html.RenderAction("Action3", "Test", new {plugin = "Main"});
+	@Html.RenderAction("Action3", new {plugin = "Main"});
+	@Html.RenderAction("Action4");
+	@Html.RenderAction("Action4", "Test");
+	@Html.RenderAction("Action4", "Test", new {plugin = "Main"});
+	@Html.RenderAction("Action4", new {plugin = "Main"});
+}
+

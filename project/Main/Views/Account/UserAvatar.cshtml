@@ -1,0 +1,41 @@
+﻿@using Crm.Library.Globalization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div class="modal-header card-header ch-alt">
+	<button type="button" class="close" data-dismiss="modal" aria-label="@(Html.Localize("Close"))">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title">
+		@(Html.Localize("Edit"))
+	</h4>
+</div>
+<div class="modal-body card-body card-padding">
+	<form role="form" action="#">
+		<div class="form-group">
+			<div class="fileinput" data-provides="fileinput" data-bind="css: { 'fileinput-exists': avatarUrl, 'fileinput-new': avatarUrl() == null }, validationElement: avatarBlob">
+				<div class="fileinput-preview thumbnail" data-trigger="fileinput" style="line-height: 150px;">
+					<!-- ko if: avatarUrl -->
+					<img data-bind="attr: { src: avatarUrl }"/>
+					<!-- /ko -->
+				</div>
+				<div>
+					<small class="help-block" data-bind="validationMessage: avatarBlob"></small>
+					<span class="btn btn-lg btn-primary f-13 btn-file waves-effect">
+						<span class="fileinput-new">@(Html.Localize("SelectFile"))</span>
+						<span class="fileinput-exists">@(Html.Localize("Change"))</span>
+						<input type="file" name="..." accept="image/*" data-bind="fileInput: { content: avatarContent, blob: avatarBlob, compressionQualityLevel: window.Helper.Image.CompressionQualityLevel.Poor, blobUrl: avatarUrl }">
+					</span>
+					<a href="#" class="btn btn-danger btn-lg f-13 fileinput-exists waves-effect" data-dismiss="fileinput">@(Html.Localize("Remove"))</a>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button name="Cancel" type="button" class="btn btn-lg btn-default f-13 waves-effect" data-dismiss="modal">
+		@(Html.Localize("Cancel"))
+	</button>
+	<button name="Save" type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: submit, disable: loading">
+		@(Html.Localize("Save"))
+	</button>
+</div>

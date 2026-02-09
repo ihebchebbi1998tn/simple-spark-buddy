@@ -1,0 +1,11 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+<!-- ko requiredPermission: { name: 'Delete', group: 'ServiceOrderExpensePosting' } -->
+<!-- ko with: $parentContext.$parentContext.$parent -->
+<li data-bind="visible: $data.expensePostingCanBeDeleted.call($data, $parent)">
+	<a href="#" data-bind="click: () => $data.deleteServiceOrderExpensePosting($parent)">
+		@(Html.Localize("Delete"))
+	</a>
+</li>
+<!-- /ko -->
+<!-- /ko -->

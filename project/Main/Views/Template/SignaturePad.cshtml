@@ -1,0 +1,15 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<div class="form-group">
+	<!-- ko if: ko.isObservable(signatureName) -->
+	<div class="fg-line">
+		<label class="fg-label control-label" data-bind="text: caption"></label>
+		<input class="form-control fg-input" type="text" data-bind="value: signatureName"/>
+	</div>
+	<!-- /ko -->
+	<div class="p-t-10">
+		<input type="hidden" data-bind="signaturePad: signature" data-signature-clear-text="@(Html.Localize("ResetSignature"))"/>
+		<button class="clearButton btn btn-lg btn-default f-13 waves-effect"></button>
+	</div>
+</div>

@@ -1,0 +1,164 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<pmbb-view>
+	<!-- ko with: installationposition -->
+	<div class="row">
+		<div class="col-md-11 col-sm-11 col-xs-10">
+			<pmbb-view-entry params="caption: 'RdsPpClassification'">
+				<span data-bind="text: RdsPpClassification"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: RdsPpClassification"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'LegacyInstallationId'">
+				<span data-bind="text: LegacyInstallationId"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: LegacyInstallationId"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'InstallDate'">
+				<span data-bind="dateText: { value: InstallDate }"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: InstallDate"></span>
+			</pmbb-view-entry>
+			<!-- ko ifnot: IsInstalled()-->
+			<pmbb-view-entry params="caption: 'RemoveDate'">
+				<span data-bind="dateText: { value: RemoveDate }"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: RemoveDate"></span>
+			</pmbb-view-entry>
+			<!-- /ko -->
+			<pmbb-view-entry params="caption: 'WarrantySupplier'">
+				<span data-bind="fromToDates: {from: WarrantyStartSupplier, to: WarrantyEndSupplier, cssClass:'c-gray'}"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'WarrantyCustomer'">
+				<span data-bind="fromToDates: {from: WarrantyStartCustomer, to: WarrantyEndCustomer, cssClass:'c-gray'}"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'Supplier'">
+				<span class="Supplier" data-bind="text: Supplier"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: Supplier"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'Comment'">
+				<span class="comment" data-bind="text: Comment"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: Comment"></span>
+			</pmbb-view-entry>
+			@Html.PluginRenderActions("InstallationPositionItemTemplatePmbbViewEntryExtensions")
+		</div>
+		<div class="col-md-1 col-sm-1 col-xs-2">
+			<ul class="actions pull-right" data-bind="visible: window.AuthorizationManager.isAuthorizedForAction('InstallationPosition', 'Edit')">
+				<li class="dropdown">
+					<a href="#" data-toggle="dropdown">
+						<i class="zmdi zmdi-more-vert"></i>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-right">
+						<!-- ko requiredPermission: { name: 'Edit', group: 'InstallationPosition' } -->
+						<li>
+							<a data-pmb-action="edit" href="#" data-bind="click: $parentContext.$parentContext.$parentContext.$parent.toggle">@(Html.Localize("Edit"))</a>
+						</li>
+						<li data-bind="visible: IsInstalled">
+							<a href="#" data-bind="click: () => $root.tabs()['tab-positions']().uninstallInstallationPosition($data)">
+								@(Html.Localize("Uninstall"))
+							</a>
+						</li>
+						<li data-bind="visible: !IsInstalled()">
+							<a href="#" data-bind="click: () => $root.tabs()['tab-positions']().installInstallationPosition($data)">
+								@(Html.Localize("Install"))
+							</a>
+						</li>
+						<!-- /ko -->
+						<!-- ko requiredPermission: { name: 'Delete', group: 'InstallationPosition' } -->
+						<li>
+							<a href="#" data-bind="click: () => $root.tabs()['tab-positions']().removeInstallationPosition($data)">
+								@(Html.Localize("Delete"))
+							</a>
+						</li>
+						<!-- /ko -->
+						@Html.PluginRenderActions("InstallationPositionItemTemplateActions")
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /ko -->
+</pmbb-view>
+
+<pmbb-edit>
+	<!-- ko with: installationposition -->
+	<pmbb-edit-entry params="caption: 'IsGroupItem', validationElement: IsGroupItem">
+		<input type="checkbox" class="form-control" data-bind="checked: IsGroupItem">
+	</pmbb-edit-entry>
+	<pmbb-edit-entry params="caption: QuantityUnitKey() ?  window.Helper.String.getTranslatedString('Quantity') + ' (' +Helper.Lookup.getLookupValue($root.lookups.quantityUnits, QuantityUnitKey) + ')' : 'Quantity', validationElement: Quantity">
+		<input type="number" class="form-control" data-bind="value: Quantity">
+	</pmbb-edit-entry>
+	<pmbb-edit-entry params="caption: 'RdsPpClassification', validationElement: RdsPpClassification">
+		<input id="RdsPpClassification" type="text" class="form-control" data-bind="value: RdsPpClassification">
+	</pmbb-edit-entry>
+	<!-- ko if: Article()?.IsBatch() -->
+	<pmbb-edit-entry params="caption: 'BatchNo', validationElement: BatchNo">
+		<input id="BatchNo" type="text" class="form-control" data-bind="value: BatchNo"/>
+	</pmbb-edit-entry>
+	<!-- /ko-->
+	<!-- ko if: Article()?.IsSerial() -->
+	<pmbb-edit-entry params="caption: 'SerialNo', validationElement: SerialNo">
+		<input id="SerialNo" type="text" class="form-control" data-bind="value: SerialNo" />
+	</pmbb-edit-entry>
+	<!-- /ko-->
+	<pmbb-edit-entry params="caption: 'LegacyInstallationId', validationElement: LegacyInstallationId">
+		<input id="LegacyInstallationId" type="text" class="form-control" data-bind="value: LegacyInstallationId">
+	</pmbb-edit-entry>
+	<pmbb-edit-entry params="caption: 'IsInstalled'">
+		<input type="checkbox" class="form-control" data-bind="value: IsInstalled, checked: IsInstalled">
+	</pmbb-edit-entry>
+	<pmbb-edit-entry params="caption: 'InstallDate', validationElement: InstallDate">
+		<input type="text" class="form-control date-picker" data-bind="datePicker: InstallDate" placeholder="@(Html.Localize("ClickHere"))">
+	</pmbb-edit-entry>
+	<pmbb-edit-entry params="caption: 'RemoveDate', validationElement: RemoveDate">
+		<input type="text" class="form-control date-picker" data-bind="datePicker: RemoveDate" placeholder="@(Html.Localize("ClickHere"))">
+	</pmbb-edit-entry>
+
+	<dl class="dl-horizontal">
+		<dt class="p-t-10" data-bind="text: Helper.String.getTranslatedString('WarrantySupplier')"></dt>
+		<dd>
+			<div class="row">
+				<div class="col-xs-6" data-bind="validationElement: WarrantyStartSupplier">
+					<input type="text" class="form-control date-picker" data-bind="datePicker: WarrantyStartSupplier" placeholder="@(Html.Localize("From"))">
+					<span class="zmdi zmdi-calendar form-control-feedback"></span>
+					<small class="help-block" data-bind="validationMessage: WarrantyStartSupplier"></small>
+				</div>
+				<div class="col-xs-6" data-bind="validationElement: WarrantyEndSupplier">
+					<input type="text" class="form-control date-picker" data-bind="datePicker: WarrantyEndSupplier" placeholder="@(Html.Localize("To"))">
+					<span class="zmdi zmdi-calendar form-control-feedback"></span>
+					<small class="help-block" data-bind="validationMessage: WarrantyEndSupplier"></small>
+				</div>
+			</div>
+		</dd>
+	</dl>
+	<dl class="dl-horizontal">
+		<dt class="p-t-10" data-bind="text: Helper.String.getTranslatedString('WarrantyCustomer')"></dt>
+		<dd>
+			<div class="row">
+				<div class="col-xs-6" data-bind="validationElement: WarrantyStartCustomer">
+					<input type="text" class="form-control date-picker" data-bind="datePicker: WarrantyStartCustomer" placeholder="@(Html.Localize("From"))">
+					<span class="zmdi zmdi-calendar form-control-feedback"></span>
+					<small class="help-block" data-bind="validationMessage: WarrantyStartCustomer"></small>
+				</div>
+				<div class="col-xs-6" data-bind="validationElement: WarrantyEndCustomer">
+					<input type="text" class="form-control date-picker" data-bind="datePicker: WarrantyEndCustomer" placeholder="@(Html.Localize("To"))">
+					<span class="zmdi zmdi-calendar form-control-feedback"></span>
+					<small class="help-block" data-bind="validationMessage: WarrantyEndCustomer"></small>
+				</div>
+			</div>
+		</dd>
+	</dl>
+
+	<pmbb-edit-entry params="caption: 'Supplier', validationElement: Supplier">
+		<div class="fg-line">
+			<textarea class="form-control" data-bind="value: Supplier, autosize: true"></textarea>
+		</div>
+	</pmbb-edit-entry>
+
+	<pmbb-edit-entry params="caption: 'Comment', validationElement: Comment">
+		<div class="fg-line">
+			<textarea class="form-control" data-bind="value: Comment, autosize: true"></textarea>
+		</div>
+	</pmbb-edit-entry>
+
+	@Html.PluginRenderActions("InstallationPositionItemTemplatePmbbEditEntryExtensions")
+	<!-- /ko -->
+</pmbb-edit>

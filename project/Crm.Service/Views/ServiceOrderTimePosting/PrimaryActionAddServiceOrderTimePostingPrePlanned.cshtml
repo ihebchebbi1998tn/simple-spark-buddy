@@ -1,0 +1,10 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<!-- ko requiredPermission: { name: 'TimePostingPrePlannedAdd', group: 'ServiceOrder' } -->
+<li>
+	<a id="add-service-order-time-posting" href="#" data-mfb-label="@(Html.Localize("CreateTimePosting"))" data-bind="attr: { 'data-route': `Crm.Service/ServiceOrderTimePosting/EditTemplate/?${($parent.canEditEstimatedQuantities() ? 'prePlanned=true' : '')}` }" data-toggle="modal" data-target="#lgModal">
+		<i class="zmdi zmdi-plus"></i>
+	</a>
+</li>
+<!-- /ko -->

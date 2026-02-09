@@ -1,0 +1,25 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<form-element id="MaterialTheme" params="value: $root.themes, caption: 'Theme'">
+	<select class="selectpicker bs-select-hidden" data-bind="options: $root.themes,
+										optionsText: 'Name',
+										value: 'ExtensionValues().MaterialTheme',
+										optionsCaption: 'Choose...'">
+	</select>
+	<div class="btn-group bootstrap-select">
+		<button type="button" class="btn dropdown-toggle btn-default" data-toggle="dropdown" aria-expanded="false">
+			<span class="filter-option pull-left" data-bind="text: $parent.ExtensionValues().MaterialTheme(), style: { background-color: !!$root.selectedTheme() ? $root.selectedTheme().Color() : '#fff', color: '#fff' }"></span>&nbsp;<span class="caret"></span>
+		</button>
+		<div class="dropdown-menu open" style="max-height: 489px; overflow: hidden; min-height: 0px;">
+			<ul class="dropdown-menu inner" role="menu" style="max-height: 487px; overflow-y: auto; min-height: 0px;">
+				<!-- ko foreach: $root.themes() -->
+				<li data-bind="css: { selected: $root.selectedTheme().Name() === Name() }">
+					<a tabindex="0" class="" style="" data-tokens="null" data-bind="click: $root.onColorSelected, style: { background-color: Color, color: '#fff' }">
+						<span class="text" data-bind="text: Name"></span><span class="glyphicon glyphicon-ok check-mark"></span>
+					</a>
+				</li>
+				<!-- /ko -->
+			</ul>
+		</div>
+	</div>
+</form-element>

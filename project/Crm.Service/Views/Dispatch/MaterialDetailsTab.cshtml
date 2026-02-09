@@ -1,0 +1,33 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Modularization.Extensions
+
+<div role="tabpanel" class="tab-pane animated fadeIn" id="tab-details">
+	<div class="content-header placeholder">
+		<div class="lv-header-alt main-section listview">
+			<div class="card-header d-flex flex-auto">
+				<div class="caption d-flex flex-auto">
+					<h2>&nbsp;</h2>
+				</div>
+			</div>
+		</div>
+		<floating-action-button params="position: 'top', showWhenDropdownIsToggled: true">
+			@Html.PluginRenderActions("DispatchDetailsPrimaryAction")
+		</floating-action-button>
+	</div>
+	<pmb-block params="icon: 'equalizer', caption: 'General', context: { dispatch: dispatch, serviceOrder: serviceOrder }, condition: window.Helper.Dispatch.dispatchIsEditable($root.dispatch()) && window.AuthorizationManager.isAuthorizedForAction('Offline', 'OfflineOnlineSwitch')">
+		@Html.PluginRenderActions("DispatchGeneralInformation")
+	</pmb-block>
+	<pmb-block params="icon: 'label-alt-outline', caption: 'Reportdetails', context: { dispatch: dispatch, serviceOrder: serviceOrder }, condition: window.Helper.Dispatch.dispatchIsEditable($root.dispatch())">
+		@Html.PluginRenderActions("DispatchReportDetails")
+	</pmb-block>
+	<!-- ko if: $root.customerContact -->
+	<pmb-block params="icon: 'city-alt', caption: 'Customer', context: { customerContact: $root.customerContact, customerContactAddress: $root.customerContactAddress, serviceOrder: $root.serviceOrder }, condition: $root.canEditCustomerContact, onSave: $root.onSaveCustomerContact">
+		@await Html.PartialAsync("ServiceOrderMaterialDetails/DetailsCustomerContact")
+	</pmb-block>
+	<!-- /ko -->
+	<statisticskey-info params="entity: $root.serviceOrder, condition: window.Helper.Dispatch.dispatchIsEditable($root.dispatch())"></statisticskey-info>
+	@await Html.PartialAsync("ServiceOrderMaterialDetails/DetailsTabServiceObject")
+	<pmb-block params="icon: 'money-box', caption: 'Invoicing', context: { serviceOrder: serviceOrder }, condition: serviceOrderIsEditable, onSave: $root.onSaveInvoicing">
+		@await Html.PartialAsync("ServiceOrderMaterialDetails/DetailsTabInvoicing")
+	</pmb-block>
+</div>

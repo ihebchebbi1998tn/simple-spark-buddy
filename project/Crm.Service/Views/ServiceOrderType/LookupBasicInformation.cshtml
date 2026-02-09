@@ -1,0 +1,6 @@
+<!-- ko if: database.CrmService_ServiceOrderType && $data.innerInstance instanceof database.CrmService_ServiceOrderType.CrmService_ServiceOrderType -->
+<div>
+	<small class="f-500" data-bind="text: window.Helper.String.getTranslatedString('DefaultInvoicingType') + ': '"></small>
+	<small data-bind="text: DefaultInvoicingTypeKey() || Helper.String.getTranslatedString('Unspecified')"></small>
+</div>
+<!-- /ko -->

@@ -1,0 +1,41 @@
+@using Crm.Library.Globalization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<!-- ko if: $root.serviceOrder().ServiceOrderStatisticsKeys().filter(x => x.DispatchId() !== null).length > 0 -->
+<collapsible-block params="id: 'statistics-keys'">
+	<collapsible-block-header params="customCss: 'bgm-white'">
+		<span>@(Html.Localize("StatisticsKey"))</span>
+	</collapsible-block-header>
+	<collapsible-block-content params="context: { statisticsKeys: $root.serviceOrder().ServiceOrderStatisticsKeys() }">
+		<!-- ko foreach: statisticsKeys.filter(x => x.DispatchId() === null) -->
+		<div>
+			<h4>@(Html.Localize("ServiceOrder"))</h4>
+			@await Html.PartialAsync("../StatisticsKey/DescriptionList")
+		</div>
+		<!-- /ko -->
+		<!-- ko foreach: statisticsKeys.filter(x => x.DispatchId() !== null) -->
+		<div>
+			<h4>
+				@(Html.Localize("Dispatch"))
+			</h4>
+			<div class="form-group">
+				<div class="checkbox m-b-15">
+					<label>
+						<input type="checkbox" data-bind="checked: $root.selectedServiceOrderStatisticsKey, checkedValue: $data" name="ServiceOrderStatisticsKey">
+						<i class="input-helper"></i>
+						<span>
+							<span>
+								<!-- ko with: Dispatch -->
+								@await Html.PartialAsync("DispatchLinkContent")
+								<!-- /ko -->
+							</span>
+						</span>
+					</label>
+				</div>
+			</div>
+			@await Html.PartialAsync("../StatisticsKey/DescriptionList")
+		</div>
+		<!-- /ko -->
+	</collapsible-block-content>
+</collapsible-block>
+<!-- /ko -->
