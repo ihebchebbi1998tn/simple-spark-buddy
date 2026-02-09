@@ -52,18 +52,20 @@ export class TimelineExtension extends window.Sms.Scheduler.Timeline {
 		if (this.isTeamGroupNode(resource)) {
 			const team = this.getTeamFromGroupNode(resource);
 			if (team?.Members?.length > 0) {
-				// Team has members, look for technicians in children
-				const children = resource.children as SchedulerResourceModel[];
-				if (children?.length) {
-					for (const child of children) {
-						const technician = super.getFirstTechnicianChild(child);
-						if (technician) return technician;
-					}
+				// Children can be boolean | Model[] in Bryntum, so guard before iterating
+				const directChildren = resource.children;
+				const children: SchedulerResourceModel[] = Array.isArray(directChildren)
+					? (directChildren as SchedulerResourceModel[])
+					: (Array.isArray((resource as any).allChildren) ? ((resource as any).allChildren as SchedulerResourceModel[]) : []);
+
+				for (const child of children) {
+					const technician = super.getFirstTechnicianChild(child);
+					if (technician) return technician;
 				}
 			}
 			return null;
 		}
-		
+
 		// For non-team groups, use base implementation
 		return super.getFirstTechnicianChild(resource);
 	}

@@ -238,40 +238,69 @@ export class Drag extends DragHelper {
 			context.element
 		);
 		
-		const resourceRecord = (context.target && schedule.resolveResourceRecord(context.target, [event.offsetX, event.offsetY])) as ResourceModel;
+		let resourceRecord = (context.target && schedule.resolveResourceRecord(context.target, [event.offsetX, event.offsetY])) as ResourceModel;
 
-		// Resolve leaf resources robustly (tree grouping nodes may not expose allChildren as an array)
-		const leafRecords: ResourceModel[] = [];
-		const collectLeafRecords = (node: any) => {
-			if (!node) return;
-			const children = node.children;
-			if (Array.isArray(children) && children.length > 0) {
-				for (const child of children) collectLeafRecords(child);
-				return;
-			}
-			if (node.isLeaf) leafRecords.push(node as ResourceModel);
-		};
-
-		if (resourceRecord) {
-			if (resourceRecord.isLeaf) {
-				leafRecords.push(resourceRecord);
-			} else if (Array.isArray((resourceRecord as any).allChildren)) {
-				leafRecords.push(...((resourceRecord as any).allChildren as ResourceModel[]).filter(r => r.isLeaf));
-			} else {
-				collectLeafRecords(resourceRecord);
-			}
+		// Fallback: resolve resource record from the hovered row element (group headers can fail resolveResourceRecord)
+		if (!resourceRecord && context.target) {
+			const targetEl = context.target as HTMLElement;
+			const rowEl = (targetEl.closest?.('.b-grid-row') ?? targetEl.closest?.('.b-sch-timeaxis-row')) as HTMLElement;
+			const rowId = rowEl?.getAttribute?.('data-id') ?? (rowEl as any)?.dataset?.id;
+			const byId = rowId != null ? (schedule.resourceStore as any).getById?.(rowId) : null;
+			resourceRecord = (byId as ResourceModel) ?? resourceRecord;
 		}
 
-		const resourceIds = leafRecords.map(r => r["ResourceKey"] as string).filter(Boolean);
-		let resources = schedule.resourceStore.allRecords.filter(r => resourceIds.includes(r["ResourceKey"])) as ResourceModel[];
+		// Resolve leaf resources robustly for group header/virtual nodes (children can be boolean)
+		const resolveLeafRecords = (root: any): ResourceModel[] => {
+			if (!root) return [];
+			if (root.isLeaf) return [root as ResourceModel];
 
-		// Fallback: group header nodes sometimes don't resolve leaf ResourceKeys reliably during drag
-		if (!resources.length && resourceRecord) {
-			const firstTechnician = window.Sms?.Scheduler?.Timeline?.getFirstTechnicianChild?.(resourceRecord as any) as any;
-			const key = firstTechnician?.["ResourceKey"] as string;
-			if (key) {
-				resources = schedule.resourceStore.allRecords.filter(r => r["ResourceKey"] === key) as ResourceModel[];
+			const leaves: ResourceModel[] = [];
+
+			// Prefer Bryntum tree traversal APIs if present
+			if (typeof root.traverse === 'function') {
+				root.traverse((node: any) => {
+					if (node?.isLeaf) leaves.push(node as ResourceModel);
+				});
+				return leaves;
 			}
+
+			// Fallback to recursive children traversal
+			const collectViaChildren = (node: any) => {
+				const children = node?.children;
+				if (Array.isArray(children) && children.length > 0) {
+					for (const child of children) collectViaChildren(child);
+					return;
+				}
+				if (node?.isLeaf) leaves.push(node as ResourceModel);
+			};
+			collectViaChildren(root);
+
+			// Ultimate fallback: derive descendants by walking parent pointers in the store
+			if (!leaves.length) {
+				const ancestorId = root?.id;
+				const isDescendantOf = (node: any): boolean => {
+					let p = node?.parent;
+					while (p) {
+						if (p === root) return true;
+						if (ancestorId != null && p.id === ancestorId) return true;
+						p = p.parent;
+					}
+					return false;
+				};
+				const storeLeaves = schedule.resourceStore.allRecords.filter(r => (r as any)?.isLeaf && isDescendantOf(r)) as ResourceModel[];
+				leaves.push(...storeLeaves);
+			}
+
+			return leaves;
+		};
+
+		const leafRecords = resolveLeafRecords(resourceRecord);
+		const leafIds = new Set(leafRecords.map(r => r?.id).filter(id => id != null));
+		let resources = schedule.resourceStore.allRecords.filter(r => leafIds.has((r as any).id) && (r as any).isLeaf) as ResourceModel[];
+
+		// If our leaf collection returned instances not matching store instances, keep them as a last resort
+		if (!resources.length) {
+			resources = leafRecords;
 		}
 
 		const resource = resources?.[0];
@@ -293,10 +322,17 @@ export class Drag extends DragHelper {
 				const prevRowEl = context.highlightRowEl as HTMLElement;
 				prevRowEl?.classList.remove('target-resource');
 
-				// Highlight the hovered row element directly (record instances for generated group nodes are not always stable)
-				const rowEl = (context.target as HTMLElement)?.closest?.('.b-grid-row') as HTMLElement;
-				rowEl?.classList.add('target-resource');
+				// Highlight the hovered row element directly (group headers use different DOM in some modes)
+				const targetEl = context.target as HTMLElement;
+				let rowEl = (targetEl?.closest?.('.b-grid-row') ?? targetEl?.closest?.('.b-sch-timeaxis-row')) as HTMLElement;
 
+				// Fallback: look up row by record id
+				if (!rowEl && resourceRecord?.id != null) {
+					const esc = (window as any).CSS?.escape ? (window as any).CSS.escape(String(resourceRecord.id)) : String(resourceRecord.id).replace(/"/g, '\\"');
+					rowEl = (schedule.element as HTMLElement)?.querySelector?.(`.b-grid-row[data-id="${esc}"], .b-sch-timeaxis-row[data-id="${esc}"]`) as HTMLElement;
+				}
+
+				rowEl?.classList.add('target-resource');
 				context.highlightRowEl = rowEl;
 			}
 
