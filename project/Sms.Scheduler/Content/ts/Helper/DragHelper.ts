@@ -237,6 +237,8 @@ export class Drag extends DragHelper {
 		const coordinate = DomHelper[`getTranslate${schedule.isHorizontal ? 'X' : 'Y'}`](
 			context.element
 		);
+		// Persist coordinate for onDrop (createEvent expects axis-coordinate)
+		context.newX = coordinate;
 		
 		let resourceRecord = (context.target && schedule.resolveResourceRecord(context.target, [event.offsetX, event.offsetY])) as ResourceModel;
 
@@ -430,8 +432,8 @@ export class Drag extends DragHelper {
 				me.tip.showBy(context.element);
 			} else {
 				me.tip.html = `
-		        <div class="b-sch-event-title">${orders.map(o => o.name).join(", ")}</div>
-		        <div class="restriction-title"><b>${window.Helper.String.getTranslatedString("NotValidFor")}: ${(resource as ResourceTypes).ResourceType}</b></div>`
+				<div class="b-sch-event-title">${orders.map(o => o.name).join(", ")}</div>
+				<div class="restriction-title"><b>${window.Helper.String.getTranslatedString("NotValidFor")}: ${(resource as ResourceTypes).ResourceType}</b></div>`;
 				me.tip.showBy(context.element);
 			}
 		} else {
@@ -443,15 +445,34 @@ export class Drag extends DragHelper {
 			context.highlightRowEl = null;
 			context.canDrop = context.valid = false;
 		}
+	};
 
-		let targetDispatch = this.schedule.resolveEventRecord(context.target) as Dispatch;
+	onDrop = async ({context}) => {
+		const me = this;
+		const { schedule } = me;
 
-		let calendar = (resource && resource["calendar"] as CalendarModel) ?? (schedule.project.calendar as CalendarModel);
+		// Always cleanup UI state
+		me.tip?.hide();
+		const prevRowEl = context.highlightRowEl as HTMLElement;
+		prevRowEl?.classList.remove('target-resource');
+		context.highlightRowEl = null;
+		schedule.features.eventTooltip.disabled = false;
+
+		const valid = !!context.valid;
+		const canDrop = !!context.canDrop;
+		const resources = (context.resources ?? []) as ResourceModel[];
+		const resource = context.resource as ResourceModel;
+
+		if (!valid || !canDrop || !resource) {
+			return;
+		}
+
+		const targetDispatch = this.schedule.resolveEventRecord(context.target) as Dispatch;
+		const calendar = (resource && (resource["calendar"] as CalendarModel)) ?? (schedule.project.calendar as CalendarModel);
 		const tasks = context.tasks as EventModel[];
 		const orders = context.orders as GridRowModel[];
 
-		let violationItems = [];
-
+		const violationItems: any[] = [];
 		for (const r of resources) {
 			if (isTechnician(r)) {
 				for (const serviceOrder of orders.filter(o => isServiceOrder(o)) as unknown[]) {
@@ -460,18 +481,16 @@ export class Drag extends DragHelper {
 			}
 		}
 
-		if (valid && canDrop && this.enablePlanningConfirmations() && violationItems.length > 0) {
+		if (this.enablePlanningConfirmations() && violationItems.length > 0) {
 			window.Helper.Scheduler.ShowPopup(violationItems, async () => {
 				await this.createEvent(schedule, context.newX, resources, tasks, orders, calendar, targetDispatch);
 			});
-		} else if (valid && canDrop) {
-			await this.createEvent(schedule, context.newX, resources, tasks, orders, calendar, targetDispatch);
 		} else {
-			return;
+			await this.createEvent(schedule, context.newX, resources, tasks, orders, calendar, targetDispatch);
 		}
 
 		schedule.renderContents();
-	}
+	};
 	onDragAbort() {
 		this.tip?.hide();
 	}
