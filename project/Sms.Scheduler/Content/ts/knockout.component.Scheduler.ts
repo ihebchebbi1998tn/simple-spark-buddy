@@ -2135,6 +2135,73 @@ export class Scheduler extends window.Main.ViewModels.ViewModelBase {
 		let prevResourceRecord: ResourceModel = null;
 		let prevHighlightRowEl: HTMLElement = null;
 
+		const resolveResourceRecordFromDom = (targetEl: HTMLElement, offsetX: number, offsetY: number): ResourceModel => {
+			if (!targetEl) return null;
+			let record = self.scheduler.resolveResourceRecord(targetEl, [offsetX, offsetY]) as ResourceModel;
+			if (record) return record;
+
+			// Fallback: group header rows sometimes don't resolve; try data-id on the closest row element
+			const rowEl = (targetEl.closest?.('.b-grid-row') ?? targetEl.closest?.('.b-sch-timeaxis-row')) as HTMLElement;
+			const rowId = rowEl?.getAttribute?.('data-id') ?? (rowEl as any)?.dataset?.id;
+			return (rowId != null ? ((self.scheduler.resourceStore as any).getById?.(rowId) as ResourceModel) : null) ?? null;
+		};
+
+		const resolveLeafResources = (root: ResourceModel): ResourceModel[] => {
+			if (!root) return [];
+			if ((root as any).isLeaf) return [root];
+
+			const leaves: ResourceModel[] = [];
+
+			// Prefer Bryntum traversal API if present
+			if (typeof (root as any).traverse === 'function') {
+				(root as any).traverse((node: any) => {
+					if (node?.isLeaf) leaves.push(node as ResourceModel);
+				});
+			} else {
+				// Recursive children traversal (children can be boolean)
+				const collect = (node: any) => {
+					const children = node?.children;
+					if (Array.isArray(children) && children.length > 0) {
+						for (const c of children) collect(c);
+						return;
+					}
+					if (node?.isLeaf) leaves.push(node as ResourceModel);
+				};
+				collect(root);
+			}
+
+			// Ultimate fallback: derive descendants by walking parent pointers in the store
+			if (!leaves.length) {
+				const ancestorId = (root as any).id;
+				const isDescendantOf = (node: any): boolean => {
+					let p = node?.parent;
+					while (p) {
+						if (p === root) return true;
+						if (ancestorId != null && p.id === ancestorId) return true;
+						p = p.parent;
+					}
+					return false;
+				};
+				leaves.push(...(self.scheduler.resourceStore.allRecords.filter(r => (r as any)?.isLeaf && isDescendantOf(r)) as ResourceModel[]));
+			}
+
+			// Normalize to store instances when possible
+			const leafIds = new Set(leaves.map(r => (r as any)?.id).filter(id => id != null));
+			const storeMatches = self.scheduler.resourceStore.allRecords.filter(r => leafIds.has((r as any).id) && (r as any).isLeaf) as ResourceModel[];
+			return storeMatches.length ? storeMatches : leaves;
+		};
+
+		const resolveHighlightRowEl = (targetEl: HTMLElement, record: ResourceModel): HTMLElement => {
+			if (!targetEl) return null;
+			let rowEl = (targetEl.closest?.('.b-grid-row') ?? targetEl.closest?.('.b-sch-timeaxis-row')) as HTMLElement;
+			if (rowEl) return rowEl;
+
+			const id = (record as any)?.id;
+			if (id == null || !container?.querySelector) return null;
+			const esc = (window as any).CSS?.escape ? (window as any).CSS.escape(String(id)) : String(id).replace(/"/g, '\\"');
+			return container.querySelector(`.b-grid-row[data-id="${esc}"], .b-sch-timeaxis-row[data-id="${esc}"]`) as HTMLElement;
+		};
+
 		container.addEventListener("dragover", function (e) {
 			e.preventDefault();
 
@@ -2147,44 +2214,22 @@ export class Scheduler extends window.Main.ViewModels.ViewModelBase {
 
 				if (startDate) {
 					const targetEl = e.target as HTMLElement;
-					const resourceRecord = targetEl && self.scheduler.resolveResourceRecord(targetEl, [e.offsetX, e.offsetY]) as ResourceModel;
+					const resourceRecord = targetEl ? resolveResourceRecordFromDom(targetEl, e.offsetX, e.offsetY) : null;
 
-					// Resolve leaf resources robustly (tree grouping nodes may not expose allChildren as an array)
-					const leafRecords: ResourceModel[] = [];
-					const collectLeafRecords = (node: any) => {
-						if (!node) return;
-						const children = node.children;
-						if (Array.isArray(children) && children.length > 0) {
-							for (const child of children) collectLeafRecords(child);
-							return;
-						}
-						if (node.isLeaf) leafRecords.push(node as ResourceModel);
-					};
+					const resources = resolveLeafResources(resourceRecord);
 
-					if (resourceRecord) {
-						if (resourceRecord.isLeaf) {
-							leafRecords.push(resourceRecord);
-						} else if (Array.isArray((resourceRecord as any).allChildren)) {
-							leafRecords.push(...((resourceRecord as any).allChildren as ResourceModel[]).filter(r => r.isLeaf));
-						} else {
-							collectLeafRecords(resourceRecord);
-						}
-					}
-
-					// Fallback: for virtual/group header rows, resolve at least one technician via Timeline helper
-					if (!leafRecords.length && resourceRecord) {
+					// Fallback: for virtual/team group header rows, ensure we can resolve at least one technician
+					if (!resources.length && resourceRecord) {
 						const firstTechnician = window.Sms?.Scheduler?.Timeline?.getFirstTechnicianChild?.(resourceRecord as any) as any;
-						if (firstTechnician) leafRecords.push(firstTechnician as ResourceModel);
+						if (firstTechnician) resources.push(firstTechnician as ResourceModel);
 					}
 
-					const resourceIds = leafRecords.map(r => r["ResourceKey"] as string).filter(Boolean);
-					const resolvedResources = self.scheduler.resourceStore.allRecords.filter(r => resourceIds.includes(r["ResourceKey"])) as ResourceModel[];
-					const resource = (resolvedResources?.[0] ?? leafRecords?.[0]) as any;
+					const resource = resources?.[0] as any;
 
 					if (isTechnician(resource) /*|| resource.constructor === Tool*/) {
 						if (isHorizontal) {
 							prevHighlightRowEl?.classList.remove('target-resource');
-							const rowEl = (targetEl?.closest?.('.b-grid-row') as HTMLElement) ?? null;
+							const rowEl = resolveHighlightRowEl(targetEl, resourceRecord);
 							rowEl?.classList.add('target-resource');
 							prevHighlightRowEl = rowEl;
 							prevResourceRecord = resourceRecord;
@@ -2218,37 +2263,15 @@ export class Scheduler extends window.Main.ViewModels.ViewModelBase {
 				const resourceRecord = prevResourceRecord;
 				prevResourceRecord = null;
 
-				const leafRecords: ResourceModel[] = [];
-				const collectLeafRecords = (node: any) => {
-					if (!node) return;
-					const children = node.children;
-					if (Array.isArray(children) && children.length > 0) {
-						for (const child of children) collectLeafRecords(child);
-						return;
-					}
-					if (node.isLeaf) leafRecords.push(node as ResourceModel);
-				};
+				const resources = resolveLeafResources(resourceRecord);
 
-				if (resourceRecord) {
-					if (resourceRecord.isLeaf) {
-						leafRecords.push(resourceRecord);
-					} else if (Array.isArray((resourceRecord as any).allChildren)) {
-						leafRecords.push(...((resourceRecord as any).allChildren as ResourceModel[]).filter(r => r.isLeaf));
-					} else {
-						collectLeafRecords(resourceRecord);
-					}
-				}
-
-				// Fallback: for virtual/group header rows, resolve at least one technician via Timeline helper
-				if (!leafRecords.length && resourceRecord) {
+				// Fallback: for virtual/team group header rows, ensure we can resolve at least one technician
+				if (!resources.length && resourceRecord) {
 					const firstTechnician = window.Sms?.Scheduler?.Timeline?.getFirstTechnicianChild?.(resourceRecord as any) as any;
-					if (firstTechnician) leafRecords.push(firstTechnician as ResourceModel);
+					if (firstTechnician) resources.push(firstTechnician as ResourceModel);
 				}
 
-				const resourceIds = leafRecords.map(r => r["ResourceKey"] as string).filter(Boolean);
-				const resolvedResources = self.scheduler.resourceStore.allRecords.filter(r => resourceIds.includes(r["ResourceKey"])) as ResourceModel[];
-				const resource = (resolvedResources?.[0] ?? leafRecords?.[0]) as Technician;
-
+				const resource = (resources?.[0] ?? null) as Technician;
 				if (resource) {
 					let order = (self.pipeline.store as Store).find((so: GridRowModel) => so.id == serviceorderId) as ServiceOrder;
 					if (order) {
