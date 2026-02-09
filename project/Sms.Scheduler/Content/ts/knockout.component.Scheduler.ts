@@ -2146,7 +2146,30 @@ export class Scheduler extends window.Main.ViewModels.ViewModelBase {
 
 				if (startDate) {
 					const resourceRecord = e.target && self.scheduler.resolveResourceRecord(e, [e.offsetX, e.offsetY]) as ResourceModel;
-					const resourceIds = ((resourceRecord?.isLeaf ? [resourceRecord] : (Array.isArray(resourceRecord?.allChildren) ? resourceRecord.allChildren.filter(r => r.isLeaf) : [])) ?? []).map(r => r["ResourceKey"] as string);
+
+					// Resolve leaf resources robustly (tree grouping nodes may not expose allChildren as an array)
+					const leafRecords: ResourceModel[] = [];
+					const collectLeafRecords = (node: any) => {
+						if (!node) return;
+						const children = node.children;
+						if (Array.isArray(children) && children.length > 0) {
+							for (const child of children) collectLeafRecords(child);
+							return;
+						}
+						if (node.isLeaf) leafRecords.push(node as ResourceModel);
+					};
+
+					if (resourceRecord) {
+						if (resourceRecord.isLeaf) {
+							leafRecords.push(resourceRecord);
+						} else if (Array.isArray((resourceRecord as any).allChildren)) {
+							leafRecords.push(...((resourceRecord as any).allChildren as ResourceModel[]).filter(r => r.isLeaf));
+						} else {
+							collectLeafRecords(resourceRecord);
+						}
+					}
+
+					const resourceIds = leafRecords.map(r => r["ResourceKey"] as string);
 					const resources = self.scheduler.resourceStore.allRecords.filter(r => resourceIds.includes(r["ResourceKey"]));
 					const resource = resources?.[0];
 
@@ -2181,7 +2204,29 @@ export class Scheduler extends window.Main.ViewModels.ViewModelBase {
 			let serviceorderId = e.dataTransfer.getData('crm/serviceorder');
 			if (serviceorderId) {
 				const resourceRecord = prevResource;
-				const resourceIds = ((resourceRecord?.isLeaf ? [resourceRecord] : resourceRecord?.allChildren?.filter(r => r.isLeaf)) ?? []).map(r => r["ResourceKey"] as string);
+
+				const leafRecords: ResourceModel[] = [];
+				const collectLeafRecords = (node: any) => {
+					if (!node) return;
+					const children = node.children;
+					if (Array.isArray(children) && children.length > 0) {
+						for (const child of children) collectLeafRecords(child);
+						return;
+					}
+					if (node.isLeaf) leafRecords.push(node as ResourceModel);
+				};
+
+				if (resourceRecord) {
+					if (resourceRecord.isLeaf) {
+						leafRecords.push(resourceRecord);
+					} else if (Array.isArray((resourceRecord as any).allChildren)) {
+						leafRecords.push(...((resourceRecord as any).allChildren as ResourceModel[]).filter(r => r.isLeaf));
+					} else {
+						collectLeafRecords(resourceRecord);
+					}
+				}
+
+				const resourceIds = leafRecords.map(r => r["ResourceKey"] as string);
 				const resources = self.scheduler.resourceStore.allRecords.filter(r => resourceIds.includes(r["ResourceKey"]));
 				const resource = resources?.[0] as Technician;
 
