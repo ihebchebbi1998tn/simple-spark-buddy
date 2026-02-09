@@ -2146,19 +2146,23 @@ export class Scheduler extends window.Main.ViewModels.ViewModelBase {
 
 				if (startDate) {
 					const resourceRecord = e.target && self.scheduler.resolveResourceRecord(e, [e.offsetX, e.offsetY]) as ResourceModel;
-					const resourceIds = ((resourceRecord?.isLeaf ? [resourceRecord] : resourceRecord?.allChildren?.filter(r => r.isLeaf)) ?? []).map(r => r["ResourceKey"] as string);
+					const resourceIds = ((resourceRecord?.isLeaf ? [resourceRecord] : (Array.isArray(resourceRecord?.allChildren) ? resourceRecord.allChildren.filter(r => r.isLeaf) : [])) ?? []).map(r => r["ResourceKey"] as string);
 					const resources = self.scheduler.resourceStore.allRecords.filter(r => resourceIds.includes(r["ResourceKey"]));
 					const resource = resources?.[0];
 
 					if (isTechnician(resource) /*|| resource.constructor === Tool*/) {
 						if (isHorizontal) {
-							if (prevResource) {
-								self.scheduler.getRowFor(prevResource).removeCls('target-resource');
-							}
-							self.scheduler.getRowFor(resourceRecord).addCls('target-resource');
+							const prevRow = prevResource && self.scheduler.getRowFor(prevResource);
+							prevRow?.removeCls('target-resource');
+
+							const storeRecord = resourceRecord?.id ? (self.scheduler.resourceStore as any).getById?.(resourceRecord.id) as ResourceModel : null;
+							const highlightRecord = (storeRecord ?? resourceRecord ?? resource) as ResourceModel;
+							const row = highlightRecord && self.scheduler.getRowFor(highlightRecord);
+							row?.addCls('target-resource');
+
+							prevResource = highlightRecord;
 						}
 						isValid = true;
-						prevResource = resourceRecord;
 					}
 					isValid &&= allowOverlap;
 				}
