@@ -481,12 +481,13 @@ export class Drag extends DragHelper {
 			}
 		}
 
+		const targetResource = resources[0];
 		if (this.enablePlanningConfirmations() && violationItems.length > 0) {
 			window.Helper.Scheduler.ShowPopup(violationItems, async () => {
-				await this.createEvent(schedule, context.newX, resources, tasks, orders, calendar, targetDispatch);
+				await this.createEvent(schedule, context.newX, targetResource, tasks, orders, calendar, targetDispatch);
 			});
 		} else {
-			await this.createEvent(schedule, context.newX, resources, tasks, orders, calendar, targetDispatch);
+			await this.createEvent(schedule, context.newX, targetResource, tasks, orders, calendar, targetDispatch);
 		}
 
 		schedule.renderContents();

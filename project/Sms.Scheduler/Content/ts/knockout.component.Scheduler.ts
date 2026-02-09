@@ -2138,14 +2138,14 @@ export class Scheduler extends window.Main.ViewModels.ViewModelBase {
 		// Drag debug overlay (enable via DevTools console):
 		// localStorage.setItem('Sms.Scheduler:dragDebug', '1'); location.reload();
 		const DRAG_DEBUG_KEY = 'Sms.Scheduler:dragDebug';
-		const isDragDebugEnabled = () => BrowserHelper.getLocalStorageItem(DRAG_DEBUG_KEY) === '1';
+		const isDragDebugEnabled = () => localStorage.getItem(DRAG_DEBUG_KEY) === '1';
 
 		const escapeHtml = (s: any) => String(s ?? '')
-			.replaceAll('&', '&amp;')
-			.replaceAll('<', '&lt;')
-			.replaceAll('>', '&gt;')
-			.replaceAll('"', '&quot;')
-			.replaceAll("'", '&#39;');
+			.replace(/&/g, '&amp;')
+			.replace(/</g, '&lt;')
+			.replace(/>/g, '&gt;')
+			.replace(/"/g, '&quot;')
+			.replace(/'/g, '&#39;');
 
 		const ensureDragDebugOverlay = (): HTMLDivElement | null => {
 			if (!isDragDebugEnabled()) return null;
@@ -2167,7 +2167,7 @@ export class Scheduler extends window.Main.ViewModels.ViewModelBase {
 			el.style.border = '1px solid rgba(255,255,255,0.18)';
 			el.style.borderRadius = '10px';
 			el.style.boxShadow = '0 12px 40px rgba(0,0,0,0.35)';
-			el.style.backdropFilter = 'blur(6px)';
+			(el.style as any).backdropFilter = 'blur(6px)';
 			el.style.padding = '10px 12px';
 			el.style.fontFamily = 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace';
 			el.style.fontSize = '12px';
