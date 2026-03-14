@@ -1,9 +1,0 @@
-﻿@inherits Crm.Library.Modularization.CrmViewUserControl
-@using Crm.Library.Globalization.Extensions
-
-<li  data-bind="visible: $root.dispatch().StatusKey() === 'Scheduled'">
-	<a href="#" data-bind="click: $root.confirm">
-		@(Html.Localize("Confirm"))
-	</a>
-</li>
-

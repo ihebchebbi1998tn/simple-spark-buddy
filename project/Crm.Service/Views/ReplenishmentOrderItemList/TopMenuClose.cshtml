@@ -1,8 +1,0 @@
-﻿@inherits Crm.Library.Modularization.CrmViewUserControl
-@using Crm.Library.Globalization.Extensions
-
-<li data-bind="visible: items().length > 0 && !$root.replenishmentOrder().IsClosed(), tooltip: true" data-placement="bottom" title="@(Html.Localize("Complete"))">
-	<a id="close-replenishment-order" href="#" data-bind="click: closeReplenishmentOrder">
-		<i class="tm-icon zmdi zmdi-mail-send"></i>
-	</a>
-</li>

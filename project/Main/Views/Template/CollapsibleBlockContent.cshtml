@@ -1,9 +1,0 @@
-﻿@inherits Crm.Library.Modularization.CrmViewUserControl
-
-<div class="collapse" data-bind="css: $parent.collapsed() ? '' : 'in', attr: { id: 'collapse-' + $parent.id, 'aria-labelledby': 'collapse-heading-' + $parent.id, 'aria-expanded': !$parent.collapsed(), style: { height: $parent.collapsed() ? 0 : 'unset' } }">
-	<div class="panel-body p-0 m-b-20">
-		<!-- ko with: viewContext -->
-		<!-- ko template: { nodes: $componentTemplateNodes } --><!-- /ko -->
-		<!-- /ko -->
-	</div>
-</div>

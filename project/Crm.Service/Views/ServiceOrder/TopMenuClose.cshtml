@@ -1,8 +1,0 @@
-﻿@inherits Crm.Library.Modularization.CrmViewUserControl
-@using Crm.Library.Globalization.Extensions
-
-<li  data-bind="if: $root.serviceOrder().StatusKey() === 'ReadyForScheduling'">
-	<a id="serviceorder-close" href="#" data-route="Crm.Service/ServiceOrder/CloseTemplate/{{$root.serviceOrder().Id}}?returnUrl=/Crm.Service/ServiceOrderHeadList/IndexTemplate" data-toggle="modal" data-target="#modal">
-		@(Html.Localize("Close"))
-	</a>
-</li>

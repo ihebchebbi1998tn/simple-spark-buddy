@@ -1,8 +1,0 @@
-﻿@inherits Crm.Library.Modularization.CrmViewUserControl
-@using Crm.Library.Globalization.Extensions
-
-<li  data-bind="if: $root.dispatch().StatusKey() === 'InProgress' || $root.dispatch().StatusKey() === 'SignedByCustomer'">
-	<a id="report-recipients" href="#" data-bind="attr: { 'data-route' : 'Crm.Service/Dispatch/ReportRecipientsTemplate/' + $root.dispatch().Id() }" data-toggle="modal" data-target="#modal">
-		@(Html.Localize("Recipients"))
-	</a>
-</li>

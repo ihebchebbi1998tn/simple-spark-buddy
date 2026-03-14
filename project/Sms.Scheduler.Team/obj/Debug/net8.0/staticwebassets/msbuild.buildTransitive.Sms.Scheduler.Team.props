@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\Sms.Scheduler.Team.props" />
-</Project>

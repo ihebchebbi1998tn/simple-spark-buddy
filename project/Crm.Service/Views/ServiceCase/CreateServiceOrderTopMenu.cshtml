@@ -1,9 +1,0 @@
-﻿@inherits Crm.Library.Modularization.CrmViewUserControl
-@using Crm.Library.Globalization.Extensions
-
-<li >
-	<a id="create-service-order" href="#" data-toggle="modal" data-target="#modal" data-route="Crm.Service/ServiceCase/CreateServiceOrderTemplate/{{$root.serviceCase().Id}}">
-		<i class="zmdi zmdi-plus-circle-o text-center"></i>
-		@(Html.Localize("CreateServiceOrder"))
-	</a>
-</li>

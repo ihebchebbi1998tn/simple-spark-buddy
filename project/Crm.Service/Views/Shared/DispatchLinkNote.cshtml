@@ -1,7 +1,0 @@
-﻿<!-- ko if: ko.unwrap($parent.ExtensionValues().DispatchId) !== null && $parentContext.$parent.getDispatch && !($parentContext.$parent instanceof window.Crm.Service.ViewModels.DispatchDetailsNotesTabViewModel) -->
-<div class="dispatch-link p-t-5">
-	<!-- ko with: $parentContext.$parent.getDispatch($parent) -->
-	@await Html.PartialAsync("DispatchLinkContent")
-	<!-- /ko -->
-</div>
-<!-- /ko -->

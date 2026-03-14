@@ -1,8 +1,0 @@
-﻿@inherits Crm.Library.Modularization.CrmViewUserControl
-@using Crm.Library.Globalization.Extensions
-
-<!-- ko requiredPermission: { name: 'Edit', group: 'ServiceOrderErrorCause' } -->
-<li data-bind="visible: $root.tabs()['tab-error']().errorCauseCanBeEdited($data)">
-	<a data-pmb-action="edit" href="#" data-bind="click: $parentContext.$parentContext.$parentContext.$parent.toggle">@(Html.Localize("Edit"))</a>
-</li>
-<!-- /ko -->

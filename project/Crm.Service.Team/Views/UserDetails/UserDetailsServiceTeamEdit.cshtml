@@ -1,8 +1,0 @@
-﻿<!-- ko if: $root.serviceTeamsIds -->
-<!-- ko with: user -->
-<pmbb-edit-entry params="caption: 'ServiceTeam', validationElement: UsergroupIds">
-	<select name="Usergroups" class="form-control" multiple="multiple" data-bind="select2autocompleter: { data: $root.getUsergroupsFromIds.call($root, $root.serviceTeamsIds()), autocompleteOptions: { orderBy: ['Name'], table: 'Main_Usergroup', customFilter: Helper.User.filterUsergroupQueryForServiceTeams, mapDisplayObject: Helper.User.mapUsergroupForSelect2Display, placeholder: $parent.placeholder } }, selectedOptions: $root.serviceTeamsIds">
-	</select>
-</pmbb-edit-entry>
-<!-- /ko -->
-<!-- /ko -->

@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\Sms.Scheduler.props" />
-</Project>

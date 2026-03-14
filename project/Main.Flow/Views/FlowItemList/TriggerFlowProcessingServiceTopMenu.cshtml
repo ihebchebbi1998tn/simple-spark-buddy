@@ -1,9 +1,0 @@
-﻿@inherits Crm.Library.Modularization.CrmViewUserControl
-@using Crm.Library.Globalization.Extensions
-
-<li class="dropdown" data-bind="visible: $root.status() == 'online', tooltip: true" data-placement="bottom">
-	<a href="#" data-bind="click: function() { $root.trigger(); return false; }">
-		<i class="tm-icon zmdi zmdi-play"></i>
-		<div class="small">@(Html.Localize("RunNow"))</div>
-	</a>
-</li>

@@ -1,9 +1,0 @@
-@inherits Crm.Library.Modularization.CrmViewUserControl
-@using Crm.Library.Globalization.Extensions
-
-<li  data-bind="if: $root.canRetryTransaction">
-	<a href="#" data-bind="click: () => $root.retryTransaction.call($root)">
-		<i class="zmdi zmdi-replay"></i>
-		@(Html.Localize("Retry"))
-	</a>
-</li>

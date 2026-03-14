@@ -1,8 +1,0 @@
-﻿@inherits Crm.Library.Modularization.CrmViewUserControl
-@using Crm.Library.Globalization.Extensions
-
-<li data-bind="visible: StatusKey() === 'ReadyForScheduling' || StatusKey() === 'PartiallyCompleted'">
-	<a id="serviceorder-schedule" href="#" data-toggle="modal" data-target="#lgModal" href="#" data-route="Crm.Service/Dispatch/Schedule/@(Guid.Empty)?serviceOrderId={{Id}}">
-		@(Html.Localize("ScheduleDispatch"))
-	</a>
-</li>
