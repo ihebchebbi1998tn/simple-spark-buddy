@@ -1,0 +1,14 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl<Main.ViewModels.GenericListViewModel>
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+@Html.PluginRenderActions("MaterialGenericListResourceExtensions")
+<div class="card generic-list" data-bind="mProgress: loading">
+	@await Html.PartialAsync("Material/GenericListHeader") 
+	@await Html.PartialAsync("Material/GenericListList") 
+	<a class="lv-footer m-t-0 card-header ch-alt" href="#/Crm.Service/ServiceCaseList/IndexTemplate">
+		@(Html.Localize("ShowAll"))
+	</a>
+</div>
+
+@await Html.PartialAsync("Material/GenericListItem")

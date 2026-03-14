@@ -1,0 +1,25 @@
+﻿<div class="modal-header card-header ch-alt">
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title" data-bind="translatedText: !$root.rule().CreateDate() ? 'AddRule' : 'EditRule'"></h4>
+</div>
+<div class="modal-body p-t-20">
+	<form data-bind="with: rule">
+		<form-element params="value: EntityType, caption: 'EntityType', type: 'select'">
+			<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { table: 'Main_EntityType', mapDisplayObject: $root.entityTypeMapForSelect2Display, getElementByIdQuery: $root.getElementByIdQuery } }">
+			</select>
+		</form-element>
+		<form-element params="value: Action, caption: 'Action', type: 'select'">
+			<select data-bind="options: $root.actions, optionsValue: 'key', optionsText: 'value', value: value" class="form-control"></select>
+		</form-element>
+		<form-element params="value: Description, caption: 'Description', type: 'text'"></form-element>
+		<form-element params="value: Endpoint, caption: 'Endpoint', type: 'text'"></form-element>
+		<form-element params="value: Username, caption: 'UserName', type: 'text'"></form-element>
+		<form-element params="value: Password, caption: 'Password', type: 'password'"></form-element>
+	</form>
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-bind="translatedText: 'Cancel', click: dispose" data-dismiss="modal"></button>
+	<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: save, translatedText: 'Save'"></button>
+</div>

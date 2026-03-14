@@ -1,0 +1,14 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Modularization.Extensions
+
+<div class="container">
+	<div class="card">
+		<!-- ko if: !window.Crm.Service.Settings.ServiceOrder.OrderNoIsCreateable && !window.Crm.Service.Settings.ServiceOrder.OrderNoIsGenerated -->
+		<div class="alert alert-warning" data-bind="text: window.Helper.String.getTranslatedString('InconsistentNumberCreationSettingWarning').replace('{0}', window.Helper.String.getTranslatedString('OrderNo'))"></div>
+		<!-- /ko -->
+		<form role="form" class="root-form">
+			@Html.PluginRenderActions("ServiceOrderCreateForm")
+		</form>
+		@await Html.PartialAsync("CreateFormFooter")
+	</div>
+</div>

@@ -1,0 +1,32 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<!-- ko if: $root.serviceOrder -->
+<div class="filter-element form-group" id="serviceordertimeid-filter" data-bind="visible: window.Crm.Service.Settings.ServiceContract.MaintenanceOrderGenerationMode === 'JobPerInstallation'">
+	<div class="fg-line">
+		<label class="fg-label control-label">
+			@(Html.Localize("ServiceOrderTime"))
+		</label>
+		<select class="form-control" data-bind="select2autocompleter: {
+		data: getFilter('ExtensionValues.ServiceOrderTimeId').extend({ filterOperator: '==' }), autocompleteOptions:
+		{
+			table: 'CrmService_ServiceOrderTime',
+			orderBy: ['PosNo'], joins: Helper.ServiceOrderTime.getAutocompleteJoins(),
+			customFilter: function (query, term) { return $root.customFilter(query, term, $root.serviceOrder().Id()) },
+			mapDisplayObject: function (o) { return { id: o.Id, text: Helper.ServiceOrderTime.getAutocompleteDisplay(o) }; },
+			placeholder: Helper.String.getTranslatedString('All') } },
+			value: ko.pureComputed({ 
+				read: function() { 
+					var value = ko.unwrap(this.getFilter('ExtensionValues.ServiceOrderTimeId')); 
+					return value && value.Operator ? value.Value : value;
+				},
+				write: function(newValue) {
+					var selectedOption = $('#serviceordertimeid-filter select').select2('data')?.[0];
+					var displayText = selectedOption?.text || newValue;
+					this.getFilter('ExtensionValues.ServiceOrderTimeId').extend({ filterOperator: { operator: '==', additionalProperties: { caption: 'ServiceOrderTime', displayedValue: displayText } } })(newValue);
+				}
+			}, $data)">
+		</select>
+	</div>
+</div>
+<!-- /ko -->

@@ -1,0 +1,154 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Modularization.Extensions
+@using Crm.Library.Globalization.Extensions
+
+
+
+<script type="text/html" id="position-group-template">
+	<!-- ko if : $root.tabs()['tab-positions']().levelPage()===0 || ($root.tabs()['tab-positions']().levelPage()>0 && Id()===$root.tabs()['tab-positions']().topPagePositionsIds()[$root.tabs()['tab-positions']().levelPage()] && $parent.Article== undefined) || ($root.tabs()['tab-positions']().levelPage()>0 && !!$parent.Article)-->
+	<div id="{{Id}}" class="lv-item media p-r-0 p-b-0 p-t-0" style="border:none;" >
+		<div class="panel-group m-b-0" id="collapse-positions-{{Id}}" role="tablist" aria-multiselectable="true" data-bind="infiniteScrollItem: { index: $index(), array: $parent.items }">
+			<div class="panel panel-collapse">
+				<div class="panel-heading" role="tab" id="heading-positions-{{Id}}" data-bind="click: $root.tabs()['tab-positions']().toggleSelectedGroupedPositions.bind($root.tabs()['tab-positions'](),$data)">
+					<div class=" h4 panel-title">
+						<div class="pull-left lv-avatar f-11 " data-bind="style:{ 'background-color': Helper.InstallationPosition.getPositionColor($data, $root.tabs()['tab-positions']().lookups.articleTypes)}, text: (Article()?.ArticleTypeKey().substring(0,1) || '') + PosNo()" style="white-space: pre-line; word-break: break-word; position: absolute; top: 20%;"></div>
+						<a class="p-b-0 collapsed" data-toggle="collapse" data-parent="#collapse-positions-{{Id}}" href="#collapse-panel-positions-{{Id}}" aria-controls="collapse-panel-positions-{{Id}}" aria-expanded="false" style="padding-bottom: 7px !important; padding-top: 12px !important; padding-left: 50px;">
+							<span>
+								<span class="row">
+									<span class="col-sm-5 col-xs-4">
+										<span class="lv-title">
+											<span class="item-no" data-bind="text: ItemNo"></span> - <span class="description" data-bind="text: Helper.Article.getArticleDescription(Article) || Description"></span>
+										</span>
+										@Html.PluginRenderActions("InstallationPositionItemTemplateExtensions")
+									</span>
+									<span class="col-sm-5 col-xs-5 m-l-30">
+										<span class="row lv-title">
+										<span class="col-sm-3 col-xs-3 p-r-5 p-l-5" style="word-break: normal ! important;" data-bind="html: Quantity"></span>
+										<span class="col-sm-9 col-xs-9 text-nowrap">
+										<span data-bind="lookupValue: QuantityUnitKey, lookups: $root.lookups.quantityUnits"></span>
+										</span>
+										</span>
+									</span>
+								</span>
+								<span class="f-10 p-attributes">
+									<!--ko if : Article()?.IsBatch() && !!BatchNo()-->
+									<span class="p-attribute" >
+										<span>@Html.Localize("Lot")</span>
+										<span data-bind="text:BatchNo"></span>
+									</span>
+									<!-- /ko -->
+									<!--ko if : Article()?.IsSerial() && !!SerialNo() -->
+									<span class="p-attribute" >
+										<span>@Html.Localize("SN")</span>
+										<span data-bind="text: SerialNo"></span>
+									</span>
+									<!-- /ko -->
+								</span>
+								<!-- ko if: IsGroupItem() -->
+									<i class="zmdi zmdi-collection-item icon-group-position" style=" padding-right: 15px; transform: none !important;"></i>
+								<!-- /ko -->
+
+								<!--ko if : !!RelatedInstallation() -->
+									<span class="icon-related-installation" > 
+										<i class="zmdi zmdi-square-down " style=" padding-right: 25px; transform: none !important;"></i>
+									</span>
+								<!-- /ko -->
+								
+							</span>
+							<i class="zmdi zmdi-chevron-down zmdi-hc-lg icon-toggle"></i>
+						</a>
+					</div>
+				</div>
+				<div class="collapse" role="tabpanel" id="collapse-panel-positions-{{Id}}" aria-expanded="false" aria-labelledby="heading-positions-{{Id}}" style="height: 0px;">
+						<div class="panel-body">
+							<div class="p-l-20">
+								<pmb-block params="context: { installationposition: $data }, showHeader: false, css: 'm-0 p-0', showActions: false">
+								@Html.PluginRenderActions("InstallationInstallationPositionTemplate")
+									<div class="h5" data-bind="visible: !isToggled()">
+										<!--ko if : !!$parent.RelatedInstallation() -->
+										<span>@Html.Localize("RelatedInstallationPositionText")</span>
+										<a href="#/Crm.Service/Installation/DetailsTemplate/{{ko.unwrap($parent.RelatedInstallation).Id}}" data-bind="tooltip: true, text: window.Helper.Installation.getDisplayName(ko.unwrap($parent.RelatedInstallation))" data-placement="top" title="@(Html.Localize("OpenInstallation"))"></a>
+										<!-- /ko -->
+									</div>
+								</pmb-block>
+							</div>
+							
+							<!-- ko if : IsGroupItem() -->
+							<div class="h5 text-center text-uppercase p-t-10 p-b-10 m-l-20 p-r-10 row" style=" border-bottom: 1px solid #eee; border-top: 1px solid #eee; "> 
+								<div class="col-xs-10" style="padding-top: 0.6%;padding-bottom: 0.6%;">
+									<span>@Html.Localize("subPositions")</span>
+								</div>
+								<!-- ko if : haveItems() -->
+									<ul class="actions generic-list-actions pull-right col-xs-2 text-capitalize subpositions-actions" data-bind="css: { 'actions-alt' : selectedItems().length > 0 }">
+										<!-- ko if: bookmarks().length > 0 -->
+										<li id="bookmark-dropdown" class="dropdown p-absolute " >
+											<a href="#" data-toggle="dropdown" aria-expanded="true">
+												<i class="zmdi zmdi-bookmark zmdi-hc-lg i-subposition-action" style="padding-right:40px;"></i>
+											</a>
+											<ul class= "dropdown-menu dropdown-menu-right" data-bind="foreach: bookmarks.indexKeys.Category()">
+												<li role="presentation" class="dropdown-header pull-right" data-bind="text: $data"></li>
+												<!-- ko foreach: $parent.bookmarks.index.Category()[$data] -->
+												<li data-bind="attr: { 'class': $data.Key.toLowerCase() + '-filter' }, css: { 'active': $parentContext.$parent.bookmark() === $data }">
+															<a href="#" data-bind="click: $root.tabs()['tab-positions']().toggleBookmark.bind($root.tabs()['tab-positions'](), $data, $parentContext.$parent)">
+														<span data-bind="text: Name"></span>
+													</a>
+												</li>
+												<!-- /ko -->
+											</ul>
+										</li>
+										<!-- /ko -->
+
+										<li class="p-absolute" id="add-sub-position-{{Id}}" style="right: 20%; margin-right: 10%;"><a href="#" title="@(Html.Localize("AddInstallationPosition"))" data-route="Crm.Service/InstallationPosition/EditTemplate/?installationId={{$root.installation().Id()}}&referenceId={{$data.Id()}}" data-toggle="modal" data-target="#lgModal" data-binb="tooltip : true"><i class="zmdi zmdi-plus-circle-o zmdi-hc-lg i-subposition-action" style="padding-right:10px;"></i></a></li>
+										<li class="p-absolute"  id="close-expand-all">
+											<a href="#" data-toggle="dropdown" aria-expanded="true">
+												<i class="zmdi zmdi-more-vert zmdi-hc-lg"></i>
+											</a>
+											<ul class="dropdown-menu dropdown-menu-right">
+												<li>
+													<a href="#" data-bind="click: $root.tabs()['tab-positions']().expandAllPositions.bind($root.tabs()['tab-positions'](), $data)">
+															@(Html.Localize("ExpandAll"))
+													</a>
+												</li>
+												<li>
+													<a href="#" data-bind="click: $root.tabs()['tab-positions']().closeAllPositions.bind($root.tabs()['tab-positions'](), $data)">
+															@(Html.Localize("CollapseAll"))
+													</a>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								<!-- /ko -->
+							</div>
+							<div  style="min-height : 40px;">
+							<!-- ko if : haveItems() -->
+								<div class="text-center">
+									<!-- ko if : loading() -->
+										<div class="preloader pl-lg">
+											<svg class="pl-circular" viewBox="25 25 50 50">
+												<circle class="plc-path" cx="50" cy="50" r="20"></circle>
+											</svg>
+										</div>
+									<!-- /ko -->
+								</div>
+									<!-- ko template: { name: 'position-group-template', foreach: items } -->
+									<!-- /ko -->
+									<!-- ko if: items().length===0 && !loading()-->
+									<div  class="p-l-20 m-b-15">
+										<span>@Html.Localize("NoSubInstallationPositionsInfo")</span>
+									</div>
+									<!-- /ko -->
+									<!-- ko if: $root.tabs()['tab-positions']().levelPage()===0 || ($root.tabs()['tab-positions']().levelPage()>0 && (!!Article || !!$parent.Article))-->
+									<!-- ko with: subPositionsViewModel -->
+									@await Html.PartialAsync("../InstallationPositionList/InstallationPositionsMaterialPaging")
+									<!-- /ko -->
+									<!-- /ko -->
+							<!-- /ko -->
+							</div>
+							<!-- /ko -->
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /ko -->
+</script>

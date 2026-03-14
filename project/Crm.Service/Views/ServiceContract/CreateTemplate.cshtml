@@ -1,0 +1,230 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Extensions
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div class="container">
+	<div class="card">
+		<form role="form" data-bind="with: serviceContract" class="root-form">
+			<collapsible-block params="id: 'general'" class="morph">
+				<collapsible-block-header params="customCss: 'bg-white', swapIcons: true">
+					<span>@(Html.Localize("General"))</span>
+				</collapsible-block-header>
+				<collapsible-block-content params="context: { serviceContract: $root.serviceContract }">
+					<!-- ko with: serviceContract -->
+					@Html.PluginRenderActions("ServiceContractCreateFormGeneralTop")
+					<div class="flex-input-row">
+						<!-- ko if : window.Crm.Service.Settings.ServiceContract.ServiceContractNoIsCreateable && (!window.Helper.Offline || window.Helper.Offline.status === 'online') -->
+						<div>
+							<div class="form-group" data-bind="validationElement: Name" title="">
+								<div class="fg-line">
+									<label class="fg-label control-label" data-bind="visible: 'Name'">
+										<span>@Html.Localize("ContractNo")</span>
+									</label>
+									<input type="text" class="form-control fg-input" name="ContractNo" data-bind="value: Name, attr: { maxlength: 20}">
+								</div>
+								<small class="help-block pre-line" data-bind="validationMessage: Name" style="display: none;"></small>
+							</div>
+						</div>
+						<!-- /ko -->
+						<div>
+							<form-element id="ContractTypeKey" params="value: ContractTypeKey, caption: 'ServiceContractType', type: 'select2'">
+								<select class="form-control" data-bind="select2autocompleter: { data: value, default: Helper.Lookup.getLookupValue($root.lookups.serviceContractTypes, value), autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_ServiceContractType'), placeholder: placeholder}">
+								</select>
+							</form-element>
+						</div>
+					</div>
+					<div class="flex-input-row">
+						<div>
+							<form-element id="ParentId" params="value: ParentId, caption: 'BusinessPartner', type: 'select2'">
+								<div class="input-group">
+									<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Name'], table: 'Crm_Company', mapDisplayObject: Helper.Company.mapForSelect2Display, customFilter: Helper.Company.getSelect2Filter.bind($data), placeholder: placeholder } }">
+									</select>
+									<!-- ko component: { name: "generic-list-selection", params: { value: value, controller: 'CompanyList', plugin: 'Crm', caption: caption, customFilter: Helper.Company.getSelect2Filter.bind($data) } } -->
+									<!-- /ko -->
+								</div>
+							</form-element>
+						</div>
+						<!-- ko requiredPermission: { name: 'ServiceObject', group: 'WebAPI' } -->
+						<!-- ko if: $root.isThereAnyServiceObject -->
+						<div>
+							<form-element id="ServiceObjectId" params="value: ServiceObjectId, caption: 'ServiceObject', type: 'select2'">
+								<div class="input-group">
+									<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['ObjectNo'], table: 'CrmService_ServiceObject', mapDisplayObject: Helper.ServiceObject.mapForSelect2Display, placeholder: placeholder } }">
+									</select>
+									<!-- ko component: { name: "generic-list-selection", params: { value: value, controller: 'ServiceObjectList', plugin: 'Crm.Service', caption: caption } } -->
+									<!-- /ko -->
+								</div>
+							</form-element>
+						</div>
+						<!-- /ko -->
+						<!-- /ko -->
+					</div>
+					<div class="flex-input-row">
+						<div>
+							<form-element params="value: ValidFrom, caption: 'ValidFrom', type: 'datePicker', datePickerOptions: { config: { stepping: parseInt(Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval) } }"></form-element>
+						</div>
+						<div>
+							<form-element params="value: ValidTo, caption: 'ValidTo', type: 'datePicker', datePickerOptions: { config: { stepping: parseInt(Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval) } }"></form-element>
+						</div>
+					</div>
+					<div class="flex-input-row">
+						<div>
+							<form-element id="StatusKey" params="value: StatusKey, caption: 'Status', type: 'select2'">
+								<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_ServiceContractStatus'), placeholder: placeholder}">
+								</select>
+							</form-element>
+						</div>
+					</div>
+					@Html.PluginRenderActions("ServiceContractCreateFormGeneralBottom")
+					<!-- /ko -->
+				</collapsible-block-content>
+			</collapsible-block>
+
+			<div class="top-separator"></div>
+
+			<collapsible-block params="id: 'invoice-conditions'" class="morph">
+				<collapsible-block-header params="customCss: 'bg-white', swapIcons: true">
+					<span>@(Html.Localize("InvoiceConditions"))</span>
+				</collapsible-block-header>
+				<collapsible-block-content params="context: { serviceContract: $root.serviceContract }">
+					<!-- ko with: serviceContract -->
+					@Html.PluginRenderActions("ServiceContractCreateFormInvoiceConditionsTop")
+					<div class="flex-input-row">
+						<div>
+							<form-element params="value: Price, caption: 'Price', type: 'number', quantityStep: 100"></form-element>
+						</div>
+						<div>
+							<form-element id="PriceCurrencyKey" params="value: PriceCurrencyKey, caption: 'Currency', type: 'select2'">
+								<select class="form-control" data-bind="select2autocompleter: { data: value, default: Helper.Lookup.getLookupValue($root.lookups.currencies, value), autocompleteOptions: Helper.Lookup.getAutocompleteOptions('Main_Currency'), placeholder: placeholder}">
+								</select>
+							</form-element>
+						</div>
+					</div>
+					<div class="flex-input-row">
+						<div>
+							<form-element params="value: NoPaymentsUntil, caption: 'NoPaymentsUntil', type: 'datePicker', datePickerOptions: { config: { stepping: parseInt(Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval) } }"></form-element>
+						</div>
+						<div>
+							<form-element params="value: PriceGuaranteedUntil, caption: 'PriceGuaranteedUntil', type: 'datePicker', datePickerOptions: { config: { stepping: parseInt(Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval) } }"></form-element>
+						</div>
+					</div>
+					<div class="flex-input-row">
+						<div>
+							<form-element id="PaymentTypeKey" params="value: PaymentTypeKey, caption: 'PaymentType', type: 'select2'">
+								<select class="form-control" data-bind="select2autocompleter: { data: value, default: Helper.Lookup.getLookupValue($root.lookups.paymentTypes, value), autocompleteOptions: Helper.Lookup.getAutocompleteOptions('Main_PaymentType'), placeholder: placeholder}">
+								</select>
+							</form-element>
+						</div>
+						<div>
+							<form-element id="PaymentIntervalKey" params="value: PaymentIntervalKey, caption: 'PaymentInterval', type: 'select2'">
+								<select class="form-control" data-bind="select2autocompleter: { data: value, default: Helper.Lookup.getLookupValue($root.lookups.paymentIntervals, value), autocompleteOptions: Helper.Lookup.getAutocompleteOptions('Main_PaymentInterval'), placeholder: placeholder}">
+								</select>
+							</form-element>
+						</div>
+						<div>
+							<form-element id="PaymentConditionKey" params="value: PaymentConditionKey, caption: 'PaymentCondition', type: 'select2'">
+								<select class="form-control" data-bind="select2autocompleter: { data: value, default: Helper.Lookup.getLookupValue($root.lookups.paymentConditions, value), autocompleteOptions: Helper.Lookup.getAutocompleteOptions('Main_PaymentCondition'), placeholder: placeholder}">
+								</select>
+							</form-element>
+						</div>
+					</div>
+					<div class="flex-input-row">
+						<div>
+							<form-element params="value: InvoiceSpecialConditions, caption: 'InvoiceSpecialConditions', type: 'textarea'"></form-element>
+						</div>
+						<div>
+							<form-element params="value: InternalInvoiceInformation, caption: 'InternalInvoiceInformation', type: 'textarea'"></form-element>
+						</div>
+					</div>
+					@Html.PluginRenderActions("ServiceContractCreateFormInvoiceConditionsBottom")
+					<!-- /ko -->
+				</collapsible-block-content>
+			</collapsible-block>
+
+			<div class="top-separator"></div>
+
+			<collapsible-block params="id: 'extended-data', collapsed: true" class="morph">
+				<collapsible-block-header params="customCss: 'bg-white', swapIcons: true">
+					<span>@(Html.Localize("ExtendedData"))</span>
+				</collapsible-block-header>
+				<collapsible-block-content params="context: { serviceContract: $root.serviceContract }">
+					<!-- ko with: serviceContract -->
+					@Html.PluginRenderActions("ServiceContractCreateFormExtendedDataTop")
+					<div class="flex-input-row">
+						<div>
+							<form-element params="value: BackgroundInfo, caption: 'BackgroundInfo', type: 'textarea'"></form-element>
+						</div>
+						<div>
+							<form-element params="value: ExternalReference, caption: 'ExternalReference', type: 'text'"></form-element>
+						</div>
+					</div>
+					<div class="flex-input-row">
+						<div>
+							<form-element id="PayerId" params="value: PayerId, caption: 'Company', type: 'select2'">
+								<div class="input-group">
+									<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Name'], table: 'Crm_Company', mapDisplayObject: Helper.Company.mapForSelect2Display, customFilter: Helper.Company.getSelect2Filter.bind($data), onSelect: x => $root.onSelectPayer($parent, x), placeholder: placeholder } }">
+									</select>
+									<!-- ko component: { name: "generic-list-selection", params: { value: value, controller: 'CompanyList', plugin: 'Crm', caption: caption, customFilter: Helper.Company.getSelect2Filter.bind($data), onSelect: x => $root.onSelectPayer($parent, x) } } -->
+									<!-- /ko -->
+								</div>
+							</form-element>
+						</div>
+						<div>
+							<form-element id="PayerAddressId" params="value: PayerAddressId, caption: 'Address', type: 'select2', disable: !PayerId()">
+								<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Name1', 'Name2', 'Name3', 'ZipCode', 'City', 'Street'], table: 'Crm_Address', customFilter: (query, term) => $root.payerAddressFilter($parent, query, term), mapDisplayObject: Helper.Address.mapForSelect2Display, placeholder: placeholder, onSelect: function(value) { $parent.PayerAddress(value ? value.asKoObservable() : null); } } }, disable: disable">
+								</select>
+							</form-element>
+						</div>
+					</div>
+					<div class="flex-input-row">
+						<div>
+							<form-element id="InvoiceRecipientId" params="value: InvoiceRecipientId, caption: 'Company', type: 'select2'">
+								<div class="input-group">
+									<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Name'], table: 'Crm_Company', mapDisplayObject: Helper.Company.mapForSelect2Display, customFilter: Helper.Company.getSelect2Filter.bind($data), onSelect: x => $root.onSelectInvoiceRecipient($parent, x), placeholder: placeholder } }">
+									</select>
+									<!-- ko component: { name: "generic-list-selection", params: { value: value, controller: 'CompanyList', plugin: 'Crm', caption: caption, customFilter: Helper.Company.getSelect2Filter.bind($data), onSelect: x => $root.onSelectInvoiceRecipient($parent, x) } } -->
+									<!-- /ko -->
+								</div>
+							</form-element>
+						</div>
+						<div>
+							<form-element id="InvoiceAddressKey" params="value: InvoiceAddressKey, caption: 'Address', type: 'select2', disable: !InvoiceRecipientId()">
+								<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Name1', 'Name2', 'Name3', 'ZipCode', 'City', 'Street'], table: 'Crm_Address', customFilter: (query, term) => $root.invoiceAddressFilter($parent, query, term), mapDisplayObject: Helper.Address.mapForSelect2Display, placeholder: placeholder, onSelect: function(value) { $parent.InvoiceAddress(value ? value.asKoObservable() : null); } } }, disable: disable">
+								</select>
+							</form-element>
+						</div>
+					</div>
+					<div class="flex-input-row">
+						<div>
+							<form-element id="ResponsibleUser" params="value: ResponsibleUser, caption: 'ResponsibleUser', type: 'select2'">
+								<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['LastName'], table: 'Main_User', mapDisplayObject: Helper.User.mapForSelect2Display, customFilter: Helper.User.filterUserQuery, placeholder: $parent.placeholder } }">
+								</select>
+							</form-element>
+						</div>
+					</div>
+					@Html.PluginRenderActions("ServiceContractCreateFormExtendedDataBottom")
+					<!-- /ko -->
+				</collapsible-block-content>
+			</collapsible-block>
+
+			<div class="top-separator"></div>
+
+			<collapsible-block params="id: 'visibility', collapsed: true" class="morph">
+				<collapsible-block-header params="customCss: 'bg-white', swapIcons: true">
+					<span>@(Html.Localize("Visibility"))</span>
+				</collapsible-block-header>
+				<collapsible-block-content>
+					<!-- ko requiredPermission: { name: 'Edit', group: 'Visibility' } -->
+					<!-- ko with: $root.visibilityViewModel -->
+					@Html.RenderAction("Selection", "Visibility", new { plugin = "Main" })
+					<!-- /ko -->
+					<!-- /ko -->
+				</collapsible-block-content>
+			</collapsible-block>
+
+			@Html.PluginRenderActions("ServiceContractCreateForm")
+		</form>
+		@await Html.PartialAsync("CreateFormFooter")
+	</div>
+</div>

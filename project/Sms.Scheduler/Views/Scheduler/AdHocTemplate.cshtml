@@ -1,0 +1,13 @@
+﻿@using Crm.Library.Extensions
+@using Crm.Library.Globalization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div class="modal-header card-header ch-alt">
+	<button type="button" class="close" data-dismiss="modal" aria-label="@(Html.Localize("Close"))">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title">@(Html.Localize("CreateAdHocOrder"))</h4>
+</div>
+<div class="modal-body adhoccontainer">
+	@Html.RenderAction("AdHocTemplate", "Dispatch", new { Plugin = "Crm.Service" })
+</div>

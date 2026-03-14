@@ -1,0 +1,65 @@
+﻿@using Crm.Library.Globalization.Extensions
+@using Crm.Service.Rest.Model
+@using Main.Offline.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div data-bind="with: Installation" class="attribute-block">
+	<div data-bind="visible: StatusKey()">
+		<div>
+			<strong data-bind="translatedText: { key: 'Status', language: $parentContext.$parent.selectedLanguage }">@(Html.Localize("Status"))</strong>
+		</div>
+		<div data-bind="text: window.Helper.Lookup.getLookupValue($parentContext.$parent.lookups.installationStatus, StatusKey()) || '-'"></div>
+	</div>
+	<div data-bind="visible: InstallationTypeKey()">
+		<div>
+			<strong data-bind="translatedText: { key: 'InstallationType', language: $parentContext.$parent.selectedLanguage }">@(Html.Localize("InstallationType"))</strong>
+		</div>
+		<div data-bind="text: window.Helper.Lookup.getLookupValue($parentContext.$parent.lookups.installationTypes, InstallationTypeKey()) || '-'"></div>
+	</div>
+	<div data-bind="visible: ManufacturerKey()">
+		<div>
+			<strong data-bind="translatedText: { key: 'Manufacturer', language: $parentContext.$parent.selectedLanguage }">@(Html.Localize("Manufacturer"))</strong>
+		</div>
+		<div data-bind="text: window.Helper.Lookup.getLookupValue($parentContext.$parent.lookups.manufacturers, ManufacturerKey()) || '-'"></div>
+	</div>
+	<div data-bind="visible: ManufactureDate()">
+		<div>
+			<strong data-bind="translatedText: { key: 'ManufactureDate', language: $parentContext.$parent.selectedLanguage }">@(Html.Localize("ManufactureDate"))</strong>
+		</div>
+		<div>
+			@(Html.TemplateText<InstallationRest>(x => x.ManufactureDate))
+			@using (Html.TemplateCondition("ManufactureDate()", false))
+			{
+				@("-")
+			}
+		</div>
+	</div>
+	<div data-bind="visible: ExternalReference()">
+		<div>
+			<strong data-bind="translatedText: { key: 'ExternalReference', language: $parentContext.$parent.selectedLanguage }">@(Html.Localize("ExternalReference"))</strong>
+		</div>
+		<div data-bind="text: ExternalReference() || '-'"></div>
+	</div>
+	<div data-bind="visible: ExactPlace()">
+		<div>
+			<strong data-bind="translatedText: { key: 'ExactPlace', language: $parentContext.$parent.selectedLanguage }">@(Html.Localize("ExactPlace"))</strong>
+		</div>
+		<div data-bind="text: ExactPlace() || '-'"></div>
+	</div>
+	<div data-bind="visible: Room()">
+		<div>
+			<strong data-bind="translatedText: { key: 'Room', language: $parentContext.$parent.selectedLanguage }">@(Html.Localize("Room"))</strong>
+		</div>
+		<div data-bind="text: Room() || '-'"></div>
+	</div>
+	<!-- ko let: { $getLocalizationText: $data.getLocalizationText } -->
+	<!-- ko foreach: ko.unwrap($data.AttributeFormProperties) -->
+	<div>
+		<div>
+			<strong data-bind="text: $getLocalizationText($data)"></strong>
+		</div>
+		<div data-bind="template: { name: 'attributeform-response-template-' + $data.FormElementType(), data: $data }"></div>
+	</div>
+	<!-- /ko -->
+	<!-- /ko -->
+</div>

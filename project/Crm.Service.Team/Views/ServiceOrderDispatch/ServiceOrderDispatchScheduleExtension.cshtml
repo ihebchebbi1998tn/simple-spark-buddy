@@ -1,0 +1,15 @@
+﻿@using Crm.Library.Globalization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<form-element params="value: $root.isTeamDispatch[$data.Id()], caption: 'ScheduleTeamDispatch', type: 'checkbox'"></form-element>
+<!-- ko if: $root.isTeamDispatch[$data.Id()] -->
+<form-element id="TeamId" params="value: ExtensionValues().TeamId, caption: 'Team', type: 'select'">
+	<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { table: 'Main_Usergroup', orderBy: ['Name'], mapDisplayObject: Helper.User.mapUsergroupForSelect2Display, customFilter: (query, term) => Helper.User.filterUsergroupQueryForServiceTeams(query, term, $parent.Date), onSelect: userGroup => $root.onUserGroupSelect(userGroup, $parent), placeholder: placeholder } }">
+	</select>
+</form-element>
+<small class="help-block">
+	<a href="#" data-bind="click: $root.createUserGroup">
+		<span>@(Html.Localize("CreateServiceTeam"))</span>
+	</a>
+</small>
+<!-- /ko -->

@@ -1,0 +1,78 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Extensions
+@using Crm.Library.Globalization.Extensions
+
+<div id="modal-error-title" class="modal-header card-header ch-alt" data-bind="with: serviceOrderErrorType">
+	<button type="button" class="close" data-dismiss="modal" aria-label="@(Html.Localize("Close"))">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title" data-bind="visible: innerInstance.entityState === 20">@(Html.Localize("AddErrorType"))</h4>
+	<h4 class="modal-title" data-bind="visible: innerInstance.entityState !== 20">@(Html.Localize("EditErrorType"))</h4>
+</div>
+<div class="modal-body card-body card-padding">
+	<form role="form" action="#" data-bind="with: serviceOrderErrorType">
+		<div class="row">
+			<div class="col-md-12">
+				<form-element params="value: ServiceOrderTimeId, caption: 'ServiceOrderTime', disable: !$parent.isJobEditable()" data-bind="visible: window.Crm.Service.Settings.ServiceContract.MaintenanceOrderGenerationMode === 'JobPerInstallation' && $root.serviceOrder ">
+					<select name="ServiceOrderTimeId" class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { table: 'CrmService_ServiceOrderTime', orderBy: ['PosNo'], joins: Helper.ServiceOrderTime.getAutocompleteJoins(), customFilter: $root.getServiceOrderTimeAutocompleteFilter.bind($root), mapDisplayObject: function (o) { return { id: o.Id, item: o, text: Helper.ServiceOrderTime.getAutocompleteDisplay(o) }; }, onSelect: $root.onJobSelected.bind($root), placeholder: Helper.String.getTranslatedString('PleaseSelect') } }, disable: disable">
+					</select>
+				</form-element>
+			</div>
+		</div>
+		<div class="row" data-bind="visible: $root.productType">
+			<div class="col-md-12">
+				<form-element id="StatisticsKeyMainAssembly" params="value: $root.StatisticsKeyMainAssembly, caption: 'StatisticsKeyMainAssembly', type: 'select2'">
+					<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { table: 'CrmService_StatisticsKeyMainAssembly', customFilter: $root.statisticsKeyMainAssemblyFilter.bind($root), mapDisplayObject: window.Helper.Lookup.mapLookupForSelect2Display,onSelect: $root.resetStatisticsKeyFaultImageKey.bind($root), placeholder: placeholder } }">
+					</select>
+				</form-element>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<form-element id="StatisticsKeyFaultImageKey" params="value: StatisticsKeyFaultImageKey, caption: 'StatisticsKeyFaultImage', type: 'select2'">
+					<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { table: 'CrmService_StatisticsKeyFaultImage', customFilter: $root.errorTypeFilter.bind($root), mapDisplayObject: window.Helper.Lookup.mapLookupForSelect2Display, getElementByIdQuery: Helper.Lookup.getLookupByKeyQuery, onSelect: $root.onErrorTypeSelected.bind($root), placeholder: placeholder } }">
+					</select>
+				</form-element>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<form-element id="StatisticsKeyCauseKey" params="value: $root.StatisticsKeyCauseKey, caption: 'StatisticsKeyCause', type: 'select2'">
+					<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { table: 'CrmService_StatisticsKeyCause', customFilter: $root.errorCauseFilter.bind($root), mapDisplayObject: window.Helper.Lookup.mapLookupForSelect2Display, getElementByIdQuery: Helper.Lookup.getLookupByKeyQuery, onSelect: $root.onErrorCauseSelected.bind($root), placeholder: placeholder } }">
+					</select>
+				</form-element>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<form-element params="value: IsSuspected, caption: 'IsSuspected', type: 'checkbox', disable: !window.AuthorizationManager.isAuthorizedForAction('ServiceOrderErrorType', 'EditErrorTypeIsSuspected')  "></form-element>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<form-element params="value: IsConfirmed, caption: 'IsConfirmed', type: 'checkbox'"></form-element>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<form-element params="value: IsMainErrorType, caption: 'IsMainErrorType', type: 'checkbox'"></form-element>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<form-element params="value: InternalRemark, caption: 'InternalRemark', type: 'textarea'"></form-element>
+			</div>
+			<div class="col-md-6">
+				<form-element params="value: Description, caption: 'Description', type: 'textarea'"></form-element>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-bind="click: Helper.Database.clearTrackedEntities" data-dismiss="modal">
+		@(Html.Localize("Cancel"))
+	</button>
+	<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: save, disable: loading">
+		@(Html.Localize("Save"))
+	</button>
+</div>

@@ -1,0 +1,66 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<ul class="top-menu">
+	@Html.PluginRenderActions("PostingDetailsTopMenu")
+</ul>
+
+<div class="container">
+	<div id="profile-main" class="divided-detail">
+		<div class="pm-overview c-overflow card w-100" tabindex="4">
+			<block>
+				<block-header>
+					<span data-bind="text: $root.title"></span>
+				</block-header>
+				<block-content>
+					<div class="flex-block">
+						<div class="pmo-block pmo-contact container" data-bind="with: $root.transaction">
+							<div class="row">
+								<label class="col-xs-5 col-lg-1">@(Html.Localize("Postings"))</label>
+								<span class="p-0 col-xs-7 col-lg-11" data-bind="text: PostingCount"></span>
+							</div>
+							<div class="row">
+								<label class="col-xs-5 col-lg-1">@(Html.Localize("Status"))</label>
+								<span class="p-0 col-xs-7 col-lg-11" data-bind="translatedText: window.Crm.Library.Model.PostingState.getEnumName(TransactionState())"></span>
+							</div>
+							<div class="row">
+								<label class="col-xs-5 col-lg-1">@(Html.Localize("CreateDate"))</label>
+								<span class="p-0 col-xs-7 col-lg-11" data-bind="dateText: { value: CreateDate, pattern: { datetime: 'short'} }"></span>
+							</div>
+							<div class="row">
+								<label class="col-xs-5 col-lg-1">@(Html.Localize("CreateUser"))</label>
+								<span class="p-0 col-xs-7 col-lg-11" data-bind="userDisplayName: CreateUser"></span>
+							</div>
+							<!-- ko if: Retries -->
+							<div class="row">
+								<label class="col-xs-5 col-lg-1">@(Html.Localize("Retries"))</label>
+								<span class="p-0 col-xs-7 col-lg-11" data-bind="text: Retries"></span>
+							</div>
+							<div class="row" data-bind="if: RetryAfter">
+								<label class="col-xs-5 col-lg-1">@(Html.Localize("Next"))</label>
+								<span class="p-0 col-xs-7 col-lg-11" data-bind="dateText: { value: RetryAfter, pattern: { datetime: 'short'} }"></span>
+							</div>
+							<!-- /ko -->
+						</div>
+						<!-- ko with: $root -->
+						@Html.PluginRenderActions("MaterialPostingHeaderExtensions")
+						<!-- /ko -->
+					</div>
+				</block-content>
+			</block>
+		</div>
+		<div class="card detail-main-block">
+			<div class="pm-overview">
+				<ul class="tab-nav morph" role="tablist" tabindex="1">
+					@Html.PluginRenderActions("PostingDetailsMaterialTabHeader")
+				</ul>
+			</div>
+			<div class="pm-body clearfix">
+				<div class="tab-content">
+					@Html.PluginRenderActions("PostingDetailsMaterialTab")
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

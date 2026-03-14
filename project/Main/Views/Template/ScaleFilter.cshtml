@@ -1,0 +1,29 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<div>
+	<fieldset>
+		<legend class="c-black b-0 m-b-10 f-500 f-14" data-bind="text: caption">
+		</legend>
+		<div class="form-group" data-bind="visible: hasLimits">
+			<div class="fg-line select">
+				<select data-bind="value: selectedOption, options: options, optionsText: 'Value', optionsValue: 'Key'" class="form-control">
+				</select>
+			</div>
+		</div>
+		<div class="row" data-bind="visible: showCustomInputs() || !hasLimits()">
+			<div class="form-group has-feedback col-md-6">
+				<label class="control-label">@(Html.Localize("Min"))</label>
+				<div class="dtp-container fg-line">
+					<input type="number" class="form-control" data-bind="value: minInput, attr: { min: min, max: maxInput() || max, step: step } ">
+				</div>
+			</div>
+			<div class="form-group has-feedback col-md-6">
+				<label class="control-label">@(Html.Localize("Max"))</label>
+				<div class="dtp-container fg-line">
+					<input type="number" class="form-control" data-bind="value: maxInput, attr: { min: minInput() || min, max: max, step: step } ">
+				</div>
+			</div>
+		</div>
+	</fieldset>
+</div>

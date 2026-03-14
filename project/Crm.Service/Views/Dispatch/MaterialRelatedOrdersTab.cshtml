@@ -1,0 +1,63 @@
+﻿@using Crm.Library.Globalization.Extensions;
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div role="tabpanel" class="tab-pane animated fadeIn" id="tab-related-orders" data-bind="with: tabs()['tab-related-orders']">
+	<div class="generic-list listview lv-bordered">
+		<div class="lv-body">
+			<!-- ko foreach: lists -->
+			<div class="content-header">
+				<div class="lv-header-alt generic-list-header main-section listview">
+					<div class="card-header d-flex flex-auto">
+						<div class="caption d-flex flex-auto">
+							<h2>
+								<span data-bind="translatedText: $data.title"></span>
+							</h2>
+							<!-- ko with: viewModel -->
+							<!-- ko if: bookmarks().length > 0 -->
+							<div class="dropdown m-t-10">
+								<button id="bookmark-dropdown" class="btn btn-default btn-icon-text waves-effect border-round dropdown-toggle" data-toggle="dropdown"
+												aria-expanded="false">
+									<span class="d-flex flex-v-center">
+										<span class="d-flex flex-v-center">
+											<i class="zmdi zmdi-bookmark f-15"></i>
+										</span>
+										<!-- ko if: bookmark -->
+										<span class="m-l-5" data-bind="text: bookmark().Name"></span>
+										<!-- /ko -->
+									</span>
+									<i class="zmdi zmdi-chevron-up border-round bg-primary text-primary circle-icon-right"></i>
+									<i class="zmdi zmdi-chevron-down border-round bg-primary text-primary circle-icon-right"></i>
+								</button>
+								<ul class="dropdown-menu dropdown-menu-left" data-bind="foreach: bookmarks.indexKeys.Category()">
+									<!-- ko foreach: $parent.bookmarks.index.Category()[$data] -->
+									<li data-bind="attr: { 'class': $data.Key.toLowerCase() + '-filter' }, css: { 'active': $parentContext.$parent.bookmark() === $data }">
+										<a href="#" data-bind="click: $parentContext.$parent.toggleBookmark">
+											<span data-bind="text: Name"></span>
+										</a>
+									</li>
+									<!-- /ko -->
+								</ul>
+							</div>
+							<!-- /ko -->
+							<!-- /ko -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- ko with: viewModel -->
+			<div data-bind="foreach: items">
+				<!-- ko if: $parentContext.$parent.type === "dispatch" -->
+				@await Html.PartialAsync("../ServiceOrderDispatchList/MaterialItemTemplate")
+				<!-- /ko -->
+				<!-- ko if: $parentContext.$parent.type === "serviceOrder" -->
+				@await Html.PartialAsync("../ServiceOrderHeadList/MaterialItemTemplate")
+				<!-- /ko -->
+			</div>
+			@await Html.PartialAsync("MaterialPaging")
+			<!-- /ko -->
+			<empty-state-box params="mood: 'excited', text: Helper.String.getTranslatedString(type === 'dispatch' ? 'NoRelatedDispatches' : 'NoRelatedOrders')" data-bind="visible: viewModel.items().length === 0">
+			</empty-state-box>
+			<!-- /ko -->
+		</div>
+	</div>
+</div>

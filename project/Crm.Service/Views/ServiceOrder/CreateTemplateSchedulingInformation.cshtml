@@ -1,0 +1,75 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<collapsible-block params="id: 'scheduling'" class="morph">
+	<collapsible-block-header params="customCss: 'bg-white', swapIcons: true">
+		<span>@(Html.Localize("SchedulingInformation"))</span>
+	</collapsible-block-header>
+	<collapsible-block-content params="context: { serviceOrder: $root.serviceOrder }">
+		<!-- ko with: serviceOrder -->
+		@Html.PluginRenderActions("ServiceOrderCreateFormSchedulingInfoTop")
+		<div class="flex-input-row">
+			<div>
+				<form-element params="value: PurchaseOrderNo, caption: 'PurchaseOrderNo', type: 'text'"></form-element>
+			</div>
+			<div>
+			<form-element params="value: PurchaseDate, caption: 'PurchaseDate', type: 'datePicker', datePickerOptions: { config: { maxDate: moment().endOf('day'), stepping: parseInt(Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval) } }"></form-element>
+			</div>
+			<div>
+				<form-element id="PriorityKey" params="value: PriorityKey, caption: 'Priority', type: 'select2'">
+					<select class="form-control" data-bind="select2autocompleter: { data: value, default: Helper.Lookup.getLookupValue($root.lookups.servicePriorities, value), autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_ServicePriority'), placeholder: placeholder }">
+					</select>
+				</form-element>
+			</div>
+		</div>
+		<div class="flex-input-row">
+			<div>
+				<form-element id="UserGroupKey" params="value: UserGroupKey, caption: 'Usergroup', type: 'select2'">
+					<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Name'], table: 'Main_Usergroup', customFilter: Helper.User.filterUsergroupQuery, mapDisplayObject: function(ug){ return { id: ug.Id, text: ug.Name }; }, placeholder: placeholder } }">
+					</select>
+				</form-element>
+			</div>
+			<div>
+				<form-element id="ResponsibleUser" params="value: ResponsibleUser, caption: 'ResponsibleUser', type: 'select2'">
+					<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['LastName'], table: 'Main_User', mapDisplayObject: Helper.User.mapForSelect2Display, placeholder: placeholder, customFilter: function (query, term) { return Helper.User.filterUserQuery(query, term, $parent.UserGroupKey()); } } }">
+					</select>
+				</form-element>
+			</div>
+		</div>
+		<div class="flex-input-row">
+			<div>
+				<form-element id="PreferredTechnicianUsergroup" params="value: PreferredTechnicianUsergroupKey, caption: 'PreferredTechnicianUsergroup', type: 'select2'">
+					<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Name'], table: 'Main_Usergroup', customFilter: Helper.User.filterUsergroupQuery, mapDisplayObject: Helper.User.mapUsergroupForSelect2Display, getElementByIdQuery: Helper.User.filterUsergroupQueryById, placeholder: placeholder, onSelect: function(value) { $parent.PreferredTechnicianUsergroupObject(value); } } }">
+					</select>
+				</form-element>
+			</div>
+			<div>
+				<form-element id="PreferredTechnician" params="value: PreferredTechnician, caption: 'PreferredTechnician', type: 'select2'">
+					<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['LastName'], table: 'Main_User', mapDisplayObject: Helper.User.mapForSelect2Display, customFilter: $root.preferredTechnicianFilter.bind($root), placeholder: placeholder } }">
+					</select>
+				</form-element>
+			</div>
+		</div>
+		<div class="flex-input-row">
+			<div>
+				<form-element params="value: Deadline, caption: 'Deadline', type: 'datePicker', datePickerOptions: { config: { minDate: new Date(), stepping: parseInt(Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval) } }"></form-element>
+			</div>
+		</div>
+		<div class="flex-input-row">
+			<div>
+			<form-element params="value: Planned, caption: 'Planned', type: 'datePicker', datePickerOptions: { config: { minDate: new Date(), stepping: parseInt(Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval) } }"></form-element>
+			</div>
+			<div>
+			<form-element params="value: PlannedTime, caption: 'PlannedTime', type: 'durationPicker', datePickerOptions: { config: { stepping: parseInt(Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval) } }"></form-element>
+			</div>
+			<div class="d-flex flex-wrap flex-v-center">
+				<form-element params="value: PlannedDateFix, caption: 'PlannedDateFix', type: 'checkbox'"></form-element>
+			</div>
+		</div>
+		@Html.PluginRenderActions("ServiceOrderCreateFormSchedulingInfoBottom")
+		<!-- /ko -->
+	</collapsible-block-content>
+</collapsible-block>
+
+<div class="top-separator"></div>

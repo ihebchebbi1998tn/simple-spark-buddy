@@ -1,0 +1,12 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl<Main.ViewModels.UserEditViewModel>
+@using Crm.Library.Globalization.Extensions
+
+<div id="roles-permissions" class="row">
+	<div class="form-group col-md-6 col-sm-12">
+		<label class="field">
+			<span class="description"><strong>@(Html.Localize("Roles"))</strong></span>
+			@(Html.ListBox("roleIds", new MultiSelectList(Model.ActiveRoles.Select(x => new { Name = ResourceManager.GetTranslation(x.Name) ?? x.Name, x.UId }).OrderBy(x => x.Name), "UId", "Name", Model.UserRoles.Select(x => x.UId)), new { id = "role_selection", title = String.Empty, @class = "form-control" }))
+		</label>
+	</div>
+</div>
+

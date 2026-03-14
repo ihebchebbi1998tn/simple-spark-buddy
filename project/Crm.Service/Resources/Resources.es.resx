@@ -1,0 +1,2430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddDispatch" xml:space="preserve">
+    <value>Añadir orden de trabajo</value>
+  </data>
+  <data name="AddInstallation" xml:space="preserve">
+    <value>Añadir {Installation}</value>
+  </data>
+  <data name="ConfirmCloseReplenishmentOrder" xml:space="preserve">
+    <value>¿Realmente quiere cerrar este pedido de reposición?</value>
+  </data>
+  <data name="ConfirmDeleteDispatch" xml:space="preserve">
+    <value>¿Realmente quiere eliminar esta orden de trabajo?</value>
+  </data>
+  <data name="ConfirmDeleteMaintenancePlan" xml:space="preserve">
+    <value>¿Realmente quiere eliminar este plan de mantenimiento"{{0}}"?</value>
+  </data>
+  <data name="ConfirmResendReplenishmentOrder" xml:space="preserve">
+    <value>Este pedido de reposición ya ha sido enviado. ¿Realmente desea volver a enviarlo?</value>
+  </data>
+  <data name="ExpenseReportFromUserMonth" xml:space="preserve">
+    <value>Informe de gastos de {0} para el mes {1}</value>
+  </data>
+  <data name="Installations" xml:space="preserve">
+    <value>Instalaciónes</value>
+  </data>
+  <data name="Replenishment" xml:space="preserve">
+    <value>Reposición</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>Servicio</value>
+  </data>
+  <data name="ServiceCases" xml:space="preserve">
+    <value>Casos de servicio</value>
+  </data>
+  <data name="ClosedServiceCases" xml:space="preserve">
+    <value>Casos de servicio cerrados</value>
+  </data>
+  <data name="ClosedServiceOrders" xml:space="preserve">
+    <value>Ordenes de servicio cerradas</value>
+  </data>
+  <data name="CreateServiceDispatch" xml:space="preserve">
+    <value>Crear la orden de trabajo</value>
+  </data>
+  <data name="CreateServiceOrderHead" xml:space="preserve">
+    <value>Crear una orden servicio</value>
+  </data>
+  <data name="CreateServiceOrderMaterial" xml:space="preserve">
+    <value>Crear {ServiceOrderMaterial}</value>
+  </data>
+  <data name="CreateServiceOrderMaterialSerial" xml:space="preserve">
+    <value>Crear serie de material de la orden de servicio</value>
+  </data>
+  <data name="CreateServiceOrderNotification" xml:space="preserve">
+    <value>Crear un caso de la orden de servicio</value>
+  </data>
+  <data name="CreateServiceOrderTime" xml:space="preserve">
+    <value>Crear la hora de la orden de servicio</value>
+  </data>
+  <data name="CreateServiceOrderTimePosting" xml:space="preserve">
+    <value>Crear una entrada del tiempo de la orden de servicio</value>
+  </data>
+  <data name="CreateSkill" xml:space="preserve">
+    <value>Crear competencia</value>
+  </data>
+  <data name="CustomerContactName" xml:space="preserve">
+    <value>Empresa (Propietario)</value>
+  </data>
+  <data name="CustomerContact" xml:space="preserve">
+    <value>Empresa (Propietario)</value>
+  </data>
+  <data name="EditErrorCode" xml:space="preserve">
+    <value>Editar codigos de errores</value>
+  </data>
+  <data name="EditInstallationHead" xml:space="preserve">
+    <value>Editar {Installation}</value>
+  </data>
+  <data name="EditInstallationPos" xml:space="preserve">
+    <value>Editar posición de {Installation}</value>
+  </data>
+  <data name="EditInstallationPosSerial" xml:space="preserve">
+    <value>Editar {Installation} posición de serie</value>
+  </data>
+  <data name="EditInstallationType" xml:space="preserve">
+    <value>Editar tipos de {Installation}</value>
+  </data>
+  <data name="EditMaintenanceContract" xml:space="preserve">
+    <value>Editar el contrato de mantenimiento</value>
+  </data>
+  <data name="EditMaintenancePlan" xml:space="preserve">
+    <value>Editar el plan de mantenimiento</value>
+  </data>
+  <data name="EditMaintenanceRhythm" xml:space="preserve">
+    <value>Editar el ritmo de mantenimiento</value>
+  </data>
+  <data name="InstallationCreateTitle" xml:space="preserve">
+    <value>Añadir {Installation}</value>
+  </data>
+  <data name="InstallationSearchTitle" xml:space="preserve">
+    <value>Buscar {Installations}</value>
+  </data>
+  <data name="OpenServiceCases" xml:space="preserve">
+    <value>Casos de servicio abiertos</value>
+  </data>
+  <data name="OpenServiceOrders" xml:space="preserve">
+    <value>Ordenes de servicio abiertas</value>
+  </data>
+  <data name="NoOpenServiceOrders" xml:space="preserve">
+    <value>No hay ordenes de servicio abiertos</value>
+  </data>
+  <data name="OrderChecklist" xml:space="preserve">
+    <value>Checklist de ordenes</value>
+  </data>
+  <data name="OrderForInstallation" xml:space="preserve">
+    <value>Pedido de {Installation}</value>
+  </data>
+  <data name="OrderStatusSetToBy" xml:space="preserve">
+    <value>Estado de la orden de servicio establecido por {0} {1}</value>
+  </data>
+  <data name="ServiceOrderStatusSetTo" xml:space="preserve">
+    <value>Estado de la orden de servicio establecido en {0}</value>
+  </data>
+  <data name="PleaseSelectInstallation" xml:space="preserve">
+    <value>Por favor, seleccione una {Installation}.</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Prioridad</value>
+  </data>
+  <data name="SearchByCustomerParkZipCodeLocationItemNoType" xml:space="preserve">
+    <value>Búsqueda por cliente, parque, código postal, ubicación, número de artículo y tipo</value>
+  </data>
+  <data name="SearchByInstallationNoOrDescription" xml:space="preserve">
+    <value>Buscar por número de {Installation} o descripción</value>
+  </data>
+  <data name="SearchByServiceContractNo" xml:space="preserve">
+    <value>Búsqueda por número de contrato de servicio</value>
+  </data>
+  <data name="SearchServiceOrders" xml:space="preserve">
+    <value>Buscar ordenes de servicio</value>
+  </data>
+  <data name="ServiceCase" xml:space="preserve">
+    <value>Caso de servicio</value>
+  </data>
+  <data name="ServiceCaseCategory" xml:space="preserve">
+    <value>Categoría del caso de servicio</value>
+  </data>
+  <data name="ServiceCaseId" xml:space="preserve">
+    <value>Id del caso de servicio</value>
+  </data>
+  <data name="ServiceCaseListEmptySlate" xml:space="preserve">
+    <value>Utilice los casos de servicio para hacer un seguimiento de las solicitudes de servicio entrantes. Puede mantener notas y tareas sobre cada caso de servicio además de información clave como la {Instalación} que se relaciona con el estado del caso de servicio y el usuario responsable.</value>
+  </data>
+  <data name="ServiceCaseStatus" xml:space="preserve">
+    <value>Estado del caso de servicio</value>
+  </data>
+  <data name="ServiceCaseStatusSet" xml:space="preserve">
+    <value>Estado del caso de servicio establecido en {0}</value>
+  </data>
+  <data name="ServiceCasesTitle" xml:space="preserve">
+    <value>Casos de servicio</value>
+  </data>
+  <data name="ServiceCaseTag" xml:space="preserve">
+    <value>Caso de servicio</value>
+  </data>
+  <data name="ServiceCompletedValue" xml:space="preserve">
+    <value>Valor</value>
+  </data>
+  <data name="ServiceContractNo" xml:space="preserve">
+    <value>Número del contrato de servicio</value>
+  </data>
+  <data name="ServiceContractNoBackgroundInformation" xml:space="preserve">
+    <value>No se ha facilitado información sobre los antecedentes de este contrato de servicios.</value>
+  </data>
+  <data name="ServiceContracts" xml:space="preserve">
+    <value>Contratos de servicio</value>
+  </data>
+  <data name="ServiceContractsTitle" xml:space="preserve">
+    <value>Contratos de servicio</value>
+  </data>
+  <data name="ServiceContractType" xml:space="preserve">
+    <value>Tipo de contrato de servicios</value>
+  </data>
+  <data name="ServiceNotificationDetails" xml:space="preserve">
+    <value>Detalles del caso de servicio</value>
+  </data>
+  <data name="ServiceOrder" xml:space="preserve">
+    <value>Orden de servicio</value>
+  </data>
+  <data name="ServiceOrderCreateTitle" xml:space="preserve">
+    <value>Crear orden de servicio</value>
+  </data>
+  <data name="ServiceOrderDetailsTitle" xml:space="preserve">
+    <value>Orden de servicio - {0}</value>
+  </data>
+  <data name="ServiceOrderDispatchDoesNotExist" xml:space="preserve">
+    <value>La orden de trabajo no existe</value>
+  </data>
+  <data name="ServiceOrderDispatchVehicleTitle" xml:space="preserve">
+    <value>Vehículos en la orden de trabajo</value>
+  </data>
+  <data name="ServiceOrderEditTitle" xml:space="preserve">
+    <value>Editar orden de servicio</value>
+  </data>
+  <data name="ServiceOrderStatus" xml:space="preserve">
+    <value>Estado de la orden de servicio</value>
+  </data>
+  <data name="ServiceOrderTag" xml:space="preserve">
+    <value>Orden de servicio</value>
+  </data>
+  <data name="ServiceOrderTimeCategory" xml:space="preserve">
+    <value>Hora de la orden de servicio - Categoría</value>
+  </data>
+  <data name="ServiceOrderTimePostingAbbreviation" xml:space="preserve">
+    <value>O</value>
+  </data>
+  <data name="ServiceOrderTimeEntryType" xml:space="preserve">
+    <value>Construcción</value>
+  </data>
+  <data name="ServiceOrderTimeLocation" xml:space="preserve">
+    <value>Hora de la orden de servicio - Lugar</value>
+  </data>
+  <data name="ServiceOrderTimePriority" xml:space="preserve">
+    <value>Hora de la orden de servicio - Prioridad</value>
+  </data>
+  <data name="ServiceOrderTimeScannedValueTypes" xml:space="preserve">
+    <value>Tipos de datos para los valores escaneados de los técnicos de campo</value>
+  </data>
+  <data name="ServiceOrderTimeStatus" xml:space="preserve">
+    <value>Hora de la orden de servicio - Estado</value>
+  </data>
+  <data name="ServiceOrderTitle" xml:space="preserve">
+    <value>Ordenes de servicio</value>
+  </data>
+  <data name="ServiceOrderType" xml:space="preserve">
+    <value>Ordenes de servicio - Tipo</value>
+  </data>
+  <data name="ServiceOrderViewTitle" xml:space="preserve">
+    <value>Ver orden de servicio</value>
+  </data>
+  <data name="Technician" xml:space="preserve">
+    <value>Técnico</value>
+  </data>
+  <data name="Technician-UserGroup" xml:space="preserve">
+    <value>Técnico (Grupo de usuario)</value>
+  </data>
+  <data name="Technician-Role" xml:space="preserve">
+    <value>Técnico (Rol)</value>
+  </data>
+  <data name="TechnicianEnteredData" xml:space="preserve">
+    <value>Ya hay respuestas introducidas para esta orden de servicio. Por favor, tenga cuidado al editar el material y las entradas de tiempo</value>
+  </data>
+  <data name="TemplateOrder" xml:space="preserve">
+    <value>Número de la plantilla de orden</value>
+  </data>
+  <data name="TemplateOrderNo" xml:space="preserve">
+    <value>Número de la plantilla de orden</value>
+  </data>
+  <data name="TemplateOrderSearch" xml:space="preserve">
+    <value>Búsqueda de plantilla de orden</value>
+  </data>
+  <data name="TemplateOrderTag" xml:space="preserve">
+    <value>Etiquetas de plantilla de orden</value>
+  </data>
+  <data name="TemplateOrderTags" xml:space="preserve">
+    <value>Etiquetas de plantilla de orden</value>
+  </data>
+  <data name="ThisInstallation" xml:space="preserve">
+    <value>esta {Installation}</value>
+  </data>
+  <data name="ThisServiceCase" xml:space="preserve">
+    <value>este {ServiceCase}</value>
+  </data>
+  <data name="ThisServiceContract" xml:space="preserve">
+    <value>este {ServiceContract}</value>
+  </data>
+  <data name="ThisServiceOrderHead" xml:space="preserve">
+    <value>esta {ServiceOrderHead}</value>
+  </data>
+  <data name="ThisServiceObject" xml:space="preserve">
+    <value>este {ServiceObject}</value>
+  </data>
+  <data name="T_MaintenanceAgreementNo" xml:space="preserve">
+    <value>Número de acuerdo de mantenimiento</value>
+    <comment>Title of the label that displays Maintenance agreement number.</comment>
+  </data>
+  <data name="T_MaintenanceAgreements" xml:space="preserve">
+    <value>Acuerdos de mantenimiento</value>
+    <comment>Title of the label that displays Maintenance agreements.</comment>
+  </data>
+  <data name="T_NewArticle" xml:space="preserve">
+    <value>Nuevo elemento</value>
+  </data>
+  <data name="T_NewInstallation" xml:space="preserve">
+    <value>Nueva {Installation}</value>
+  </data>
+  <data name="T_NewQualityPlan" xml:space="preserve">
+    <value>Nuevo plan de control de calidad</value>
+  </data>
+  <data name="ServiceOrders" xml:space="preserve">
+    <value>Ordenes de servicio</value>
+  </data>
+  <data name="DispatchesTitle" xml:space="preserve">
+    <value>Ordenes de trabajo</value>
+  </data>
+  <data name="NoDispatches" xml:space="preserve">
+    <value>No hay ordenes de trabajo para ti</value>
+  </data>
+  <data name="ThereAreNoTimePostings" xml:space="preserve">
+    <value>En este momento no hay ningúna entrada de tiempo</value>
+  </data>
+  <data name="TimePostings" xml:space="preserve">
+    <value>Entradas de tiempo</value>
+  </data>
+  <data name="CreateTimePosting" xml:space="preserve">
+    <value>Crear {TimePosting}</value>
+  </data>
+  <data name="TimePosting" xml:space="preserve">
+    <value>Entrada de tiempo</value>
+  </data>
+  <data name="UninstallMaterialConfirmation" xml:space="preserve">
+    <value>¿Realmente quiere desinstalar este material?</value>
+  </data>
+  <data name="Uninstall" xml:space="preserve">
+    <value>Desinstalar</value>
+  </data>
+  <data name="ReportSent" xml:space="preserve">
+    <value>El informe se ha enviado con éxito.</value>
+  </data>
+  <data name="UninstallSerialConfirmation" xml:space="preserve">
+    <value>¿Realmente quiere desinstalar esta serial?</value>
+  </data>
+  <data name="PurchaseOrderNo" xml:space="preserve">
+    <value>Número del pedido de compra</value>
+  </data>
+  <data name="PurchaseDate" xml:space="preserve">
+    <value>Fecha de compra</value>
+  </data>
+  <data name="CommissionNo" xml:space="preserve">
+    <value>Número de la Comisión</value>
+  </data>
+  <data name="Installation" xml:space="preserve">
+    <value>Instalación</value>
+  </data>
+  <data name="RuleViolation.RecipientHasNoEmail" xml:space="preserve">
+    <value>Este destinatario no tiene dirección de correo electrónico.</value>
+  </data>
+  <data name="ServiceReport" xml:space="preserve">
+    <value>Informe de servicio</value>
+  </data>
+  <data name="AlreadySignedByCustomer" xml:space="preserve">
+    <value>Este orden de trabajo ya ha sido firmada por el cliente.</value>
+  </data>
+  <data name="SendReportTo" xml:space="preserve">
+    <value>Envíe el informe de servicio a:</value>
+  </data>
+  <data name="DispatchCompletion" xml:space="preserve">
+    <value>Finalización de la orden de trabajo</value>
+  </data>
+  <data name="CreateInstallation" xml:space="preserve">
+    <value>Crear {Installation}</value>
+  </data>
+  <data name="DeleteInstallation" xml:space="preserve">
+    <value>Eliminar {Installation}</value>
+  </data>
+  <data name="CloseServiceCase" xml:space="preserve">
+    <value>Cerrar caso de servicio</value>
+  </data>
+  <data name="EditInstallation" xml:space="preserve">
+    <value>Editar {Installation}</value>
+  </data>
+  <data name="CreateServiceOrder" xml:space="preserve">
+    <value>Crear {ServiceOrder}</value>
+  </data>
+  <data name="DeleteServiceOrder" xml:space="preserve">
+    <value>Eliminar la orden de servicio</value>
+  </data>
+  <data name="EditServiceOrder" xml:space="preserve">
+    <value>Editar el pedido de servicio</value>
+  </data>
+  <data name="CreateServiceCase" xml:space="preserve">
+    <value>Crear {ServiceCase}</value>
+  </data>
+  <data name="DeleteServiceCase" xml:space="preserve">
+    <value>Eliminar el caso de servicio</value>
+  </data>
+  <data name="EditServiceCase" xml:space="preserve">
+    <value>Editar caso de servicio</value>
+  </data>
+  <data name="CreateAdditionalDispatch" xml:space="preserve">
+    <value>Crear orden de trabajo adicional</value>
+  </data>
+  <data name="CreateDispatch" xml:space="preserve">
+    <value>Crear orden de trabajo</value>
+  </data>
+  <data name="DeleteDispatch" xml:space="preserve">
+    <value>Eliminar orden de trabajo</value>
+  </data>
+  <data name="EditDispatch" xml:space="preserve">
+    <value>Editar la orden de trabajo</value>
+  </data>
+  <data name="ViewDispatch" xml:space="preserve">
+    <value>Ver orden de trabajo</value>
+  </data>
+  <data name="ClickToViewDispatchesOnMap" xml:space="preserve">
+    <value>Haga clic aquí para ver todas las ordenes de trabajo en el mapa.</value>
+  </data>
+  <data name="ViewDispatches" xml:space="preserve">
+    <value>Ver ordenes de trabajo</value>
+  </data>
+  <data name="PreferredUser" xml:space="preserve">
+    <value>Técnico preferido</value>
+  </data>
+  <data name="PreferredUserForThisInstallation" xml:space="preserve">
+    <value>Preferido para esta {Installation}</value>
+  </data>
+  <data name="ViewTechnicians" xml:space="preserve">
+    <value>Ver técnicos</value>
+  </data>
+  <data name="ClickToViewTechniciansOnMap" xml:space="preserve">
+    <value>Haga clic aquí para ver todos los técnicos en el mapa.</value>
+  </data>
+  <data name="DispatchCreatedSubject" xml:space="preserve">
+    <value>Se ha programado una nueva orden de trabajo</value>
+  </data>
+  <data name="DispatchCreatedText" xml:space="preserve">
+    <value>Se ha programado una nueva orden de trabajo para el pedido de servicio {0} el día {1} a las {2}.</value>
+  </data>
+  <data name="DispatchRescheduledText" xml:space="preserve">
+    <value>La orden de trabajo para la orden de servicio {0} ha sido reprogramada de {3} a {4} a {1} a {2}.</value>
+  </data>
+  <data name="DispatchRemovedText" xml:space="preserve">
+    <value>Se ha eliminado la orden de trabajo para la orden de servicio {0} al {1} a las {2}.</value>
+  </data>
+  <data name="NoAddressInformationsAvailable" xml:space="preserve">
+    <value>No se dispone de información sobre la dirección</value>
+  </data>
+  <data name="SignatureContactName" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="NoPriority" xml:space="preserve">
+    <value>Sin prioridad</value>
+  </data>
+  <data name="ExecutedWork" xml:space="preserve">
+    <value>Trabajo ejecutado</value>
+  </data>
+  <data name="InstallationStatus" xml:space="preserve">
+    <value>Estado de {Installation}</value>
+  </data>
+  <data name="RequiredOperations" xml:space="preserve">
+    <value>Operaciones necesarias</value>
+  </data>
+  <data name="NoRecipients" xml:space="preserve">
+    <value>No se han elegido destinatarios</value>
+  </data>
+  <data name="DispatchLocation" xml:space="preserve">
+    <value>Ubicación del trabajo</value>
+  </data>
+  <data name="Break" xml:space="preserve">
+    <value>Recreo</value>
+    <comment>Romper =&gt; Recreo</comment>
+  </data>
+  <data name="ServiceOrderDispatch" xml:space="preserve">
+    <value>Orden de trabajo</value>
+  </data>
+  <data name="ServiceOrderDispatches" xml:space="preserve">
+    <value>Ordenes de trabajo</value>
+  </data>
+  <data name="CustomerContactId" xml:space="preserve">
+    <value>Empresa (Propietario)</value>
+  </data>
+  <data name="ServiceOrderHeadCreatedBy" xml:space="preserve">
+    <value>Orden creada por {0} {1}</value>
+  </data>
+  <data name="ServiceCaseCreatedBy" xml:space="preserve">
+    <value>Caso de servicio creado por  {0} {1}</value>
+  </data>
+  <data name="ServiceOrderHeadCreated" xml:space="preserve">
+    <value>Se ha creado una nueva orden de servicio.</value>
+  </data>
+  <data name="ServiceCaseCreated" xml:space="preserve">
+    <value>Un nuevo caso de servicio a sido creado</value>
+  </data>
+  <data name="InvoiceSpecialConditions" xml:space="preserve">
+    <value>Condiciones especiales de la factura</value>
+  </data>
+  <data name="InternalInvoiceInformation" xml:space="preserve">
+    <value>Información de la factura interna</value>
+  </data>
+  <data name="NoUsedMaterial" xml:space="preserve">
+    <value>No se ha informado de material/coste usado</value>
+  </data>
+  <data name="NoUsedTimes" xml:space="preserve">
+    <value>No se han informado las horas</value>
+  </data>
+  <data name="ServiceContract" xml:space="preserve">
+    <value>Contrato de servicio</value>
+  </data>
+  <data name="GenerateMaintenanceOrders" xml:space="preserve">
+    <value>Generación automática de pedidos de mantenimiento</value>
+  </data>
+  <data name="AllowPrematureMaintenance" xml:space="preserve">
+    <value>Permitir un mantenimiento prematuro</value>
+  </data>
+  <data name="CrmService_ServiceOrderDispatchStatus" xml:space="preserve">
+    <value>Estado de la orden de trabajo</value>
+  </data>
+  <data name="CrmService_ServiceOrderHead" xml:space="preserve">
+    <value>{ServiceOrders}</value>
+  </data>
+  <data name="CrmService_ServiceOrderDispatch" xml:space="preserve">
+    <value>Ordenes de trabajo</value>
+  </data>
+  <data name="CrmService_ServiceOrderMaterial" xml:space="preserve">
+    <value>Material de {ServiceOrder}</value>
+  </data>
+  <data name="CrmService_ServiceOrderMaterialSerial" xml:space="preserve">
+    <value>Numeros de serie de {CrmService_ServiceOrderMaterial}</value>
+  </data>
+  <data name="CrmService_ServiceOrderTimePosting" xml:space="preserve">
+    <value>Entradas de tiempo de {ServiceOrder}</value>
+  </data>
+  <data name="CrmService_InstallationStatus" xml:space="preserve">
+    <value>Estado de {Installation}</value>
+  </data>
+  <data name="CrmService_Installation" xml:space="preserve">
+    <value>{Installations}</value>
+  </data>
+  <data name="AdHocServiceOrder" xml:space="preserve">
+    <value>Orden de servicio ad hoc</value>
+  </data>
+  <data name="CrmService_ServiceOrderTime" xml:space="preserve">
+    <value>Trabajos</value>
+  </data>
+  <data name="FollowUpServiceOrder" xml:space="preserve">
+    <value>Seguimiento de la orden de trabajo</value>
+  </data>
+  <data name="TechnicianCompletedDispatch" xml:space="preserve">
+    <value>{0} completó un trabajo programado para {1}.</value>
+  </data>
+  <data name="FollowUpDispatchRequired" xml:space="preserve">
+    <value>Se requiere un orden de seguimiento</value>
+  </data>
+  <data name="RejectReason" xml:space="preserve">
+    <value>Motivo del rechazo</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>Rechazar</value>
+  </data>
+  <data name="CrmService_ServiceOrderDispatchRejectReason" xml:space="preserve">
+    <value>Motivos de rechazo</value>
+  </data>
+  <data name="WorkOnDispatch" xml:space="preserve">
+    <value>Trabajar en una orden</value>
+  </data>
+  <data name="TimeAllocation" xml:space="preserve">
+    <value>Asignación de tiempo</value>
+  </data>
+  <data name="CrmService_ServiceContract" xml:space="preserve">
+    <value>Contratos de servicio</value>
+  </data>
+  <data name="CrmService_ServiceContractInstallationRelationship" xml:space="preserve">
+    <value>{CrmService_ServiceContract}, {Installations}</value>
+  </data>
+  <data name="NoServiceContractsForCompany" xml:space="preserve">
+    <value>No hay contratos de servicio</value>
+  </data>
+  <data name="NoActiveServiceContractsForInstallation" xml:space="preserve">
+    <value>No hay contratos de servicio activos</value>
+  </data>
+  <data name="TechnicianInformation" xml:space="preserve">
+    <value>Información para el técnico</value>
+  </data>
+  <data name="NoTechnicianInformation" xml:space="preserve">
+    <value>No hay información para el técnico</value>
+  </data>
+  <data name="PreferredUserForInstallation" xml:space="preserve">
+    <value>Técnico preferido para las {Installations}</value>
+  </data>
+  <data name="PreferredTechnician" xml:space="preserve">
+    <value>Técnico preferido para {ServiceOrder}</value>
+  </data>
+  <data name="PreferredTechnicianUsergroup" xml:space="preserve">
+    <value>Grupo de técnico preferido para {ServiceOrder}</value>
+  </data>
+  <data name="Dispatches" xml:space="preserve">
+    <value>Ordenes de trabajo</value>
+  </data>
+  <data name="DispatchReport" xml:space="preserve">
+    <value>Informe de servicio</value>
+  </data>
+  <data name="SerialNo" xml:space="preserve">
+    <value>Número de serie de la pieza instalada</value>
+  </data>
+  <data name="CannotCompleteThisDispatchYet" xml:space="preserve">
+    <value>Todavía no se puede completar esta orden de trabajo.</value>
+  </data>
+  <data name="PreviousSerialNo" xml:space="preserve">
+    <value>Número de serie de la pieza desinstalada</value>
+  </data>
+  <data name="ManufactureDate" xml:space="preserve">
+    <value>Fecha de fabricación</value>
+  </data>
+  <data name="Manufacturer" xml:space="preserve">
+    <value>Fabricante</value>
+  </data>
+  <data name="CrmService_ReplenishmentOrder" xml:space="preserve">
+    <value>Pedidos de reposición</value>
+  </data>
+  <data name="CrmService_ReplenishmentOrderItem" xml:space="preserve">
+    <value>Elementos de los pedidos de reposición</value>
+  </data>
+  <data name="ListPrice" xml:space="preserve">
+    <value>Precio de lista</value>
+  </data>
+  <data name="PlannedTime" xml:space="preserve">
+    <value>Tiempo previsto</value>
+  </data>
+  <data name="PlannedDateFix" xml:space="preserve">
+    <value>Anclar la fecha prevista</value>
+  </data>
+  <data name="RelatedOrders" xml:space="preserve">
+    <value>Ordenes relacionadas</value>
+  </data>
+  <data name="NoRelatedOrders" xml:space="preserve">
+    <value>No hay ordenes relacionadas</value>
+  </data>
+  <data name="NoRelatedDispatches" xml:space="preserve">
+    <value>No hay ordenes de trabajo relacionados</value>
+  </data>
+  <data name="RelatedDispatchesForMaintenancePlanningRun" xml:space="preserve">
+    <value>Ordenes de trabajo relacionadas con el proceso de planificación del mantenimiento</value>
+  </data>
+  <data name="RelatedOrdersForMaintenancePlanningRun" xml:space="preserve">
+    <value>Ordenes de servicio relacionadas con la ejecución de la planificación del mantenimiento</value>
+  </data>
+  <data name="RelatedDispatchesForInstallation" xml:space="preserve">
+    <value>Ordenes de trabajo relacionadas con la instalación</value>
+  </data>
+  <data name="RelatedOrdersForInstallation" xml:space="preserve">
+    <value>Ordenes de servicio relacionadas con la instalación</value>
+  </data>
+  <data name="RelatedDispatchesForCustomer" xml:space="preserve">
+    <value>Ordenes de trabajo relacionadas con el cliente</value>
+  </data>
+  <data name="RelatedOrdersForCustomer" xml:space="preserve">
+    <value>Ordenes de servicio relacionadas con el cliente</value>
+  </data>
+  <data name="ServiceOrderStatusKey" xml:space="preserve">
+    <value>{ServiceOrderStatus}</value>
+  </data>
+  <data name="ServiceObject" xml:space="preserve">
+    <value>Objecto de servicio</value>
+  </data>
+  <data name="FolderId" xml:space="preserve">
+    <value>Objecto de servicio</value>
+  </data>
+  <data name="ServiceObjects" xml:space="preserve">
+    <value>Objectos de servicio</value>
+  </data>
+  <data name="NoCompanyInstallationsInfo" xml:space="preserve">
+    <value>No hay {Installations} asignadas a esta {Company}.</value>
+  </data>
+  <data name="NoServiceObjectInstallationsInfo" xml:space="preserve">
+    <value>No hay {Installations} asignadas a este {ServiceObject}.</value>
+  </data>
+  <data name="NoServiceOrderInstallationsInfo" xml:space="preserve">
+    <value>No hay {Installations} asignadas a este {ServiceOrder}.</value>
+  </data>
+  <data name="ListOfNotesHeaderServiceObject" xml:space="preserve">
+    <value>Notas para {ServiceObject}</value>
+  </data>
+  <data name="ServiceObjectEmptySlate" xml:space="preserve">
+    <value>Todavía no hay {ServiceObjects}.</value>
+  </data>
+  <data name="CreateServiceObject" xml:space="preserve">
+    <value>Crear {ServiceObject}</value>
+  </data>
+  <data name="ConfirmRemoveInstallation" xml:space="preserve">
+    <value>¿Realmente quiere eliminar {Installation}?</value>
+  </data>
+  <data name="EditServiceObject" xml:space="preserve">
+    <value>Editar {ServiceObject}</value>
+  </data>
+  <data name="AffectedCompanyKey" xml:space="preserve">
+    <value>Empresa afectada</value>
+  </data>
+  <data name="ServiceLocation" xml:space="preserve">
+    <value>Ubicación del servicio</value>
+  </data>
+  <data name="DifferingServiceLocation" xml:space="preserve">
+    <value>Diferente ubicación del servicio</value>
+  </data>
+  <data name="NoPreviousSerialNoReason" xml:space="preserve">
+    <value>Razón por la que falta el número de serie de la pieza desinstalada</value>
+  </data>
+  <data name="NoInstallations" xml:space="preserve">
+    <value>No hay {Installations}.</value>
+  </data>
+  <data name="NoSerialNoReason" xml:space="preserve">
+    <value>Razón por la que no hay número de serie.</value>
+  </data>
+  <data name="Initiator" xml:space="preserve">
+    <value>Iniciador</value>
+  </data>
+  <data name="ListOfNotesHeaderServiceContract" xml:space="preserve">
+    <value>Notas para este {ServiceContract}</value>
+  </data>
+  <data name="MultipleInstallations" xml:space="preserve">
+    <value>múltiples {Installations}</value>
+  </data>
+  <data name="SingleInstallation" xml:space="preserve">
+    <value>una {Installation}</value>
+  </data>
+  <data name="ServiceOrderHead" xml:space="preserve">
+    <value>Orden de servicio</value>
+  </data>
+  <data name="LocationContactId" xml:space="preserve">
+    <value>Cliente</value>
+  </data>
+  <data name="AddressSelection" xml:space="preserve">
+    <value>Selección de direcciones</value>
+  </data>
+  <data name="CustomAddress" xml:space="preserve">
+    <value>Dirección personalizada</value>
+  </data>
+  <data name="ServiceLocationSelectionEmptySlate" xml:space="preserve">
+    <value>No se han encontrado direcciones coincidentes para elegir.</value>
+  </data>
+  <data name="InstallationSelectionEmptySlate" xml:space="preserve">
+    <value>No se encontraron {Installations} coincidentes para elegir.</value>
+  </data>
+  <data name="ServiceLocationResponsibleContact" xml:space="preserve">
+    <value>Contacto en el lugar de servicio</value>
+  </data>
+  <data name="ServiceLocationResponsibleContactSelection" xml:space="preserve">
+    <value>Selección de contactos</value>
+  </data>
+  <data name="ServiceLocationResponsibleContactSelectionEmptySlate" xml:space="preserve">
+    <value>No se han encontrado contactos coincidentes para elegir.</value>
+  </data>
+  <data name="CustomServiceLocationResponsibleContact" xml:space="preserve">
+    <value>Contacto personalizado</value>
+  </data>
+  <data name="NoReportedDataForThisServiceOrderTime" xml:space="preserve">
+    <value>Todavía no se han comunicado datos sobre esta orden.</value>
+  </data>
+  <data name="NoServiceLocationSpecified" xml:space="preserve">
+    <value>No se ha especificado ningún lugar de servicio.</value>
+  </data>
+  <data name="Diagnosis" xml:space="preserve">
+    <value>Diagnóstico</value>
+  </data>
+  <data name="CausingItem" xml:space="preserve">
+    <value>Elemento causante</value>
+  </data>
+  <data name="InternalInformationDoNotRedirect" xml:space="preserve">
+    <value>Observaciones internas - IMPORTANTE: ¡Sólo para uso interno, no redirigir!</value>
+  </data>
+  <data name="PleaseSpecifyReasonForInvoice" xml:space="preserve">
+    <value>Por favor, especifique un motivo de facturación.</value>
+  </data>
+  <data name="InvoiceReason" xml:space="preserve">
+    <value>Motivo de la factura</value>
+  </data>
+  <data name="InstallationStillUnderWarranty" xml:space="preserve">
+    <value>{Installation} todavía está en garantía.</value>
+  </data>
+  <data name="InstallationWasStillUnderWarrantyWhenServiceOrderWasReported" xml:space="preserve">
+    <value>{Installation} todavía estaba en garantía cuando se notificó la {ServiceOrder}.</value>
+  </data>
+  <data name="ServiceOrderWithOpenDispatchesStatusChangeHint" xml:space="preserve">
+    <value>La orden de servicio contiene ordenes de trabajo pendientes.</value>
+  </data>
+  <data name="AddToReplenishmentOrder" xml:space="preserve">
+    <value>Añadir al pedido de reposición</value>
+  </data>
+  <data name="UpdateInReplenishmentOrder" xml:space="preserve">
+    <value>Actualización en el pedido de reposición</value>
+  </data>
+  <data name="NoNotes" xml:space="preserve">
+    <value>No hay notas relacionadas con este orden de trabajo</value>
+  </data>
+  <data name="CreateAdHocOrder" xml:space="preserve">
+    <value>Crear {AdHocServiceOrder}</value>
+  </data>
+  <data name="ExactPlace" xml:space="preserve">
+    <value>Lugar exacto</value>
+  </data>
+  <data name="Room" xml:space="preserve">
+    <value>Habitación</value>
+  </data>
+  <data name="HeadOfService" xml:space="preserve">
+    <value>Jefe de servicio</value>
+  </data>
+  <data name="InternalService" xml:space="preserve">
+    <value>Servicio interno</value>
+  </data>
+  <data name="ServiceBackOffice" xml:space="preserve">
+    <value>Servicio back office</value>
+  </data>
+  <data name="FieldService" xml:space="preserve">
+    <value>Servicio de campo</value>
+  </data>
+  <data name="DetailsTechnicianInfo" xml:space="preserve">
+    <value>Detalles del tecnico</value>
+  </data>
+  <data name="AddSkill" xml:space="preserve">
+    <value>Añadir competencia</value>
+  </data>
+  <data name="MaterialAdd" xml:space="preserve">
+    <value>Añadir material</value>
+  </data>
+  <data name="MaterialDelete" xml:space="preserve">
+    <value>Eliminar material</value>
+  </data>
+  <data name="MaterialEdit" xml:space="preserve">
+    <value>Editar material</value>
+  </data>
+  <data name="MaterialNew" xml:space="preserve">
+    <value>Nuevo material</value>
+  </data>
+  <data name="MaterialSerialRemove" xml:space="preserve">
+    <value>Eliminar material de serie</value>
+  </data>
+  <data name="MaterialSerialSave" xml:space="preserve">
+    <value>Guardar material de serie</value>
+  </data>
+  <data name="MaterialSerialsEdit" xml:space="preserve">
+    <value>Editar material de serie</value>
+  </data>
+  <data name="RemoveDispatch" xml:space="preserve">
+    <value>Quitar orden de trabajo</value>
+  </data>
+  <data name="RemoveSkill" xml:space="preserve">
+    <value>Quitar competencia</value>
+  </data>
+  <data name="SaveDispatch" xml:space="preserve">
+    <value>Guardar orden de trabajo</value>
+  </data>
+  <data name="SetHeadCommissioningStatus" xml:space="preserve">
+    <value>Establecer el estado de la puesta en marcha del cabezera</value>
+  </data>
+  <data name="SinglePostingEdit" xml:space="preserve">
+    <value>Edición de la contabilización individual</value>
+  </data>
+  <data name="TimeAdd" xml:space="preserve">
+    <value>Añadir tiempo</value>
+  </data>
+  <data name="TimeDelete" xml:space="preserve">
+    <value>Eliminar tiempo</value>
+  </data>
+  <data name="TimeEdit" xml:space="preserve">
+    <value>Editar tiempo</value>
+  </data>
+  <data name="TimeNew" xml:space="preserve">
+    <value>Nuevo tiempo</value>
+  </data>
+  <data name="TimePostingRemove" xml:space="preserve">
+    <value>Eliminar entradas de tiempo</value>
+  </data>
+  <data name="TimePostingSave" xml:space="preserve">
+    <value>Guardar entradas de tiempo</value>
+  </data>
+  <data name="TimePostingsEdit" xml:space="preserve">
+    <value>Editar entradas de tiempo</value>
+  </data>
+  <data name="TimeSave" xml:space="preserve">
+    <value>Guardar el tiempo</value>
+  </data>
+  <data name="AssignSkill" xml:space="preserve">
+    <value>Asignar competencia</value>
+  </data>
+  <data name="SeeTechnicianChoice" xml:space="preserve">
+    <value>Ver elección del técnico</value>
+  </data>
+  <data name="CrmService_ServiceObject" xml:space="preserve">
+    <value>{ServiceObjects}</value>
+  </data>
+  <data name="RelatedDispatchesForServiceObject" xml:space="preserve">
+    <value>Ordenes de trabajo relacionadas con el objeto de servicio</value>
+  </data>
+  <data name="RelatedOrdersForServiceObject" xml:space="preserve">
+    <value>Ordenes de servicio relacionadas con el objeto de servicio</value>
+  </data>
+  <data name="ObjectNo" xml:space="preserve">
+    <value>Número de objecto</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>Móvil</value>
+  </data>
+  <data name="ServiceOrderDispatchOf" xml:space="preserve">
+    <value>La orden de trabajo de la orden de servicio de {0} ({1}) en {2} {3}</value>
+  </data>
+  <data name="ServiceReportForServiceOrder" xml:space="preserve">
+    <value>Informe de servicio para la orden de servicio {0}</value>
+  </data>
+  <data name="NoContactsFromServiceObject" xml:space="preserve">
+    <value>No hay contactos asociados a este {ServiceObject}.</value>
+  </data>
+  <data name="ServiceObjectMustHaveAddressToAddPerson" xml:space="preserve">
+    <value>El {ServiceObject} debe tener al menos una dirección para poder añadir una persona de contacto.</value>
+  </data>
+  <data name="InitiatorPerson" xml:space="preserve">
+    <value>Persona de contacto del iniciador</value>
+  </data>
+  <data name="DispatchRejectEmailSubject" xml:space="preserve">
+    <value>La orden de trabajo para la orden de servicio {2} ha sido rechazada por {0}.</value>
+  </data>
+  <data name="ServiceCaseKey" xml:space="preserve">
+    <value>Numero de caso de servicio</value>
+  </data>
+  <data name="DispatchRejectEmailText" xml:space="preserve">
+    <value>La orden de trabajo para la orden de servicio {2} programado para {1} ha sido rechazada por {0} ({3}).</value>
+  </data>
+  <data name="NegativeTimeInputNotValid" xml:space="preserve">
+    <value>Las entradas de tiempo negativas no son válidas.</value>
+  </data>
+  <data name="OverlappingByFromOrderNo" xml:space="preserve">
+    <value>Solapado por {0} ({1} - {2} horas) de la orden {3}</value>
+  </data>
+  <data name="TimeOverlappsByAction" xml:space="preserve">
+    <value>La hora de entrada se solapa con la acción: \"{action}" de {from} a {to}.</value>
+  </data>
+  <data name="CrmService_ErrorCode" xml:space="preserve">
+    <value>Código de error</value>
+  </data>
+  <data name="ReallyComplete?" xml:space="preserve">
+    <value>¿Realmente quiere completar este checklist?</value>
+  </data>
+  <data name="CrmService_InstallationAddressRelationshipType" xml:space="preserve">
+    <value>tipos de dirección de {Installation}</value>
+  </data>
+  <data name="CurrentOrders" xml:space="preserve">
+    <value>Ordenes actuales</value>
+  </data>
+  <data name="AssignedToYou (Initiator) [service orders]" xml:space="preserve">
+    <value>Asignado a usted (iniciador)</value>
+  </data>
+  <data name="CrmService_InstallationHeadStatus" xml:space="preserve">
+    <value>Estado de {Installation}</value>
+  </data>
+  <data name="AssignedToYou (Owner) [service orders]" xml:space="preserve">
+    <value>Asignado a usted (propietario)</value>
+  </data>
+  <data name="CrmService_ServiceContractAddressRelationshipType" xml:space="preserve">
+    <value>Tipos de dirección de {ServiceContract}</value>
+  </data>
+  <data name="Closed (Initiator) [service orders]" xml:space="preserve">
+    <value>Cerrado (Iniciador)</value>
+  </data>
+  <data name="CrmService_Manufacturer" xml:space="preserve">
+    <value>Fabricantes</value>
+  </data>
+  <data name="Closed (Owner) [service orders]" xml:space="preserve">
+    <value>Cerrado (Propietario)</value>
+  </data>
+  <data name="ServiceCaseNo" xml:space="preserve">
+    <value>Núm. de {ServiceCase}</value>
+  </data>
+  <data name="Open (Initiator) [service orders]" xml:space="preserve">
+    <value>Abierto (Iniciador)</value>
+  </data>
+  <data name="Open (Owner) [service orders]" xml:space="preserve">
+    <value>Abierto (Propietario)</value>
+  </data>
+  <data name="InitiatorId" xml:space="preserve">
+    <value>Empresa (Iniciador)</value>
+  </data>
+  <data name="Active [Service contracts]" xml:space="preserve">
+    <value>Activo</value>
+  </data>
+  <data name="AssignedToYou [service cases]" xml:space="preserve">
+    <value>Asignado a usted</value>
+  </data>
+  <data name="Closed [service cases]" xml:space="preserve">
+    <value>Cerrado</value>
+  </data>
+  <data name="Inactive [Service contracts]" xml:space="preserve">
+    <value>Inactivo</value>
+  </data>
+  <data name="Open [service cases]" xml:space="preserve">
+    <value>Abierto</value>
+  </data>
+  <data name="StayHere" xml:space="preserve">
+    <value>Quédese aquí</value>
+  </data>
+  <data name="UnsavedAddressModificationsDetected" xml:space="preserve">
+    <value>Se han detectado modificaciones no guardadas en esta dirección. Sin guardar se perderán todos los cambios no guardados.</value>
+  </data>
+  <data name="PosNo" xml:space="preserve">
+    <value>Posición</value>
+  </data>
+  <data name="AddressRelationshipType" xml:space="preserve">
+    <value>Tipo de relación de dirección</value>
+  </data>
+  <data name="RuleViolation.UserHasPendingDispatches" xml:space="preserve">
+    <value>El usuario tiene ordenes de trabajo pendientes.</value>
+  </data>
+  <data name="RuleViolation.RoundedMinutesRuleText" xml:space="preserve">
+    <value>Por favor, utilice un valor válido para los minutos ({0}, {1}, {2}...).</value>
+  </data>
+  <data name="NoServiceOrderTimes" xml:space="preserve">
+    <value>No trabajos</value>
+  </data>
+  <data name="NoServiceOrderTimeContainsYet" xml:space="preserve">
+    <value>Esta orden de servicio no contiene todavía ningún trabajo. Ahora puede añadir sus primeros trabajos.</value>
+  </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>Eliminado</value>
+  </data>
+  <data name="ServiceOrderDeletedMessage" xml:space="preserve">
+    <value>Se ha eliminado la orden de servicio de la orden de trabajo actualmente abierta. Ahora será redirigido a la lista de ordenes de trabajo.</value>
+  </data>
+  <data name="ServiceOrderDispatchDeletedMessage" xml:space="preserve">
+    <value>La orden de trabajo actualmente abierta ha sido eliminado. Ahora será redirigido a la lista de ordenes de trabajo.</value>
+  </data>
+  <data name="ServiceOrderTime" xml:space="preserve">
+    <value>Trabajo</value>
+  </data>
+  <data name="AddServiceOrderTime" xml:space="preserve">
+    <value>Añadir trabajo</value>
+  </data>
+  <data name="EditServiceOrderTime" xml:space="preserve">
+    <value>Editar trabajo</value>
+  </data>
+  <data name="ServiceOrderTimes" xml:space="preserve">
+    <value>Trabajos</value>
+  </data>
+  <data name="TimeEntryReportFromUserMonth" xml:space="preserve">
+    <value>Informe de entradas de tiempo de {0} para el mes {1}</value>
+  </data>
+  <data name="Dispatch" xml:space="preserve">
+    <value>Orden de trabajo</value>
+  </data>
+  <data name="CreateItem" xml:space="preserve">
+    <value>Crear elemento</value>
+  </data>
+  <data name="DeleteItem" xml:space="preserve">
+    <value>Eliminado elemento</value>
+  </data>
+  <data name="EditItem" xml:space="preserve">
+    <value>Editar elemento</value>
+  </data>
+  <data name="ReplenishmentsFromOtherUsersSelectable" xml:space="preserve">
+    <value>Editar las reposiciones de otros usuarios</value>
+  </data>
+  <data name="SaveMaterial" xml:space="preserve">
+    <value>Guardar material</value>
+  </data>
+  <data name="ReplenishmentOrderItem" xml:space="preserve">
+    <value>Elementos del pedido de reposición</value>
+  </data>
+  <data name="ServiceContractAddressRelationshipType" xml:space="preserve">
+    <value>Tipo de relación de la dirección del contrato de servicios</value>
+  </data>
+  <data name="ServiceContractInstallationRelationship" xml:space="preserve">
+    <value>Relación de instalación del contrato de servicios</value>
+  </data>
+  <data name="ServiceOrderChecklist" xml:space="preserve">
+    <value>Checklist orden de servicio</value>
+  </data>
+  <data name="ServiceOrderDispatchRejectReason" xml:space="preserve">
+    <value>Motivo de rechazo de la orden de trabajo</value>
+  </data>
+  <data name="ServiceOrderDispatchStatus" xml:space="preserve">
+    <value>Estado de la orden de trabajo</value>
+  </data>
+  <data name="ServiceOrderMaterial" xml:space="preserve">
+    <value>Material de la orden de servicio</value>
+  </data>
+  <data name="ServiceOrderMaterialSerial" xml:space="preserve">
+    <value>Serie de material de la orden de servicio</value>
+  </data>
+  <data name="InstallationAddressRelationship" xml:space="preserve">
+    <value>Relación de direcciones de instalación</value>
+  </data>
+  <data name="LinkResource" xml:space="preserve">
+    <value>Recurso de enlace</value>
+  </data>
+  <data name="ServiceOrderTimePosting" xml:space="preserve">
+    <value>Entradas de tiempo de la orden de servicio</value>
+  </data>
+  <data name="CrmService_SparePartsBudgetInvoiceType" xml:space="preserve">
+    <value>Tipos de facturación del presupuesto de recambios</value>
+  </data>
+  <data name="CrmService_SparePartsBudgetTimeSpanUnit" xml:space="preserve">
+    <value>El tiempo de las piezas de recambio se extiende</value>
+  </data>
+  <data name="NoRecipientsForReplenishmentOrder" xml:space="preserve">
+    <value>No se adjuntan destinatarios para el pedido de reposición.</value>
+  </data>
+  <data name="RuleViolation.TimeAsStringRequiredFormatText" xml:space="preserve">
+    <value>Por favor, utilice el formato: hh:mm.</value>
+  </data>
+  <data name="EnterCustomAddress" xml:space="preserve">
+    <value>Haga clic aquí para introducir una dirección personalizada.</value>
+  </data>
+  <data name="DispatchFollowUpOrderEmailSubject" xml:space="preserve">
+    <value>Se necesita una orden de seguimiento a {0}.</value>
+  </data>
+  <data name="DispatchFollowUpOrderEmailText" xml:space="preserve">
+    <value>El técnico {0} informó al {1}, que se necesita una orden de seguimiento:</value>
+  </data>
+  <data name="CorrespondingOrderWasClosed" xml:space="preserve">
+    <value>La orden de servicio había sido cerrado, por lo tanto las ordenes de trabajo relacionadas y no cerradas se han cerrado de manera automática por el sistema.</value>
+  </data>
+  <data name="CorrespondingOrderWasSetToPostProcessing" xml:space="preserve">
+    <value>La orden de servicio se configuró en posprocesamiento, por lo tanto, los despachos relacionados y no cerrados fueron cerrados automáticamente por el sistema.</value>
+  </data>
+  <data name="ConfirmDeleteServiceContract" xml:space="preserve">
+    <value>¿Realmente quiere eliminar este contrato de servicio?</value>
+  </data>
+  <data name="Expired" xml:space="preserve">
+    <value>Vencido</value>
+  </data>
+  <data name="ServiceContractStatusSet" xml:space="preserve">
+    <value>Estado del contrato de servicio fijado en {0}</value>
+  </data>
+  <data name="CrmService_CommissioningStatus" xml:space="preserve">
+    <value>Estados de la puesta en marcha</value>
+  </data>
+  <data name="CrmService_Component" xml:space="preserve">
+    <value>Componentes</value>
+  </data>
+  <data name="CrmService_InstallationType" xml:space="preserve">
+    <value>Tipos de instalación</value>
+  </data>
+  <data name="CrmService_MonitoringDataType" xml:space="preserve">
+    <value>Control de los tipos de datos</value>
+  </data>
+  <data name="CrmService_NoCausingItemPreviousSerialNoReason" xml:space="preserve">
+    <value>Razones por las que falta el número de serie antiguo del elemento causante</value>
+  </data>
+  <data name="CrmService_NoCausingItemSerialNoReason" xml:space="preserve">
+    <value>Razones por las que falta el número de serie del elemento causante</value>
+  </data>
+  <data name="CrmService_NoPreviousSerialNoReason" xml:space="preserve">
+    <value>Razones por las que falta el número de serie antiguo</value>
+  </data>
+  <data name="CrmService_PostingCode" xml:space="preserve">
+    <value>Códigos de contabilización</value>
+  </data>
+  <data name="CrmService_PostingOrigin" xml:space="preserve">
+    <value>Origen de la contabilización</value>
+  </data>
+  <data name="CrmService_ServiceCaseCategory" xml:space="preserve">
+    <value>Categorías de casos de servicio</value>
+  </data>
+  <data name="CrmService_ServiceCaseStatus" xml:space="preserve">
+    <value>Estado de los casos de servicio</value>
+  </data>
+  <data name="CrmService_ServiceContractLimitType" xml:space="preserve">
+    <value>Tipos de límites de los contratos de servicio</value>
+  </data>
+  <data name="CrmService_ServiceContractType" xml:space="preserve">
+    <value>Tipos de contratos de servicio</value>
+  </data>
+  <data name="CrmService_ServiceObjectCategory" xml:space="preserve">
+    <value>Categorías de objetos de servicio</value>
+  </data>
+  <data name="CrmService_ServiceOrderInvoiceReason" xml:space="preserve">
+    <value>Motivos de la orden de servicio para facturar</value>
+  </data>
+  <data name="CrmService_ServiceOrderNoInvoiceReason" xml:space="preserve">
+    <value>Motivos de la orden de servicio para no facturar</value>
+  </data>
+  <data name="CrmService_ServiceOrderStatus" xml:space="preserve">
+    <value>Estados de las ordenes de servicio</value>
+  </data>
+  <data name="CrmService_ServiceOrderTimeCategory" xml:space="preserve">
+    <value>Categorías de tiempo de la orden de servicio</value>
+  </data>
+  <data name="CrmService_ServiceOrderTimeLocation" xml:space="preserve">
+    <value>Ubicaciones de la orden de servicio</value>
+  </data>
+  <data name="CrmService_ServiceOrderTimePriority" xml:space="preserve">
+    <value>Prioridades de tiempo de la orden de servicio</value>
+  </data>
+  <data name="CrmService_ServiceOrderTimeScannedValueTypes" xml:space="preserve">
+    <value>Tipos de valores escaneados del tiempo de la orden de servicio</value>
+  </data>
+  <data name="CrmService_ServiceOrderTimeStatus" xml:space="preserve">
+    <value>Estados de tiempo de la orden de servicio</value>
+  </data>
+  <data name="CrmService_ServiceOrderType" xml:space="preserve">
+    <value>Tipos de la orden de servicio</value>
+  </data>
+  <data name="CrmService_ServicePriority" xml:space="preserve">
+    <value>Prioridades de la orden de servicio</value>
+  </data>
+  <data name="CrmService_TimeScale" xml:space="preserve">
+    <value>Escalas de tiempo</value>
+  </data>
+  <data name="CrmService_ServiceContractStatus" xml:space="preserve">
+    <value>Estado de los contratos de servicio</value>
+  </data>
+  <data name="MissingCustomerSignature" xml:space="preserve">
+    <value>Falta la firma del cliente. La orden no se puede cerrar.</value>
+  </data>
+  <data name="RuleViolation.PreviousSerialNoRequired" xml:space="preserve">
+    <value>Se requiere el número de serie anterior o la razón por la que falta el número de serie.</value>
+  </data>
+  <data name="SerialNoRequired" xml:space="preserve">
+    <value>Se requiere el número de serie o la razón por la que falta el número de serie.</value>
+  </data>
+  <data name="CausingItemRequired" xml:space="preserve">
+    <value>Se requiere el elemento causante.</value>
+  </data>
+  <data name="DispatchNotInProgressYetAlert" xml:space="preserve">
+    <value>Algunas funcionalidades no están disponibles actualmente, porque esta orden de trabajo no está todavía en curso.</value>
+  </data>
+  <data name="DispatchIsAlreadySignedByCustomerAlert" xml:space="preserve">
+    <value>Esta orden de trabajo es actualmente sólo parcialmente editable, porque la firma del cliente ya ha sido introducida.</value>
+  </data>
+  <data name="DispatchIsClosedAlert" xml:space="preserve">
+    <value>Esta orden de trabajo ya no se puede editar, porque ya se ha cerrado.</value>
+  </data>
+  <data name="DispatchIsRejectedAlert" xml:space="preserve">
+    <value>Esta orden de trabajo no puede ser editado, porque ha sido rechazada.</value>
+  </data>
+  <data name="AppointmentConfirmation" xml:space="preserve">
+    <value>Confirmación de la cita</value>
+  </data>
+  <data name="AppointmentRequest" xml:space="preserve">
+    <value>Solicitud de cita</value>
+  </data>
+  <data name="Reschedule" xml:space="preserve">
+    <value>Reprogramar</value>
+  </data>
+  <data name="AppointmentRequestHint" xml:space="preserve">
+    <value>Aquí puede encontrar todas las personas de contacto para esta orden. Envíe una solicitud de cita por correo electrónico o póngase en contacto con la persona de contacto por teléfono para concertar su propuesta de cita.</value>
+  </data>
+  <data name="AppointmentConfirmationHint" xml:space="preserve">
+    <value>Aquí puede encontrar todas las personas de contacto para esta orden. Envíe una confirmación de cita por correo electrónico o póngase en contacto con la persona de contacto por teléfono para confirmar su cita.</value>
+  </data>
+  <data name="AppointmentEmptyState" xml:space="preserve">
+    <value>No se ha encontrado ninguna persona de contacto para esta orden.</value>
+  </data>
+  <data name="ScheduleDispatch" xml:space="preserve">
+    <value>Programar el orden de trabajo</value>
+  </data>
+  <data name="ChooseJob" xml:space="preserve">
+    <value>Elija</value>
+  </data>
+  <data name="DeselectJob" xml:space="preserve">
+    <value>Deseleccionar</value>
+  </data>
+  <data name="CurrentServiceOrderTime" xml:space="preserve">
+    <value>Trabajo actual</value>
+  </data>
+  <data name="CloseReasonPlaceholder" xml:space="preserve">
+    <value>Por favor, introduzca un motivo</value>
+  </data>
+  <data name="CloseServiceOrder" xml:space="preserve">
+    <value>Cerrar orden de servicio</value>
+  </data>
+  <data name="NoServiceOrderDocumentsInfo" xml:space="preserve">
+    <value>No hay documentos asignados a esta orden de servicio.</value>
+  </data>
+  <data name="CreateCost" xml:space="preserve">
+    <value>Crear coste adicional</value>
+  </data>
+  <data name="EditCost" xml:space="preserve">
+    <value>Editar el coste adicional</value>
+  </data>
+  <data name="FastLane" xml:space="preserve">
+    <value>Vía rápida</value>
+  </data>
+  <data name="IsFastLane" xml:space="preserve">
+    <value>Vía rápida</value>
+  </data>
+  <data name="OfflineCreatedServiceOrderLimit" xml:space="preserve">
+    <value>Se ha superado el límite de creación de ordenes de servicio sin conexión. Por favor, sincronice primero para crear nuevas ordenes fuera de línea.</value>
+  </data>
+  <data name="ReleaseDispatchImmediately" xml:space="preserve">
+    <value>Publicar inmediatamente</value>
+  </data>
+  <data name="ReleaseDispatchImmediatelyInfo" xml:space="preserve">
+    <value>La cita se confirmará inmediatamente y podrá empezar a manejar la orden de trabajo.</value>
+  </data>
+  <data name="NewDispatches" xml:space="preserve">
+    <value>Nuevos ordenes de trabajo</value>
+  </data>
+  <data name="DueDispatches" xml:space="preserve">
+    <value>Ordenes de trabajo pendientes</value>
+  </data>
+  <data name="TodaysDispatches" xml:space="preserve">
+    <value>Ordenes de trabajo para hoy</value>
+  </data>
+  <data name="TodaysDispatchesEmptySlate" xml:space="preserve">
+    <value>Hoy ya no hay trabajos pendientes.</value>
+  </data>
+  <data name="OpenDispatches" xml:space="preserve">
+    <value>Ordenes de trabajo abiertas</value>
+  </data>
+  <data name="CreateMaintenanceContract" xml:space="preserve">
+    <value>Crear un contrato de mantenimiento</value>
+  </data>
+  <data name="CreateMaintenanceOrder" xml:space="preserve">
+    <value>Crear un pedido de mantenimiento</value>
+  </data>
+  <data name="SetHeadStatus" xml:space="preserve">
+    <value>Establecer el estado de la cabezera</value>
+  </data>
+  <data name="EditSkill" xml:space="preserve">
+    <value>Editar competencia</value>
+  </data>
+  <data name="DeleteSkill" xml:space="preserve">
+    <value>Eliminar competencia</value>
+  </data>
+  <data name="ServicePlanner" xml:space="preserve">
+    <value>Planificador de los servicios</value>
+  </data>
+  <data name="CreateInstallationHead" xml:space="preserve">
+    <value>Crear {Installation}</value>
+  </data>
+  <data name="DeleteInstallationHead" xml:space="preserve">
+    <value>Eliminar {Installation}</value>
+  </data>
+  <data name="CreateInstallationPos" xml:space="preserve">
+    <value>Crear posición de {Installation}</value>
+  </data>
+  <data name="DeleteInstallationPos" xml:space="preserve">
+    <value>Eliminar la posición de {Installation}</value>
+  </data>
+  <data name="CreateMaintenanceRhythm" xml:space="preserve">
+    <value>Crear un ritmo de mantenimiento</value>
+  </data>
+  <data name="DeleteMaintenanceRhythm" xml:space="preserve">
+    <value>Eliminar el ritmo de mantenimiento</value>
+  </data>
+  <data name="EditServiceOrderHead" xml:space="preserve">
+    <value>Editar la orden de servicio</value>
+  </data>
+  <data name="DeleteServiceOrderHead" xml:space="preserve">
+    <value>Eliminar la orden de servicio</value>
+  </data>
+  <data name="CreateTemplateOrderHead" xml:space="preserve">
+    <value>Crear una orden desde la plantilla</value>
+  </data>
+  <data name="EditTemplateOrderHead" xml:space="preserve">
+    <value>Editar pedido de la plantilla</value>
+  </data>
+  <data name="DeleteTemplateOrderHead" xml:space="preserve">
+    <value>
+Eliminar el pedido de la plantilla</value>
+  </data>
+  <data name="DeleteServiceOrderTime" xml:space="preserve">
+    <value>Eliminar la hora de la orden de servicio</value>
+  </data>
+  <data name="EditServiceOrderTimePosting" xml:space="preserve">
+    <value>Editar entradas de tiempo de la orden de servicio</value>
+  </data>
+  <data name="DeleteServiceOrderTimePosting" xml:space="preserve">
+    <value>Borrar las entradas de tiempo de la orden de servicio</value>
+  </data>
+  <data name="EditServiceOrderMaterial" xml:space="preserve">
+    <value>Editar material de la orden de servicio</value>
+  </data>
+  <data name="DeleteServiceOrderMaterial" xml:space="preserve">
+    <value>Eliminar el material de la orden de servicio</value>
+  </data>
+  <data name="EditServiceOrderNotification" xml:space="preserve">
+    <value>Editar notificaciones de la orden de servicio</value>
+  </data>
+  <data name="DeleteServiceOrderNotification" xml:space="preserve">
+    <value>Eliminar la notificación de la orden de servicio</value>
+  </data>
+  <data name="EditServiceOrderDispatch" xml:space="preserve">
+    <value>Editar la orden de trabajo de la orden de servicio</value>
+  </data>
+  <data name="DeleteServiceOrderDispatch" xml:space="preserve">
+    <value>Eliminar la orden de trabajo</value>
+  </data>
+  <data name="InvoicedUntil" xml:space="preserve">
+    <value>Facturado hasta</value>
+  </data>
+  <data name="ReplenishmentOrderIsAlreadyClosed" xml:space="preserve">
+    <value>Este pedido de reposición ya se ha cerrado. Por favor, actualice la página.</value>
+  </data>
+  <data name="ServiceContractNumber" xml:space="preserve">
+    <value>Número del contrato de servicio</value>
+  </data>
+  <data name="NotAllowedToEditOrder" xml:space="preserve">
+    <value>No está permitido editar esta orden.</value>
+  </data>
+  <data name="T_Date" xml:space="preserve">
+    <value>Fecha</value>
+  </data>
+  <data name="DispatchConfirmed" xml:space="preserve">
+    <value>La cita ha sido confirmada</value>
+  </data>
+  <data name="GenerateServiceOrder" xml:space="preserve">
+    <value>Generar prematuramente la orden de servicio</value>
+  </data>
+  <data name="CrmService_MaintenancePlan" xml:space="preserve">
+    <value>Planes de mantenimiento</value>
+  </data>
+  <data name="CrmService_ServiceContractAddressRelationship" xml:space="preserve">
+    <value>{CrmService_ServiceContract}, {Crm_Address}</value>
+  </data>
+  <data name="NoInstallationPositionsInfo" xml:space="preserve">
+    <value>Todavía no se ha añadido ningún material a {ThisInstallation}.</value>
+  </data>
+  <data name="ServiceOrderMaterialEmptySlate" xml:space="preserve">
+    <value>No hay material/coste disponible</value>
+  </data>
+  <data name="CrmService_InstallationAddressRelationship" xml:space="preserve">
+    <value>{Installation}-{Address}-{Relationships}</value>
+  </data>
+  <data name="ServiceOrderTimePostingEmptySlate" xml:space="preserve">
+    <value>No hay entradas de tiempo disponibles</value>
+  </data>
+  <data name="CrmService_InstallationPos" xml:space="preserve">
+    <value>{Material} ({Installation})</value>
+  </data>
+  <data name="ServiceOrderTimeEmptySlate" xml:space="preserve">
+    <value>No hay entradas de tiempo de la orden de servicio disponibles</value>
+  </data>
+  <data name="SchedulingInformation" xml:space="preserve">
+    <value>Planificación</value>
+  </data>
+  <data name="RejectRemark" xml:space="preserve">
+    <value>Observación para el rechazo</value>
+  </data>
+  <data name="ReadyForScheduling" xml:space="preserve">
+    <value>Listo para planificar</value>
+  </data>
+  <data name="InstallationId" xml:space="preserve">
+    <value>Identificador de la instalación</value>
+  </data>
+  <data name="SelectTechnicianToSeeDates" xml:space="preserve">
+    <value>Seleccione un técnico para ver un resumen de fechas.</value>
+  </data>
+  <data name="ServiceOrderTemplate" xml:space="preserve">
+    <value>Plantilla de orden de servicio</value>
+  </data>
+  <data name="ServiceOrderTemplates" xml:space="preserve">
+    <value>Plantillas de orden de servicio</value>
+  </data>
+  <data name="NoServiceOrderTemplates" xml:space="preserve">
+    <value>Todavía no hay plantillas de ordenes de servicio.</value>
+  </data>
+  <data name="CreateServiceOrderTemplates" xml:space="preserve">
+    <value>Crear una plantilla de la orden de servicio</value>
+  </data>
+  <data name="NewServiceOrderTemplate" xml:space="preserve">
+    <value>Crear {ServiceOrderTemplate}</value>
+  </data>
+  <data name="EstimatedDuration" xml:space="preserve">
+    <value>Duración estimada</value>
+  </data>
+  <data name="ServiceCaseTemplate" xml:space="preserve">
+    <value>Plantilla del caso de servicio</value>
+  </data>
+  <data name="ServiceCaseTemplates" xml:space="preserve">
+    <value>Plantillas de casos de servicio</value>
+  </data>
+  <data name="CreateServiceCaseTemplate" xml:space="preserve">
+    <value>Crear {ServiceCaseTemplate}</value>
+  </data>
+  <data name="OriginatingServiceOrder" xml:space="preserve">
+    <value>Orden de servicio de origen</value>
+  </data>
+  <data name="OriginatingServiceOrderTime" xml:space="preserve">
+    <value>Originando trabajo</value>
+  </data>
+  <data name="CompletionDate" xml:space="preserve">
+    <value>Fecha de finalización</value>
+  </data>
+  <data name="CompletionUser" xml:space="preserve">
+    <value>Completado por</value>
+  </data>
+  <data name="CompletionServiceOrder" xml:space="preserve">
+    <value>Orden de servicio de finalización</value>
+  </data>
+  <data name="AddToServiceOrder" xml:space="preserve">
+    <value>Añadir a la orden de servicio</value>
+  </data>
+  <data name="AddToServiceOrderTime" xml:space="preserve">
+    <value>Añadir a un trabajo</value>
+  </data>
+  <data name="JobPerServiceCase" xml:space="preserve">
+    <value>Crear un trabajo para cada caso de servicio</value>
+  </data>
+  <data name="CannotCreateServiceOrderForMultipleInstallationsInOrderPerInstallationMode" xml:space="preserve">
+    <value>No se puede crear una orden de servicio para varias instalaciones</value>
+  </data>
+  <data name="StatusNotSettable" xml:space="preserve">
+    <value>El estado seleccionado no es válido para
+{0}</value>
+  </data>
+  <data name="AndXAdditional" xml:space="preserve">
+    <value>y {0} más</value>
+  </data>
+  <data name="BasicInformationServiceCase" xml:space="preserve">
+    <value>{BasicInformation} ({ServiceCase})</value>
+  </data>
+  <data name="CompanyServiceOrdersEmptyState" xml:space="preserve">
+    <value>No hay ordenes de servicio para {ThisCompany}</value>
+  </data>
+  <data name="InstallationServiceCasesEmptyState" xml:space="preserve">
+    <value>No hay casos de servicio para {ThisInstallation}</value>
+  </data>
+  <data name="InstallationServiceOrdersEmptyState" xml:space="preserve">
+    <value>No hay ordenes de servicio para {ThisInstallation}</value>
+  </data>
+  <data name="ServiceContractServiceOrdersEmptyState" xml:space="preserve">
+    <value>No hay pedidos de servicio para {ThisServiceContract}</value>
+  </data>
+  <data name="CompleteJobWithOpenServiceCasesConfirmation" xml:space="preserve">
+    <value>Quedan casos de servicio abiertos para este trabajo. ¿Completarlo de todos modos?</value>
+  </data>
+  <data name="NoServiceCasesAddedToServiceOrder" xml:space="preserve">
+    <value>No hubo casos de servicio asignados a esta orden de servicio</value>
+  </data>
+  <data name="CrmService_ServiceCase" xml:space="preserve">
+    <value>Casos de servicio</value>
+  </data>
+  <data name="CrmService_ServiceCaseTemplate" xml:space="preserve">
+    <value>Plantillas de casos de servicio</value>
+  </data>
+  <data name="MyDispatches" xml:space="preserve">
+    <value>Mis ordenes de trabajo</value>
+  </data>
+  <data name="MaintenanceOrderGenerated" xml:space="preserve">
+    <value>Pedido de mantenimiento generado a través del contrato de servicio {0}</value>
+  </data>
+  <data name="ServiceCaseCreatedNote" xml:space="preserve">
+    <value>Caso de servicio creado</value>
+  </data>
+  <data name="ServiceObjectCategory" xml:space="preserve">
+    <value>Categoría de objeto de servicio</value>
+  </data>
+  <data name="NoCausingItemPreviousSerialNoReason" xml:space="preserve">
+    <value>Causa por la que no hay un número de serie anterior.</value>
+  </data>
+  <data name="NoCausingItemSerialNoReason" xml:space="preserve">
+    <value>Causa por la que no hay número de serie.</value>
+  </data>
+  <data name="InstallationAddressRelationshipType" xml:space="preserve">
+    <value>Tipos de dirección de {Installation}</value>
+  </data>
+  <data name="ServiceOrderInvoiceReason" xml:space="preserve">
+    <value>Motivos de la orden de servicio para facturar</value>
+  </data>
+  <data name="SparePartsBudgetInvoiceType" xml:space="preserve">
+    <value>Tipos de facturación del presupuesto de recambios</value>
+  </data>
+  <data name="ServiceOrderNoInvoiceReason" xml:space="preserve">
+    <value>Motivos de la orden de servicio para no facturar</value>
+  </data>
+  <data name="ServiceContractStatus" xml:space="preserve">
+    <value>Estados del contrato de servicio</value>
+  </data>
+  <data name="ServiceContractLimitType" xml:space="preserve">
+    <value>Tipos de límites de los contratos de servicios</value>
+  </data>
+  <data name="MaintenanceOrder" xml:space="preserve">
+    <value>Pedido de mantenimiento</value>
+  </data>
+  <data name="SparePartsBudgetTimeSpanUnit" xml:space="preserve">
+    <value>El tiempo de las piezas de recambio</value>
+  </data>
+  <data name="SeeAllUsersServiceOrders" xml:space="preserve">
+    <value>Ver todas las ordenes de servicio de los usuarios</value>
+  </data>
+  <data name="SeeAllUsersDispatches" xml:space="preserve">
+    <value>Ver todas las ordenes de trabajo de los usuarios</value>
+  </data>
+  <data name="AddInstallationPosition" xml:space="preserve">
+    <value>Añadir posición de instalación</value>
+  </data>
+  <data name="ServiceCaseTemplateEmptySlate" xml:space="preserve">
+    <value>No hay ningún modelo de caso de servicio</value>
+  </data>
+  <data name="ServiceData" xml:space="preserve">
+    <value>Servicio-Masterdata</value>
+  </data>
+  <data name="ServiceProcessing" xml:space="preserve">
+    <value>Servicio-Administración</value>
+  </data>
+  <data name="RuleViolation.ServiceOrderMustBeInPlannableState" xml:space="preserve">
+    <value>La orden de servicio debe estar en un estado planificable.</value>
+  </data>
+  <data name="EmptyTimes" xml:space="preserve">
+    <value>No se han añadido entradas de tiempo a esta orden</value>
+  </data>
+  <data name="EmptyMaterials" xml:space="preserve">
+    <value>No se ha añadido ningún material a esta orden</value>
+  </data>
+  <data name="EmptyTimesAndMaterials" xml:space="preserve">
+    <value>No se han añadido entradas de tiempo o materiales a esta orden</value>
+  </data>
+  <data name="SN_new" xml:space="preserve">
+    <value>SN nuevo</value>
+  </data>
+  <data name="SN_old" xml:space="preserve">
+    <value>SN antiguo</value>
+  </data>
+  <data name="DispatchCompleted" xml:space="preserve">
+    <value>Orden de trabajo completada</value>
+  </data>
+  <data name="DispatchCompletedBy" xml:space="preserve">
+    <value>Orden de trabajo completada por {0} {1}</value>
+  </data>
+  <data name="ServiceOrderDispatchCompletedNote" xml:space="preserve">
+    <value>Finalizar orden de trabajo</value>
+  </data>
+  <data name="IsCostLumpSum" xml:space="preserve">
+    <value>El costo es una suma global</value>
+  </data>
+  <data name="IsMaterialLumpSum" xml:space="preserve">
+    <value>El material es una suma global</value>
+  </data>
+  <data name="IsTimeLumpSum" xml:space="preserve">
+    <value>El tiempo es una suma global</value>
+  </data>
+  <data name="LumpSum" xml:space="preserve">
+    <value>Suma global</value>
+  </data>
+  <data name="ContainsLumpSumPositions" xml:space="preserve">
+    <value>Algunos posiciones del tipo {0} se proporcionaron como parte de una suma global.</value>
+  </data>
+  <data name="APIUser" xml:space="preserve">
+    <value>Usuario de la API</value>
+  </data>
+  <data name="CannotSignThisDispatchYet" xml:space="preserve">
+    <value>Todavía no puede firmar este pedido.</value>
+  </data>
+  <data name="ConfirmDeleteReleasedDispatch" xml:space="preserve">
+    <value>Este pedido no puede borrarse, ya que ya ha sido tramitado. ¿Desea cambiar el estado a "rechazado"?</value>
+  </data>
+  <data name="DispatchLocationMissingWarning" xml:space="preserve">
+    <value>No ha especificado una ubicación para el pedido, por lo que no puede calcularse una distancia.</value>
+  </data>
+  <data name="NoExecutedWork" xml:space="preserve">
+    <value>No se ha reportado ningún trabajo efectuado</value>
+  </data>
+  <data name="NonWMArticleWarning" xml:space="preserve">
+    <value>El cambio a artículo no gestionado por el almacén borrará las ordenes de reabastecimiento existentes.</value>
+  </data>
+  <data name="ServiceCaseDraftCreatedNotification" xml:space="preserve">
+    <value>Se ha creado un caso de servicio</value>
+  </data>
+  <data name="CrmService_ServiceOrderDispatchReportRecipient" xml:space="preserve">
+    <value>Destinatarios</value>
+  </data>
+  <data name="ServiceOrderCategory" xml:space="preserve">
+    <value>Categoría de la orden de servicio</value>
+  </data>
+  <data name="ServiceOrderDetails" xml:space="preserve">
+    <value>Detalles de la orden de servicio</value>
+  </data>
+  <data name="ReplenishmentOrderMessageBody" xml:space="preserve">
+    <value>Un pedidos de reposición con la fecha de {0} ha sido cerrado por {1}.</value>
+  </data>
+  <data name="DefaultGreeting" xml:space="preserve">
+    <value>Estimado señor o señora,</value>
+  </data>
+  <data name="MaterialArticleDeleted" xml:space="preserve">
+    <value>El artículo del material actualmente abierto ha sido borrado.</value>
+  </data>
+  <data name="ServiceObjectId" xml:space="preserve">
+    <value>Objecto de servicio</value>
+  </data>
+  <data name="ServiceOrderTemplateId" xml:space="preserve">
+    <value>Plantilla de orden de servicio</value>
+  </data>
+  <data name="AffectedInstallationKey" xml:space="preserve">
+    <value>Instalación afectada</value>
+  </data>
+  <data name="ServiceContractId" xml:space="preserve">
+    <value>Contrato de servicio</value>
+  </data>
+  <data name="GetNextFiveGenerations" xml:space="preserve">
+    <value>Vista previa de las próximas 5 fechas de mantenimiento</value>
+  </data>
+  <data name="PrePlanned" xml:space="preserve">
+    <value>pre planeado</value>
+  </data>
+  <data name="StatisticsKey" xml:space="preserve">
+    <value>Clave de las estadísticas</value>
+  </data>
+  <data name="StatisticsKeyProductType" xml:space="preserve">
+    <value>Tipo de producto</value>
+  </data>
+  <data name="ProductTypeKey" xml:space="preserve">
+    <value>Tipo de producto</value>
+  </data>
+  <data name="StatisticsKeyMainAssembly" xml:space="preserve">
+    <value>Montaje principal</value>
+  </data>
+  <data name="MainAssemblyKey" xml:space="preserve">
+    <value>Montaje principal</value>
+  </data>
+  <data name="StatisticsKeySubAssembly" xml:space="preserve">
+    <value>Submontaje</value>
+  </data>
+  <data name="SubAssemblyKey" xml:space="preserve">
+    <value>Submontaje</value>
+  </data>
+  <data name="StatisticsKeyAssemblyGroup" xml:space="preserve">
+    <value>Grupo de montaje</value>
+  </data>
+  <data name="AssemblyGroupKey" xml:space="preserve">
+    <value>Grupo de montaje</value>
+  </data>
+  <data name="StatisticsKeyFaultImage" xml:space="preserve">
+    <value>Tipo de error</value>
+  </data>
+  <data name="StatisticsKeyFaultImageKey" xml:space="preserve">
+    <value>Tipo de error</value>
+  </data>
+  <data name="StatisticsKeyRemedy" xml:space="preserve">
+    <value>Solución</value>
+  </data>
+  <data name="StatisticsKeyCause" xml:space="preserve">
+    <value>Causa del error</value>
+  </data>
+  <data name="StatisticsKeyWeighting" xml:space="preserve">
+    <value>Ponderación</value>
+  </data>
+  <data name="StatisticsKeyCauser" xml:space="preserve">
+    <value>Causa</value>
+  </data>
+  <data name="CrmService_StatisticsKeyProductType" xml:space="preserve">
+    <value>Tipo de producto</value>
+  </data>
+  <data name="CrmService_StatisticsKeyMainAssembly" xml:space="preserve">
+    <value>Montaje principal</value>
+  </data>
+  <data name="CrmService_StatisticsKeySubAssembly" xml:space="preserve">
+    <value>Submontaje</value>
+  </data>
+  <data name="CrmService_StatisticsKeyAssemblyGroup" xml:space="preserve">
+    <value>Grupo de montaje</value>
+  </data>
+  <data name="CrmService_StatisticsKeyFaultImage" xml:space="preserve">
+    <value>Tipo de error</value>
+  </data>
+  <data name="CrmService_StatisticsKeyRemedy" xml:space="preserve">
+    <value>Solución</value>
+  </data>
+  <data name="CrmService_StatisticsKeyCause" xml:space="preserve">
+    <value>Causa del error</value>
+  </data>
+  <data name="CrmService_StatisticsKeyWeighting" xml:space="preserve">
+    <value>Ponderación</value>
+  </data>
+  <data name="CrmService_StatisticsKeyCauser" xml:space="preserve">
+    <value>Causa</value>
+  </data>
+  <data name="DispatchNo" xml:space="preserve">
+    <value>Núm. orden de trabajo</value>
+  </data>
+  <data name="MaintenancePlan" xml:space="preserve">
+    <value>Plan de mantenimiento</value>
+  </data>
+  <data name="CustomErrorMessage" xml:space="preserve">
+    <value>Mensaje de error personalizado</value>
+  </data>
+  <data name="ErrorMessageSelection" xml:space="preserve">
+    <value>Selección de mensaje de error</value>
+  </data>
+  <data name="CanBeAddedAfterCustomerSignature" xml:space="preserve">
+    <value>Se puede añadir tras la firma del cliente</value>
+  </data>
+  <data name="CanBeEditedAfterCustomerSignature" xml:space="preserve">
+    <value>Se puede editar tras la firma del cliente</value>
+  </data>
+  <data name="IsDefaultForServiceOrderTimes" xml:space="preserve">
+    <value>Es predeterminado para órdenes de mantenimiento</value>
+  </data>
+  <data name="IsHidden" xml:space="preserve">
+    <value>Ocultar cuando se añaden servicios</value>
+  </data>
+  <data name="ShowDistanceInput" xml:space="preserve">
+    <value>Mostrar tipo de viaje</value>
+  </data>
+  <data name="subPositions" xml:space="preserve">
+    <value>subposiciones </value>
+  </data>
+  <data name="BillOfMaterial" xml:space="preserve">
+    <value>Lista de materiales </value>
+  </data>
+  <data name="GroupItem" xml:space="preserve">
+    <value>posición del grupo</value>
+  </data>
+  <data name="ThisGroupItem" xml:space="preserve">
+    <value>esta {GroupItem}</value>
+  </data>
+  <data name="NoSubInstallationPositionsInfo" xml:space="preserve">
+    <value>Todavía no se ha añadido ningún material a {ThisGroupItem}.</value>
+  </data>
+  <data name="T_IsInstalled" xml:space="preserve">
+    <value>Está instalado</value>
+  </data>
+  <data name="InstalledPositions" xml:space="preserve">
+    <value>Posiciones instaladas</value>
+  </data>
+  <data name="AllPositions" xml:space="preserve">
+    <value>Todas las posiciones</value>
+  </data>
+  <data name="BatchNo" xml:space="preserve">
+    <value>Número de lote</value>
+  </data>
+  <data name="Lot" xml:space="preserve">
+    <value>LOT</value>
+  </data>
+  <data name="OpenInstallation" xml:space="preserve">
+    <value>Abrir la {Installation}</value>
+  </data>
+  <data name="RelatedInstallation" xml:space="preserve">
+    <value>{Installation} relacionada</value>
+  </data>
+  <data name="SN" xml:space="preserve">
+    <value>SN</value>
+  </data>
+  <data name="ExpandAll" xml:space="preserve">
+    <value>Ampliar todo</value>
+  </data>
+  <data name="CollapseAll" xml:space="preserve">
+    <value>Colapsar todo</value>
+  </data>
+  <data name="RelatedInstallationPositionText" xml:space="preserve">
+    <value>Esta posición está relacionada con la instalación</value>
+  </data>
+  <data name="WarrantySupplier" xml:space="preserve">
+    <value>Garantía del proveedor</value>
+  </data>
+  <data name="WarrantyCustomer" xml:space="preserve">
+    <value>Garantía del cliente</value>
+  </data>
+  <data name="ScheduledDispatchesTooltip" xml:space="preserve">
+    <value>Mostrar los envíos programados que no se han iniciado</value>
+  </data>
+  <data name="TimePostingsTooltip" xml:space="preserve">
+    <value>Mostrar las contabilizaciones de tiempo de las órdenes de servicio</value>
+  </data>
+  <data name="AddInstallationRelationship" xml:space="preserve">
+    <value>Agregar relaccion con la instalacion</value>
+  </data>
+  <data name="AddPersonRelationship" xml:space="preserve">
+    <value>Agregar relacion con las personas</value>
+  </data>
+  <data name="InstallationCompanyRelationships" xml:space="preserve">
+    <value>Relaciones entre Instalacion y compania</value>
+  </data>
+  <data name="InstallationPersonRelationships" xml:space="preserve">
+    <value>Relaciones entre Instalacion y personas</value>
+  </data>
+  <data name="CrmService_InstallationCompanyRelationship" xml:space="preserve">
+    <value>Relación entre Instalacion y compania</value>
+  </data>
+  <data name="CrmService_InstallationCompanyRelationshipType" xml:space="preserve">
+    <value>Tipo de relación entre Instalacion y compania</value>
+  </data>
+  <data name="CrmService_InstallationPersonRelationship" xml:space="preserve">
+    <value>Relación entre Instalacion y personas</value>
+  </data>
+  <data name="CrmService_InstallationPersonRelationshipType" xml:space="preserve">
+    <value>Tipo de relación entre Instalacion y personas</value>
+  </data>
+  <data name="InstallationAddressRelationships" xml:space="preserve">
+    <value>Relaciones entre Instalacion y dirección</value>
+  </data>
+  <data name="ShowDistanceInputInTimePostingHint" xml:space="preserve">
+    <value>Permite al técnico capturar datos relacionados con los viajes en las publicaciones de tiempo de las órdenes de servicio.</value>
+  </data>
+  <data name="ServiceArticleIsHiddenInTimePostingHint" xml:space="preserve">
+    <value>No mostrar este ítem de servicio al técnico al crear/modificar el informe de tiempos de una orden de servicio.</value>
+  </data>
+  <data name="AddAddressRelationship" xml:space="preserve">
+    <value>Agregar relación de dirección</value>
+  </data>
+  <data name="EmailSelection" xml:space="preserve">
+    <value>selección de e-mail</value>
+  </data>
+  <data name="IncompleteServiceOrderHistoryHint" xml:space="preserve">
+    <value>Esta lista puede estar incompleta. Su cliente está configurado para sincronizar el historial de órdenes de servicio cerradas de los últimos {0} días. Esto se puede cambiar en la &lt;a class="alert-link" href="#/Main/Account/UserProfile?tab=tab-replication-groups"&gt;configuración de la sincronización&lt;/a&gt;.</value>
+  </data>
+  <data name="UpcomingDispatches" xml:space="preserve">
+    <value>Lista de trabajo</value>
+  </data>
+  <data name="PostProcessing" xml:space="preserve">
+    <value>Postprocesamiento</value>
+  </data>
+  <data name="RelatedServiceCases" xml:space="preserve">
+    <value>Casos de servicio relacionados</value>
+  </data>
+  <data name="SeeRelatedServiceCases" xml:space="preserve">
+    <value>Ver casos de servicio relacionados</value>
+  </data>
+  <data name="ReportScheduledMaterial" xml:space="preserve">
+    <value>Informar sobre el material/coste programado</value>
+  </data>
+  <data name="DispatchWasRejected" xml:space="preserve">
+    <value>El envío {0} para el técnico {1} ha sido rechazado.</value>
+  </data>
+  <data name="RelatedDispatchesForOrder" xml:space="preserve">
+    <value>Ordenes de trabajo relacionadas con el servicio</value>
+  </data>
+  <data name="InstallationUnderWarranty" xml:space="preserve">
+    <value>La instalación {0} sigue en garantía.</value>
+  </data>
+  <data name="ValidMaintenanceContractForTheCustomer" xml:space="preserve">
+    <value>El cliente tiene un contrato de mantenimiento válido.</value>
+  </data>
+  <data name="NoTimesReportedForDispatch" xml:space="preserve">
+    <value>El técnico {0} no informó de tiempos en el envío {1} de {2}.</value>
+  </data>
+  <data name="ServiceCasesWithoutAssignment" xml:space="preserve">
+    <value>{ServiceCases} sin asignación</value>
+  </data>
+  <data name="CrmService_ServiceOrderExpensePosting" xml:space="preserve">
+    <value>Ordenar gastos específicos</value>
+  </data>
+  <data name="ExpensePostings" xml:space="preserve">
+    <value>Gastos</value>
+  </data>
+  <data name="ThereAreNoExpensePostings" xml:space="preserve">
+    <value>De momento no hay gastos.</value>
+  </data>
+  <data name="NoUsedExpenses" xml:space="preserve">
+    <value>No se registran gastos</value>
+  </data>
+  <data name="IsServiceOrderExpense" xml:space="preserve">
+    <value>Partidas de gastos por llamadas de servicio</value>
+  </data>
+  <data name="CrmService_ErrorType" xml:space="preserve">
+    <value>Tipo de error</value>
+  </data>
+  <data name="CrmService_ServiceOrderErrorType" xml:space="preserve">
+    <value>Tipo de error de {ServiceOrder}</value>
+  </data>
+  <data name="CrmService_ServiceOrderErrorCause" xml:space="preserve">
+    <value>Causa del error de {ServiceOrder}</value>
+  </data>
+  <data name="IsConfirmed" xml:space="preserve">
+    <value>Confirmado</value>
+  </data>
+  <data name="IsSuspected" xml:space="preserve">
+    <value>Sospechoso</value>
+  </data>
+  <data name="IsMainErrorType" xml:space="preserve">
+    <value>Tipo de error principal</value>
+  </data>
+  <data name="AddErrorCause" xml:space="preserve">
+    <value>Añadir causa de error</value>
+  </data>
+  <data name="AddErrorType" xml:space="preserve">
+    <value>Añadir tipo de error</value>
+  </data>
+  <data name="EditErrorCause" xml:space="preserve">
+    <value>Editar causa de error</value>
+  </data>
+  <data name="EditErrorType" xml:space="preserve">
+    <value>Editar tipo de error</value>
+  </data>
+  <data name="ErrorCauses" xml:space="preserve">
+    <value>Causas de los errores</value>
+  </data>
+  <data name="ErrorType" xml:space="preserve">
+    <value>Tipo de error</value>
+  </data>
+  <data name="ErrorTypes" xml:space="preserve">
+    <value>Tipos de error</value>
+  </data>
+  <data name="NoErrorTypes" xml:space="preserve">
+    <value>No se registran errores</value>
+  </data>
+  <data name="ThereAreNoErrorTypes" xml:space="preserve">
+    <value>Actualmente no hay errores.</value>
+  </data>
+  <data name="ThereAreNoErrorCauses" xml:space="preserve">
+    <value>Actualmente no hay causas de error.</value>
+  </data>
+  <data name="DaysToNotifyBeforeExpiration" xml:space="preserve">
+    <value>Notificarme esto muchos días antes del vencimiento.</value>
+  </data>
+  <data name="SkillsEmptyState" xml:space="preserve">
+    <value>No hay habilidades asignadas a este usuario.</value>
+  </data>
+  <data name="SkillsEmptyStateTitle" xml:space="preserve">
+    <value>Sin habilidades</value>
+  </data>
+  <data name="SkillKey" xml:space="preserve">
+    <value>Competencia</value>
+  </data>
+  <data name="ViewServiceOrder" xml:space="preserve">
+    <value>Ver orden de servicio</value>
+  </data>
+  <data name="InfoForTechnician" xml:space="preserve">
+    <value>Información para el técnico</value>
+  </data>
+  <data name="AssignedTechnician" xml:space="preserve">
+    <value>Técnico asignado</value>
+  </data>
+  <data name="RuleViolation.QuantityForArticleWithSerialOneOrZero" xml:space="preserve">
+    <value>La cantidad de un artículo con número de serie solo puede ser cero o uno.</value>
+  </data>
+  <data name="InstallationRelationships" xml:space="preserve">
+    <value>Relación de {Installation}</value>
+  </data>
+  <data name="Supplier" xml:space="preserve">
+    <value>Proveedor</value>
+  </data>
+  <data name="NoServiceOrdersAddedToServiceCase" xml:space="preserve">
+    <value>No hay pedidos de servicio para {ThisServiceCase}</value>
+  </data>
+  <data name="ServiceCaseResponsibleUserChanged" xml:space="preserve">
+    <value>Usuario responsable establecido en {0}</value>
+  </data>
+  <data name="ServiceObjectServiceCasesEmptyState" xml:space="preserve">
+    <value>No hay {ServiceCases} asociados a este {ServiceObject}</value>
+  </data>
+  <data name="ResponsibleUserSetToBy" xml:space="preserve">
+    <value>Usuario responsable establecido por {0} {1}</value>
+  </data>
+  <data name="StatisticsKeyCauseKey" xml:space="preserve">
+    <value>Causa del error</value>
+  </data>
+  <data name="InitiatorPhone" xml:space="preserve">
+    <value>Teléfono del iniciador</value>
+  </data>
+  <data name="InitiatorPersonPhone" xml:space="preserve">
+    <value>Teléfono de la persona de contacto del ordenante</value>
+  </data>
+  <data name="ErrorCauseConfirmed" xml:space="preserve">
+    <value>Se ha confirmado una causa de error: {0}</value>
+  </data>
+  <data name="ErrorTypeConfirmed" xml:space="preserve">
+    <value>Se ha confirmado un error: {0}</value>
+  </data>
+  <data name="ServiceOrderErrorCauseConfirmedNote" xml:space="preserve">
+    <value>Causa del error confirmada</value>
+  </data>
+  <data name="ServiceOrderErrorTypeConfirmedNote" xml:space="preserve">
+    <value>Error confirmado</value>
+  </data>
+  <data name="NoInstallation" xml:space="preserve">
+    <value>No {Installation}</value>
+  </data>
+  <data name="NoServiceCaseInstallationInfo" xml:space="preserve">
+    <value>No hay {Installation} asignada a este {ServiceCase}.</value>
+  </data>
+  <data name="ServiceObjectServiceContractsEmptyState" xml:space="preserve">
+    <value>No hay {ServiceContracts} asociados a este {ServiceObject}</value>
+  </data>
+  <data name="ServiceCaseInformationChangedNote" xml:space="preserve">
+    <value>La información del caso de servicio cambió</value>
+  </data>
+  <data name="ServiceObjectServiceOrdersEmptyState" xml:space="preserve">
+    <value>No hay {ServiceOrders} asociados a este {ServiceObject}</value>
+  </data>
+  <data name="ServiceCaseInformationChangedBy" xml:space="preserve">
+    <value>La información del caso de servicio cambió por {0} {1}</value>
+  </data>
+  <data name="ServiceCaseUserGroupChanged" xml:space="preserve">
+    <value>El grupo de usuarios responsables cambió a {0}</value>
+  </data>
+  <data name="ServiceCasePriorityChanged" xml:space="preserve">
+    <value>La prioridad del caso de servicio cambió a {0}</value>
+  </data>
+  <data name="ServiceCaseCategoryChanged" xml:space="preserve">
+    <value>La categoría del caso de servicio cambió a {0}</value>
+  </data>
+  <data name="ServiceCaseServiceObjectChanged" xml:space="preserve">
+    <value>El objeto de servicio cambió a {0}</value>
+  </data>
+  <data name="ServiceCaseAffectedCompanyChanged" xml:space="preserve">
+    <value>La empresa afectada cambió a {0}</value>
+  </data>
+  <data name="ServiceCaseContactPersonChanged" xml:space="preserve">
+    <value>La persona de contacto cambió a {0}</value>
+  </data>
+  <data name="ServiceCaseAffectedInstallationChanged" xml:space="preserve">
+    <value>El archivo del dispositivo afectado cambió a {0}</value>
+  </data>
+  <data name="CustomArticle" xml:space="preserve">
+    <value>Artículo personalizado</value>
+  </data>
+  <data name="OrArticleSelection" xml:space="preserve">
+    <value>o Selección de artículos</value>
+  </data>
+  <data name="InstallMaterialConfirmation" xml:space="preserve">
+    <value>¿Realmente quiere instalar este material?</value>
+  </data>
+  <data name="GracePeriodInDays" xml:space="preserve">
+    <value>Periodo de gracia (días)</value>
+  </data>
+  <data name="PrematureDate" xml:space="preserve">
+    <value>Fecha de mantenimiento adelantado</value>
+  </data>
+  <data name="PrematureTime" xml:space="preserve">
+    <value>Hora de mantenimiento adelantado</value>
+  </data>
+  <data name="ScheduleFollowUpDispatch" xml:space="preserve">
+    <value>Programar el seguimiento del orden</value>
+  </data>
+  <data name="ScheduleFollowUpOrder" xml:space="preserve">
+    <value>Programar una orden de trabajo de seguimiento</value>
+  </data>
+  <data name="Preparation" xml:space="preserve">
+    <value>Preparación</value>
+  </data>
+  <data name="Scheduling" xml:space="preserve">
+    <value>Programación</value>
+  </data>
+  <data name="CancelDispatch" xml:space="preserve">
+    <value>Cancelar envío</value>
+  </data>
+  <data name="CancellationReason" xml:space="preserve">
+    <value>Motivo de la anulación</value>
+  </data>
+  <data name="DispatchIsCancelledAlert" xml:space="preserve">
+    <value>Este envío ya no se puede editar porque ha sido cancelado.</value>
+  </data>
+  <data name="DispatchStatusSetTo" xml:space="preserve">
+    <value>El estado de envío se ha establecido en {0}.</value>
+  </data>
+  <data name="DispatchCancellationEmailIntroduction" xml:space="preserve">
+    <value>se ha cancelado un envío y no se seguirá trabajando en él.</value>
+  </data>
+  <data name="FollowingMaterialsHaveBeenUsed" xml:space="preserve">
+    <value>Se han utilizado los siguientes materiales:</value>
+  </data>
+  <data name="NoMaterialsHaveBeenUsed" xml:space="preserve">
+    <value>No se han utilizado materiales.</value>
+  </data>
+  <data name="FollowingTimesHaveBeenPosted" xml:space="preserve">
+    <value>Se publicaron los siguientes horarios:</value>
+  </data>
+  <data name="NoTimesHaveBeenPosted" xml:space="preserve">
+    <value>No se publicaron los tiempos.</value>
+  </data>
+  <data name="CrmService_ServiceOrderDispatchCancellationReason" xml:space="preserve">
+    <value>Motivos de la canelación</value>
+  </data>
+  <data name="Batches" xml:space="preserve">
+    <value>Lotes</value>
+  </data>
+  <data name="LotsTotalQuantityValidationMessage" xml:space="preserve">
+    <value>{Quantity} debe ser igual a la cantidad total de los lotes</value>
+  </data>
+  <data name="CloseDate" xml:space="preserve">
+    <value>Fecha de cierre</value>
+  </data>
+  <data name="IsInitiatorBelongsToCustomer" xml:space="preserve">
+    <value>¿Pertenece el Iniciador a la Empresa?</value>
+  </data>
+  <data name="IsInitiatorNotBelongsToCustomer" xml:space="preserve">
+    <value>¿No pertenece el Iniciador a la Empresa?</value>
+  </data>
+  <data name="MyTeamDispatches" xml:space="preserve">
+    <value>Mi Equipo {Dispatches}</value>
+  </data>
+  <data name="AppointmentConfirmationBody" xml:space="preserve">
+    <value>Estimado cliente:%0D%0A%0D%0A
+
+Por la presente, confirmamos tu cita para la intervención del servicio técnico mencionado arribado:%0D%0A%0D%0A
+
+{date} a las {time} horas%0D%0A</value>
+  </data>
+  <data name="AppointmentConfirmationSubject" xml:space="preserve">
+    <value>{AppointmentConfirmation}: {0} : despacho el {1} a las {2}</value>
+  </data>
+  <data name="AppointmentRequestBody" xml:space="preserve">
+    <value>Estimado cliente:%0D%0A%0D%0A
+
+Para la intervención del servicio técnico en el proyecto mencionado arriba, podemos ofrecerte la siguiente cita:%0D%0A%0D%0A
+
+{date} a las {time} horas%0D%0A%0D%0A
+
+Te rogamos que confirmes esta cita en 3 días; si no, la asignaremos a otro cliente.%0D%0A</value>
+  </data>
+  <data name="AppointmentRequestSubject" xml:space="preserve">
+    <value>{AppointmentConfirmation}: {0} : despacho el {1} a las {2}</value>
+  </data>
+  <data name="NoMaintenanceOrderLookup" xml:space="preserve">
+    <value>No hay ninguna búsqueda de tipo de orden de servicio seleccionada como orden de mantenimiento.</value>
+  </data>
+  <data name="InvalidTimePostings" xml:space="preserve">
+    <value>Inválido {TimePosting}</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Zona horaria</value>
+  </data>
+  <data name="DefaultInvoicingType" xml:space="preserve">
+    <value>Tipo de facturación predeterminado</value>
+  </data>
+  <data name="CreateInvoice" xml:space="preserve">
+    <value>Crear factura</value>
+  </data>
+  <data name="DispatchReopened" xml:space="preserve">
+    <value>Visita planificada reabierta</value>
+  </data>
+  <data name="DispatchReopenedBy" xml:space="preserve">
+    <value>Visita planificada reabierta por {0} {1}</value>
+  </data>
+  <data name="InvoicePreplannedCosts" xml:space="preserve">
+    <value>Seleccionar costos planificados previamente para facturación</value>
+  </data>
+  <data name="InvoicePreplannedMaterials" xml:space="preserve">
+    <value>Seleccionar material planificado previamente para facturación</value>
+  </data>
+  <data name="InvoicePreplannedTimePostings" xml:space="preserve">
+    <value>Seleccione las contabilizaciones de tiempos planificados previamente para facturación</value>
+  </data>
+  <data name="InvoiceUsedCosts" xml:space="preserve">
+    <value>Seleccione los costos utilizados para la facturación</value>
+  </data>
+  <data name="InvoiceUsedMaterials" xml:space="preserve">
+    <value>Seleccione el material utilizado para la facturación.</value>
+  </data>
+  <data name="InvoiceUsedTimePostings" xml:space="preserve">
+    <value>Seleccione las contabilizaciones de tiempo utilizado para facturación.</value>
+  </data>
+  <data name="OtherDispatches" xml:space="preserve">
+    <value>Otras visitas planificadas</value>
+  </data>
+  <data name="ThisDispatch" xml:space="preserve">
+    <value>Esta visita planificada</value>
+  </data>
+  <data name="ServiceOrderDispatchReopenedNote" xml:space="preserve">
+    <value>Visita planificada reabierta</value>
+  </data>
+  <data name="ServiceOrderMaterialTypeInvoice" xml:space="preserve">
+    <value>Factura</value>
+  </data>
+  <data name="ServiceOrderMaterialTypePreplanned" xml:space="preserve">
+    <value>Planificado</value>
+  </data>
+  <data name="ServiceOrderMaterialTypeUsed" xml:space="preserve">
+    <value>Utilizado</value>
+  </data>
+  <data name="ServiceOrderTimePostingTypeInvoice" xml:space="preserve">
+    <value>Factura</value>
+  </data>
+  <data name="ServiceOrderTimePostingTypePreplanned" xml:space="preserve">
+    <value>Planificada</value>
+  </data>
+  <data name="ServiceOrderTimePostingTypeUsed" xml:space="preserve">
+    <value>Utilizada</value>
+  </data>
+  <data name="ServiceOrderTimeDispatches" xml:space="preserve">
+    <value>Trabajos</value>
+  </data>
+  <data name="NoCompanyServiceCasesInfo" xml:space="preserve">
+    <value>No se han encontrado casos de servicio para esta empresa</value>
+  </data>
+  <data name="ClosedDispatchesTooltip" xml:space="preserve">
+    <value>Mostrar las visitas planificadas que se han cerrado</value>
+  </data>
+  <data name="UpcomingDispatchesTooltip" xml:space="preserve">
+    <value>Mostrar las visitas planificadas en las que se está trabajando actualmente</value>
+  </data>
+  <data name="NoRecipientFound" xml:space="preserve">
+    <value>No se ha encontrado ningún destinatario</value>
+  </data>
+  <data name="ServiceOrderStatusKeyNotDefined" xml:space="preserve">
+    <value>El estado de la orden de servicio no está definido por el motivo de rechazo: {0}</value>
+  </data>
+  <data name="EditMaterialWarningWhenDispatchClosed" xml:space="preserve">
+    <value>El envío ya está firmado por el cliente. Por favor, tenga cuidado al editar este material.</value>
+  </data>
+  <data name="EditTimePostingWarningWhenDispatchClosed" xml:space="preserve">
+    <value>El envío ya está firmado por el cliente. Por favor, tenga cuidado al editar esta contabilización de tiempo.</value>
+  </data>
+  <data name="Relink" xml:space="preserve">
+    <value>Reasignar</value>
+  </data>
+  <data name="RelinkServiceOrderTimePostingToOpenDispatch" xml:space="preserve">
+    <value>Reasignar la entrada de tiempo a una orden de trabajo abierta</value>
+  </data>
+  <data name="TimePostingRelinkedMessage" xml:space="preserve">
+    <value>La entrada de tiempo se reasignó correctamente a la orden de trabajo abierta seleccionada.</value>
+  </data>
+  <data name="ChangeServiceOrderStatusPrompt" xml:space="preserve">
+    <value>¿Está seguro de que desea cerrar esta orden de servicio? Al hacerlo, se impedirá que se trabajen los despachos adjuntos.</value>
+  </data>
+  <data name="MaterialAndCost" xml:space="preserve">
+    <value>Material/Coste</value>
+  </data>
+  <data name="CompleteServiceOrderPrompt" xml:space="preserve">
+    <value>¿Está seguro de que desea completar esta orden de servicio?</value>
+  </data>
+  <data name="PreselectPositionsForInvoicingBackgroundInfo" xml:space="preserve">
+    <value>Dependiendo del modelo de facturación (suma global o según tiempo y esfuerzo), seleccione cuál de los siguientes tipos de elementos le gustaría elegir. Además, también se pueden agregar o eliminar artículos individuales de la lista para facturación.</value>
+  </data>
+  <data name="PreselectPositionsForInvoicing" xml:space="preserve">
+    <value>Seleccionar posición</value>
+  </data>
+  <data name="AvailablePositionsForInvoicing" xml:space="preserve">
+    <value>Posiciones disponibles</value>
+  </data>
+  <data name="MaintenanceOrderTypeAlreadyExists" xml:space="preserve">
+    <value>El sistema ya contiene uno o más tipos de órdenes de servicio marcados como mantenimiento: {1}</value>
+  </data>
+  <data name="CrmService_ErrorCauseTypeRelationship" xml:space="preserve">
+    <value>Relación causa-tipo de error</value>
+  </data>
+  <data name="CrmService_ServiceOrderStatisticsKey" xml:space="preserve">
+    <value>Clave de estadísticas de la orden de servicio</value>
+  </data>
+  <data name="CrmService_ServiceOrderTimeDispatch" xml:space="preserve">
+    <value>Trabajo</value>
+  </data>
+  <data name="AddInvoicePosition" xml:space="preserve">
+    <value>Añadir posición de factura</value>
+  </data>
+</root>

@@ -1,0 +1,625 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddSeparator" xml:space="preserve">
+    <value>Szűrő elválasztó</value>
+  </data>
+  <data name="Map" xml:space="preserve">
+    <value>Térkép</value>
+  </data>
+  <data name="NonWorkingTime" xml:space="preserve">
+    <value>Szabadidő</value>
+  </data>
+  <data name="ServiceOrder.Company" xml:space="preserve">
+    <value>Ügyfél</value>
+  </data>
+  <data name="ServiceOrder.Company.Tooltip" xml:space="preserve">
+    <value>Ügyfél</value>
+  </data>
+  <data name="ServiceOrder.Installation.Description" xml:space="preserve">
+    <value>Berendezés</value>
+  </data>
+  <data name="ServiceOrder.Installation.Description.Tooltip" xml:space="preserve">
+    <value>Berendezés</value>
+  </data>
+  <data name="ServiceOrder.Installation.InstallationNo" xml:space="preserve">
+    <value>Berendezés azonosító</value>
+  </data>
+  <data name="ServiceOrder.Installation.InstallationNo.Tooltip" xml:space="preserve">
+    <value>Berendezés azonosító</value>
+  </data>
+  <data name="ServiceOrderDispatch.Duration" xml:space="preserve">
+    <value>Feladat össz ideje (óra)</value>
+  </data>
+  <data name="ServiceOrderDispatch.Duration.Tooltip" xml:space="preserve">
+    <value>Időtartam (óra)</value>
+  </data>
+  <data name="ServiceOrderDispatch.StartTime" xml:space="preserve">
+    <value>Feladat kezdete</value>
+  </data>
+  <data name="ServiceOrderDispatch.StartTime.Tooltip" xml:space="preserve">
+    <value>Kezdés</value>
+  </data>
+  <data name="AddResources" xml:space="preserve">
+    <value>Erőforrás hozzáadása a profilhoz</value>
+  </data>
+  <data name="LoadProfile" xml:space="preserve">
+    <value>Profil betöltése</value>
+  </data>
+  <data name="EditProfile" xml:space="preserve">
+    <value>Profil szerkesztése</value>
+  </data>
+  <data name="Autosave" xml:space="preserve">
+    <value>Automatikus mentés</value>
+  </data>
+  <data name="ToggleMap" xml:space="preserve">
+    <value>Térkép mutatása</value>
+  </data>
+  <data name="ResourceType" xml:space="preserve">
+    <value>Erőforrástípus</value>
+  </data>
+  <data name="MakeDefaultProfile" xml:space="preserve">
+    <value>Legyen ez az alapértelmezett profil</value>
+  </data>
+  <data name="DefaultProfile" xml:space="preserve">
+    <value>Alapértelmezett profil</value>
+  </data>
+  <data name="LowerBound" xml:space="preserve">
+    <value>Alsó határ</value>
+  </data>
+  <data name="UpperBound" xml:space="preserve">
+    <value>Felső határ</value>
+  </data>
+  <data name="PipelineGroup" xml:space="preserve">
+    <value>Szervízrendelés munkalista csoport</value>
+  </data>
+  <data name="ResourceTooltip" xml:space="preserve">
+    <value>Erőforrás információk</value>
+  </data>
+  <data name="ServiceOrderTooltip" xml:space="preserve">
+    <value>Szervízrendelés információk</value>
+  </data>
+  <data name="ServiceOrderDispatchTooltip" xml:space="preserve">
+    <value>Feladat információk</value>
+  </data>
+  <data name="ShowOtherUsersProfiles" xml:space="preserve">
+    <value>Más felhasználói profilok mutatása</value>
+  </data>
+  <data name="ShowDispatchInScheduler" xml:space="preserve">
+    <value>Kiszállás megnyitása a Tervezőtáblában</value>
+  </data>
+  <data name="Unassign" xml:space="preserve">
+    <value>Hozzárendelés visszavonása</value>
+  </data>
+  <data name="Restrictions" xml:space="preserve">
+    <value>Hiányosságok</value>
+  </data>
+  <data name="NotValidFor" xml:space="preserve">
+    <value>Nem érvényes</value>
+  </data>
+  <data name="MinResourceNumber" xml:space="preserve">
+    <value>Kérem válasszon ki legalább {0} erőforrást</value>
+  </data>
+  <data name="TimesOrderAscending" xml:space="preserve">
+    <value>A megadott időknek növekvő sorrendben kell lenni!</value>
+  </data>
+  <data name="DispatchStatus.Scheduled" xml:space="preserve">
+    <value>Tervezve</value>
+  </data>
+  <data name="DispatchStatus.Read" xml:space="preserve">
+    <value>Olvasva</value>
+  </data>
+  <data name="DispatchStatus.Released" xml:space="preserve">
+    <value>Kiadva</value>
+  </data>
+  <data name="DispatchStatus.SignedByCustomer" xml:space="preserve">
+    <value>Ügyfél által aláírva</value>
+  </data>
+  <data name="DispatchStatus.ClosedNotComplete" xml:space="preserve">
+    <value>Lezárva (Nem befejezett)</value>
+  </data>
+  <data name="DispatchStatus.ClosedComplete" xml:space="preserve">
+    <value>Lezárva</value>
+  </data>
+  <data name="ResourceUtilization" xml:space="preserve">
+    <value>Erőforrás-felhasználási panel</value>
+  </data>
+  <data name="UserGroupFilter" xml:space="preserve">
+    <value>Ez csak a Technikus választó szűrésére szolgál, és beállítja a dipatch TeamId mezőjét</value>
+  </data>
+  <data name="CurrentWeekTooltip" xml:space="preserve">
+    <value>Gyorsgomb az idővonal visszaállításához a jelenlegi hétre</value>
+  </data>
+  <data name="Open Dispatch" xml:space="preserve">
+    <value>Feladat megnyitása</value>
+  </data>
+  <data name="FilterResources" xml:space="preserve">
+    <value>Erőforrások szűrése</value>
+  </data>
+  <data name="FilterPipeline" xml:space="preserve">
+    <value>Munkalista szűrése</value>
+  </data>
+  <data name="FilterEvents" xml:space="preserve">
+    <value>Feladatok szűrése</value>
+  </data>
+  <data name="Absence.From" xml:space="preserve">
+    <value>Ettől</value>
+  </data>
+  <data name="Absence.To" xml:space="preserve">
+    <value>Eddig</value>
+  </data>
+  <data name="PromoteToLeader" xml:space="preserve">
+    <value>Kinevezés csapatvezetőnek</value>
+  </data>
+  <data name="ServiceObjectNo" xml:space="preserve">
+    <value>Szervizobjektum szám</value>
+  </data>
+  <data name="Current Week" xml:space="preserve">
+    <value>Aktuális hét</value>
+  </data>
+  <data name="Go to date" xml:space="preserve">
+    <value>Dátumhoz ugrás</value>
+  </data>
+  <data name="FixDispatch" xml:space="preserve">
+    <value>Fix</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="#.#" xml:space="preserve">
+    <value>Elválasztó</value>
+  </data>
+  <data name="Open Order" xml:space="preserve">
+    <value>Szervízrendelés megnyitása</value>
+  </data>
+  <data name="New Profile" xml:space="preserve">
+    <value>Új profil</value>
+  </data>
+  <data name="Delete Profile" xml:space="preserve">
+    <value>Profil törlése</value>
+  </data>
+  <data name="DispatchStatus.InProgress" xml:space="preserve">
+    <value>Folyamatban</value>
+  </data>
+  <data name="AddNonWorkingTime" xml:space="preserve">
+    <value>{NonWorkingTime} hozzáadása</value>
+  </data>
+  <data name="Capacity" xml:space="preserve">
+    <value>Kapacitás</value>
+  </data>
+  <data name="Teams" xml:space="preserve">
+    <value>Csapatok</value>
+  </data>
+  <data name="DisplayPlannedDate" xml:space="preserve">
+    <value>Tervezett határidő</value>
+  </data>
+  <data name="DisplayPreferredUser" xml:space="preserve">
+    <value>Előnyben részesített szervizes</value>
+  </data>
+  <data name="Absence" xml:space="preserve">
+    <value>Távollét</value>
+  </data>
+  <data name="OneWeek" xml:space="preserve">
+    <value>Egy hét</value>
+  </data>
+  <data name="TwoWeeks" xml:space="preserve">
+    <value>Két hét</value>
+  </data>
+  <data name="OneMonth" xml:space="preserve">
+    <value>Egy hónap</value>
+  </data>
+  <data name="TwoMonths" xml:space="preserve">
+    <value>Két hónap</value>
+  </data>
+  <data name="OneQuarter" xml:space="preserve">
+    <value>Egy félév</value>
+  </data>
+  <data name="OneYear" xml:space="preserve">
+    <value>Egy év</value>
+  </data>
+  <data name="StatusGroup" xml:space="preserve">
+    <value>Státusz csoport</value>
+  </data>
+  <data name="ScheduleFollowUpDispatchInScheduler" xml:space="preserve">
+    <value>Ütemezzen be egy nyomonkövetési feladatot az ütemezőben</value>
+  </data>
+  <data name="MaterialAvailability" xml:space="preserve">
+    <value>Anyag elérhetősége</value>
+  </data>
+  <data name="WebSchedulerLoginTitle" xml:space="preserve">
+    <value>Tervezőtábla</value>
+  </data>
+  <data name="FullyStocked" xml:space="preserve">
+    <value>Minden elérhető</value>
+  </data>
+  <data name="WebSchedulerLoginDescription" xml:space="preserve">
+    <value>Minden amit tudni szeretne csak egy kattintásra</value>
+  </data>
+  <data name="WebScheduler" xml:space="preserve">
+    <value>Tervezőtábla</value>
+  </data>
+  <data name="PartsMissing" xml:space="preserve">
+    <value>Anyagok hiányoznak</value>
+  </data>
+  <data name="WebSchedulerOnline" xml:space="preserve">
+    <value>Tervezőtábla</value>
+  </data>
+  <data name="WebSchedulerOffline" xml:space="preserve">
+    <value>Tervezőtábla</value>
+  </data>
+  <data name="ServiceObjectName" xml:space="preserve">
+    <value>Szervízobjektum neve</value>
+  </data>
+  <data name="PreferredTechnicianWarning" xml:space="preserve">
+    <value>A választott technikus nem a szerviízrendelés előnyben részesített technikusa ({0}), kérem erőstse meg a döntését!</value>
+  </data>
+  <data name="Legend" xml:space="preserve">
+    <value>Jelmagyarázat</value>
+  </data>
+  <data name="Technicians" xml:space="preserve">
+    <value>Szervizes</value>
+  </data>
+  <data name="AutosaveOffWarning" xml:space="preserve">
+    <value>Az automatikus mentés ki van kapcsolva, a változtatások nem lesznek elmentve a szerveren ameddig vissza nem lesz kapcsolva. Ha menteni kívánja jelenlegi változtatásait, nyomja meg a szinkronizáció gombot.</value>
+  </data>
+  <data name="PlannedDateWarning" xml:space="preserve">
+    <value>A válaszott dátum nem a szervízrendelés tervezett dátuma ({0}), kérem erősítse meg döntését!</value>
+  </data>
+  <data name="UnsavedChanges" xml:space="preserve">
+    <value>Nem mentett változtatások</value>
+  </data>
+  <data name="DeadlineWarning" xml:space="preserve">
+    <value>A válaszott dátum túlmutat a szervízrendelés határidején ({0}), kérem erősítse meg döntését!</value>
+  </data>
+  <data name="SmsScheduler_DispatchArticleAssignment" xml:space="preserve">
+    <value>A küldemények cikkel történő hozzárendelése</value>
+  </data>
+  <data name="EnablePlanningConfirmations" xml:space="preserve">
+    <value>Tervezési megerősítések engedélyezése</value>
+  </data>
+  <data name="SmsScheduler_DispatchPersonAssignment" xml:space="preserve">
+    <value>A küldemények személyi hozzárendelése</value>
+  </data>
+  <data name="EnablePlanningConfirmationsTooltip" xml:space="preserve">
+    <value>Ha ez be van kapcsolva, a diszpécsernek meg kell erősítenie a választását, ha a szervízrendelés preferált tervezési követelményei (technikus, tervezett dátum, határidő) nem teljesülnek.</value>
+  </data>
+  <data name="SmsScheduler_Profile" xml:space="preserve">
+    <value>Profilok</value>
+  </data>
+  <data name="PreferredUserGroupWarning" xml:space="preserve">
+    <value>A kiválasztott technikus nem tagja a szervízrendelés preferált felhasználói csoportjának ({0}), kérjük, erősítse meg döntését!</value>
+  </data>
+  <data name="SmsScheduler_ProfileResource" xml:space="preserve">
+    <value>Profil erőforrások</value>
+  </data>
+  <data name="PreferredTechnicianRemovedWarning" xml:space="preserve">
+    <value>A következő művelet a szervízrendelés preferált technikusát fogja a eltávolítani, kérem erősítse meg döntését!</value>
+  </data>
+  <data name="ValidAssets" xml:space="preserve">
+    <value>Érvényes felhasználói erőforrások</value>
+  </data>
+  <data name="PreferredUserGroupRemovedWarning" xml:space="preserve">
+    <value>A következő művelet a szervízrendelés preferált felhasználói csoportjának utolsó tagját fogja eltávolítani, kérem erősítse meg döntését!</value>
+  </data>
+  <data name="ExpiredAssets" xml:space="preserve">
+    <value>Lejárt felhasználói erőforrások
+  </value>
+  </data>
+  <data name="ValidSkills" xml:space="preserve">
+    <value>Aktív képességek</value>
+  </data>
+  <data name="ExpiredSkills" xml:space="preserve">
+    <value>Lejárt képességek</value>
+  </data>
+  <data name="MissingSkillsOrAssetsValidation" xml:space="preserve">
+    <value>A kiszállítást jelenleg nem tudjuk megtervezni, mert hiányoznak a technikus készségei vagy felhasználói erőforrásai</value>
+  </data>
+  <data name="ExpireInDays" xml:space="preserve">
+    <value>{0}n</value>
+  </data>
+  <data name="Timeline" xml:space="preserve">
+    <value>Idővonal</value>
+  </data>
+  <data name="GetRoute" xml:space="preserve">
+    <value>Útvonal megjelenítése</value>
+  </data>
+  <data name="Pipeline" xml:space="preserve">
+    <value>Munkalista</value>
+  </data>
+  <data name="GetRouteAdvanced" xml:space="preserve">
+    <value>Útvonal megjelenítése (Részletes)</value>
+  </data>
+  <data name="Routes" xml:space="preserve">
+    <value>Útvonalak</value>
+  </data>
+  <data name="SelectResourceForRouteWarning" xml:space="preserve">
+    <value>Kérjük, válassza ki azokat az erőforrásokat, amelyekhez az útvonalat szeretné megjeleníteni.</value>
+  </data>
+  <data name="Resources" xml:space="preserve">
+    <value>Erőforrások</value>
+  </data>
+  <data name="ClearRoute" xml:space="preserve">
+    <value>Útvonalak törlése</value>
+  </data>
+  <data name="RouteCouldNotBeCalculatedWarning" xml:space="preserve">
+    <value>Az útvonalat nem lehetett kiszámítani {0} számára, az útvonal kiszámításához legalább 2 kiszállásnak érvényes koordinátákkal kell rendelkezni.</value>
+  </data>
+  <data name="LoadClosedServiceOrders" xml:space="preserve">
+    <value>Lezárt szervizrendelések betöltése</value>
+  </data>
+  <data name="ResetPlanning" xml:space="preserve">
+    <value>Reset tervezés</value>
+  </data>
+  <data name="ResetPlanningConfirmation" xml:space="preserve">
+    <value>Biztosan visszaállítja a tervezést?</value>
+  </data>
+  <data name="ReorderResources" xml:space="preserve">
+    <value>Erőforrások rendezése</value>
+  </data>
+  <data name="ZipCodeArea" xml:space="preserve">
+    <value>Irányítószám területe</value>
+  </data>
+  <data name="TooltipIsNotConfigured" xml:space="preserve">
+    <value>A megjelenítendő információk nincsenek beállítva, kérjük, menjen a Profil beállításaihoz, hogy beállítsa őket.</value>
+  </data>
+  <data name="SmsScheduler_Absence" xml:space="preserve">
+    <value>Távollét</value>
+  </data>
+  <data name="CreateAdHocServiceOrderHere" xml:space="preserve">
+    <value>Eseti szervízrendelés létrehozása itt</value>
+  </data>
+  <data name="ShowNonWorkingHours" xml:space="preserve">
+    <value>Szabadidő mutatása</value>
+  </data>
+  <data name="HideNonWorkingHours" xml:space="preserve">
+    <value>Szabadidő elrejtése</value>
+  </data>
+  <data name="ShowDayNonWorkingHours" xml:space="preserve">
+    <value>Szabadidő mutatása ezen a napon</value>
+  </data>
+  <data name="CurrentProfile" xml:space="preserve">
+    <value>Jelenlegi</value>
+  </data>
+  <data name="EditAbsence" xml:space="preserve">
+    <value>Távollét szerkesztése</value>
+  </data>
+  <data name="DeleteAbsence" xml:space="preserve">
+    <value>Távollét törlése</value>
+  </data>
+  <data name="FunctionalityNotAvailableWarning" xml:space="preserve">
+    <value>Az automatikus mentés kikapcsolt állapotában a funkció nem érhető el</value>
+  </data>
+  <data name="RouteOptions" xml:space="preserve">
+    <value>Útvonal opciók</value>
+  </data>
+  <data name="RouteTechnicianHomeAddressAsOrigin" xml:space="preserve">
+    <value>Használja a technikus otthoni címét kiindulási pontként</value>
+  </data>
+  <data name="RouteTechnicianHomeAddressAsFinalDestination" xml:space="preserve">
+    <value>Használja a technikus otthoni címét végső célként</value>
+  </data>
+  <data name="RoutePerDay" xml:space="preserve">
+    <value>Útvonalak mutatása naponta</value>
+  </data>
+  <data name="DefaultDuration" xml:space="preserve">
+    <value>Alapértelmezett időtartam</value>
+  </data>
+  <data name="MaximumDuration" xml:space="preserve">
+    <value>Maximális időtartam</value>
+  </data>
+  <data name="LimitMaximumDuration" xml:space="preserve">
+    <value>Korlátozza a maximális időtartamot</value>
+  </data>
+  <data name="IgnoreCalculatedDuration" xml:space="preserve">
+    <value>Figyelmen kívül hagyja a számított időtartamot</value>
+  </data>
+  <data name="ForceMaximumDuration" xml:space="preserve">
+    <value>A tervezési táblán akadályozza meg az időtartam kézi meghosszabbítását</value>
+  </data>
+  <data name="MaterialsNotInDefaultStoreWarning" xml:space="preserve">
+    <value>Ebben a szervizrendelésben vannak olyan anyagok, amelyek nincsenek a technikus standard raktárában!</value>
+  </data>
+  <data name="Dispatch.CreateDate" xml:space="preserve">
+    <value>Létrehozás Dátuma</value>
+  </data>
+  <data name="Dispatch.CreateUser" xml:space="preserve">
+    <value>Létrehozó személy</value>
+  </data>
+  <data name="Dispatch.ModifyDate" xml:space="preserve">
+    <value>Módosítás dátuma</value>
+  </data>
+  <data name="Dispatch.ModifyUser" xml:space="preserve">
+    <value>Módosító személy</value>
+  </data>
+  <data name="NetWorkMinutes" xml:space="preserve">
+    <value>Időtartam</value>
+  </data>
+  <data name="TechnicianHomeAddress" xml:space="preserve">
+    <value>Technikus lakcíme</value>
+  </data>
+  <data name="SmsAbsenceEntryTooltip" xml:space="preserve">
+    <value>A tervezőtáblán rögzített hiányzások megjelenítése</value>
+  </data>
+  <data name="AllowSchedulingForPast" xml:space="preserve">
+    <value>A múltra vonatkozó tervezés engedélyezése</value>
+  </data>
+  <data name="SchedulingForPastIsNotAllowed" xml:space="preserve">
+    <value>A múltra vonatkozó tervezés nem engedélyezett</value>
+  </data>
+  <data name="EditingDispatchesInPastWarning" xml:space="preserve">
+    <value>Módosításokat hajtasz végre egy olyan kiszálláson, amely a múltban van ütemezve.</value>
+  </data>
+  <data name="GroupDispatches" xml:space="preserve">
+    <value>Kiszállások csoportosítása</value>
+  </data>
+  <data name="ResourceGroup" xml:space="preserve">
+    <value>Erőforrás csoport</value>
+  </data>
+  <data name="UngroupDispatches" xml:space="preserve">
+    <value>Kiszálláscsoport bontása</value>
+  </data>
+  <data name="PipelineFirstLine" xml:space="preserve">
+    <value>Mit jelenítsünk meg az első sorban?</value>
+  </data>
+  <data name="PipelineSecondLine" xml:space="preserve">
+    <value>Mit jelenítsünk meg a második sorban?</value>
+  </data>
+  <data name="ServiceOrderTimeTooltip" xml:space="preserve">
+    <value>Szervízfeladat információk</value>
+  </data>
+  <data name="OpenInPlanningBoard" xml:space="preserve">
+    <value>Megnyitás a tervezőtáblában</value>
+  </data>
+  <data name="DataForFirstRow" xml:space="preserve">
+    <value>Mit jelenítsünk meg az első sorban?</value>
+  </data>
+  <data name="DataForSecondRow" xml:space="preserve">
+    <value>Mit jelenítsünk meg a második sorban?</value>
+  </data>
+  <data name="DataForThirdRow" xml:space="preserve">
+    <value>Mit jelenítsünk meg a harmadik sorban?</value>
+  </data>
+  <data name="SnapFirstEventOfDayToStartOfDay" xml:space="preserve">
+    <value>Mozgassa a nap első kiszállását a munkaidő kezdetéhez</value>
+  </data>
+  <data name="ServiceOrderTimesScheduling" xml:space="preserve">
+    <value>Feladatok ütemezésének engedélyezése</value>
+  </data>
+  <data name="ShowCurrentTime" xml:space="preserve">
+    <value>Jelenlegi idő megjelenítése</value>
+  </data>
+  <data name="TooManyResourcesSelected" xml:space="preserve">
+    <value>Túllépte a limitet. Kérjük, legfeljebb {0} erőforrást válasszon ki.</value>
+  </data>
+  <data name="TooltipDisplayDelay" xml:space="preserve">
+    <value>Felugró információk megjelenésének késleltetése másodpercben</value>
+  </data>
+  <data name="DisplayClosedDispatches" xml:space="preserve">
+    <value>Lezárt kiszállások megjelenítése</value>
+  </data>
+  <data name="DisplayRejectedDispatches" xml:space="preserve">
+    <value>Elutasított kiszállások megjelenítése</value>
+  </data>
+  <data name="ErrorOccuredWhileSaving" xml:space="preserve">
+    <value>Hiba történt a mentés során, a nem mentett változtatások elvesznek.</value>
+  </data>
+  <data name="AlreadyReplicatedWarning" xml:space="preserve">
+    <value>A kiszállás már replikálva lett egy technikus kliensére, ezért nem törölhető.</value>
+  </data>
+</root>

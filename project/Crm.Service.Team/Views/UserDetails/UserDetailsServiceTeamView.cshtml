@@ -1,0 +1,8 @@
+﻿<!-- ko if: $root.serviceTeamsIds -->
+<!-- ko with: user -->
+<pmbb-view-entry params="caption: 'ServiceTeam'">
+	<span data-bind="text: Helper.User.getUsergroupsDisplay($root.serviceTeamsObjects)"></span>
+	<span data-bind="translatedText: 'NoAssignedTeams', visible: Helper.User.areUsergroupsVisible($root.serviceTeamsObjects)"></span>
+</pmbb-view-entry>
+<!-- /ko -->
+<!-- /ko -->

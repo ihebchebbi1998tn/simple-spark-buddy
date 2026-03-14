@@ -1,0 +1,9 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<li  data-bind="visible: ['InProgress', 'SignedByCustomer', 'ClosedNotComplete', 'ClosedComplete'].indexOf($root.dispatch().StatusKey()) !== -1, tooltip: true" data-placement="bottom" title="@(Html.Localize("ServiceReport"))">
+	<a id="report-preview" href="#" data-bind="attr: { 'data-route': 'Crm.Service/Dispatch/ReportPreview/' + $root.dispatch().Id() }" data-toggle="modal" data-target="#lgModal">
+		<i class="tm-icon zmdi zmdi-file-text"></i>
+		<i class="tmn-counts bgm-green" data-bind="translatedText: 'Active', visible: currentTabId() === 'tab-report'"></i>
+	</a>
+</li>

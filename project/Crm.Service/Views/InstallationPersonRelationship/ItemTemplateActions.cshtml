@@ -1,0 +1,24 @@
+@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<!-- ko if: $root.currentTabId && $root.currentTabId() === 'tab-relationships' -->
+<!-- ko with: ko.utils.arrayFirst($parents, function(x) { return x instanceof window.$data.KoObservableEntity 
+&& x.innerInstance instanceof database.CrmService_InstallationPersonRelationship.CrmService_InstallationPersonRelationship }) -->
+<!-- ko requiredPermission: { name: 'EditInstallationPersonRelationship', group: 'Installation' } -->
+<li>
+	<a data-test="edit-installation-person-relationship" href="#" data-bind="attr: { 'data-route': 'Crm.Service/InstallationPersonRelationship/EditTemplate/' + Id() }" data-toggle="modal" data-target="#modal">
+		@(Html.Localize("Edit"))
+	</a>
+</li>
+<!-- /ko -->
+<!-- ko requiredPermission: { name: 'RemoveInstallationPersonRelationship', group: 'Installation' } -->
+<!-- ko with: $root.tabs()['tab-relationships'] -->
+<li>
+	<a data-test="delete-installation-person-relationship" href="#" data-bind="click: () => $data.deleteRelationship($parent)">
+		@(Html.Localize("Delete"))
+	</a>
+</li>
+<!-- /ko -->
+<!-- /ko -->
+<!-- /ko -->
+<!-- /ko -->

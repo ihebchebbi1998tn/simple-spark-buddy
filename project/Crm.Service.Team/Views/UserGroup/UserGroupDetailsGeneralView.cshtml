@@ -1,0 +1,16 @@
+﻿<!-- ko if: $root.userGroup().ExtensionValues().IsServiceTeam -->
+<pmbb-view-entry params="caption: 'MainResource'">
+	<span data-bind="userDisplayName: $root.MainResourceId"></span>
+	<span class="c-gray" data-bind="translatedText: 'NotAssigned', ifnot: $root.MainResourceId"></span>
+</pmbb-view-entry>
+<!-- ko with: ExtensionValues -->
+<pmbb-view-entry params="caption: 'ValidFrom'">
+	<span data-bind="dateText: ValidFrom"></span>
+	<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ValidFrom"></span>
+</pmbb-view-entry>
+<pmbb-view-entry params="caption: 'ValidTo'">
+	<span data-bind="dateText: ValidTo"></span>
+	<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ValidTo"></span>
+</pmbb-view-entry>
+<!-- /ko -->
+<!-- /ko -->

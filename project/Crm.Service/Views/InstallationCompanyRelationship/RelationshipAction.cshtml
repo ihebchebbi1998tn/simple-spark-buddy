@@ -1,0 +1,10 @@
+@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<!-- ko requiredPermission: { name: 'CreateInstallationCompanyRelationship', group: 'Installation' } -->
+<li data-bind="with: $root">
+	<a id="add-installation-company-relationship" href="#" data-mfb-label="@(Html.Localize("AddInstallationRelationship"))" data-route="Crm.Service/InstallationCompanyRelationship/EditTemplate/" data-toggle="modal" data-target="#modal">
+		<i class="zmdi zmdi-wrench"></i>
+	</a>
+</li>
+<!-- /ko -->

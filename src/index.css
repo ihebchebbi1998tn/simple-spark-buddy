@@ -9,60 +9,32 @@ All colors MUST be HSL.
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 210 11% 15%;
+    --foreground: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
-    --card-foreground: 210 11% 15%;
+    --card-foreground: 222.2 84% 4.9%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 210 11% 15%;
+    --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 215 100% 35%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
-    --secondary-foreground: 210 11% 15%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 215 100% 35%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 215 100% 35%;
-    
-    /* Brand Colors */
-    --brand-blue: 215 100% 35%;
-    --brand-dark: 210 11% 20%;
-    --brand-light: 0 0% 98%;
-    
-    /* Success / Candidate color */
-    --success: 152 69% 31%;
-    --success-foreground: 0 0% 100%;
-    --success-light: 152 40% 95%;
-    
-    /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(var(--brand-blue)), hsl(215 100% 45%));
-    --gradient-section: linear-gradient(180deg, hsl(var(--background)), hsl(210 40% 98%));
-    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(210 40% 98%));
-    --gradient-success: linear-gradient(135deg, hsl(142 71% 45%), hsl(142 76% 36%));
-    --gradient-primary-subtle: linear-gradient(135deg, hsl(var(--brand-blue) / 0.1), hsl(215 100% 45% / 0.05));
-    
-    /* Shadows */
-    --shadow-elegant: 0 10px 30px -10px hsl(var(--brand-blue) / 0.2);
-    --shadow-card: 0 4px 20px -4px hsl(var(--brand-dark) / 0.1);
-    --shadow-glow: 0 0 40px hsl(var(--brand-blue) / 0.3);
-    --shadow-input-focus: 0 0 0 3px hsl(var(--brand-blue) / 0.15);
-    --shadow-success: 0 4px 20px hsl(142 71% 45% / 0.3);
-    
-    /* Animations */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-fast: all 0.2s ease-out;
+    --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
 
@@ -129,117 +101,5 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-    overflow-x: hidden;
   }
-  
-  html {
-    scroll-behavior: smooth;
-  }
-  
-  /* Custom scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-  
-  ::-webkit-scrollbar-track {
-    @apply bg-secondary/20;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    @apply bg-primary/40 rounded-full;
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-primary/60;
-  }
-}
-
-@layer components {
-  .story-link {
-    @apply relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
-  }
-
-  .hover-scale {
-    @apply transition-transform duration-200 hover:scale-105;
-  }
-
-  /* Auto-scrolling carousel animation */
-  @keyframes scroll-left {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-33.333%);
-    }
-  }
-
-  .animate-scroll-left {
-    animation: scroll-left 30s linear infinite;
-  }
-
-  .animate-scroll-left:hover {
-    animation-play-state: paused;
-  }
-
-  /* Float animation for mission section */
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-  }
-
-  /* Shimmer effect for loading states */
-  @keyframes shimmer {
-    0% { background-position: -1000px 0; }
-    100% { background-position: 1000px 0; }
-  }
-
-
-  /* Input glow on focus */
-  .input-glow:focus-within {
-    box-shadow: var(--shadow-input-focus);
-    transition: box-shadow 0.3s ease;
-  }
-
-}
-
-/* Critical fixes for Radix UI Select dropdown interactivity */
-[data-radix-popper-content-wrapper] {
-  z-index: 99999 !important;
-  pointer-events: auto !important;
-}
-
-[data-radix-select-viewport] {
-  pointer-events: auto !important;
-}
-
-[data-radix-select-content] {
-  pointer-events: auto !important;
-  z-index: 99999 !important;
-}
-
-[role="option"],
-[data-radix-select-item] {
-  pointer-events: auto !important;
-  cursor: pointer !important;
-  user-select: none !important;
-  -webkit-user-select: none !important;
-  -moz-user-select: none !important;
-  -ms-user-select: none !important;
-}
-
-/* Ensure Portal content is always clickable */
-.radix-portal,
-[data-radix-portal] {
-  pointer-events: auto !important;
-  z-index: 99999 !important;
-}
-
-/* Force interactivity for all select-related elements */
-[data-state="open"][role="listbox"] {
-  pointer-events: auto !important;
-}
-
-/* Prevent any parent elements from blocking clicks */
-[data-radix-select-trigger] ~ * {
-  pointer-events: auto !important;
 }

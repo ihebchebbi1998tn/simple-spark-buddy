@@ -1,0 +1,66 @@
+﻿@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<fieldset class="m-b-25">
+	<legend class="c-black b-0 f-500 f-14">
+		@(Html.Localize("Report"))
+	</legend>
+	<!-- ko with: $root -->
+	<div class="row">
+		<div class="col-md-6">
+			<div class="fg-line">
+				<label class="fg-label control-label">
+					<span>@(Html.Localize("ReportLogo"))</span>
+				</label><br/>
+				<div class="fileinput d-block" data-provides="fileinput" data-bind="css: { 'fileinput-exists': reportLogoUrl, 'fileinput-new': reportLogoUrl() == null }, validationElement: reportLogoBlob">
+					<div class="fileinput-preview thumbnail" data-trigger="fileinput" style="line-height: 150px;">
+						<!-- ko if: reportLogoUrl -->
+						<img data-bind="attr: { src: reportLogoUrl }"/>
+						<!-- /ko -->
+					</div>
+					<div>
+						<small class="help-block" data-bind="validationMessage: reportLogoBlob"></small>
+						<span class="btn btn-lg btn-primary f-13 btn-file waves-effect">
+							<span class="fileinput-new">@(Html.Localize("SelectFile"))</span>
+							<span class="fileinput-exists">@(Html.Localize("Change"))</span>
+							<input type="file" data-bind="fileInput: { content: reportLogoContent, blob: reportLogoBlob }" accept="image/*"/>
+						</span>
+						<a href="#" class="btn btn-danger btn-lg f-13 fileinput-exists waves-effect" data-dismiss="fileinput">@(Html.Localize("Remove"))</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="fg-line">
+				<label class="fg-label control-label">
+					<span>@(Html.Localize("ReportFooterImage"))</span>
+				</label><br/>
+				<div class="fileinput d-block" data-provides="fileinput" data-bind="css: { 'fileinput-exists': reportFooterImageUrl, 'fileinput-new': reportFooterImageUrl() == null }, validationElement: reportFooterImageBlob">
+					<div class="fileinput-preview thumbnail" data-trigger="fileinput" style="line-height: 150px;">
+						<!-- ko if: reportFooterImageUrl -->
+						<img data-bind="attr: { src: reportFooterImageUrl }"/>
+						<!-- /ko -->
+					</div>
+					<div>
+						<small class="help-block" data-bind="validationMessage: reportFooterImageBlob"></small>
+						<span class="btn btn-lg btn-primary f-13 btn-file waves-effect">
+							<span class="fileinput-new">@(Html.Localize("SelectFile"))</span>
+							<span class="fileinput-exists">@(Html.Localize("Change"))</span>
+							<input type="file" data-bind="fileInput: { content: reportFooterImageContent, blob: reportFooterImageBlob }" accept="image/*"/>
+						</span>
+						<a href="#" class="btn btn-danger btn-lg f-13 fileinput-exists waves-effect" data-dismiss="fileinput">@(Html.Localize("Remove"))</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /ko -->
+	<!-- ko with: ExtensionValues -->
+	<form-element params="value: ReportFooterCol1, caption: 'ReportFooterCol1', type: 'textarea', disable: $root.reportFooterImageContent"></form-element>
+	<form-element params="value: ReportFooterCol2, caption: 'ReportFooterCol2', type: 'textarea', disable: $root.reportFooterImageContent"></form-element>
+	<form-element params="value: ReportFooterCol3, caption: 'ReportFooterCol3', type: 'textarea', disable: $root.reportFooterImageContent"></form-element>
+	<!-- /ko -->
+</fieldset>
+
+@Html.PluginRenderActions("SiteEditReport")

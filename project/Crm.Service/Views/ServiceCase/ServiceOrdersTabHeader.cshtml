@@ -1,0 +1,10 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<!-- ko if: window.Crm.Service.Settings.ServiceContract.MaintenanceOrderGenerationMode === "OrderPerInstallation" -->
+<li role="presentation">
+	<a class="col-xs-4" href="#tab-service-orders" aria-controls="tab-service-orders" role="tab" data-toggle="tab" aria-expanded="false">
+		@(Html.Localize("ServiceOrders"))
+	</a>
+</li>
+<!-- /ko -->

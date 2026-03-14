@@ -1,0 +1,5 @@
+<!-- ko if: $root.table === "CrmService_ServiceOrderDispatchRejectReason" -->
+<form-element params="value: ServiceOrderStatusKey, caption: 'ServiceOrderStatus', type: 'select2'">
+	<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_ServiceOrderStatus'), placeholder: Helper.String.getTranslatedString('Unspecified') }"></select>
+</form-element>
+<!-- /ko -->

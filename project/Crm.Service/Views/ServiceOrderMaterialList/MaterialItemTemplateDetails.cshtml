@@ -1,0 +1,85 @@
+﻿@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div class="lv-title">
+	<span data-bind="text: ItemNo"></span> - <span data-bind="text: ItemDescription"></span>
+</div>
+<!-- ko if: !!BatchNo() -->
+<div>
+	@(Html.Localize("BatchNo"))
+	<span data-bind="text: BatchNo"></span>
+</div>
+<!-- /ko -->
+<div>
+	<div>
+		<!--ko if: InternalRemark -->
+		<span data-bind="translatedText: 'InternalRemark'"></span><span>:</span>
+		<span class="c-gray"
+		      data-bind="attr: { id: `InternalRemark-${Id()}` }, text: { value: InternalRemark, expand: true, limit: 50 }"></span>
+		<!-- /ko -->
+	</div>
+	<div>
+		<!--ko if: ExternalRemark -->
+		<span data-bind="translatedText: 'ExternalRemark'"></span><span>:</span>
+		<span class="c-gray"
+		      data-bind="attr: { id: `ExternalRemark-${Id()}` }, text: { value: ExternalRemark, expand: true, limit: 50 }"></span>
+		<!-- /ko -->
+	</div>
+	<!-- ko foreach: DocumentAttributes -->
+	<p>
+		<i class="zmdi zmdi-file"></i>
+		<!-- ko ifnot: window.client.userAgent() === 'Android' && !!FileResource() && FileResource().ContentType().indexOf('image/') === -1 -->
+		<a class="text-muted small" data-bind="fileResource: FileResource, text: FileResource().Filename"
+		   target="_blank"></a>
+		<!-- /ko -->
+		<!-- ko if: window.client.userAgent() === 'Android' && !!FileResource() && FileResource().ContentType().indexOf('image/') === -1 -->
+		<a class="text-muted small"
+		   data-bind="fileResource: FileResource, text: FileResource().Filename, attr: { download: FileResource().Filename() }"></a>
+		<!-- /ko -->
+	</p>
+	<!-- /ko -->
+</div>
+<!-- ko if: DispatchId() && ServiceOrderDispatch() && $parent instanceof window.Crm.Service.ViewModels.ServiceOrderDetailsMaterialsTabViewModel -->
+@await Html.PartialAsync("DispatchLink")
+<!-- /ko -->
+<ul class="lv-attrs">
+	<li data-bind="visible: $parent.showServiceOrderMaterialType">
+		<span data-bind="translatedText: 'ServiceOrderMaterialType' + ServiceOrderMaterialType()"></span>
+	</li>
+	<li data-bind="visible: CommissioningStatusKey">
+		<span data-bind="lookupValue: CommissioningStatusKey, lookups: $root.lookups.commissioningStatuses"></span>
+	</li>
+	<!-- ko if: Crm.Service.Settings.ServiceOrderMaterial.ShowPricesInMobileClient && !ko.unwrap($root.showTotalPrices) -->
+	<li data-bind="visible: Price">
+		<span data-bind="money: Price"></span>
+		<span data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+	</li>
+	<!-- /ko -->
+	<li data-bind="visible: FromWarehouse">
+		<span>@(Html.Localize("Store")):</span>
+		<span data-bind="text: FromWarehouse"></span>
+	</li>
+	<li data-bind="visible: FromLocation">
+		<span>@(Html.Localize("StoreLocation")):</span>
+		<span data-bind="text: FromLocation"></span>
+	</li>
+	@Html.PluginRenderActions("ServiceOrderMaterialItemTemplateAttributes")
+</ul>
+<div class="row" data-bind="visible: IsSerial() && SerialNo()">
+	<div class="col-md-12">
+		@(Html.Localize("SerialNo"))
+		<span data-bind="text: SerialNo"></span>
+		<span data-bind="if: NoPreviousSerialNoReasonKey() || PreviousSerialNo()">
+			(@(Html.Localize("was")): <span data-bind="lookupValue: NoPreviousSerialNoReasonKey, lookups: $root.lookups.noPreviousSerialNoReasons"></span><span data-bind="text: PreviousSerialNo"></span>)
+		</span>
+	</div>
+</div>
+<div class="row" data-bind="visible: IsSerial() && !SerialNo()">
+	<div class="col-md-12">
+		@(Html.Localize("PreviousSerialNo"))
+		<span data-bind="if: NoPreviousSerialNoReasonKey() || PreviousSerialNo()">
+			<span data-bind="lookupValue: NoPreviousSerialNoReasonKey, lookups: $root.lookups.noPreviousSerialNoReasons"></span><span data-bind="text: PreviousSerialNo"></span>
+		</span>
+	</div>
+</div>

@@ -1,0 +1,17 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<!-- ko requiredPermission: { name: 'CreateMaterial', group: 'ServiceOrder' } -->
+<li data-bind="with: $parent, visible: $parent.materialsCanBeAdded">
+	<a id="add-service-order-material" href="#" data-mfb-label="@(Html.Localize("CreateServiceOrderMaterial"))" data-route="Crm.Service/ServiceOrderMaterial/EditTemplate/?serviceOrderId={{$root.serviceOrder().Id}}" data-toggle="modal" data-target="#modal">
+		<i class="zmdi zmdi-local-grocery-store"></i>
+	</a>
+</li>
+<!-- /ko -->
+<!-- ko requiredPermission: { name: 'CreateCost', group: 'ServiceOrder' } -->
+<li data-bind="with: $parent, visible: $parent.materialsCanBeAdded">
+	<a id="add-cost" href="#" data-mfb-label="@(Html.Localize("CreateCost"))" data-route="Crm.Service/ServiceOrderMaterial/EditTemplate/?articleType=Cost&serviceOrderId={{$root.serviceOrder().Id}}" data-toggle="modal" data-target="#modal">
+		<i class="zmdi zmdi-money"></i>
+	</a>
+</li>
+<!-- /ko -->

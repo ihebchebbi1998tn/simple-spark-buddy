@@ -1,0 +1,12 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<!-- ko if: $parents[2].context !== 'dashboard' -->
+<!-- ko requiredPermission: { name: 'Edit', group: 'ServiceCase' } -->
+<li data-bind="if: $parents[2].setEditing">
+	<a href="#" data-bind="click: $parents[2].setEditing">
+		@(Html.Localize("Edit"))
+	</a>
+</li>
+<!-- /ko -->
+<!-- /ko -->

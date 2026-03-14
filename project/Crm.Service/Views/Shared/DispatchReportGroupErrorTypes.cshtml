@@ -1,0 +1,80 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Service.Rest.Model
+@using Main.Offline.Extensions
+
+<table class="table m-b-10 body-data" data-bind="visible: $parent.showErrorTypesTable($data)">
+	<thead>
+		<tr>
+			<th class="bgm-bluegray" colspan="5">
+				<b class="c-white" data-bind="translatedText: { key: 'Error', language: $parent.selectedLanguage }">@(Html.Localize("Error"))</b>
+			</th>
+		</tr>
+		@using (Html.TemplateCondition("ServiceOrderErrorTypes.length > 0"))
+		{
+			<tr>
+				<th class="col-xs-4">
+					<b class="c-gray" data-bind="translatedText: { key: 'StatisticsKeyFaultImage', language: $parent.selectedLanguage }">@(Html.Localize("StatisticsKeyFaultImage"))</b>
+					<b class="c-gray"> / </b>
+					<b class="c-gray" data-bind="translatedText: { key: 'StatisticsKeyCause', language: $parent.selectedLanguage }">@(Html.Localize("StatisticsKeyCause"))</b>
+				</th>
+				<th class="col-xs-6">
+					<b class="c-gray" data-bind="translatedText: { key: 'Description', language: $parent.selectedLanguage }">@(Html.Localize("Description"))</b>
+				</th>
+				<th class="col-xs-2 text-right">
+					<b class="c-gray" data-bind="translatedText: { key: 'IsConfirmed', language: $parent.selectedLanguage }">@(Html.Localize("IsConfirmed"))</b>
+				</th>
+			</tr>
+		}
+	</thead>
+	<tbody>
+		@using (Html.TemplateCondition("ServiceOrderErrorTypes.length === 0"))
+		{
+			<tr>
+				<td colspan="4" data-bind="translatedText: { key: 'NoErrorTypes', language: $parent.selectedLanguage }">
+					@(Html.Localize("NoErrorTypes"))
+				</td>
+			</tr>
+		}
+		@using (Html.TemplateContext("$parent.filterPositions($data, 'ErrorType')"))
+		{
+			@using (Html.TemplateForEach("$data"))
+			{
+				<tr>
+					<td class="col-xs-4">
+						<div>
+							<b>@Html.Localize("StatisticsKeyFaultImage"): </b><br />
+							<span data-bind="lookupValue: $data.StatisticsKeyFaultImageKey, lookups:$parentContext.$parentContext.$parent.lookups.statisticsKeyFaultImages"></span>
+						</div>
+					</td>
+					<td class="col-xs-6">
+						<div><b>@(Html.TemplateText<ServiceOrderErrorTypeRest>(x => x.Description))</b></div>
+					</td>
+					<td class="col-xs-2 text-right">
+						<b data-bind="visible: IsConfirmed() === true">@Html.Localize("Yes")</b>
+						<b data-bind="visible: IsConfirmed() === false">@Html.Localize("No")</b>
+					</td>
+				</tr>
+				@using (Html.TemplateForEach("$data.ServiceOrderErrorCauses"))
+				{
+					<tr>
+						<td class="col-xs-4">
+							<div>
+								@Html.Localize("StatisticsKeyCause"):<br />
+								<span data-bind="lookupValue: $data.StatisticsKeyCauseKey, lookups:$parentContext.$parentContext.$parentContext.$parent.lookups.statisticsKeyCauses"></span>
+							</div>
+						</td>
+						<td class="col-xs-6">
+							<div>@(Html.TemplateText<ServiceOrderErrorTypeRest>(x => x.Description))</div>
+						</td>
+						<td class="col-xs-2 text-right">
+							<b data-bind="visible: IsConfirmed() === true">@Html.Localize("Yes")</b>
+							<b data-bind="visible: IsConfirmed() === false">@Html.Localize("No")</b>
+						</td>
+					</tr>
+
+				}
+			}
+		}
+	</tbody>
+</table>

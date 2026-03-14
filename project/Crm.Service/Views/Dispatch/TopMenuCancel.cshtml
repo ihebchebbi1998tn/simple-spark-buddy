@@ -1,0 +1,12 @@
+@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<li data-bind="if: $root.dispatch().StatusKey() === 'InProgress'">
+	<a
+		href="#"
+		data-bind="attr: { 'data-route' : 'Crm.Service/Dispatch/Cancel/' + $root.dispatch().Id() }"
+		data-toggle="modal"
+		data-target="#modal">
+		@(Html.Localize("Cancel"))
+	</a>
+</li>

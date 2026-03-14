@@ -1,0 +1,58 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<script type="text/html" id="installation-autocomplete-template">
+	<div id="{{Id}}" class="listview">
+		<div class="lv-item media p-0">
+			<div class="lv-avatar pull-left" data-bind="text: Helper.Installation.getTypeAbbreviation($data, $root.lookups.installationTypes), style: { backgroundColor: Helper.Lookup.getLookupColor($root.lookups.installationTypes, $data.InstallationTypeKey) }, visible: !$parent.selectedItems || $parent.selectedItems().length === 0"></div>
+			<div class="media-body">
+				<div class="row">
+					<div class="col-sm-3 col-sm-push-9">
+						<div class="f-500" data-bind="if: ExternalReference">
+							<span data-bind="translatedText: 'ExternalReference'"></span>:
+							<span data-bind="text: ExternalReference"></span>
+						</div>
+						<div class="f-500" data-bind="if: Room">
+							<span data-bind="translatedText: 'Room'"></span>:
+							<span data-bind="text: Room"></span>
+						</div>
+						<div class="f-500" data-bind="if: ExactPlace">
+							<span data-bind="translatedText: 'ExactPlace'"></span>:
+							<span data-bind="text: ExactPlace"></span>
+						</div>
+					</div>
+					<div class="col-sm-9 col-sm-pull-3">
+						<div>
+							<div class="f-500">
+								<span data-bind="text: Helper.Installation.getDisplayName($data)"></span>
+							</div>
+							<div class="small" data-bind="with: ServiceObject">
+								@(Html.Localize("ServiceObject")):
+								<span data-bind="text: Helper.ServiceObject.getDisplayName($data)"></span>
+							</div>
+							<div class="small" data-bind="with: Address">
+								@(Html.Localize("Address")):
+								<span data-bind="text: Street"></span>,
+								<span data-bind="text: ZipCode"></span>
+								<span data-bind="text: City"></span>
+							</div>
+						</div>
+						<ul class="lv-attrs">
+							<li>
+								<i class="zmdi zmdi-circle" data-bind="style: { color: Helper.Lookup.getLookupColor($root.lookups.installationHeadStatuses, $data.StatusKey) }"></i>
+								@(Html.Localize("InstallationStatus")):
+								<span data-bind="lookupValue: StatusKey, lookups: $root.lookups.installationHeadStatuses"></span>
+							</li>
+							<li>
+								@(Html.Localize("InstallationType")):
+								<span data-bind="lookupValue: InstallationTypeKey, lookups: $root.lookups.installationTypes"></span>
+							</li>
+							@Html.PluginRenderActions("InstallationAutocompleteTemplateAttributes")
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>

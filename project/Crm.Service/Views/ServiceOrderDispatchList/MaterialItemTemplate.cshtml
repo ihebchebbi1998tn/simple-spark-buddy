@@ -1,0 +1,265 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div id="{{Id}}" class="lv-item media" data-bind="infiniteScrollItem: { index: $index(), array: $parent.items }">
+	<div class="lv-avatar pull-left" data-bind="text: Helper.ServiceOrder.getTypeAbbreviation($data.ServiceOrder, $parent.lookups.serviceOrderTypes), style: { backgroundColor: Helper.Lookup.getLookupColor($parent.lookups.serviceOrderTypes, $data.ServiceOrder().TypeKey) }, visible: !$parent.selectedItems || $parent.selectedItems().length === 0"></div>
+	<div class="media-body" data-bind="css: { 'f-700': StatusKey() === 'Released' }">
+		<div class="row">
+			<div class="col-sm-2 col-sm-push-9">
+				<div class="f-500">
+					<i class="zmdi zmdi-time"></i>
+					<span data-bind="dateText: Date, visible: $parent.context !== 'dashboard'"></span>
+					<span data-bind="dateText: { value: Date, timeZone: TimeZone, pattern: { time: 'short' } }"></span>
+					<!-- ko if: !Helper.Date.isTimeZoneSame(TimeZone) && $parent.getLocalTimeZoneText($data) -->
+					<i>(<span data-bind="text: Helper.Date.getUtcOffsetString(TimeZone, Date)"></span>)</i> 
+					<a href="#" tabindex="0" role="button" data-bind="popover: { content: $parent.getLocalTimeZoneText($data), placement: 'auto right', html: true }, tooltip: true" title="@(Html.Localize("Hint"))">
+						<i class="f-20 zmdi zmdi-info-outline"></i>
+					</a>
+					<!-- /ko -->
+					<span class="c-red" data-bind="if: IsFixed">
+						@(Html.Localize("Fix"))
+					</span>
+				</div>
+				<div class="f-500">
+					<i class="zmdi zmdi-time"></i>
+					<span data-bind="dateText: EndDate, visible: $parent.context !== 'dashboard'"></span>
+					<span data-bind="dateText: { value: EndDate, pattern: { time: 'short' } }"></span>
+				</div>
+				<div class="f-500">
+					<i class="zmdi zmdi-time-interval"></i>
+					<span data-bind="durationText: window.Helper.Dispatch.calculateDuration($data).toISOString()"></span>
+				</div>
+				<div class="f-500">
+					<div data-bind="if: $parent.loadingInitialPosition">
+						<i class="zmdi zmdi-pin"></i>
+						<div class="preloader pl-inline pls-gray m-l-5">
+							<svg class="pl-circular" viewBox="25 25 50 50">
+								<circle class="plc-path" cx="50" cy="50" r="20"></circle>
+							</svg>
+						</div>
+					</div>
+					<div data-bind="ifnot: $parent.loadingInitialPosition">
+						<div data-bind="if: $parent.getDistance($data)">
+							<i class="zmdi zmdi-navigation" data-bind="style: { transform: 'rotate(' + $parent.getDirection($data) + 'deg)' }"></i>
+							<span data-bind="text: $parent.getDistance($data)"></span>
+						</div>
+						<div data-bind="ifnot: $parent.getDistance($data)">
+							<i class="zmdi zmdi-pin-off"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-9 col-sm-pull-2">
+				<!--ko if: DispatchNo() !== null-->
+				<div class="lv-title">
+					<!-- ko requiredPermission: { name: 'Read', group: 'Dispatch' } -->
+					<a href="#/Crm.Service/Dispatch/DetailsTemplate/{{Id}}">
+						<span data-bind="text: DispatchNo"></span>
+					</a>
+					<!-- /ko -->
+					<!-- ko noRequiredPermission: { name: 'Read', group: 'Dispatch' } -->
+					<span data-bind="text: DispatchNo"></span>
+					<!-- /ko -->
+				</div>
+				<!-- /ko -->
+				<!--ko ifnot: DispatchNo() !== null-->
+				<div class="lv-title" data-bind="with: ServiceOrder">
+					<!-- ko requiredPermission: { name: 'Read', group: 'ServiceOrder' } -->
+					<a href="#/Crm.Service/Dispatch/DetailsTemplate/{{$parent.Id}}">
+						<span data-bind="text: OrderNo"></span>
+					</a>
+					<!-- /ko -->
+					<!-- ko noRequiredPermission: { name: 'Read', group: 'ServiceOrder' } -->
+					<span data-bind="text: OrderNo"></span>
+					<!-- /ko -->
+					<small class="c-gray" data-bind="lookupValue: TypeKey, lookups: $parentContext.$parent.lookups.serviceOrderTypes"></small>
+				</div>
+				<!-- /ko -->
+
+				<div data-bind="with: ServiceOrder">
+					<div>
+						<!--ko if: $parent.DispatchNo() !== null-->
+						<div>
+							<!-- ko requiredPermission: { name: 'Read', group: 'ServiceOrder' } -->
+							@(Html.Localize("OrderNo")):
+							<a href="#/Crm.Service/ServiceOrder/DetailsTemplate/{{Id}}">
+								<span data-bind="text: OrderNo"></span>
+							</a>
+							<!-- /ko -->
+							<!-- ko noRequiredPermission: { name: 'Read', group: 'ServiceOrder' } -->
+							@(Html.Localize("OrderNo")):
+							<span data-bind="text: OrderNo"></span>
+							<!-- /ko -->
+							<small class="c-gray" data-bind="lookupValue: TypeKey, lookups: $parentContext.$parent.lookups.serviceOrderTypes"></small>
+						</div>
+						<!-- /ko -->
+						<div data-bind="with: Company">
+							@(Html.Localize("Customer")):
+							<!-- ko requiredPermission: { name: 'Read', group: 'Company' } -->
+							<a href="#/Crm/Company/DetailsTemplate/{{Id}}">
+								<span data-bind="text:Helper.Company.getDisplayName($data)"></span>
+							</a>
+							<!-- /ko -->
+							<!-- ko noRequiredPermission: { name: 'Read', group: 'Company' } -->
+							<span data-bind="text: Helper.Company.getDisplayName($data)"></span>
+							<!-- /ko -->
+						</div>
+						<div data-bind="with: ServiceObject">
+							@(Html.Localize("ServiceObject")):
+							<!-- ko requiredPermission: { name: 'Read', group: 'ServiceObject' } -->
+							<a href="#/Crm.Service/ServiceObject/DetailsTemplate/{{Id}}">
+								<span data-bind="text: Helper.ServiceObject.getDisplayName($data)"></span>
+							</a>
+							<!-- /ko -->
+							<!-- ko noRequiredPermission: { name: 'Read', group: 'ServiceObject' } -->
+							<span data-bind="text: Helper.ServiceObject.getDisplayName($data)"></span>
+							<!-- /ko -->
+						</div>
+						<!-- ko if: $parent.Installations().length === 1 -->
+						<div data-bind="foreach: $parent.Installations">
+							@(Html.Localize("Installation"))
+							<!-- ko requiredPermission: { name: 'Read', group: 'Installation' } -->
+							<a href="#/Crm.Service/Installation/DetailsTemplate/{{Id}}">
+								<span data-bind="text: Helper.Installation.getDisplayName($data)"></span>
+							</a>
+							<!-- /ko -->
+							<!-- ko noRequiredPermission: { name: 'Read', group: 'Installation' } -->
+							<span data-bind="text: Helper.Installation.getDisplayName($data)"></span>
+							<!-- /ko -->
+						</div>
+						<!-- /ko -->
+						<!-- ko if: $parent.Installations().length > 1 -->
+						<div class="small">
+							<span>@(Html.Localize("for"))</span>
+							<!-- ko requiredPermission: { name: 'Read', group: 'Installation' } -->
+							<a href="#/Crm.Service/Dispatch/DetailsTemplate/{{$parent.Id}}?tab=tab-installations">
+								<span data-bind="text: $parent.Installations().length"></span>
+								<span>@(Html.Localize("installations"))</span>
+							</a>
+							<!-- /ko -->
+							<!-- ko noRequiredPermission: { name: 'Read', group: 'Installation' } -->
+							<span data-bind="text: Installations().length"></span>
+							<span>@(Html.Localize("installations"))</span>
+							<!-- /ko -->
+						</div>
+						<!-- /ko -->
+					</div>
+					<small class="c-gray">
+						<!-- ko if: Name1() -->
+						<span data-bind="text: Name1"></span>
+						<br />
+						<!-- /ko -->
+						<!-- ko if: Name2() -->
+						<span data-bind="text: Name2"></span>
+						<br />
+						<!-- /ko -->
+						<!-- ko if: Name3() -->
+						<span data-bind="text: Name3"></span>
+						<br />
+						<!-- /ko -->
+						<span data-bind="text: Street"></span>
+						<br>
+
+						<span data-bind="text: ZipCode"></span>
+						<span data-bind="text: City"></span>
+						<!-- ko if: CountryKey() || RegionKey()-->
+						<br>
+						<span data-bind="if: RegionKey, lookupValue: RegionKey, lookups: $parentContext.$parent.lookups.regions, suffix: ko.unwrap(CountryKey) ? ',' : '' "></span>
+						<span data-bind="if: CountryKey, lookupValue: CountryKey, lookups: $parentContext.$parent.lookups.countries"></span>
+						<!-- /ko -->
+						<!-- ko if: Station() -->
+						<br>
+						<span data-bind="text: Station().Name()"></span>
+						<!-- /ko -->
+					</small>
+					<div data-bind="text: { value: ErrorMessage, expand: true }"></div>
+					<ul class="lv-attrs">
+						<!-- ko with: $parent -->
+						<!-- ko if: DispatchedUser -->
+						<li>
+							@(Html.Localize("Technician")):
+							<span data-bind="text: Helper.User.getDisplayName(DispatchedUser)"></span>
+						</li>
+						<!-- /ko -->
+						<!-- /ko -->
+						<!-- ko if: $parent.RejectReasonKey -->
+						<li>
+							<span data-bind="lookupValue: $parent.StatusKey, lookups: $parentContext.$parent.lookups.serviceOrderDispatchStatuses"></span>:
+							<span data-bind="lookupValue: $parent.RejectReasonKey, lookups: $parentContext.$parent.lookups.serviceOrderDispatchRejectReasons"></span>
+							<!-- ko if: $parent.RejectRemark -->
+							(<span data-bind="text: $parent.RejectRemark"></span>)
+							<!-- /ko -->
+						</li>
+						<!-- /ko -->
+						<!-- ko if: $parent.CancellationReasonKey -->
+						<li>
+							<span data-bind="lookupValue: $parent.StatusKey, lookups: $parentContext.$parent.lookups.serviceOrderDispatchStatuses"></span>:
+							<span data-bind="lookupValue: $parent.CancellationReasonKey, lookups: $parentContext.$parent.lookups.serviceOrderDispatchCancellationReasons"></span>
+							<!-- ko if: $parent.CancellationRemark -->
+							(<span data-bind="text: $parent.CancellationRemark"></span>)
+							<!-- /ko -->
+						</li>
+						<!-- /ko -->
+						<!-- ko if: Installation -->
+						<li>
+							<i class="zmdi zmdi-circle" data-bind="style: { color: Helper.Lookup.getLookupColor($parentContext.$parent.lookups.installationHeadStatuses, $data.Installation().StatusKey) }"></i>
+							@(Html.Localize("InstallationStatus")):
+							<span data-bind="lookupValue: Installation().StatusKey, lookups: $parentContext.$parent.lookups.installationHeadStatuses"></span>
+						</li>
+						<!-- /ko -->
+					<!-- ko if: PriorityKey -->
+						<li>
+							<i class="zmdi zmdi-circle" data-bind="style: { color: Helper.Lookup.getLookupColor($parentContext.$parent.lookups.servicePriorities, $data.PriorityKey) }"></i>
+							@(Html.Localize("Priority")):
+							<span data-bind="lookupValue: PriorityKey, lookups: $parentContext.$parent.lookups.servicePriorities"></span>
+						</li>
+					<!-- /ko -->
+					<!-- ko with: $parent -->
+					<li>
+						@(Html.Localize("Status")):
+						<span data-bind="lookupValue: StatusKey, lookups: $parentContext.$parentContext.$parent.lookups.serviceOrderDispatchStatuses"></span>
+					</li>
+            <!-- ko if: CloseDate -->
+          <li>
+              @(Html.Localize("CloseDate")):
+              <span data-bind="dateText: CloseDate"></span>
+          </li>
+           <!-- /ko -->
+           <!-- ko if: RequiredOperations -->
+					<li>
+						<i class="zmdi zmdi-alert-circle c-red"></i>
+						@(Html.Localize("RequiredOperations")):
+						<span data-bind="text: RequiredOperations"></span>
+					</li>
+					<!-- /ko -->
+					<!-- ko if: FollowUpServiceOrder() -->
+					<li>
+						<i class="zmdi zmdi-alert-circle c-red"></i>
+						<span>@Html.Localize("FollowUpServiceOrderNeeded")</span>
+					</li>
+					<!-- ko if: FollowUpServiceOrderRemark() -->
+					<li>
+						<i class="zmdi zmdi-alert-circle c-red"></i>
+						<span>@Html.Localize("Remark"):</span>
+						<span data-bind="text: FollowUpServiceOrderRemark"></span>
+					</li>
+					<!-- /ko -->
+					<!-- /ko -->
+					<!-- /ko -->
+					<li data-bind="visible: PurchaseOrderNo">
+						@(Html.Localize("PurchaseOrderNo")):
+						<span data-bind="text: PurchaseOrderNo"></span>
+					</li>
+					<!-- ko with: $parent -->
+					@Html.PluginRenderActions("ServiceOrderDispatchItemTemplateAttributes")
+					<!-- /ko -->
+					</ul>
+				</div>
+			</div>
+		</div>
+		<lv-actions>
+			@Html.PluginRenderActions("ServiceOrderDispatchItemTemplateActions")
+		</lv-actions>
+	</div>
+</div>

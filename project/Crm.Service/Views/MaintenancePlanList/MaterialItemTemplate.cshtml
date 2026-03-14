@@ -1,0 +1,94 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl<Main.ViewModels.CrmModel>
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div id="{{Id}}" class="lv-item media">
+	<div class="media-body">
+		<div class="row">
+			<div class="col-sm-5">
+				<div class="lv-title">
+					<span data-bind="text: Name"></span>
+				</div>
+				<div class="small">
+					<span data-bind="text: RhythmValue"></span>
+					<span data-bind="lookupValue: RhythmUnitKey, lookups: $parentContext.$parent.lookups.timeUnits"></span>
+				</div>
+				<div class="small" data-bind="with: ServiceOrderTemplate">
+					@(Html.Localize("ServiceOrderTemplate")):
+					<!-- ko requiredPermission: { name: 'Read', group: 'ServiceOrderTemplate' } -->
+					<a href="#/Crm.Service/ServiceOrderTemplate/Details/{{Id}}">
+						<span data-bind="text: Helper.ServiceOrder.getDisplayName($data)"></span>
+					</a>
+					<!-- /ko -->
+					<!-- ko noRequiredPermission: { name: 'Read', group: 'ServiceOrderTemplate' } -->
+					<span data-bind="text: Helper.ServiceOrder.getDisplayName($data)"></span>
+					<!-- /ko -->
+				</div>
+				<div class="small" data-bind="if: ServiceOrders().length > 0">
+					@(Html.Localize("CurrentOrders")):
+					<!-- ko foreach: ServiceOrders -->
+					<div>
+						<!-- ko requiredPermission: { name: 'Read', group: 'ServiceOrder' } -->
+						<a href="#/Crm.Service/ServiceOrder/DetailsTemplate/{{Id}}">
+							<span data-bind="text: OrderNo"></span>
+						</a>
+						<!-- /ko -->
+						<!-- ko noRequiredPermission: { name: 'Read', group: 'ServiceOrder' } -->
+						<span data-bind="text: OrderNo"></span>
+						<!-- /ko -->
+						<span data-bind="visible: PrematureDate() || Planned()">
+							(<span data-bind="dateText: PrematureDate() ?? Planned(), css: $parents[1].calculateServiceDateExceedanceLevelStyle((PrematureDate() ?? Planned()),( PrematureDate() ? PrematureTime() : PlannedTime()))"></span>)
+						</span>
+					</div>
+					<!-- /ko -->
+				</div>
+				<ul class="lv-attrs">
+					<li data-bind="visible: FirstDate">
+						@(Html.Localize("FirstDate")):
+						<span data-bind="dateText: FirstDate"></span>
+					</li>
+					<li data-bind="visible: NextDate">
+						@(Html.Localize("NextDate")):
+						<span data-bind="dateText: NextDate"></span>
+					</li>
+					@Html.PluginRenderActions("MaintenancePlanItemTemplateAttributes")
+				</ul>
+				@Html.PluginRenderActions("MaintenancePlanItemTemplateExtensions")
+			</div>
+		</div>
+		<lv-actions>
+			<!-- ko if: $parentContext.$parentContext.$parent.canGenerateServiceOrderForMaintenancePlan.call($parentContext.$parentContext.$parent, $data) || (FirstDate() && RhythmValue() && RhythmUnitKey()) -->
+			<!-- ko if: $parentContext.$parentContext.$parent.canGenerateServiceOrderForMaintenancePlan.call($parentContext.$parentContext.$parent, $data) -->
+			<li>
+				<a href="#" data-bind="click: () => ServiceOrders().length === 0 && $parentContext.$parentContext.$parent.generateServiceOrderForMaintenancePlan($data), css: { disabled: ServiceOrders().length > 0 }">
+					@(Html.Localize("GenerateServiceOrder"))
+				</a>
+			</li>
+			<!-- /ko -->
+			<!-- ko if: FirstDate() && RhythmValue() && RhythmUnitKey() -->
+			<li>
+				<a href="#" data-bind="click: $parentContext.$parentContext.$parent.getNextGenerationDates">
+					@(Html.Localize("GetNextFiveGenerations"))
+				</a>
+			</li>
+			<!-- /ko -->
+			<li class="divider"></li>
+			<!-- /ko -->
+			<!-- ko requiredPermission: { name: 'SaveMaintenancePlan', group: 'ServiceContract' } -->
+			<li>
+				<a href="#" data-route="Crm.Service/MaintenancePlan/EditTemplate/{{Id}}" data-toggle="modal" data-target="#modal">
+					@(Html.Localize("Edit"))
+				</a>
+			</li>
+			<!-- /ko -->
+			<!-- ko requiredPermission: { name: 'RemoveMaintenancePlan', group: 'ServiceContract' } -->
+			<li>
+				<a href="#" data-bind="click: $parentContext.$parentContext.$parent.remove">
+					@(Html.Localize("Delete"))
+				</a>
+			</li>
+			<!-- /ko -->
+			@Html.PluginRenderActions("MaintenancePlanItemTemplateActions")
+		</lv-actions>
+	</div>
+</div>

@@ -1,0 +1,128 @@
+﻿@using Crm.Library.Globalization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl<string>
+
+
+<li id="routes" class="dropdown" data-bind="visible: true, tooltip: true" data-placement="bottom" title="@(Html.Localize("Routes"))">
+	<a data-toggle="dropdown" href="#" aria-expanded="false">
+		<i class="tm-icon zmdi zmdi-turning-sign"></i>
+	</a>
+	<ul class="dropdown-menu dm-icon pull-right">
+		<li>
+			<a id="get-route-advanced" href="#" data-bind="click: schedulerComponent().getRoutesQuick">
+				@(Html.Localize("GetRoute"))
+			</a>
+		</li>
+		<li class="" data-bind="visible: true, tooltip: true" data-placement="bottom" title="@(Html.Localize("GetRouteAdvanced"))">
+			<a id="get-route" href="#" data-bind="click: openAdvancedRouteModal">
+				@(Html.Localize("GetRouteAdvanced"))
+			</a>
+		</li>
+		<li>
+			<a id="clear-route" href="#" data-bind="click: schedulerComponent().clearRoute">
+				@(Html.Localize("ClearRoute"))
+			</a>
+		</li>
+	</ul>
+</li>
+<li class="" data-bind="visible: true, tooltip: true" data-placement="bottom" title="@(Html.Localize("DataSynchronization"))">
+	<a id="syncData" aria-expanded="false" href="#" data-bind="click: !dataIsSyncing() && syncData">
+		<i class="tmn-counts bgm-amber" data-bind="visible: !autosave() && pendingChanges()">
+			<span data-bind="tooltip: true, text: pendingChanges()" data-placement="bottom" title="@(Html.Localize("AutosaveOffWarning"))"></span>
+		</i>
+		<i class="tm-icon zmdi zmdi-refresh"></i>
+	</a>
+</li>
+<li class="" data-bind="visible: !autosave() && pendingChanges(), tooltip: true" data-placement="bottom" title="@(Html.Localize("ResetPlanning"))">
+	<a id="resetPlanning" aria-expanded="false" href="#" data-bind="click: resetPlanning">
+		<i class="tm-icon b-fa b-fa-undo"></i>
+	</a>
+</li>
+<li data-bind="requiredPermission: { name: 'Create', group: 'Adhoc' }, visible: window.AuthorizationManager.currentUserHasPermission('Adhoc::Create') && autosave(), tooltip: true" data-placement="bottom" title="@(Html.Localize("AdHocServiceOrder"))">
+	<a id="add-adhoc-service-order" href="#"
+	   data-route="Sms.Scheduler/Scheduler/AdHocTemplate"
+	   data-toggle="modal"
+	   data-target="#xlModal">
+		<i class="tm-icon zmdi zmdi-plus-circle"></i>
+	</a>
+</li>
+
+<li id="profile-settings" class="dropdown" data-bind="requiredPermission: { name: 'EditProfile', group: 'Scheduler' }, visible: window.AuthorizationManager.currentUserHasPermission('Scheduler::EditProfile'), tooltip: true" data-placement="bottom" title="@(Html.Localize("Profile"))">
+	<a data-toggle="dropdown" href="#" aria-expanded="false">
+		<i class="tm-icon zmdi zmdi-account"></i>
+	</a>
+	<ul class="dropdown-menu dm-icon pull-right">
+		<li onclick="event.stopPropagation();return false;" style="cursor: default;">
+			<a id="current-profile" style="pointer-events: none;">
+				<i class="zmdi zmdi-account-o"></i>
+				@(Html.Localize("CurrentProfile")): <span data-bind="text: $root.profile().Name"></span>
+			</a>
+		</li>
+		<li class="divider"></li>
+		<li>
+			<a id="add-resource-to-profile" href="#" data-route="Sms.Scheduler/Scheduler/AddResource" data-toggle="modal" data-target="#lgModal">
+				<i class="zmdi zmdi-account-add"></i>
+				@(Html.Localize("AddResources"))
+			</a>
+		</li>
+		<li class="divider"></li>
+		<li>
+			<a id="add-new-profile" href="#" data-route="Sms.Scheduler/Scheduler/AddProfile" data-toggle="modal" data-target="#lgModal">
+				<i class="zmdi zmdi-plus"></i>
+				@(Html.Localize("New Profile"))
+			</a>
+		</li>
+		<li>
+			<a id="edit-profile" href="#" data-route="Sms.Scheduler/Scheduler/EditProfile" data-toggle="modal" data-target="#lgModal">
+				<i class="zmdi zmdi-edit"></i>
+				@(Html.Localize("EditProfile"))
+			</a>
+		</li>
+		<li>
+			<a id="load-existing-profile" href="#" data-route="Sms.Scheduler/Scheduler/LoadProfile" data-toggle="modal" data-target="#lgModal">
+				<i class="zmdi zmdi-download"></i>
+				@(Html.Localize("LoadProfile"))
+			</a>
+		</li>
+		<li>
+			<a id="delete-current-profile" href="#" data-bind="click: deleteProfile, visible: $root.profile() && $root.profile().Username === window.Helper.User.getCurrentUserName()">
+				<i class="zmdi zmdi-delete"></i>
+				@(Html.Localize("Delete Profile"))
+			</a>
+		</li>
+	</ul>
+</li>
+<li id="scheduler-options" class="dropdown" data-bind="visible: true, tooltip: true" data-placement="bottom" title="@(Html.Localize("Options"))">
+	<a data-toggle="dropdown" href="#" aria-expanded="false">
+		<i class="tm-icon zmdi zmdi-settings"></i>
+	</a>
+	<ul class="dropdown-menu dm-icon pull-right">
+		<li class="" data-bind="visible: true, tooltip: true" data-placement="bottom" title="@(Html.Localize("ToggleMap"))">
+			<div class="checkbox m-l-5">
+           		<label>
+           			@(Html.Localize("Map"))
+           			<input id="toggleMap" type="checkbox" data-bind="checked: $data.isMapVisible">
+           			<i class="input-helper"></i>
+           		</label>
+           	</div>
+		</li>
+		<li class="" data-bind="visible: true, tooltip: true" data-placement="bottom" title="@(Html.Localize("ResourceUtilization"))">
+			<div class="checkbox m-l-5">
+            	<label>
+            		@(Html.Localize("ResourceUtilization"))
+            		<input id="toggleResourceUtilization" type="checkbox" data-bind="checked: $data.isResourceUtilizationVisible">
+            		<i class="input-helper"></i>
+            	</label>
+            </div>
+		</li>
+		<li class="divider"></li>
+		<li data-bind="visible: true, tooltip: true" data-placement="bottom" title="@(Html.Localize("Autosave"))">
+			<div class="checkbox m-l-5">
+				<label>
+            		@(Html.Localize("Autosave"))
+            		<input id="toggleAutosave" type="checkbox" data-bind="checked: $data.autosave">
+            		<i class="input-helper"></i>
+            	</label>
+			</div>
+		</li>
+	</ul>
+</li>

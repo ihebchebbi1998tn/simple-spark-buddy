@@ -1,0 +1,8 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<li data-bind="visible: StatusKey() === 'ReadyForScheduling'">
+	<a id="serviceorder-close" href="#" data-route="Crm.Service/ServiceOrder/CloseTemplate/{{Id}}" data-toggle="modal" data-target="#modal">
+		@(Html.Localize("Close"))
+	</a>
+</li>

@@ -1,0 +1,13 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div class="d-flex">
+	<dl class="dl-horizontal">
+		<dt data-bind="text: caption"></dt>
+		<dd data-bind="with: $parent">
+			<!-- ko template: { nodes: $componentTemplateNodes } --><!-- /ko -->
+		</dd>
+	</dl>
+	<a href="#" class="pull-right m-r-5" role="button" data-bind="visible: hint, popover: { content: hint }, css: 'icon', tooltip: false">
+		<i class="f-20 zmdi zmdi-info-outline"></i>
+	</a>
+</div>

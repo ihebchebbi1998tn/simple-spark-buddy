@@ -1,0 +1,82 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+
+<div id="{{Id}}" class="panel panel-collapse">
+	<div class="panel-heading" role="tab" data-bind="attr: { id: 'heading-' + $data.Id() }, css: { 'active': $data.Id() === 0 }">
+		<h4 class="panel-title">
+			<div class="lv-avatar pull-left" data-bind="text: 'EC', style: { backgroundColor: 'blue' }">
+			</div>
+			<a class="p-b-25 m-t-15" data-toggle="collapse" data-parent="#accordion-errorCauses" data-bind="attr: { href: '#collapse-' + $data.Id(), 'aria-controls': 'collapse-' + $data.Id(), 'aria-expanded': $data.Id() === 0 }">
+				<i class="zmdi zmdi-chevron-down zmdi-hc-lg"></i>
+				<span id="errorType" data-bind="lookupValue: StatisticsKeyCauseKey(), lookups: $parentContext.$parent.lookups.statisticsKeyCauses"></span>
+			</a>
+		</h4>
+	</div>
+	<div class="collapse" role="tabpanel" data-bind="attr: { id: 'collapse-' + $data.Id(), 'aria-expanded': $data.Id() === 0 , 'aria-labelledby': 'heading-' + $data.Id() }, css: { 'in': $data.Id() === 0 }">
+		<div class="panel-body">
+			<pmb-block params="context: { errorCause: $data, errorType: $parent }, onSave: context => $parentContext.$parent.onSaveErrorCause(context), showHeader: false, showActions: false, css: 'm-0 p-0'">
+				<pmbb-view>
+					<!-- ko with: errorCause -->
+					<div class="row">
+						<div class="col-md-11 col-sm-11 col-xs-10">
+							<pmbb-view-entry params="caption: 'StatisticsKeyCause'">
+								<span data-bind="if: StatisticsKeyCauseKey, lookupValue: StatisticsKeyCauseKey, lookups: $root.lookups.statisticsKeyCauses"></span>
+								<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: StatisticsKeyCauseKey"></span>
+							</pmbb-view-entry>
+							<pmbb-view-entry params="caption: 'Description'">
+								<span data-bind="text: Description"></span>
+								<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: Description"></span>
+							</pmbb-view-entry>
+							<pmbb-view-entry params="caption: 'InternalRemark'">
+								<span data-bind="text: InternalRemark"></span>
+								<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: InternalRemark"></span>
+							</pmbb-view-entry>
+							<pmbb-view-entry params="caption: 'IsSuspected'">
+								<span data-bind="translatedText: 'Yes', visible: IsSuspected() === true"></span>
+								<span data-bind="translatedText: 'No', visible: IsSuspected() === false"></span>
+							</pmbb-view-entry>
+							<pmbb-view-entry params="caption: 'IsConfirmed'">
+								<span data-bind="translatedText: 'Yes', visible: IsConfirmed() === true"></span>
+								<span data-bind="translatedText: 'No', visible: IsConfirmed() === false"></span>
+							</pmbb-view-entry>
+
+						</div>
+						<div class="col-md-1 col-sm-1 col-xs-2">
+							<lv-actions>@Html.PluginRenderActions("ServiceOrderErrorCauseListActions")</lv-actions>
+						</div>
+					</div>
+					<!-- /ko -->
+				</pmbb-view>
+				<pmbb-edit>
+					<!-- ko with: errorCause -->
+					<pmbb-edit-entry params="caption: 'StatisticsKeyCause', validationElement: StatisticsKeyCauseKey">
+						<select class="form-control" data-bind="select2autocompleter: { data: StatisticsKeyCauseKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_StatisticsKeyCause'), placeholder: $parent.placeholder}" disabled></select>
+					</pmbb-edit-entry>
+					<pmbb-edit-entry params="caption: 'Description', validationElement: Description">
+						<input type="text" class="form-control" data-bind="value: Description">
+					</pmbb-edit-entry>
+					<pmbb-edit-entry params="caption: 'InternalRemark', validationElement: InternalRemark">
+						<input type="text" class="form-control" data-bind="value: InternalRemark">
+					</pmbb-edit-entry>
+					<!-- ko requiredPermission: { name: 'EditErrorCauseIsSuspected', group: 'ServiceOrderErrorCause' } -->
+					<pmbb-edit-entry params="caption: 'IsSuspected', validationElement: IsSuspected">
+						<input type="checkbox" class="form-control" data-bind="value: IsSuspected, checked: IsSuspected">
+					</pmbb-edit-entry>
+					<!-- /ko -->
+					<!-- ko noRequiredPermission: { name: 'EditErrorCauseIsSuspected', group: 'ServiceOrderErrorCause' } -->
+					<pmbb-view-entry params="caption: 'IsSuspected'">
+						<span data-bind="translatedText: 'Yes', visible: IsSuspected() === true"></span>
+						<span data-bind="translatedText: 'No', visible: IsSuspected() === false"></span>
+					</pmbb-view-entry>
+					<!-- /ko -->
+					<pmbb-edit-entry params="caption: 'IsConfirmed', validationElement: IsConfirmed">
+						<input type="checkbox" class="form-control" data-bind="value: IsConfirmed, checked: IsConfirmed">
+					</pmbb-edit-entry>
+					<!-- /ko -->
+				</pmbb-edit>
+			</pmb-block>
+		</div>
+	</div>
+</div>

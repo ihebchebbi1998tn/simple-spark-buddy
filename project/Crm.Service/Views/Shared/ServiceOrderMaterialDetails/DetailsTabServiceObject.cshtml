@@ -1,0 +1,37 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<!-- ko requiredPermission: { name: 'ServiceObject', group: 'WebAPI' } -->
+<!-- ko if: serviceObject -->
+<pmb-block params="icon: 'city-alt', caption: 'ServiceObject', context: $data, condition: false">
+    <pmbb-view>
+        <!-- ko with: serviceObject -->
+        <pmbb-view-entry params="caption: 'Name'">					
+            <!-- ko requiredPermission: { name: 'Read', group: 'ServiceObject' } -->
+		    <a href="#" data-bind="attr: { href: '#/Crm.Service/ServiceObject/DetailsTemplate/' + Id() }">
+                <span data-bind="text: ObjectNo"></span>
+                <span data-bind="text: Name"></span>
+		    </a>
+		    <!-- /ko --> 
+            <!-- ko noRequiredPermission: { name: 'Read', group: 'ServiceObject' } -->
+            <span data-bind="text: ObjectNo"></span>
+            <span data-bind="text: Name"></span>
+		    <!-- /ko -->
+        </pmbb-view-entry>
+        <!-- /ko -->
+        <!-- ko if: serviceObjectAddress -->
+        <pmbb-view-entry params="caption: 'Address'">
+            <!-- ko with: serviceObjectAddress -->
+	        <address-block params="address: $data, lookups: $root.lookups"></address-block>
+            <!-- /ko -->
+        </pmbb-view-entry>
+        <!-- /ko -->
+        <!-- ko with: serviceObject -->
+        <pmbb-view-entry params="caption: 'Category'">
+            <span data-bind="if: CategoryKey, lookupValue: CategoryKey, lookups: $root.lookups.serviceObjectCategories"></span>
+            <span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: CategoryKey"></span>
+        </pmbb-view-entry>
+        <!-- /ko -->
+    </pmbb-view>
+</pmb-block>
+<!-- /ko -->
+<!-- /ko -->

@@ -1,0 +1,220 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<pmbb-view>
+	<!-- ko with: serviceOrder -->
+	<div class="field-block">
+		<div>
+			<pmbb-view-entry params="caption: 'ServiceLocationResponsibleContact'">
+				<span data-bind="text: ServiceLocationResponsiblePerson"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ServiceLocationResponsiblePerson"></span>
+			</pmbb-view-entry>
+		</div>
+		<div>
+			<pmbb-view-entry params="caption: 'ServiceLocationPhone'">
+				<a data-bind="attr: { href: 'tel:' + ServiceLocationPhone() }, text: ServiceLocationPhone()" target="_blank"></a>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ServiceLocationPhone"></span>
+			</pmbb-view-entry>
+		</div>
+		<div>
+			<pmbb-view-entry params="caption: 'ServiceLocationMobile'">
+				<a data-bind="attr: { href: 'tel:' + ServiceLocationMobile() }, text: ServiceLocationMobile()" target="_blank"></a>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ServiceLocationMobile"></span>
+			</pmbb-view-entry>
+		</div>
+		<div>
+			<pmbb-view-entry params="caption: 'ServiceLocationEmail'">
+				<a href="#" data-bind="attr: { href: 'mailto:' + ko.unwrap(ServiceLocationEmail) + $root.currentUserDropboxAddress() }, text: ServiceLocationEmail" target="_blank"></a>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ServiceLocationEmail"></span>
+			</pmbb-view-entry>
+		</div>
+		<div>
+			<pmbb-view-entry params="caption: 'Address'">
+				<a class="address-pin" data-bind="mapLink: $data, visible: Name1() || Name2() || Name3() || Street() || ZipCode() || City() || CountryKey() || RegionKey()">
+					<i class="zmdi zmdi-pin"></i>
+				</a>
+				<!-- ko if: Name1() -->
+				<div data-bind="text: Name1"></div>
+				<!-- /ko -->
+				<!-- ko if: Name2() -->
+				<div data-bind="text: Name2"></div>
+				<!-- /ko -->
+				<!-- ko if: Name3() -->
+				<div data-bind="text: Name3"></div>
+				<!-- /ko -->
+				<div data-bind="text: Street"></div>
+				<div>
+					<span data-bind="text: ZipCode"></span> <span data-bind="text: City"></span>
+				</div>
+				<!-- ko if: ZipCode() && City() -->
+				<span href="#" data-bind="if: RegionKey, lookupValue: RegionKey, lookups: $root.lookups.regions, suffix: ko.unwrap(CountryKey) ? ',' : '' "></span>
+				<span href="#" data-bind="if: CountryKey, lookupValue: CountryKey, lookups: $root.lookups.countries"></span>
+				<!-- /ko -->
+				<!-- ko ifnot: ZipCode() && City() -->
+				<span data-bind="if: RegionKey, lookupValue: RegionKey, lookups: $root.lookups.regions, suffix: ko.unwrap(CountryKey) ? ',' : '' "></span>
+				<span data-bind="if: CountryKey, lookupValue: CountryKey, lookups: $root.lookups.countries"></span>
+				<!-- /ko -->
+				<!-- ko if: $root.getDistance($data) -->
+				<span>
+					<i class="zmdi zmdi-navigation" data-bind="style: { transform: 'rotate(' + $root.getDirection($data) + 'deg)' }"></i>
+					<span data-bind="text: $root.getDistance($data)"></span>
+				</span>
+				<!-- /ko -->
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: Name1() || Name2() || Name3() || Street() || ZipCode() || City() || CountryKey() || RegionKey()"></span>
+			</pmbb-view-entry>
+		</div>
+		<div>
+			<pmbb-view-entry params="caption: 'Station'">
+				<!-- ko if: Station() -->
+				<div data-bind="text: Station().Name()"></div>
+				<!-- /ko -->
+				<!-- ko ifnot: Station() -->
+				<span class="c-gray" data-bind="translatedText: 'Unspecified'"></span>
+				<!-- /ko -->
+			</pmbb-view-entry>
+		</div>
+	</div>
+	<!-- /ko -->
+</pmbb-view>
+<pmbb-edit>
+	<!-- ko with: serviceOrder -->
+	<div class="field-block">
+		<!-- ko if: !$root.customContactPerson() -->
+		<div>
+			<div class="form-group animated fadeIn">
+				<pmbb-edit-entry params="caption: 'ServiceLocationResponsibleContact'">
+					<form-element id="SelectedContactPerson" params="value: $root.selectedContactPerson, type: 'select2'">
+						<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Surname', 'Firstname'], table: 'Crm_Person', joins: ['Emails', 'Phones'], customFilter: $root.contactPersonFilter.bind($root), mapDisplayObject: Helper.Person.mapForSelect2Display, onSelect: $root.selectedContactPersonOnSelect.bind($root, $parent), placeholder: placeholder } }">
+						</select>
+					</form-element>
+					<div class="pull-right" style="margin-top: -10px">
+						<a id="CustomPersonLink" href="#" data-bind="click: $root.toggleCustomContactPerson.bind($root)">
+							@(Html.Localize("CustomServiceLocationResponsibleContact"))
+						</a>
+					</div>
+				</pmbb-edit-entry>
+			</div>
+		</div>
+		<!-- /ko -->
+		<!-- ko if: $root.customContactPerson() -->
+		<div>
+			<div class="form-group animated fadeIn">
+				<pmbb-edit-entry params="caption: 'ServiceLocationResponsibleContact', validationElement: ServiceLocationResponsiblePerson">
+					<input type="text" class="form-control" data-bind="value: ServiceLocationResponsiblePerson">
+				</pmbb-edit-entry>
+				<pmbb-edit-entry params="caption: 'ServiceLocationPhone', validationElement: ServiceLocationPhone">
+					<input type="text" class="form-control" data-bind="value: ServiceLocationPhone">
+				</pmbb-edit-entry>
+				<pmbb-edit-entry params="caption: 'ServiceLocationMobile', validationElement: ServiceLocationMobile">
+					<input type="text" class="form-control" data-bind="value: ServiceLocationMobile">
+				</pmbb-edit-entry>
+				<pmbb-edit-entry params="caption: 'ServiceLocationEmail', validationElement: ServiceLocationEmail">
+					<input type="email" class="form-control" data-bind="value: ServiceLocationEmail">
+				</pmbb-edit-entry>
+				<!-- ko if: $root.contactWarning() -->
+				<div id="ContactWarning" class="alert alert-warning animated fadeIn" data-bind="translatedText: 'UnsavedChangesGetLost', visible: $root.contactWarning()"></div>
+				<div class="pull-right" style="margin-top: -10px">
+					<a id="CancelPersonWarningLink" href="#" data-bind="click: function(){$root.contactWarning(false)}">
+						@(Html.Localize("StayHere"))
+					</a>
+					<span> @(Html.Localize("or")) </span>
+					<a id="ConfirmPersonWarningLink" href="#" data-bind="click: $root.toggleCustomContactPerson.bind($root)">
+						@(Html.Localize("ServiceLocationResponsibleContactSelection"))
+					</a>
+				</div>
+				<!-- /ko -->
+				<!-- ko if: !$root.contactWarning() -->
+				<div class="pull-right" style="margin-top: -10px">
+					@(Html.Localize("or"))
+					<a id="PersonSelectorLink" href="#" data-bind="click: $root.toggleCustomContactPerson.bind($root)">
+						@(Html.Localize("ServiceLocationResponsibleContactSelection"))
+					</a>
+				</div>
+				<!-- /ko -->
+			</div>
+		</div>
+		<!-- /ko -->
+		<!-- ko if: !$root.customAddress() -->
+		<div>
+			<div class="form-group animated fadeIn">
+				<pmbb-edit-entry params="caption: 'AddressTitle'">
+					<form-element id="SelectedAddress" params="value: $root.selectedAddress, type: 'select2'">
+						<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { customFilter: $root.filterAddresses.bind($root), table: 'Crm_Address', mapDisplayObject: Helper.Address.mapForSelect2Display, templateResult: $root.formatAddress.bind($root), onSelect:  $root.selectedAddressOnSelect.bind($root, $parent), placeholder: placeholder } }">
+						</select>
+					</form-element>
+					<div class="pull-right" style="margin-top: -10px">
+						<a id="CustomAddressLink" href="#" data-bind="click: $root.toggleCustomAddress.bind($root)">
+							@(Html.Localize("EnterCustomAddress"))
+						</a>
+					</div>
+				</pmbb-edit-entry>
+			</div>
+		</div>
+		<!-- /ko -->
+		<!-- ko if: $root.customAddress() -->
+		<div>
+			<div class="form-group animated fadeIn">
+				<pmbb-edit-entry params="caption: 'Name1', validationElement: Name1">
+					<input type="text" class="form-control" data-bind="value: Name1">
+				</pmbb-edit-entry>
+				<pmbb-edit-entry params="caption: 'Name2', validationElement: Name2">
+					<input type="text" class="form-control" data-bind="value: Name2">
+				</pmbb-edit-entry>
+				<pmbb-edit-entry params="caption: 'Name3', validationElement: Name3">
+					<input type="text" class="form-control" data-bind="value: Name3">
+				</pmbb-edit-entry>
+				<pmbb-edit-entry params="caption: 'Street', validationElement: Street">
+					<input type="text" class="form-control" data-bind="value: Street">
+				</pmbb-edit-entry>
+				<pmbb-edit-entry params="caption: 'ZipCode', validationElement: ZipCode">
+					<input type="text" class="form-control" data-bind="value: ZipCode">
+				</pmbb-edit-entry>
+				<pmbb-edit-entry params="caption: 'City', validationElement: City">
+					<input type="text" class="form-control" data-bind="value: City">
+				</pmbb-edit-entry>
+				<pmbb-edit-entry params="caption: 'Region', validationElement: RegionKey">
+					<div class="fg-line select">
+						<select name="RegionKey" class="form-control" data-bind="select2autocompleter: { data: RegionKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('Main_Region'), placeholder: $parent.placeholder}"></select>
+					</div>
+				</pmbb-edit-entry>
+				<pmbb-edit-entry params="caption: 'Country', validationElement: CountryKey">
+					<div class="fg-line select">
+						<select name="CountryKey" class="form-control" data-bind="select2autocompleter: { data: CountryKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('Main_Country'), placeholder: $parent.placeholder}"></select>
+					</div>
+				</pmbb-edit-entry>
+				<!-- ko if: $root.addressWarning() -->
+				<div id="AddressWarning" class="alert alert-warning animated fadeIn" data-bind="translatedText: 'UnsavedChangesGetLost', visible: $root.addressWarning()"></div>
+				<div class="pull-right" style="margin-top: -10px">
+					<a id="CancelAddressWarningLink" href="#" data-bind="click: function(){$root.addressWarning(false)}">
+						@(Html.Localize("StayHere"))
+					</a>
+					<span> @(Html.Localize("or")) </span>
+					<a id="ConfirmAddressWarningLink" href="#" data-bind="click: $root.toggleCustomAddress.bind($root)">
+						@(Html.Localize("AddressSelection"))
+					</a>
+				</div>
+				<!-- /ko -->
+				<!-- ko if: !$root.addressWarning() -->
+				<div class="pull-right" style="margin-top: -10px">
+					@(Html.Localize("or"))
+					<a id="AddressSelectorLink" href="#" data-bind="click: $root.toggleCustomAddress.bind($root)">
+						@(Html.Localize("AddressSelection"))
+					</a>
+				</div>
+				<!-- /ko -->
+			</div>
+		</div>
+		<!-- /ko -->
+		<div>
+			<div class="form-group">
+				<pmbb-edit-entry params="caption: 'Station', validationElement: StationKey">
+					<form-element id="StationKey" params="value: StationKey, type: 'select2'">
+						<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Name', 'LegacyId'], table: 'Crm_Station', mapDisplayObject: Helper.Station.mapForSelect2Display, customFilter: Helper.Station.getSelect2Filter, onSelect: $root.onStationSelect.bind($root), placeholder: $parent.placeholder} }">
+						</select>
+					</form-element>
+				</pmbb-edit-entry>
+			</div>
+		</div>
+	</div>
+	<!-- /ko -->
+</pmbb-edit>

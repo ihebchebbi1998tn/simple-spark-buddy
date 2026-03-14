@@ -1,0 +1,5 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div class="col-sm">
+	<mini-chart params="caption: 'NewDispatches', count: Helper.Dispatch.getNewDispatchesCount, color: 'cyan', url: '#/Crm.Service/ServiceOrderDispatchList/IndexTemplate?status=upcoming&filters=%7B%22StatusKey%22%3A%7B%22Value%22%3A%22Released%22%2C%22Operator%22%3A%22%3D%3D%22%2C%22displayedValue%22%3A%22' + (window.Helper.User.currentUser.DefaultLanguageKey === 'de' ? 'Freigegeben' : 'Released') + '%22%7D%7D&orderBy=%5B%22Date%22%5D&orderByDirection=%5B%22ASC%22%5D'"></mini-chart>
+</div>

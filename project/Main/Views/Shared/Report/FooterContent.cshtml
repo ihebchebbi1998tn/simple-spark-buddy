@@ -1,0 +1,24 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<!-- ko with: site -->
+<!-- ko with: ExtensionValues -->
+<!-- ko if: ReportFooterImageBase64 -->
+<img class="footer-logo" data-bind="attr: { src: 'data:' + ko.unwrap(ReportFooterImageContentType) + ';base64,' + ko.unwrap(ReportFooterImageBase64) }, style: { 'max-height': Main.Settings.Report.FooterHeight + 'cm' }" />
+<!-- /ko -->
+<!-- ko ifnot: ReportFooterImageBase64 -->
+<table style="width: 100%;">
+	<tr>
+		<td>
+			<small class="pre-line" data-bind="text: ReportFooterCol1"></small>
+		</td>
+		<td class="text-center">
+			<small class="pre-line" data-bind="text: ReportFooterCol2"></small>
+		</td>
+		<td class="text-right">
+			<small class="pre-line" data-bind="text: ReportFooterCol3"></small>
+		</td>
+	</tr>
+</table>
+<!-- /ko -->
+<!-- /ko -->
+<!-- /ko -->

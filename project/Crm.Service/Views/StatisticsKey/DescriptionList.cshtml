@@ -1,0 +1,83 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+<!-- ko if: $root.lookups.statisticsKeyProductType -->
+<dl class="dl-horizontal">
+	<dt>@(Html.Localize("StatisticsKeyProductType"))</dt>
+	<dd>
+		<span data-bind="if: ProductTypeKey, lookupValue: ProductTypeKey, lookups: $root.lookups.statisticsKeyProductType"></span>
+		<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ProductTypeKey"></span>
+	</dd>
+</dl>
+<!-- /ko -->
+<!-- ko if: $root.lookups.statisticsKeyMainAssembly -->
+<dl class="dl-horizontal">
+	<dt>@(Html.Localize("StatisticsKeyMainAssembly"))</dt>
+	<dd>
+		<span data-bind="if: MainAssemblyKey, lookupValue: MainAssemblyKey, lookups: $root.lookups.statisticsKeyMainAssembly"></span>
+		<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: MainAssemblyKey"></span>
+	</dd>
+</dl>
+<!-- /ko -->
+<!-- ko if: $root.lookups.statisticsKeySubAssembly -->
+<dl class="dl-horizontal">
+	<dt>@(Html.Localize("StatisticsKeySubAssembly"))</dt>
+	<dd>
+		<span data-bind="if: SubAssemblyKey, lookupValue: SubAssemblyKey, lookups: $root.lookups.statisticsKeySubAssembly"></span>
+		<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: SubAssemblyKey"></span>
+	</dd>
+</dl>
+<!-- /ko -->
+<!-- ko if: $root.lookups.statisticsKeyAssemblyGroup -->
+<dl class="dl-horizontal">
+	<dt>@(Html.Localize("StatisticsKeyAssemblyGroup"))</dt>
+	<dd>
+		<span data-bind="if: AssemblyGroupKey, lookupValue: AssemblyGroupKey, lookups: $root.lookups.statisticsKeyAssemblyGroup"></span>
+		<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: AssemblyGroupKey"></span>
+	</dd>
+</dl>
+<!-- /ko -->
+<!-- ko if: $root.lookups.statisticsKeyFaultImage -->
+<dl class="dl-horizontal">
+	<dt>@(Html.Localize("StatisticsKeyFaultImage"))</dt>
+	<dd>
+		<span data-bind="if: FaultImageKey, lookupValue: FaultImageKey, lookups: $root.lookups.statisticsKeyFaultImage"></span>
+		<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: FaultImageKey"></span>
+	</dd>
+</dl>
+<!-- /ko -->
+<!-- ko if: $root.lookups.statisticsKeyRemedy -->
+<dl class="dl-horizontal">
+	<dt>@(Html.Localize("StatisticsKeyRemedy"))</dt>
+	<dd>
+		<span data-bind="if: RemedyKey, lookupValue: RemedyKey, lookups: $root.lookups.statisticsKeyRemedy"></span>
+		<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: RemedyKey"></span>
+	</dd>
+</dl>
+<!-- /ko -->
+<!-- ko if: $root.lookups.statisticsKeyCause -->
+<dl class="dl-horizontal">
+	<dt>@(Html.Localize("StatisticsKeyCause"))</dt>
+	<dd>
+		<span data-bind="if: CauseKey, lookupValue: CauseKey, lookups: $root.lookups.statisticsKeyCause"></span>
+		<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: CauseKey"></span>
+	</dd>
+</dl>
+<!-- /ko -->
+<!-- ko if: $root.lookups.statisticsKeyWeighting -->
+<dl class="dl-horizontal">
+	<dt>@(Html.Localize("StatisticsKeyWeighting"))</dt>
+	<dd>
+		<span data-bind="if: WeightingKey, lookupValue: WeightingKey, lookups: $root.lookups.statisticsKeyWeighting"></span>
+		<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: WeightingKey"></span>
+	</dd>
+</dl>
+<!-- /ko -->
+<!-- ko if: $root.lookups.statisticsKeyCauser -->
+<dl class="dl-horizontal">
+	<dt>@(Html.Localize("StatisticsKeyCauser"))</dt>
+	<dd>
+		<span data-bind="if: CauserKey, lookupValue: CauserKey, lookups: $root.lookups.statisticsKeyCauser"></span>
+		<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: CauserKey"></span>
+	</dd>
+</dl>
+<!-- /ko -->

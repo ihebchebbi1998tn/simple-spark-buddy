@@ -1,0 +1,48 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div class="modal-header card-header ch-alt" data-bind="mProgress: loading">
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title">
+		@(Html.Localize("AddToServiceOrder"))
+	</h4>
+</div>
+<div class="modal-body card-body card-padding">
+	<form>
+		<!-- ko if: window.Crm.Service.Settings.ServiceContract.MaintenanceOrderGenerationMode === "JobPerInstallation" -->
+		<!-- ko requiredPermission: { name: 'ServiceObject', group: 'WebAPI' } -->
+		<form-element params="value: serviceObjectId, caption: 'ServiceObject', type: 'select'">
+			<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['ObjectNo', 'Name'], table: 'CrmService_ServiceObject', customFilter: $root.serviceObjectFilter.bind($root), mapDisplayObject: Helper.ServiceObject.mapForSelect2Display, placeholder: placeholder } }">
+			</select>
+		</form-element>
+		<!-- /ko -->
+		<form-element params="value: installationId, caption: 'Installation', type: 'select'">
+			<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['InstallationNo', 'Description'], table: 'CrmService_Installation', customFilter: $root.installationFilter.bind($root), mapDisplayObject: Helper.Installation.mapForSelect2Display, placeholder: placeholder } }">
+			</select>
+		</form-element>
+		<!-- /ko -->
+		<form-element params="value: serviceOrderId, caption: 'ServiceOrder', type: 'select'">
+			<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['OrderNo', 'ErrorMessage'], table: 'CrmService_ServiceOrderHead', customFilter: $root.serviceOrderFilter.bind($root), mapDisplayObject: Helper.ServiceOrder.mapForSelect2Display, placeholder: placeholder } }">
+			</select>
+		</form-element>
+		<!-- ko if: multipleServiceCasesSelected -->
+		<form-element params="value: jobPerServiceCase, caption: 'JobPerServiceCase', type: 'checkbox'"></form-element>
+		<!-- /ko -->
+		<form-element params="value: serviceOrderTimeId, caption: 'AddToServiceOrderTime', type: 'select', disable: !showJobSelection()">
+			<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['PosNo', 'ItemNo', 'Description'], table: 'CrmService_ServiceOrderTime', customFilter: $root.serviceOrderTimeFilter.bind($root), mapDisplayObject: Helper.ServiceOrderTime.mapForSelect2Display, placeholder: Helper.String.getTranslatedString('AddServiceOrderTime'), placeholder: placeholder } }, disable: disable">
+			</select>
+		</form-element>
+		@Html.PluginRenderActions("ServiceCaseAddToServiceOrder")
+	</form>
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-bind="click: Helper.Database.clearTrackedEntities" data-dismiss="modal" data-bind="disable: loading">
+		@(Html.Localize("Cancel"))
+	</button>
+	<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: submit, disable: loading">
+		@(Html.Localize("Add"))
+	</button>
+</div>

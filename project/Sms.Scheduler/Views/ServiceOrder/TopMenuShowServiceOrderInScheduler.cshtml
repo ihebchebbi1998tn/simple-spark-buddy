@@ -1,0 +1,8 @@
+﻿@using Crm.Library.Globalization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<li data-bind="if: AuthorizationManager.currentUserHasPermission('Scheduler::View') && ['Scheduling', 'InProgress'].includes($root.lookups.serviceOrderStatuses[$root.serviceOrder().StatusKey()].Groups)">
+	<a id="serviceorder-planning-board" data-bind="attr: { href: '#/Sms.Scheduler/Scheduler/DetailsTemplate?orderId=' + $root.serviceOrder().Id() }">
+		@(Html.Localize("OpenInPlanningBoard"))
+	</a>
+</li>

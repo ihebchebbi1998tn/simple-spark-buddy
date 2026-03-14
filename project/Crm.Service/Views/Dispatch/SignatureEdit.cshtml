@@ -1,0 +1,117 @@
+﻿@using Crm.Library.Globalization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div class="modal-header card-header ch-alt" data-bind="with: dispatch">
+	<button type="button" class="close" data-dismiss="modal" aria-label="@(Html.Localize("Close"))">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title">@(Html.Localize("Signature"))</h4>
+</div>
+	<!-- ko if: checkForEmptyTimesOrMaterials() && dispatch().StatusKey() == 'InProgress' -->
+	<div id="empty-times-or-materials-hint" class="alert" data-bind="class: $root.showError() ? 'alert-danger' : 'alert-warning'" role="alert">
+		<h4 data-bind="translatedText: 'Hint'"></h4>
+		<p data-bind="text: emptyTimesOrMaterialsMessage"></p>
+	</div>
+	<!-- /ko -->
+<div class="modal-body card-body card-padding">
+
+	<form role="form" action="#" data-bind="with: dispatch">
+		<!-- ko if: $root.dispatchValidatorErrors().length > 0 -->
+		<div class="alert alert-danger animated tada" role="alert">
+			@(Html.Localize("CannotSignThisDispatchYet"))
+		</div>
+		<!-- ko foreach: $root.dispatchValidatorErrors() -->
+		<p data-bind="text: $data.message"></p>
+		<ul>
+			<!-- ko foreach: $data.links -->
+			<li>
+				<a href="#" data-bind="attr: { 'data-route': $data.url }, visible: $data.condition()" data-toggle="modal" data-target="#lgModal">
+					<span data-bind="text: $data.text"></span>
+				</a>
+				<span data-bind="text: $data.text, visible: !$data.condition()"></span>
+			</li>
+			<!-- /ko -->
+		</ul>
+		<!-- /ko -->
+		<!-- /ko -->
+
+		<ul class="tab-nav tn-justified" role="tablist" tabindex="1" data-bind="visible: window.Crm.Service.Settings.ServiceCase.Signature.Enable.Originator || window.Crm.Service.Settings.ServiceCase.Signature.Enable.Technician">
+			<li role="presentation" class="active">
+				<a href="#tab-signature-customer" aria-controls="tab-signature-customer" role="tab" data-toggle="tab" aria-expanded="true">
+					@(Html.Localize("Customer"))
+				</a>
+			</li>
+			<!-- ko if: window.Crm.Service.Settings.ServiceCase.Signature.Enable.Originator -->
+			<li role="presentation">
+				<a href="#tab-signature-originator" aria-controls="tab-signature-originator" role="tab" data-toggle="tab" aria-expanded="true">
+					@(Html.Localize("Originator"))
+				</a>
+			</li>
+			<!-- /ko -->
+			<!-- ko if: window.Crm.Service.Settings.ServiceCase.Signature.Enable.Technician -->
+			<li role="presentation">
+				<a href="#tab-signature-technician" aria-controls="tab-signature-technician" role="tab" data-toggle="tab" aria-expanded="true">
+					@(Html.Localize("Technician"))
+				</a>
+			</li>
+			<!-- /ko -->
+		</ul>
+		<div class="tab-content m-t-20">
+			<div role="tabpanel" class="tab-pane animated fadeIn active" id="tab-signature-customer">
+				<!-- ko ifnot: $root.displayCustomCustomerNameInput -->
+				<form-element params="value: SignatureContactName, caption: 'WhoIsSigning', type: 'select', disable: StatusKey() === 'SignedByCustomer'">
+					<select name="SignatureContactName" class="form-control" data-bind="value: value, options: $root.selectableCustomerPersons, optionsText: 'DisplayName', optionsValue: 'Value', disable: disable">
+					</select>
+				</form-element>
+				<!-- /ko -->
+				<!-- ko if: $root.displayCustomCustomerNameInput -->
+				<form-element params="value:SignatureContactName, caption: 'WhoIsSigning', type: 'text', disable: StatusKey() === 'SignedByCustomer', hasFocus: $root.selectableCustomerPersons().length > 0"></form-element>
+				<!-- ko ifnot: $root.selectableCustomerPersons().length === 0 -->
+					<a data-bind="click: $root.toggleCustomerContactSelector" href="#"><span>@(Html.Localize("ContactSelection"))</span></a>
+				<!-- /ko -->
+				<!-- /ko -->
+				<signature-pad params="signature: SignatureJson, signatureDate: SignatureDate"></signature-pad>
+				<!-- ko if: window.Crm.Service.Settings.Service.Dispatch.Show.PrivacyPolicy -->
+				<button id="toggleDataProtectionInfo" class="btn btn-lg btn-default f-13 waves-effect m-t-10" type="button" data-toggle="collapse" data-target="#dataPrivacyPolicy" aria-expanded="false" aria-controls="dataPrivacyPolicy">
+					<i class="zmdi zmdi-info-outline"></i>
+					@(Html.Localize("DataProtectionInfo"))
+				</button>
+				<div id="dataPrivacyPolicy" class="m-t-10 collapse" aria-expanded="false" data-bind="with: $parent.parentViewModel">
+					 @await Html.PartialAsync("DataPrivacyPolicy") 
+				</div>
+				<form-element params="value: SignPrivacyPolicyAccepted, caption: 'AcceptPrivacyPolicy', type: 'checkbox', disable: StatusKey() === 'SignedByCustomer'"></form-element>
+				<!-- /ko -->
+			</div>
+			<!-- ko if: window.Crm.Service.Settings.ServiceCase.Signature.Enable.Originator -->
+			<div role="tabpanel" class="tab-pane animated fadeIn" id="tab-signature-originator">
+				<!-- ko ifnot: $root.displayCustomOriginatorNameInput -->
+				<form-element params="value: SignatureOriginatorName, caption: 'WhoIsSigning', type: 'select', disable: StatusKey() === 'SignedByCustomer'">
+					<select class="form-control" data-bind="value: value, options: $root.selectableOriginatorPersons, optionsText: 'DisplayName', optionsValue: 'Value', disable: disable">
+					</select>
+				</form-element>
+				<!-- /ko -->
+				<!-- ko if: $root.displayCustomOriginatorNameInput -->
+				<form-element params="value: SignatureOriginatorName, caption: 'WhoIsSigning', type: 'text', disable: SignatureOriginatorJson() && SignatureOriginatorName(), hasFocus: $root.selectableOriginatorPersons().length > 0"></form-element>
+				<!-- ko ifnot: $root.selectableOriginatorPersons().length === 0 -->
+					<a data-bind="click: $root.toggleOriginatorContactSelector" href="#"><span>@(Html.Localize("ContactSelection"))</span></a>
+				<!-- /ko -->
+				<!-- /ko -->
+				<signature-pad params="signature: SignatureOriginatorJson, signatureDate: SignatureOriginatorDate"></signature-pad>
+			</div>
+			<!-- /ko -->
+			<!-- ko if: window.Crm.Service.Settings.ServiceCase.Signature.Enable.Technician -->
+			<div role="tabpanel" class="tab-pane animated fadeIn" id="tab-signature-technician">
+				<signature-pad params="signature: SignatureTechnicianJson, signatureDate: SignatureTechnicianDate"></signature-pad>
+			</div>
+			<!-- /ko -->
+		</div>
+	</form>
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-bind="click: Helper.Database.clearTrackedEntities" data-dismiss="modal">
+		@(Html.Localize("Cancel"))
+	</button>
+	<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: save, disable: loading">
+		@(Html.Localize("Save"))
+	</button>
+</div>

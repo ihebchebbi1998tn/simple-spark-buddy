@@ -1,0 +1,27 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	<h4 class="modal-title">
+		@(Html.Localize("SkipTransactions"))
+	</h4>
+</div>
+<div class="modal-body">
+	<form>
+		<div class="form-group">
+			<div class="fg-line">
+				<label class="fg-label control-label">@(Html.Localize("SkipTransactionsMsg"))</label>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">
+		@(Html.Localize("Close"))
+	</button>
+	<button type="button" class="btn btn-primary waves-effect" data-bind="click: applySkipTransactionsBulkAction">
+		@(Html.Localize("Skip"))
+	</button>
+</div>
+

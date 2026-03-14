@@ -1,0 +1,58 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<!-- ko if: filterOptions().length > 0 -->
+<full-calendar params="items: timelineEvents, getEvent: getTimelineEvent.bind($data), start: timelineStart, end: timelineEnd, loading: loading, options: options">
+	<ul class="top-menu section-menu actions actions-alt">
+		<!-- ko requiredPermission: { name: 'FilterableCalendar', group: 'MaterialDashboard' } -->
+		<li class="dropdown keep-in-place" data-bind="visible: $parent.filterOptions().length > 1">
+			<a href="#" data-toggle="dropdown">
+				<i class="zmdi zmdi-view-module"></i>
+				<i class="icon-indicator" data-bind="text: $parent.selectedFilters().length + '/' + $parent.filterOptions().length, visible: $parent.selectedFilters().length < $parent.filterOptions().length"></i>
+				<div class="small">@(Html.Localize("Entries"))</div>
+			</a>
+			<ul id="type-select-dropdown" class="dropdown-menu dropdown-menu-right">
+				<li role="presentation" class="dropdown-header text-right" data-bind="translatedText: 'Value'"></li>
+				<li>
+					<div class="toggle-switch col-xs-12 m-t-5" data-ts-color="blue">
+						<input id="show-all-ts" type="checkbox" hidden="hidden" data-bind="checked: $parent.showAll">
+						<label for="show-all-ts" class="ts-helper pull-right"></label>
+						<label for="show-all-ts" class="ts-label m-r-5 pull-left">@(Html.Localize("All"))</label>
+					</div>
+				</li>
+				<li class="divider col-xs-12"></li>
+				<li class="col-xs-12">
+					<!-- ko foreach: $parent.filterOptions -->
+						<div class="row checkbox m-t-0">
+							<label class="checkbox right-align p-0 m-r-20 m-l-20">
+								<input type="checkbox" data-bind="checkedValue: $data, checked: $parents[1].selectedFilters">
+								<i class="input-helper"></i>
+								<span class="description" data-bind="text: { value: $data.Caption, wordBreak: 'normal' }, tooltip: { title: $data.Tooltip }"></span>
+							</label>
+						</div>
+					<!-- /ko -->
+				</li>
+			</ul>
+		</li>
+		<!-- /ko -->
+		<li class="dropdown keep-in-place">
+			<a href="#" data-toggle="dropdown">
+				<i class="zmdi zmdi-view-week"></i>
+				<div class="small">@(Html.Localize("TimePeriod"))</div>
+			</a>
+			<ul class="dropdown-menu dropdown-menu-right">
+				<li class="active">
+					<a data-view="month" href="#">@(Html.Localize("CalendarViewMonth"))</a>
+				</li>
+				<li>
+					<a data-view="agendaWeek" href="#">@(Html.Localize("CalendarViewAgendaWeek"))</a>
+				</li>
+				<li>
+					<a data-view="agendaDay" href="#">@(Html.Localize("CalendarViewAgendaDay"))</a>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</full-calendar>
+<!-- /ko -->
+

@@ -1,0 +1,10 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<!-- ko if: FollowUpServiceOrder() -->
+<li>
+	<a id="template-schedulefollowuporder" href="#/Crm.Service/ServiceOrder/CreateTemplate?followUpServiceOrderRemark={{FollowUpServiceOrderRemark}}">
+		@(Html.Localize("ScheduleFollowUpOrder"))
+	</a>
+</li>
+<!-- /ko -->

@@ -1,0 +1,10 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl<Crm.Library.Model.User>
+@using Crm.Library.Globalization.Extensions
+
+<form class="form-inline entry">
+	<textarea id="BGInfo" class="form-control replacement-box" cols="4" rows="4" style="width: 100%"></textarea>
+	<p class="submit">
+		<input type="submit" value="@(Html.Localize("Save"))" class="submit submit-inline btn btn-primary" />
+		<a class="cancel-inline btn btn-default" href="#"><span>@(Html.Localize("Cancel"))</span></a>
+	</p>
+</form>

@@ -1,0 +1,97 @@
+﻿@using Crm.Library.Modularization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+<div class="lv-item media" id="{{Key}}">
+	<!-- ko if: $data.Base64Image -->
+	<div class="lv-avatar pull-left" data-bind="style: { backgroundImage: 'url(data:image/jpeg;base64,' + $data.Base64Image()+ ')' }"></div>
+	<!-- /ko -->
+	<!-- ko ifnot: $data.Base64Image -->
+	<div class="lv-avatar pull-left" data-bind="style: { backgroundColor: $parent.getLookupColor($data) }, text: (Value() || Key())[0], visible: !$parent.selectedItems || $parent.selectedItems().length === 0"></div>
+	<!-- /ko -->
+	<div class="media-body panel-heading">
+		<div class="row">
+			<div class="col-sm-7">
+				<div class="lv-title">
+					<!-- ko if: $parent.canOpenDetailsModal() -->
+					<a href="#" data-toggle="modal" data-target="#lgModal" data-route="Main/Lookup/EditTemplate/{{Key}}?fullName={{$parent.lookupType.FullName}}">
+						<span data-bind="text: Key"></span>
+					</a>
+					<!-- /ko -->
+					<!-- ko ifnot: $parent.canOpenDetailsModal() -->
+					<span data-bind="text: Key"></span>
+					<!-- /ko-->
+				</div>
+				<small class="small">
+					<span data-bind="translatedText: 'Value'"></span>:
+					<span data-bind="text: Value"></span>
+					<small class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: Value"></small>
+				</small>
+				<!-- ko if: $root.isIncomplete(ko.unwrap($data.Key)) -->
+				<div class="text-danger">
+					<small data-bind="translatedText: 'MissingTranslations'"></small>
+					<small>:</small>
+					<small data-bind="text: $root.getMissingLanguages(ko.unwrap($data.Key))"></small>
+				</div>
+				<!-- /ko -->
+				<ul class="lv-attrs">
+					<li data-bind="visible: !$parent.lookupType.IsEditable">
+						<i class="zmdi zmdi-lock"></i>
+						<span data-bind="translatedText: 'ReadOnly'"></span>
+					</li>
+					<li data-bind="visible: Favorite">
+						<i class="zmdi zmdi-star"></i>
+						<span data-bind="translatedText: 'Favorite'"></span>
+					</li>
+					<li>
+						<i class="zmdi zmdi-swap-vertical"></i>
+						<span data-bind="translatedText: 'SortOrder'"></span>: <span data-bind="text: SortOrder"></span>
+					</li>
+					@Html.PluginRenderActions("LookupDetailsItemTemplateAttributes")
+				</ul>
+			</div>
+			<div class="col-sm-4">
+				<!-- ko foreach: $root.lookupProperties() -->
+				<!-- ko with: $root.getLookupPropertyContext($data, $parent) -->
+				<!-- ko if: (!!Value && !!Value() && Value() !== undefined && Value() !== null && Value().length === undefined) || (!!Value && !!Value() && !!Value().length && Value().length > 0) -->
+				<div>
+					<!-- ko if: PropertyTypeName === "System.DateTime" -->
+ 					<small class="f-500" data-bind="text: window.Helper.String.getTranslatedString(Name) + ': '"></small>
+					<small data-bind="dateText: Value"></small>
+					<!-- /ko -->
+					<!-- ko if: PropertyTypeName === "System.Boolean" -->
+					<small class="f-500" data-bind="text: window.Helper.String.getTranslatedString(Name) + ': '"></small>
+					<small data-bind="text: window.Helper.String.getTranslatedString(String(Value()))"></small>
+					<!-- /ko -->
+					<!-- ko ifnot: PropertyTypeName === "System.DateTime" || PropertyTypeName === "System.Boolean" -->
+					<!-- ko if: Name === "Color"-->
+					<small class="f-500" data-bind="text: window.Helper.String.getTranslatedString(Name) + ': '"></small>
+					<i class="zmdi zmdi-circle" data-bind="style: { color: Value }"></i>
+					(<small data-bind="text: Value"></small>)
+					<!-- /ko -->
+					<!-- ko ifnot: Name === "Color"-->
+					<!-- ko ifnot: PropertyTypeName === "System.Guid" -->
+					<small class="f-500" data-bind="text: window.Helper.String.getTranslatedString(Name) + ': '"></small>
+					<small data-bind="text: Value"></small>
+					<!-- /ko -->
+					<!-- /ko -->
+					<!-- /ko -->
+				</div>
+				<!-- /ko -->
+				<!-- /ko -->
+				<!-- /ko -->
+				@Html.PluginRenderActions("LookupBasicInformation")
+			</div>
+		</div>
+		<lv-actions>
+			<!-- ko if: $root.canOpenDetailsModal() -->
+			<li>
+				<a href="#" data-toggle="modal" data-target="#lgModal" data-route="Main/Lookup/EditTemplate/{{Key}}?fullName={{$root.lookupType.FullName}}" data-bind="translatedText: 'Edit'"></a>
+			</li>
+			<!-- /ko -->
+			<!-- ko if: $root.lookupType.IsEditable -->
+			<li>
+				<a href="#" data-bind="click: $root.remove, translatedText: 'Delete'"></a>
+			</li>
+			<!-- /ko -->
+		</lv-actions>
+	</div>
+</div>

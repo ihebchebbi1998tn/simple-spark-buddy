@@ -1,0 +1,8 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div class="full-calendar">
+	<div class="toolbar-template hide">
+		<!-- ko template: { nodes: $componentTemplateNodes } --><!-- /ko -->
+	</div>
+	<div id="calendar-widget" data-bind="fullCalendar: $data, mProgress: loading"></div>
+</div>

@@ -1,0 +1,10 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<!-- ko if: StatusKey() === 'ClosedNotComplete' && $root.serviceOrder && $root.serviceOrder().StatusKey() === 'PartiallyCompleted' -->
+<li>
+	<a id="show-in-scheduler" href="#/Sms.Scheduler/Scheduler/DetailsTemplate?orderId={{OrderId}}">
+		@(Html.Localize("ScheduleFollowUpDispatchInScheduler"))
+	</a>
+</li>
+<!-- /ko -->

@@ -1,0 +1,22 @@
+﻿@using Crm.Library.Globalization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<form-element id="DispatchedUser" params="value: Username, caption: 'Technician', type: 'select2', disable: $parent.canSelectUser() === false">
+	<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['LastName'], table: 'Main_User', mapDisplayObject: Helper.User.mapForSelect2Display, customFilter: (query, term) => $root.filterTechnicianQuery(query, term, $parent) } }, disable: disable">
+	</select>
+</form-element>
+<!-- ko if: window.Crm.Service.Settings.Dispatch.DispatchNoIsCreateable && (!window.Helper.Offline || window.Helper.Offline.status === 'online') -->
+<div class="form-group" data-bind="validationElement: DispatchNo" title="">
+	<div class="fg-line">
+		<label class="fg-label control-label" data-bind="visible: 'DispatchNo'">
+			<span>@Html.Localize("DispatchNo")</span>
+		</label>
+		<input type="text" class="form-control fg-input" data-bind="value: DispatchNo, attr: { maxlength: 20, name: DispatchNo}">
+	</div>
+	<small class="help-block pre-line" data-bind="validationMessage: DispatchNo" style="display: none;"></small>
+</div>
+<!-- /ko -->
+<form-element params="value: IsFixed, caption: 'Fix', type: 'checkbox'"></form-element>
+<form-element params="value: Remark, caption: 'Remark', type: 'textarea'"></form-element>
+<form-element params="value: release, caption: 'ReleaseDispatchImmediately', type: 'checkbox'"></form-element>
+<small>@(Html.Localize("ReleaseDispatchImmediatelyInfo"))</small>

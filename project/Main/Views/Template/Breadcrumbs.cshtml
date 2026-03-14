@@ -1,0 +1,87 @@
+﻿@using Crm.Library.Globalization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div class="content hide-print" id="breadcrumbs">
+	<div aria-label="breadcrumb">
+		<ol class="breadcrumb p-t-0">
+		<!-- ko if: today().length > 0 || yesterday().length > 0 || older().length > 0 -->
+			<li class="breadcrumb-item dropdown" id="recentPageDropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true" data-bind="tooltip: true" title="@(Html.Localize("RecentPages"))">
+					<i class="zmdi zmdi-time-restore zmdi-hc-lg"></i>
+				</a>
+				<ul class="dropdown-menu">
+					<!-- ko if: today().length > 0 -->
+					<li class="dropdown-header">
+						<strong data-bind="translatedText: 'Today'"></strong>
+					</li>
+					<!-- ko foreach: today() -->
+					<li>
+						<a data-bind="attr: { href: link, title: title }">
+							<span data-bind="text: { value: name, whiteSpace: 'nowrap', wordBreak: 'normal' }"></span>
+							<span class="c-gray" data-bind="text: { value: categorySpecifier, whiteSpace: 'nowrap', wordBreak: 'normal' }"></span>
+						</a>
+					</li>
+					<!-- /ko -->
+					<!-- ko if: yesterday().length > 0 || older().length > 0  -->
+					<li role="separator" class="divider"></li>
+					<!-- /ko -->
+					<!-- /ko -->
+
+					<!-- ko if: yesterday().length > 0 -->
+					<li class="dropdown-header">
+						<strong data-bind="translatedText: 'Yesterday'"></strong>
+					</li>
+					<!-- ko foreach: yesterday() -->
+					<li>
+						<a data-bind="attr: { href: link, title: title }">
+							<span data-bind="text: { value: name, whiteSpace: 'nowrap', wordBreak: 'normal' }"></span>
+							<span class="c-gray" data-bind="text: { value: categorySpecifier, whiteSpace: 'nowrap', wordBreak: 'normal' }"></span>
+						</a>
+					</li>
+					<!-- /ko -->
+					<!-- ko if: older().length > 0 -->
+					<li role="separator" class="divider"></li>
+					<!-- /ko -->
+					<!-- /ko -->
+
+					<!-- ko if: older().length > 0 -->
+					<li class="dropdown-header">
+						<strong data-bind="translatedText: 'Older'"></strong>
+					</li>
+					<!-- ko foreach: older() -->
+					<li>
+						<a data-bind="attr: { href: link, title: title }">
+							<span data-bind="text: { value: name, whiteSpace: 'nowrap', wordBreak: 'normal' }"></span>
+							<span class="c-gray" data-bind="text: { value: categorySpecifier, whiteSpace: 'nowrap', wordBreak: 'normal' }"></span>
+						</a>
+					</li>
+					<!-- /ko -->
+					<!-- /ko -->
+				</ul>
+			</li>
+			<!-- /ko -->
+			<!-- ko foreach: breadcrumbPaths -->
+			<li class="breadcrumb-item">
+				<!-- ko if: requiredPermission !== null -->
+				<!-- ko requiredPermission: requiredPermission -->
+				<a class="black-text" data-bind="attr: { href: link }, click: $root.goBack">
+					<span data-bind="text: name, css: { 'bold': $parent.lastBreadcrumbText().length === 0 && $index() === ($parent.breadcrumbPaths().length - 1) }"></span>
+				</a>
+				<!-- /ko -->
+				<!-- ko noRequiredPermission: requiredPermission -->
+				<span data-bind="text: name"></span>
+				<!-- /ko -->
+				<!-- /ko -->
+				<!-- ko if: requiredPermission === null -->
+				<a class="black-text" data-bind="attr: { href: link }, click: $root.goBack">
+					<span data-bind="text: name"></span>
+				</a>
+				<!-- /ko -->
+			</li>
+			<!-- /ko -->
+			<li class="breadcrumb-item" data-bind="visible: lastBreadcrumbText().length > 0">
+				<span class="bold" data-bind="text: lastBreadcrumbText().length > 50 ? lastBreadcrumbText().substring(0,50) + '…' : lastBreadcrumbText()"></span>
+			</li>
+		</ol>
+	</div>
+</div>

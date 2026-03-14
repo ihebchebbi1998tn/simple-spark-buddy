@@ -1,0 +1,56 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+	<Import Project="../../Shared.props" />
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<OutputPath>bin\</OutputPath>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<OutputPath>bin\</OutputPath>
+	</PropertyGroup>
+	<ItemGroup>
+		<Content Include="Resources\Resources.es.resx">
+		  <SubType>Designer</SubType>
+		</Content>
+		<Content Include="Resources\Resources.de.resx">
+			<SubType>Designer</SubType>
+		</Content>
+		<Content Include="Resources\Resources.en.resx">
+			<SubType>Designer</SubType>
+		</Content>
+		<Content Include="Resources\Resources.fr.resx">
+			<SubType>Designer</SubType>
+		</Content>
+		<Content Include="Resources\Resources.hu.resx">
+			<SubType>Designer</SubType>
+		</Content>
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\Crm.Library\Crm.Library.csproj" />
+		<ProjectReference Include="..\Main\Main.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Remove="Resources\Resources.de.resx" />
+		<EmbeddedResource Remove="Resources\Resources.en.resx" />
+		<EmbeddedResource Remove="Resources\Resources.es.resx" />
+		<EmbeddedResource Remove="Resources\Resources.fr.resx" />
+		<EmbeddedResource Remove="Resources\Resources.hu.resx" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="tsconfig.sonar.json" />
+	</ItemGroup>
+	<PropertyGroup>
+		<BuildDependsOn>
+			$(BuildDependsOn);
+		</BuildDependsOn>
+	</PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	</PropertyGroup>
+	<PropertyGroup>
+		<!-- Makes the TypeScript compilation task a no-op -->
+		<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+	</PropertyGroup>
+</Project>

@@ -1,0 +1,39 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<div class="modal-header card-header ch-alt" data-bind="with: relationship">
+    <button type="button" class="close" data-dismiss="modal" aria-label="@(Html.Localize("Close"))">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title" data-bind="text: innerInstance.entityState === window.$data.EntityState.Added ? Helper.String.getTranslatedString('AddRelationship') : Helper.String.getTranslatedString('EditRelationship')"></h4>
+    <div data-bind="validationElement: $parent.relationshipValidation">
+        <div class="help-block" data-bind="validationMessage: $parent.relationshipValidation" style="display: none;"></div>
+    </div>
+</div>
+<div class="modal-body card-body card-padding">
+    <form role="form" action="#" data-bind="with: relationship">
+        <!-- ko if: $root.mode === 'company' && innerInstance.entityState === window.$data.EntityState.Added -->
+        <form-element id="companyId" params="value: $root.companyId, caption: 'Company', type: 'select'">
+            <select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Name'], table: 'Main_Company', joins: ['Addresses'], customFilter: Helper.Company.getSelect2Filter, mapDisplayObject: Helper.Company.mapForSelect2Display, placeholder: placeholder, onSelect: company => $root.onCompanySelect(company) }}">
+            </select>
+        </form-element>
+        <!-- /ko -->
+        <form-element id="relationship-editor-contact" params="value: $root.getEditableId.call($root, $data), caption: $root.getAutoCompleterCaption.call($root), type: 'select', disable: innerInstance.entityState !== window.$data.EntityState.Added || ( $root.companyId() == null && $root.mode === 'company')">
+            <select name="ContactId" class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: $root.getAutoCompleterOptions.call($root), placeholder: placeholder }, disable: disable"></select>
+        </form-element>
+        <!-- ko if: $root.relationshipTypeLookup -->
+        <form-element id="relationship-editor-relationshiptype" params="value: RelationshipTypeKey, caption: 'Relationship', type: 'select2', disable: innerInstance.entityState !== window.$data.EntityState.Added">
+            <select name="RelationshipTypeKey" class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Lookup.getAutocompleteOptions($root.getRelationshipTypeCollectionName()), placeholder: placeholder}, disable: disable"></select>
+        </form-element>
+        <!-- /ko -->
+        <form-element id="relationship-editor-information" params="value: Information, name: 'Information', caption: 'RelationshipInformation', type: 'text'"></form-element>
+    </form>
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+    <button name="Cancel" type="button" class="btn btn-lg btn-default f-13 waves-effect" data-bind="click: Helper.Database.clearTrackedEntities" data-dismiss="modal">
+        @(Html.Localize("Cancel"))
+    </button>
+    <button name="Save" type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: save, disable: loading">
+        @(Html.Localize("Save"))
+    </button>
+</div>

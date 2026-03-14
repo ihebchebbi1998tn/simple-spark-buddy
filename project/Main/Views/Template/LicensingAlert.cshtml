@@ -1,0 +1,8 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<!-- ko if: $data.license() && $data.expireInDays() < 15 -->
+<div class="m-b-30 m-l-30 m-r-30">
+	<div class="alert alert-warning" data-bind="translatedText: { key: 'LicensingAlert', args: [$data.expireInDays()] }, css: { 'alert-warning': $data.expireInDays() > 3, 'alert-danger': $data.expireInDays() <= 3 }">
+	</div>
+</div>
+<!-- /ko -->

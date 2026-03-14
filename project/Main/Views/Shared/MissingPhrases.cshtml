@@ -1,0 +1,24 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Extensions
+@using Crm.Library.Globalization.Resource
+
+@{ var missingPhrases = TempData["MissingPhrases"] as List<Phrase>;
+   var missingPhrasesExisting = missingPhrases != null && missingPhrases.Any();
+}
+@if (missingPhrasesExisting) { 
+	<h4>Missing translations found</h4>
+	<span>You will find all missing translations in the logger. Please check logger add them to resource files. Lookup values will be updated to database.</span>
+ } 
+<ul class="translation-table" id="missing-translations">
+	@if (missingPhrasesExisting) { 
+		@foreach (var phrase in missingPhrases.Distinct()) { 
+			@if (phrase.Key != null) { 
+				<li class="translation-missing">
+					missing <span class="key">@(phrase.Key)</span>
+					for language <span class="language">@(phrase.Language)</span>
+					@(phrase.PluginName.IsValidPluginName() ? ("in plugin <span class=\"pluginName\">" + phrase.PluginName + "</span>") : String.Empty)
+				</li>
+			 } 
+		 } 
+	 } 
+</ul>

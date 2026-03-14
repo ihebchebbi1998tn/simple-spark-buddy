@@ -1,22 +1,9 @@
-import Header from "@/components/shared/Header"
-import { HeroCarousel, ComparisonSection, HowItWorksSection, TestimonialsSection, FAQSection, CTABlock } from "@/components/landing"
-import Footer from "@/components/shared/Footer"
-
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <main>
-        <HeroCarousel />
-        <ComparisonSection />
-        <HowItWorksSection />
-        <TestimonialsSection />
-        <FAQSection />
-        <CTABlock />
-      </main>
-      <Footer />
+    <div className="flex min-h-screen items-center justify-center bg-background">
+      <h1 className="text-4xl font-bold text-foreground">Hello, World!</h1>
     </div>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;

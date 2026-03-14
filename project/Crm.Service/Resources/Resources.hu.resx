@@ -1,0 +1,2427 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddDispatch" xml:space="preserve">
+    <value>Kiszállás hozzáadása</value>
+  </data>
+  <data name="AddInstallation" xml:space="preserve">
+    <value>{Installation} csatolása</value>
+  </data>
+  <data name="ConfirmCloseReplenishmentOrder" xml:space="preserve">
+    <value>Valóban le akarja zárni ezt az utánrendelést?</value>
+  </data>
+  <data name="ConfirmDeleteDispatch" xml:space="preserve">
+    <value>Valóban törölni akarja ezt az kiszállást?</value>
+  </data>
+  <data name="ConfirmDeleteReleasedDispatch" xml:space="preserve">
+    <value>Ez a kiszállás már ki lett adva ezért nem törölhető, elutasítottra állítja a státuszt helyette?</value>
+  </data>
+  <data name="ConfirmDeleteMaintenancePlan" xml:space="preserve">
+    <value>Valóban törölni akarja "{{0}}" a karbantartási tervet?</value>
+  </data>
+  <data name="ConfirmResendReplenishmentOrder" xml:space="preserve">
+    <value>Ez az utánrendelés már elküldésre került. Valóban még egyszer elakarja azt küldeni?</value>
+  </data>
+  <data name="ExpenseReportFromUserMonth" xml:space="preserve">
+    <value>Költség jelentés {0} a felhasználótól {1} hónapra</value>
+  </data>
+  <data name="Installations" xml:space="preserve">
+    <value>Berendezések</value>
+  </data>
+  <data name="Replenishment" xml:space="preserve">
+    <value>Utánrendelés</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>Szerviz</value>
+  </data>
+  <data name="ServiceCases" xml:space="preserve">
+    <value>Szervizesetek</value>
+  </data>
+  <data name="ClosedServiceCases" xml:space="preserve">
+    <value>Lezárt szervizeset</value>
+  </data>
+  <data name="ClosedServiceOrders" xml:space="preserve">
+    <value>Lezárt szervizrendelések</value>
+  </data>
+  <data name="CreateServiceDispatch" xml:space="preserve">
+    <value>Szervizrendeléshez kötött kiszállás létrehozása</value>
+  </data>
+  <data name="CreateServiceOrderHead" xml:space="preserve">
+    <value>Szervizrendelés  létrehozása</value>
+  </data>
+  <data name="CreateServiceOrderMaterial" xml:space="preserve">
+    <value>{ServiceOrderMaterial} létrehozása</value>
+  </data>
+  <data name="CreateServiceOrderMaterialSerial" xml:space="preserve">
+    <value>Szervizrendeléshez rendelt anyag sorozatszáma</value>
+  </data>
+  <data name="CreateServiceOrderNotification" xml:space="preserve">
+    <value>Szervizeset létrehozása</value>
+  </data>
+  <data name="CreateServiceOrderTime" xml:space="preserve">
+    <value>Munka létrehozása</value>
+  </data>
+  <data name="CreateServiceOrderTimePosting" xml:space="preserve">
+    <value>Szerviz munkaidő rögzítése</value>
+  </data>
+  <data name="CreateSkill" xml:space="preserve">
+    <value>Create Skill</value>
+  </data>
+  <data name="CustomerContactName" xml:space="preserve">
+    <value>Vevő (Tulajdonos)</value>
+  </data>
+  <data name="CustomerContact" xml:space="preserve">
+    <value>Vevő (Tulajdonos)</value>
+  </data>
+  <data name="EditErrorCode" xml:space="preserve">
+    <value>Hibajelentések szerkesztése</value>
+  </data>
+  <data name="EditInstallationHead" xml:space="preserve">
+    <value>{Installation} szerkesztése</value>
+  </data>
+  <data name="EditInstallationPos" xml:space="preserve">
+    <value>{Installation} pozíciójának szerkesztése</value>
+  </data>
+  <data name="EditInstallationPosSerial" xml:space="preserve">
+    <value>{Installation} pozíciószámának szerkesztése</value>
+  </data>
+  <data name="EditInstallationType" xml:space="preserve">
+    <value>{Installation} típusának szerkesztése</value>
+  </data>
+  <data name="EditMaintenanceContract" xml:space="preserve">
+    <value>Karbantartási szerződés szerkesztése</value>
+  </data>
+  <data name="EditMaintenancePlan" xml:space="preserve">
+    <value>Karbantartási terv szerkesztése</value>
+  </data>
+  <data name="EditMaintenanceRhythm" xml:space="preserve">
+    <value>Karbantartás ütemezésének szerkesztése</value>
+  </data>
+  <data name="InstallationCreateTitle" xml:space="preserve">
+    <value>{Installation} hozzáadása</value>
+  </data>
+  <data name="InstallationSearchTitle" xml:space="preserve">
+    <value>Keresés {Installations} után</value>
+  </data>
+  <data name="OpenServiceCases" xml:space="preserve">
+    <value>Nyitott szervizeset</value>
+  </data>
+  <data name="OpenServiceOrders" xml:space="preserve">
+    <value>Nyitott szervizrendelés</value>
+  </data>
+  <data name="NoOpenServiceOrders" xml:space="preserve">
+    <value>Nincs nyitott szervízszerződés</value>
+  </data>
+  <data name="OrderChecklist" xml:space="preserve">
+    <value>Rendelés ellenőrzési listája</value>
+  </data>
+  <data name="OrderForInstallation" xml:space="preserve">
+    <value>{Installation} rendelése</value>
+  </data>
+  <data name="OrderStatusSetToBy" xml:space="preserve">
+    <value>Szervizrendelés státusza megváltoztatva {0} által {1}</value>
+  </data>
+  <data name="ServiceOrderStatusSetTo" xml:space="preserve">
+    <value>Szervizrendelés "{0}" státuszra változott</value>
+  </data>
+  <data name="PleaseSelectInstallation" xml:space="preserve">
+    <value>Kérem válasszon {Installation}</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Prioritás</value>
+  </data>
+  <data name="SearchByCustomerParkZipCodeLocationItemNoType" xml:space="preserve">
+    <value>Vevő, parkoló, postai irányítószám, helység, anyag keresése</value>
+  </data>
+  <data name="SearchByInstallationNoOrDescription" xml:space="preserve">
+    <value>A {Installations} számának vagy leírásának keresése</value>
+  </data>
+  <data name="SearchByServiceContractNo" xml:space="preserve">
+    <value>Szerződésszám keresése</value>
+  </data>
+  <data name="SearchServiceOrders" xml:space="preserve">
+    <value>Szervizrendelés keresése</value>
+  </data>
+  <data name="ServiceCase" xml:space="preserve">
+    <value>Szervizeset</value>
+  </data>
+  <data name="ServiceCaseCategory" xml:space="preserve">
+    <value>Szervizeset kategória</value>
+  </data>
+  <data name="ServiceCaseId" xml:space="preserve">
+    <value>Szervizeset azonosítója</value>
+  </data>
+  <data name="ServiceCaseListEmptySlate" xml:space="preserve">
+    <value>Itt tudja követni a beérkező szerviz kéréseket, a hozzájuk kapcsolódó jegyzeteket és feladatokat, továbbá olyan kulcsinformációkat, mint például a szervizesettel és a felelős felhaszálóval kapcsolatban álló {Installation}.</value>
+  </data>
+  <data name="ServiceCaseStatus" xml:space="preserve">
+    <value>Szervízeset állapota</value>
+  </data>
+  <data name="ServiceCaseStatusSet" xml:space="preserve">
+    <value>Szervízeset állapota megváltozott erre: "{0}"</value>
+  </data>
+  <data name="ServiceCasesTitle" xml:space="preserve">
+    <value>Szervizesetek</value>
+  </data>
+  <data name="ServiceCaseTag" xml:space="preserve">
+    <value>Szervizesetek</value>
+  </data>
+  <data name="ServiceCompletedValue" xml:space="preserve">
+    <value>Érték</value>
+  </data>
+  <data name="ServiceContractNo" xml:space="preserve">
+    <value>Szervizszerződés száma</value>
+  </data>
+  <data name="ServiceContractNoBackgroundInformation" xml:space="preserve">
+    <value>Ehhez a szervizszerződéshez nemtartozik háttérinformáció.</value>
+  </data>
+  <data name="ServiceContracts" xml:space="preserve">
+    <value>Szervizszerződések</value>
+  </data>
+  <data name="ServiceContractsTitle" xml:space="preserve">
+    <value>Szervizszerződések</value>
+  </data>
+  <data name="ServiceContractType" xml:space="preserve">
+    <value>Szervizszerződés típusa</value>
+  </data>
+  <data name="ServiceNotificationDetails" xml:space="preserve">
+    <value>Szervizeset részletei</value>
+  </data>
+  <data name="ServiceOrder" xml:space="preserve">
+    <value>Szervizrendelés</value>
+  </data>
+  <data name="ServiceOrderCreateTitle" xml:space="preserve">
+    <value>Szervizrendelés összeállítása</value>
+  </data>
+  <data name="ServiceOrderDetailsTitle" xml:space="preserve">
+    <value>Szervizrendelés - {0}</value>
+  </data>
+  <data name="ServiceOrderDispatchDoesNotExist" xml:space="preserve">
+    <value>Kiszállás nem létezik</value>
+  </data>
+  <data name="ServiceOrderDispatchVehicleTitle" xml:space="preserve">
+    <value>Tervezett jármű</value>
+  </data>
+  <data name="ServiceOrderEditTitle" xml:space="preserve">
+    <value>Szervizrendelés szerkesztése</value>
+  </data>
+  <data name="ServiceOrderStatus" xml:space="preserve">
+    <value>Szervizrendelés állapota</value>
+  </data>
+  <data name="ServiceOrderTag" xml:space="preserve">
+    <value>egy szervizrendelést</value>
+  </data>
+  <data name="ServiceOrderTimeCategory" xml:space="preserve">
+    <value>Munka - kategória</value>
+  </data>
+  <data name="ServiceOrderTimePostingAbbreviation" xml:space="preserve">
+    <value>A</value>
+  </data>
+  <data name="ServiceOrderTimeEntryType" xml:space="preserve">
+    <value>Szerelés</value>
+  </data>
+  <data name="ServiceOrderTimeLocation" xml:space="preserve">
+    <value>Munka helye</value>
+  </data>
+  <data name="ServiceOrderTimePriority" xml:space="preserve">
+    <value>Munka prioritás</value>
+  </data>
+  <data name="ServiceOrderTimeScannedValueTypes" xml:space="preserve">
+    <value>Adattípus a techinkusok által scannelt értékek számára</value>
+  </data>
+  <data name="ServiceOrderTimeStatus" xml:space="preserve">
+    <value>Munka állapota</value>
+  </data>
+  <data name="ServiceOrderTitle" xml:space="preserve">
+    <value>Szervizrendelés</value>
+  </data>
+  <data name="ServiceOrderType" xml:space="preserve">
+    <value>Szervizrendelés típusa</value>
+  </data>
+  <data name="ServiceOrderViewTitle" xml:space="preserve">
+    <value>Szervizrendelés megjelenítése</value>
+  </data>
+  <data name="Technician" xml:space="preserve">
+    <value>Szerviztechnikus</value>
+  </data>
+  <data name="Technician-UserGroup" xml:space="preserve">
+    <value>Szervizes (Felhasználói csoport)</value>
+  </data>
+  <data name="Technician-Role" xml:space="preserve">
+    <value>Szervizes (Szerep)</value>
+  </data>
+  <data name="TechnicianEnteredData" xml:space="preserve">
+    <value>Ehhez a rendeléshez már kaptunk visszajelzéseket, szíveskedjen az anyag és szolgáltatási pozíciókat különös óvatossággal megváltoztatni.</value>
+  </data>
+  <data name="TemplateOrder" xml:space="preserve">
+    <value>A mintarendelés száma</value>
+  </data>
+  <data name="TemplateOrderNo" xml:space="preserve">
+    <value>Mintarendelés száma</value>
+  </data>
+  <data name="TemplateOrderSearch" xml:space="preserve">
+    <value>Mintarendelés keresése</value>
+  </data>
+  <data name="TemplateOrderTag" xml:space="preserve">
+    <value>Mintarendelés címke</value>
+  </data>
+  <data name="TemplateOrderTags" xml:space="preserve">
+    <value>Mintarendelés címkék</value>
+  </data>
+  <data name="ThisInstallation" xml:space="preserve">
+    <value>ez {Installation}</value>
+  </data>
+  <data name="ThisServiceCase" xml:space="preserve">
+    <value>ez {ServiceCase}</value>
+  </data>
+  <data name="ThisServiceContract" xml:space="preserve">
+    <value>ez {ServiceContract}</value>
+  </data>
+  <data name="ThisServiceOrderHead" xml:space="preserve">
+    <value>ez {ServiceOrderHead}</value>
+  </data>
+  <data name="ThisServiceObject" xml:space="preserve">
+    <value>ez {ServiceObject}</value>
+  </data>
+  <data name="T_MaintenanceAgreementNo" xml:space="preserve">
+    <value>Karbantartási szerződés</value>
+    <comment>Title of the label that displays Maintenance agreement number.</comment>
+  </data>
+  <data name="T_MaintenanceAgreements" xml:space="preserve">
+    <value>Karbantartási szerződések </value>
+    <comment>Title of the label that displays Maintenance agreements.</comment>
+  </data>
+  <data name="T_NewArticle" xml:space="preserve">
+    <value>Új cikk</value>
+  </data>
+  <data name="T_NewInstallation" xml:space="preserve">
+    <value>Új {Installation}</value>
+  </data>
+  <data name="T_NewQualityPlan" xml:space="preserve">
+    <value>Új ellenőrzési lista</value>
+  </data>
+  <data name="ServiceOrders" xml:space="preserve">
+    <value>Szervizrendelések</value>
+  </data>
+  <data name="DispatchesTitle" xml:space="preserve">
+    <value>Kiszállások</value>
+  </data>
+  <data name="NoDispatches" xml:space="preserve">
+    <value>Az Ön kiszállási listája üres</value>
+  </data>
+  <data name="ThereAreNoTimePostings" xml:space="preserve">
+    <value>Pillanatnyilag nincs időjelentés</value>
+  </data>
+  <data name="TimePostings" xml:space="preserve">
+    <value>Időjelentések</value>
+  </data>
+  <data name="CreateTimePosting" xml:space="preserve">
+    <value>{TimePosting} létrehozása</value>
+  </data>
+  <data name="TimePosting" xml:space="preserve">
+    <value>Időjelentés</value>
+  </data>
+  <data name="UninstallMaterialConfirmation" xml:space="preserve">
+    <value>Ezt az anyagot valóban le akarja szerelni?</value>
+  </data>
+  <data name="Uninstall" xml:space="preserve">
+    <value>Leszerelés</value>
+  </data>
+  <data name="ReportSent" xml:space="preserve">
+    <value>Jelentés sikeresen elküldve</value>
+  </data>
+  <data name="UninstallSerialConfirmation" xml:space="preserve">
+    <value>Ezt a sorozatszámot valóban le akarja szerelni?</value>
+  </data>
+  <data name="PurchaseOrderNo" xml:space="preserve">
+    <value>Vevői rendelési szám</value>
+  </data>
+  <data name="PurchaseDate" xml:space="preserve">
+    <value>Rendelés időpontja</value>
+  </data>
+  <data name="CommissionNo" xml:space="preserve">
+    <value>Komissió száma</value>
+  </data>
+  <data name="Installation" xml:space="preserve">
+    <value>Berendezés</value>
+  </data>
+  <data name="RuleViolation.RecipientHasNoEmail" xml:space="preserve">
+    <value>Ehhez a személyhez nincs E-mail cím rendelve</value>
+  </data>
+  <data name="ServiceReport" xml:space="preserve">
+    <value>Szerviz jelentés</value>
+  </data>
+  <data name="AlreadySignedByCustomer" xml:space="preserve">
+    <value>Ezt a kiszállást a vevő már aláírta</value>
+  </data>
+  <data name="SendReportTo" xml:space="preserve">
+    <value>Szerviz jelentés elküldése</value>
+  </data>
+  <data name="CreateInstallation" xml:space="preserve">
+    <value>{Installation} létrehozása</value>
+  </data>
+  <data name="DeleteInstallation" xml:space="preserve">
+    <value>{Installation} törlése</value>
+  </data>
+  <data name="CloseServiceCase" xml:space="preserve">
+    <value>Szervizeset lezárása</value>
+  </data>
+  <data name="EditInstallation" xml:space="preserve">
+    <value>{Installation} szerkesztése</value>
+  </data>
+  <data name="CreateServiceOrder" xml:space="preserve">
+    <value>{ServiceOrder} létrehozása</value>
+  </data>
+  <data name="DeleteServiceOrder" xml:space="preserve">
+    <value>Szervizrendelés törlése</value>
+  </data>
+  <data name="EditServiceOrder" xml:space="preserve">
+    <value>Szervizrendelés szerkesztése</value>
+  </data>
+  <data name="CreateServiceCase" xml:space="preserve">
+    <value>{ServiceCase} létrehozása</value>
+  </data>
+  <data name="DeleteServiceCase" xml:space="preserve">
+    <value>Szervizeset törlése</value>
+  </data>
+  <data name="EditServiceCase" xml:space="preserve">
+    <value>Szervizeset szerkesztése</value>
+  </data>
+  <data name="CreateAdditionalDispatch" xml:space="preserve">
+    <value>Kiszállás  létrehozása</value>
+  </data>
+  <data name="CreateDispatch" xml:space="preserve">
+    <value>Kiszállás  létrehozása</value>
+  </data>
+  <data name="DeleteDispatch" xml:space="preserve">
+    <value>Kiszállás törlése</value>
+  </data>
+  <data name="EditDispatch" xml:space="preserve">
+    <value>Kiszállás szerkesztése</value>
+  </data>
+  <data name="ClickToViewDispatchesOnMap" xml:space="preserve">
+    <value>Kattintson ide az összes kiszállás térképen történő megjelenítéséhez</value>
+  </data>
+  <data name="ViewDispatches" xml:space="preserve">
+    <value>Kiszállások megjelenítése</value>
+  </data>
+  <data name="PreferredUser" xml:space="preserve">
+    <value>Előnyben részesített szervizes</value>
+  </data>
+  <data name="PreferredUserForThisInstallation" xml:space="preserve">
+    <value>Előnyben részesítve ehhez a {Installation}</value>
+  </data>
+  <data name="ViewTechnicians" xml:space="preserve">
+    <value>Szervizes megjelenítése</value>
+  </data>
+  <data name="ClickToViewTechniciansOnMap" xml:space="preserve">
+    <value>Kattintson ide az összes szervizes térképen történő megjelenítéséhez</value>
+  </data>
+  <data name="DispatchCreatedSubject" xml:space="preserve">
+    <value>Új kiszállás lett létrehozva</value>
+  </data>
+  <data name="DispatchCreatedText" xml:space="preserve">
+    <value>A {0} számú szervizrendeléshez új kiszállás lett létrehozva {1} {2}</value>
+  </data>
+  <data name="DispatchRescheduledText" xml:space="preserve">
+    <value>A {0} számú szervizrendeléshez tervezett kiszállás {3} {4} időpontról {1} {2} időpontra lett átütemezve.</value>
+  </data>
+  <data name="DispatchRemovedText" xml:space="preserve">
+    <value>A {0} számú szervizrendeléshez {1} {2} időpontra tervezett kiszállás törölve lett.</value>
+  </data>
+  <data name="NoAddressInformationsAvailable" xml:space="preserve">
+    <value>Nem áll rendelkezésre a címről információ</value>
+  </data>
+  <data name="SignatureContactName" xml:space="preserve">
+    <value>Név</value>
+  </data>
+  <data name="NoPriority" xml:space="preserve">
+    <value>Nincs prioritás</value>
+  </data>
+  <data name="ExecutedWork" xml:space="preserve">
+    <value>Elvégzett munkák</value>
+  </data>
+  <data name="InstallationStatus" xml:space="preserve">
+    <value>{Installation} állapota</value>
+  </data>
+  <data name="RequiredOperations" xml:space="preserve">
+    <value>Szükséges teendők</value>
+  </data>
+  <data name="NoRecipients" xml:space="preserve">
+    <value>Nincs kiválasztott fogadó</value>
+  </data>
+  <data name="DispatchLocation" xml:space="preserve">
+    <value>Kiszállás helye</value>
+  </data>
+  <data name="Break" xml:space="preserve">
+    <value>Szünet</value>
+  </data>
+  <data name="ServiceOrderDispatch" xml:space="preserve">
+    <value>Kiszállás</value>
+  </data>
+  <data name="ServiceOrderDispatches" xml:space="preserve">
+    <value>Kiszállások</value>
+  </data>
+  <data name="CustomerContactId" xml:space="preserve">
+    <value>Vevő (Tulajdonos)</value>
+  </data>
+  <data name="ServiceOrderHeadCreatedBy" xml:space="preserve">
+    <value>Szervizrendelés létrehozva {0} által {1}</value>
+  </data>
+  <data name="ServiceCaseCreatedBy" xml:space="preserve">
+    <value>Szolgáltatási eset készítette {0} {1}</value>
+  </data>
+  <data name="ServiceOrderHeadCreated" xml:space="preserve">
+    <value>Új szervizrendelés lett létrehozva</value>
+  </data>
+  <data name="ServiceCaseCreated" xml:space="preserve">
+    <value>Létrehoztuk a szolgáltatási esetet</value>
+  </data>
+  <data name="InvoiceSpecialConditions" xml:space="preserve">
+    <value>Számlakiegészítés</value>
+  </data>
+  <data name="InternalInvoiceInformation" xml:space="preserve">
+    <value>Számlainformáció</value>
+  </data>
+  <data name="NoUsedMaterial" xml:space="preserve">
+    <value>Használt anyag/költség nem található</value>
+  </data>
+  <data name="NoUsedTimes" xml:space="preserve">
+    <value>Nincs felhasznált idő jelentve</value>
+  </data>
+  <data name="NoExecutedWork" xml:space="preserve">
+    <value>Nincs lejelentett munkaidő</value>
+  </data>
+  <data name="ServiceContract" xml:space="preserve">
+    <value>Szervizszerződés</value>
+  </data>
+  <data name="GenerateMaintenanceOrders" xml:space="preserve">
+    <value>Karbantartási szerződések automatikus létrehozása</value>
+  </data>
+  <data name="AllowPrematureMaintenance" xml:space="preserve">
+    <value>Lehetővé teszi a korai karbantartást</value>
+  </data>
+  <data name="CrmService_ServiceOrderHead" xml:space="preserve">
+    <value>{ServiceOrders}</value>
+  </data>
+  <data name="CrmService_ServiceOrderMaterial" xml:space="preserve">
+    <value>{ServiceOrder} anyaga</value>
+  </data>
+  <data name="CrmService_ServiceOrderMaterialSerial" xml:space="preserve">
+    <value>{CrmService_ServiceOrderMaterial} anyagainak szériaszáma</value>
+  </data>
+  <data name="CrmService_ServiceOrderTimePosting" xml:space="preserve">
+    <value>{ServiceOrder} - Időlejelentés</value>
+  </data>
+  <data name="CrmService_InstallationStatus" xml:space="preserve">
+    <value>{Installations} állapota</value>
+  </data>
+  <data name="CrmService_Installation" xml:space="preserve">
+    <value>{Installations}</value>
+  </data>
+  <data name="AdHocServiceOrder" xml:space="preserve">
+    <value>Eseti szervizrendelés</value>
+  </data>
+  <data name="CrmService_ServiceOrderTime" xml:space="preserve">
+    <value>Munkák</value>
+  </data>
+  <data name="FollowUpServiceOrder" xml:space="preserve">
+    <value>Követő rendelés</value>
+  </data>
+  <data name="TechnicianCompletedDispatch" xml:space="preserve">
+    <value>{0} kiszállása kész {1}</value>
+  </data>
+  <data name="FollowUpDispatchRequired" xml:space="preserve">
+    <value>Követő kiszállás szükséges</value>
+  </data>
+  <data name="RejectReason" xml:space="preserve">
+    <value>Elutasítás oka</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>Elutasít</value>
+  </data>
+  <data name="WorkOnDispatch" xml:space="preserve">
+    <value>Kiszállás megkezdése</value>
+  </data>
+  <data name="TimeAllocation" xml:space="preserve">
+    <value>Norma idő</value>
+  </data>
+  <data name="CrmService_ServiceContract" xml:space="preserve">
+    <value>Szervizszerződések </value>
+  </data>
+  <data name="CrmService_ServiceContractInstallationRelationship" xml:space="preserve">
+    <value>{CrmService_ServiceContract}, {Installations}</value>
+  </data>
+  <data name="NoServiceContractsForCompany" xml:space="preserve">
+    <value>Nincs szervizszerződés</value>
+  </data>
+  <data name="NoActiveServiceContractsForInstallation" xml:space="preserve">
+    <value>Nincs aktív szervizszerződés</value>
+  </data>
+  <data name="TechnicianInformation" xml:space="preserve">
+    <value>Tájékoztatások a szakember részére</value>
+  </data>
+  <data name="NoTechnicianInformation" xml:space="preserve">
+    <value>Szervizes számára nincs információ</value>
+  </data>
+  <data name="PreferredUserForInstallation" xml:space="preserve">
+    <value>Előnyben részesített szakember ehhez a {Installation}</value>
+  </data>
+  <data name="PreferredTechnician" xml:space="preserve">
+    <value>Előnyben részesített szervizes</value>
+  </data>
+  <data name="PreferredTechnicianUsergroup" xml:space="preserve">
+    <value>Előnyben részesített szervizes-munkacsoport a szervízrendeléshez</value>
+  </data>
+  <data name="Dispatches" xml:space="preserve">
+    <value>Kiszállások</value>
+  </data>
+  <data name="DispatchReport" xml:space="preserve">
+    <value>Szerviz jelentés</value>
+  </data>
+  <data name="SerialNo" xml:space="preserve">
+    <value>Szériaszám beépített alkatrész</value>
+  </data>
+  <data name="CannotCompleteThisDispatchYet" xml:space="preserve">
+    <value>Ez az kiszállás még nem zárható le</value>
+  </data>
+  <data name="CannotSignThisDispatchYet" xml:space="preserve">
+    <value>Ez az kiszállás még nem írható alá</value>
+  </data>
+  <data name="PreviousSerialNo" xml:space="preserve">
+    <value>Szériaszám eltávolított alkatrész</value>
+  </data>
+  <data name="ManufactureDate" xml:space="preserve">
+    <value>Gyártási időpont</value>
+  </data>
+  <data name="Manufacturer" xml:space="preserve">
+    <value>Gyártó</value>
+  </data>
+  <data name="CrmService_ReplenishmentOrder" xml:space="preserve">
+    <value>Utánrendelés</value>
+  </data>
+  <data name="CrmService_ReplenishmentOrderItem" xml:space="preserve">
+    <value>Utánrendelés tételei</value>
+  </data>
+  <data name="ListPrice" xml:space="preserve">
+    <value>Listaár</value>
+  </data>
+  <data name="PlannedTime" xml:space="preserve">
+    <value>Tervezett időpont</value>
+  </data>
+  <data name="PlannedDateFix" xml:space="preserve">
+    <value>Tervezett rögzített határidő</value>
+  </data>
+  <data name="RelatedOrders" xml:space="preserve">
+    <value>Érintett rendelések</value>
+  </data>
+  <data name="NoRelatedOrders" xml:space="preserve">
+    <value>Nincsenek idevonatkozó rendelések</value>
+  </data>
+  <data name="NoRelatedDispatches" xml:space="preserve">
+    <value>Nincs idevonatkozó intézkedés</value>
+  </data>
+  <data name="RelatedDispatchesForMaintenancePlanningRun" xml:space="preserve">
+    <value>Karbantartási tervhez tartozó kiszállások</value>
+  </data>
+  <data name="RelatedOrdersForMaintenancePlanningRun" xml:space="preserve">
+    <value>Karbantartási tervhez tartozó {ServiceOrders}</value>
+  </data>
+  <data name="RelatedDispatchesForInstallation" xml:space="preserve">
+    <value> {Installation}hez tartozó kiszállások </value>
+  </data>
+  <data name="RelatedOrdersForInstallation" xml:space="preserve">
+    <value> {Installation}hez tartozó {ServiceOrders}ek</value>
+  </data>
+  <data name="RelatedDispatchesForCustomer" xml:space="preserve">
+    <value>Vevőhöz tartozó kiszállások</value>
+  </data>
+  <data name="RelatedOrdersForCustomer" xml:space="preserve">
+    <value>Vevőhöz tartozó {ServiceOrders}ek</value>
+  </data>
+  <data name="ServiceOrderStatusKey" xml:space="preserve">
+    <value>{ServiceOrderStatus}</value>
+  </data>
+  <data name="ServiceObject" xml:space="preserve">
+    <value>Szervizobjektum</value>
+  </data>
+  <data name="FolderId" xml:space="preserve">
+    <value>Szervizobjektum</value>
+  </data>
+  <data name="ServiceObjects" xml:space="preserve">
+    <value>Szervizobjektumok</value>
+  </data>
+  <data name="NoCompanyInstallationsInfo" xml:space="preserve">
+    <value>Ehhez a {Company}hez nincs {Installations} hozzárendelve</value>
+  </data>
+  <data name="NoServiceObjectInstallationsInfo" xml:space="preserve">
+    <value>Ehhez a {ServiceObject}hez nincs {Installations} hozzárendelve</value>
+  </data>
+  <data name="NoServiceOrderInstallationsInfo" xml:space="preserve">
+    <value>Ehhez a {ServiceOrder}hez nincs {Installations} hozzárendelve</value>
+  </data>
+  <data name="ListOfNotesHeaderServiceObject" xml:space="preserve">
+    <value>{ServiceObject}hoz kapcsolódó megjegyzések</value>
+  </data>
+  <data name="ServiceObjectEmptySlate" xml:space="preserve">
+    <value>Még nincs {ServiceObjects}</value>
+  </data>
+  <data name="CreateServiceObject" xml:space="preserve">
+    <value>{ServiceObject} létrehozása</value>
+  </data>
+  <data name="ConfirmRemoveInstallation" xml:space="preserve">
+    <value>Valóban eltávolítja az {Installation}t?</value>
+  </data>
+  <data name="EditServiceObject" xml:space="preserve">
+    <value>{ServiceObject} szerkesztése</value>
+  </data>
+  <data name="AffectedCompanyKey" xml:space="preserve">
+    <value>Érintett cég</value>
+  </data>
+  <data name="ServiceLocation" xml:space="preserve">
+    <value>Javítás helyszíne</value>
+  </data>
+  <data name="DifferingServiceLocation" xml:space="preserve">
+    <value>Eltérő javítási hely</value>
+  </data>
+  <data name="NoPreviousSerialNoReason" xml:space="preserve">
+    <value>Hiányzó szériaszám indok eltávolított alkatrész</value>
+  </data>
+  <data name="NoInstallations" xml:space="preserve">
+    <value>Nincs {Installations}</value>
+  </data>
+  <data name="NoSerialNoReason" xml:space="preserve">
+    <value>Sorozatszám hiányának oka</value>
+  </data>
+  <data name="Initiator" xml:space="preserve">
+    <value>Kezdeményező</value>
+  </data>
+  <data name="ListOfNotesHeaderServiceContract" xml:space="preserve">
+    <value>Megjegyzések a {ServiceContract} szervízszerződéshez</value>
+  </data>
+  <data name="MultipleInstallations" xml:space="preserve">
+    <value>Többszörös {Installations}</value>
+  </data>
+  <data name="SingleInstallation" xml:space="preserve">
+    <value>egyes {Installation}</value>
+  </data>
+  <data name="ServiceOrderHead" xml:space="preserve">
+    <value>Szervizrendelés</value>
+  </data>
+  <data name="LocationContactId" xml:space="preserve">
+    <value>Ügyfél</value>
+  </data>
+  <data name="AddressSelection" xml:space="preserve">
+    <value>Cím kiválasztás</value>
+  </data>
+  <data name="CustomAddress" xml:space="preserve">
+    <value>Felhasználó által meghatározott címek</value>
+  </data>
+  <data name="ServiceLocationSelectionEmptySlate" xml:space="preserve">
+    <value>Választott időponthoz nem tartozik cím</value>
+  </data>
+  <data name="InstallationSelectionEmptySlate" xml:space="preserve">
+    <value>A kiválasztott időponthoz nem lehetett {Installations} találni</value>
+  </data>
+  <data name="ServiceLocationResponsibleContact" xml:space="preserve">
+    <value>Kapcsolat a szerviz helyszínen</value>
+  </data>
+  <data name="ServiceLocationResponsibleContactSelection" xml:space="preserve">
+    <value>Kapcsolattartó kiválasztása</value>
+  </data>
+  <data name="ServiceLocationResponsibleContactSelectionEmptySlate" xml:space="preserve">
+    <value>Választott időponthoz nem tartozik kapcsolat</value>
+  </data>
+  <data name="CustomServiceLocationResponsibleContact" xml:space="preserve">
+    <value>Felhasználó által meghatározott kapcsolattartó</value>
+  </data>
+  <data name="NoReportedDataForThisServiceOrderTime" xml:space="preserve">
+    <value>Ehhez a munkához még nem lettek adatok rögzítve</value>
+  </data>
+  <data name="NoServiceLocationSpecified" xml:space="preserve">
+    <value>A javítás helye nincs megadva</value>
+  </data>
+  <data name="Diagnosis" xml:space="preserve">
+    <value>Diagnózis</value>
+  </data>
+  <data name="CausingItem" xml:space="preserve">
+    <value>Okozó cikk</value>
+  </data>
+  <data name="InternalInformationDoNotRedirect" xml:space="preserve">
+    <value>Mejegyzések belső használatra. Fontos: Csak belső használatra, kérjük ne továbbítsa.</value>
+  </data>
+  <data name="PleaseSpecifyReasonForInvoice" xml:space="preserve">
+    <value>Kérem válasszon elszámolási alapot</value>
+  </data>
+  <data name="InvoiceReason" xml:space="preserve">
+    <value>Elszámolás alapja</value>
+  </data>
+  <data name="InstallationStillUnderWarranty" xml:space="preserve">
+    <value>{Installation} még garanciális</value>
+  </data>
+  <data name="InstallationWasStillUnderWarrantyWhenServiceOrderWasReported" xml:space="preserve">
+    <value>{Installation} még garanciális, ahogy az a szervízrendelésbe jelezve lett.</value>
+  </data>
+  <data name="ServiceOrderWithOpenDispatchesStatusChangeHint" xml:space="preserve">
+    <value>A szervizrendelés nyitott kiszállásokat tartalmaz</value>
+  </data>
+  <data name="AddToReplenishmentOrder" xml:space="preserve">
+    <value>Utánrendeléshez csatol</value>
+  </data>
+  <data name="UpdateInReplenishmentOrder" xml:space="preserve">
+    <value>Utánrendelésben frissíteni</value>
+  </data>
+  <data name="NoNotes" xml:space="preserve">
+    <value>Ehhez az kiszálláshoz nem található megjegyzés</value>
+  </data>
+  <data name="CreateAdHocOrder" xml:space="preserve">
+    <value>{AdHocServiceOrder} létrehozása</value>
+  </data>
+  <data name="ExactPlace" xml:space="preserve">
+    <value>Pontos helyszín</value>
+  </data>
+  <data name="Room" xml:space="preserve">
+    <value>Szoba</value>
+  </data>
+  <data name="HeadOfService" xml:space="preserve">
+    <value>Szervizvezető</value>
+  </data>
+  <data name="InternalService" xml:space="preserve">
+    <value>Belső szervizes</value>
+  </data>
+  <data name="ServiceBackOffice" xml:space="preserve">
+    <value>Szervizmérnök</value>
+  </data>
+  <data name="FieldService" xml:space="preserve">
+    <value>Szerviztechnikus</value>
+  </data>
+  <data name="APIUser" xml:space="preserve">
+    <value>API felhasználó</value>
+  </data>
+  <data name="DetailsTechnicianInfo" xml:space="preserve">
+    <value>Részletes információk a szervizeseknek</value>
+  </data>
+  <data name="AddSkill" xml:space="preserve">
+    <value>Képzettség hozzáadása</value>
+  </data>
+  <data name="MaterialAdd" xml:space="preserve">
+    <value>Anyag hozzáadása</value>
+  </data>
+  <data name="MaterialDelete" xml:space="preserve">
+    <value>Anyag törlése</value>
+  </data>
+  <data name="MaterialEdit" xml:space="preserve">
+    <value>Anyag módosítása</value>
+  </data>
+  <data name="MaterialNew" xml:space="preserve">
+    <value>Új anyag hozzáadása</value>
+  </data>
+  <data name="MaterialSerialRemove" xml:space="preserve">
+    <value>Sorozatszám eltávolítása</value>
+  </data>
+  <data name="MaterialSerialSave" xml:space="preserve">
+    <value>Sorozatszám  mentése</value>
+  </data>
+  <data name="MaterialSerialsEdit" xml:space="preserve">
+    <value>Sorozatszám kidolgozása</value>
+  </data>
+  <data name="RemoveDispatch" xml:space="preserve">
+    <value>Kiszállás eltávolítása</value>
+  </data>
+  <data name="RemoveSkill" xml:space="preserve">
+    <value>Képzettség eltávolítása</value>
+  </data>
+  <data name="SaveDispatch" xml:space="preserve">
+    <value>Kiszállás mentése</value>
+  </data>
+  <data name="SetHeadCommissioningStatus" xml:space="preserve">
+    <value>Állapot beállítása</value>
+  </data>
+  <data name="SinglePostingEdit" xml:space="preserve">
+    <value>egyes könyvelések szerkesztése</value>
+  </data>
+  <data name="TimeAdd" xml:space="preserve">
+    <value>Idő hozzárendelése</value>
+  </data>
+  <data name="TimeDelete" xml:space="preserve">
+    <value>Idő törlése</value>
+  </data>
+  <data name="TimeEdit" xml:space="preserve">
+    <value>Idő szerkesztése</value>
+  </data>
+  <data name="TimeNew" xml:space="preserve">
+    <value>Új idő hozzárendelése</value>
+  </data>
+  <data name="TimePostingRemove" xml:space="preserve">
+    <value>Idő könyvelés eltávolítása</value>
+  </data>
+  <data name="TimePostingSave" xml:space="preserve">
+    <value>Idő könyvelése mentése</value>
+  </data>
+  <data name="TimePostingsEdit" xml:space="preserve">
+    <value>Idő könyvelés szerkesztése</value>
+  </data>
+  <data name="TimeSave" xml:space="preserve">
+    <value>Idő mentése</value>
+  </data>
+  <data name="AssignSkill" xml:space="preserve">
+    <value>Képzettség hozzárendelése</value>
+  </data>
+  <data name="SeeTechnicianChoice" xml:space="preserve">
+    <value>Szervizes kiválasztásának megtekintése</value>
+  </data>
+  <data name="CrmService_ServiceObject" xml:space="preserve">
+    <value>{ServiceObjects}</value>
+  </data>
+  <data name="RelatedDispatchesForServiceObject" xml:space="preserve">
+    <value>{ServiceObject}hoz tartozó kiszállások</value>
+  </data>
+  <data name="RelatedOrdersForServiceObject" xml:space="preserve">
+    <value>{ServiceObject}hoz tartozó {ServiceOrders}ek</value>
+  </data>
+  <data name="ObjectNo" xml:space="preserve">
+    <value>Tárgy száma</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>Mobil</value>
+  </data>
+  <data name="ServiceOrderDispatchOf" xml:space="preserve">
+    <value>{0} {1} kiszállásai {2} {3} napon</value>
+  </data>
+  <data name="ServiceReportForServiceOrder" xml:space="preserve">
+    <value>Szerviz jelentés a {0} szervizrendeléshez</value>
+  </data>
+  <data name="NoContactsFromServiceObject" xml:space="preserve">
+    <value>There are no contacts associated with this {ServiceObject}</value>
+  </data>
+  <data name="ServiceObjectMustHaveAddressToAddPerson" xml:space="preserve">
+    <value>The {ServiceObject} must have at least one Address to be able to add a Contact Person.</value>
+  </data>
+  <data name="InitiatorPerson" xml:space="preserve">
+    <value>Kontakt személy a kezdeményezőnél</value>
+  </data>
+  <data name="ServiceCaseKey" xml:space="preserve">
+    <value>Service Case No.</value>
+  </data>
+  <data name="CreateMaintenanceContract" xml:space="preserve">
+    <value>Karbantartási szerződés létrehozása</value>
+  </data>
+  <data name="CreateMaintenanceOrder" xml:space="preserve">
+    <value>Karbantartási rendelés létrehozása</value>
+  </data>
+  <data name="ServiceContractNumber" xml:space="preserve">
+    <value>Szervizszerződés száma</value>
+  </data>
+  <data name="CrmService_ServiceOrderDispatchStatus" xml:space="preserve">
+    <value>Kiszállás Státusz</value>
+  </data>
+  <data name="CrmService_ServiceOrderDispatch" xml:space="preserve">
+    <value>Kiszállások</value>
+  </data>
+  <data name="CrmService_ServiceOrderDispatchRejectReason" xml:space="preserve">
+    <value>Kiszállás visszautasítási indok</value>
+  </data>
+  <data name="InvoicedUntil" xml:space="preserve">
+    <value>Számlázva</value>
+  </data>
+  <data name="SetHeadStatus" xml:space="preserve">
+    <value>Fej státuszának beállítása</value>
+  </data>
+  <data name="ReplenishmentOrderIsAlreadyClosed" xml:space="preserve">
+    <value>Utánrendelés már le van zárva</value>
+  </data>
+  <data name="ServicePlanner" xml:space="preserve">
+    <value>Szerviztervező</value>
+  </data>
+  <data name="DispatchRejectEmailSubject" xml:space="preserve">
+    <value>A {2} szervizrendeléshez tartozó kiszállás vissza lett utasítva {0} által.</value>
+  </data>
+  <data name="DispatchRejectEmailText" xml:space="preserve">
+    <value>A {2} szervizrendeléshez tartozó {1} tervezett időponttal rendelkező kiszállás vissza lett utasítva {0} által. ({3})</value>
+  </data>
+  <data name="CrmService_ErrorCode" xml:space="preserve">
+    <value>Hibakód</value>
+  </data>
+  <data name="ReallyComplete?" xml:space="preserve">
+    <value>Biztosan befejezi ezt a csekklistát?</value>
+  </data>
+  <data name="CurrentOrders" xml:space="preserve">
+    <value>Jelenlegi rendelések</value>
+  </data>
+  <data name="CrmService_InstallationAddressRelationshipType" xml:space="preserve">
+    <value>{Installation} cím típus</value>
+  </data>
+  <data name="CrmService_InstallationHeadStatus" xml:space="preserve">
+    <value>{Installation} státusz</value>
+  </data>
+  <data name="CrmService_ServiceContractAddressRelationshipType" xml:space="preserve">
+    <value>{ServiceContract} cím típus</value>
+  </data>
+  <data name="CrmService_Manufacturer" xml:space="preserve">
+    <value>Gyártók</value>
+  </data>
+  <data name="ServiceCaseNo" xml:space="preserve">
+    <value>{ServiceCase} sz.</value>
+  </data>
+  <data name="AssignedToYou (Initiator) [service orders]" xml:space="preserve">
+    <value>Hozzárendelve (Kezdeményező)</value>
+  </data>
+  <data name="AssignedToYou (Owner) [service orders]" xml:space="preserve">
+    <value>Hozzárendelve (Tulajdonos)</value>
+  </data>
+  <data name="Closed (Initiator) [service orders]" xml:space="preserve">
+    <value>Lezárt (Kezdeményező)</value>
+  </data>
+  <data name="Closed (Owner) [service orders]" xml:space="preserve">
+    <value>Lezárt (Tulajdonos)</value>
+  </data>
+  <data name="Open (Initiator) [service orders]" xml:space="preserve">
+    <value>Nyitott (Kezdeményező)</value>
+  </data>
+  <data name="Open (Owner) [service orders]" xml:space="preserve">
+    <value>Nyitott (Tulajdonos)</value>
+  </data>
+  <data name="InitiatorId" xml:space="preserve">
+    <value>Cég (Kezdeményező)</value>
+  </data>
+  <data name="Active [Service contracts]" xml:space="preserve">
+    <value>Aktív</value>
+  </data>
+  <data name="AssignedToYou [service cases]" xml:space="preserve">
+    <value>Hozzád rendelve</value>
+  </data>
+  <data name="Closed [service cases]" xml:space="preserve">
+    <value>Lezárt</value>
+  </data>
+  <data name="Inactive [Service contracts]" xml:space="preserve">
+    <value>Inaktív</value>
+  </data>
+  <data name="Open [service cases]" xml:space="preserve">
+    <value>Nyitott</value>
+  </data>
+  <data name="StayHere" xml:space="preserve">
+    <value>Itt maradok</value>
+  </data>
+  <data name="UnsavedAddressModificationsDetected" xml:space="preserve">
+    <value>Nem mentett módosításai vannak ebben a címben. Mentés nélkül az összes módosítása elveszik.</value>
+  </data>
+  <data name="PosNo" xml:space="preserve">
+    <value>Pozíció</value>
+  </data>
+  <data name="ServiceOrderTime" xml:space="preserve">
+    <value>Munka</value>
+  </data>
+  <data name="ServiceOrderTimePosting" xml:space="preserve">
+    <value>Szerviz időbejegyzés</value>
+  </data>
+  <data name="RuleViolation.UserHasPendingDispatches" xml:space="preserve">
+    <value>A felhasználónak vannak nem lezárt kiszállásai.</value>
+  </data>
+  <data name="ServiceContractAddressRelationshipType" xml:space="preserve">
+    <value>Szervízszerződés cím kapcsolattípus</value>
+  </data>
+  <data name="NegativeTimeInputNotValid" xml:space="preserve">
+    <value>Negatív idő bevitele nem érvényes</value>
+  </data>
+  <data name="OverlappingByFromOrderNo" xml:space="preserve">
+    <value>Átfedve {0} által ({1} - {2}) {3} rendelésből</value>
+  </data>
+  <data name="TimeOverlappsByAction" xml:space="preserve">
+    <value>A bevitt idő átfedve egy eseménnyel: \"{action}\" {from}-tól {to}-ig</value>
+  </data>
+  <data name="Dispatch" xml:space="preserve">
+    <value>Kiszállás</value>
+  </data>
+  <data name="CreateItem" xml:space="preserve">
+    <value>Elem készítése</value>
+  </data>
+  <data name="DeleteItem" xml:space="preserve">
+    <value>Elem törlése</value>
+  </data>
+  <data name="EditItem" xml:space="preserve">
+    <value>Elem szerkesztése</value>
+  </data>
+  <data name="ReplenishmentsFromOtherUsersSelectable" xml:space="preserve">
+    <value>Felhasználó utánrendelésének szerkesztése</value>
+  </data>
+  <data name="SaveMaterial" xml:space="preserve">
+    <value>Anyag szerkesztése</value>
+  </data>
+  <data name="ReplenishmentOrderItem" xml:space="preserve">
+    <value>Utánrendelés elemei</value>
+  </data>
+  <data name="AddressRelationshipType" xml:space="preserve">
+    <value>Cím kapcsolattípus</value>
+  </data>
+  <data name="ServiceContractInstallationRelationship" xml:space="preserve">
+    <value>Szervízszerződés-berendezés kapcsolat</value>
+  </data>
+  <data name="ServiceOrderChecklist" xml:space="preserve">
+    <value>Szervizrendelés csekklista</value>
+  </data>
+  <data name="ServiceOrderDispatchRejectReason" xml:space="preserve">
+    <value>Kiszállás visszautasításának oka</value>
+  </data>
+  <data name="ServiceOrderDispatchStatus" xml:space="preserve">
+    <value>Kiszállás státusz</value>
+  </data>
+  <data name="ServiceOrderMaterial" xml:space="preserve">
+    <value>Szervizrendelés anyag</value>
+  </data>
+  <data name="ServiceOrderMaterialSerial" xml:space="preserve">
+    <value>Szervizrendelés anyag széria</value>
+  </data>
+  <data name="InstallationAddressRelationship" xml:space="preserve">
+    <value>Berendezés cím kapcsolat</value>
+  </data>
+  <data name="LinkResource" xml:space="preserve">
+    <value>Link</value>
+  </data>
+  <data name="NoServiceOrderTimeContainsYet" xml:space="preserve">
+    <value>A szervizrendelés még nem tartalmaz munkákat. Most hozzáadhatja az elsőt.</value>
+  </data>
+  <data name="AddServiceOrderTime" xml:space="preserve">
+    <value>Munka hozzáadása</value>
+  </data>
+  <data name="TimeEntryReportFromUserMonth" xml:space="preserve">
+    <value>{0} időbejegyzése {1}</value>
+  </data>
+  <data name="CrmService_SparePartsBudgetInvoiceType" xml:space="preserve">
+    <value>Alkatrész-költségvetés számlázási típusok</value>
+  </data>
+  <data name="CrmService_SparePartsBudgetTimeSpanUnit" xml:space="preserve">
+    <value>Alkatrész időegységek</value>
+  </data>
+  <data name="EnterCustomAddress" xml:space="preserve">
+    <value>Kattintson ide az egyedi cím megadásához</value>
+  </data>
+  <data name="MissingCustomerSignature" xml:space="preserve">
+    <value>Az ügyfél aláírása hiányzik. A rendelés nem zárható le.</value>
+  </data>
+  <data name="RuleViolation.PreviousSerialNoRequired" xml:space="preserve">
+    <value>Az előző szériaszám vagy a hiányzó szériaszám indoklásának megadása kötelező.</value>
+  </data>
+  <data name="SerialNoRequired" xml:space="preserve">
+    <value>A szériaszám vagy a hiányzó szériaszám indoklásának megadása kötelező.</value>
+  </data>
+  <data name="CausingItemRequired" xml:space="preserve">
+    <value>Az okozó cikk megadása kötelező.</value>
+  </data>
+  <data name="CrmService_CommissioningStatus" xml:space="preserve">
+    <value>Komissió státuszok</value>
+  </data>
+  <data name="CrmService_Component" xml:space="preserve">
+    <value>Komponensek</value>
+  </data>
+  <data name="CrmService_InstallationType" xml:space="preserve">
+    <value>Berendezés típusok</value>
+  </data>
+  <data name="CrmService_MonitoringDataType" xml:space="preserve">
+    <value>Monitorozó adattípusok</value>
+  </data>
+  <data name="CrmService_NoCausingItemPreviousSerialNoReason" xml:space="preserve">
+    <value>Felelős cíkk hiányzó régi szériaszámának okai</value>
+  </data>
+  <data name="CrmService_NoCausingItemSerialNoReason" xml:space="preserve">
+    <value>Felelős cíkk hiányzó szériaszámának okai</value>
+  </data>
+  <data name="CrmService_NoPreviousSerialNoReason" xml:space="preserve">
+    <value>Hiányzó régi szériaszám okai</value>
+  </data>
+  <data name="CrmService_PostingCode" xml:space="preserve">
+    <value>Kiküldési számok</value>
+  </data>
+  <data name="CrmService_PostingOrigin" xml:space="preserve">
+    <value>Kiküldés eredete</value>
+  </data>
+  <data name="CrmService_ServiceCaseCategory" xml:space="preserve">
+    <value>Szervizeset kategóriák</value>
+  </data>
+  <data name="CrmService_ServiceCaseStatus" xml:space="preserve">
+    <value>Szervizeset státuszok</value>
+  </data>
+  <data name="CrmService_ServiceContractLimitType" xml:space="preserve">
+    <value>Szervizszerződés limit típusok</value>
+  </data>
+  <data name="CrmService_ServiceContractType" xml:space="preserve">
+    <value>Szervizszerződés típusok</value>
+  </data>
+  <data name="CrmService_ServiceObjectCategory" xml:space="preserve">
+    <value>Szervizobjektum kategóriák</value>
+  </data>
+  <data name="CrmService_ServiceOrderInvoiceReason" xml:space="preserve">
+    <value>Szerviz rendelés számla okai</value>
+  </data>
+  <data name="CorrespondingOrderWasClosed" xml:space="preserve">
+    <value>A szervizrendelés le lett zárva, ezért a kapcsolódó és nem lezárt kiszállások automatikusan lezárásra kerültek.</value>
+  </data>
+  <data name="CorrespondingOrderWasSetToPostProcessing" xml:space="preserve">
+    <value>A szervizrendelés utófeldolgozásra lett állítva, ezért a kapcsolódó és nem lezárt kiszállások automatikusan lezárásra kerültek.</value>
+  </data>
+  <data name="DispatchFollowUpOrderEmailSubject" xml:space="preserve">
+    <value>Követő rendelés szükséges a következőhöz {0}</value>
+  </data>
+  <data name="DispatchFollowUpOrderEmailText" xml:space="preserve">
+    <value>{0} technikus jelentette {1}-án, hogy követő rendelés szükséges</value>
+  </data>
+  <data name="CrmService_ServiceOrderNoInvoiceReason" xml:space="preserve">
+    <value>Szerviz rendelés számlamentesség okai</value>
+  </data>
+  <data name="CrmService_ServiceOrderStatus" xml:space="preserve">
+    <value>Szerviz rendelés státuszok</value>
+  </data>
+  <data name="CrmService_ServiceOrderTimeCategory" xml:space="preserve">
+    <value>Szerviz munka kategóriák</value>
+  </data>
+  <data name="CrmService_ServiceOrderTimeLocation" xml:space="preserve">
+    <value>Szerviz rendelési idő lokációk</value>
+  </data>
+  <data name="CrmService_ServiceOrderTimePriority" xml:space="preserve">
+    <value>Szerviz rendelési idő fontossági sorrendek</value>
+  </data>
+  <data name="CrmService_ServiceOrderTimeScannedValueTypes" xml:space="preserve">
+    <value>Techinkusok által scannelt érték adattípusok</value>
+  </data>
+  <data name="CrmService_ServiceOrderTimeStatus" xml:space="preserve">
+    <value>Szerviz munka státuszok</value>
+  </data>
+  <data name="CrmService_ServiceOrderType" xml:space="preserve">
+    <value>Szerviz rendelés típus</value>
+  </data>
+  <data name="CrmService_ServicePriority" xml:space="preserve">
+    <value>Szerviz rendelés fontossági sorrendek</value>
+  </data>
+  <data name="CrmService_TimeScale" xml:space="preserve">
+    <value>Idő skála</value>
+  </data>
+  <data name="CrmService_ServiceContractStatus" xml:space="preserve">
+    <value>Szervizszerződés státuszok</value>
+  </data>
+  <data name="ConfirmDeleteServiceContract" xml:space="preserve">
+    <value>Biztosan törölni akarja ezt a szervizszerződést?</value>
+  </data>
+  <data name="OfflineCreatedServiceOrderLimit" xml:space="preserve">
+    <value>Az offline létrehozható szerviz rendelések határát elérte. Kérem szinkronizáljon, hogy újabb rendeléseket hozhasson létre.</value>
+  </data>
+  <data name="NoRecipientsForReplenishmentOrder" xml:space="preserve">
+    <value>Nincs egyetlen címzett sem hozzárendelve a pótló rendeléshez.</value>
+  </data>
+  <data name="CloseReasonPlaceholder" xml:space="preserve">
+    <value>Kérjük, adjon okot</value>
+  </data>
+  <data name="CloseServiceOrder" xml:space="preserve">
+    <value>Szervizrendelés lezárása</value>
+  </data>
+  <data name="FastLane" xml:space="preserve">
+    <value>Fast lane</value>
+  </data>
+  <data name="IsFastLane" xml:space="preserve">
+    <value>Fast lane</value>
+  </data>
+  <data name="OpenDispatches" xml:space="preserve">
+    <value>Mutassa a kiszállásokat</value>
+  </data>
+  <data name="Expired" xml:space="preserve">
+    <value>Lejárt</value>
+  </data>
+  <data name="EditSkill" xml:space="preserve">
+    <value>Képzettség szerkesztése</value>
+  </data>
+  <data name="DeleteSkill" xml:space="preserve">
+    <value>Képzettség törlése</value>
+  </data>
+  <data name="RuleViolation.RoundedMinutesRuleText" xml:space="preserve">
+    <value>Kérem használjon érvényes értéket a percek megadásához (00, 05, 10...)</value>
+  </data>
+  <data name="CreateInstallationHead" xml:space="preserve">
+    <value>{Installation} létrehozása</value>
+  </data>
+  <data name="DeleteInstallationHead" xml:space="preserve">
+    <value>{Installation} törlése</value>
+  </data>
+  <data name="CreateInstallationPos" xml:space="preserve">
+    <value>Az {Installation} helye</value>
+  </data>
+  <data name="DeleteInstallationPos" xml:space="preserve">
+    <value>A {Installation} pozíciójának törlése</value>
+  </data>
+  <data name="CreateMaintenanceRhythm" xml:space="preserve">
+    <value>Karbantartási ciklus létrehozása</value>
+  </data>
+  <data name="DeleteMaintenanceRhythm" xml:space="preserve">
+    <value>Karbantartási ciklus törlése</value>
+  </data>
+  <data name="EditServiceOrderHead" xml:space="preserve">
+    <value>Szervizrendelés fejlécének szerkesztése</value>
+  </data>
+  <data name="DeleteServiceOrderHead" xml:space="preserve">
+    <value>Szervizrendelés törlése</value>
+  </data>
+  <data name="CreateTemplateOrderHead" xml:space="preserve">
+    <value>Minta szerződés létrehozása</value>
+  </data>
+  <data name="EditTemplateOrderHead" xml:space="preserve">
+    <value>Szerződésminta szerkesztése</value>
+  </data>
+  <data name="DeleteTemplateOrderHead" xml:space="preserve">
+    <value>Minta rendelés törlése</value>
+  </data>
+  <data name="EditServiceOrderTime" xml:space="preserve">
+    <value>Munka szerkesztése</value>
+  </data>
+  <data name="DeleteServiceOrderTime" xml:space="preserve">
+    <value>Munka törlése </value>
+  </data>
+  <data name="EditServiceOrderTimePosting" xml:space="preserve">
+    <value>Szerviz időjelentés szerkesztése</value>
+  </data>
+  <data name="DeleteServiceOrderTimePosting" xml:space="preserve">
+    <value>Szerviz időjelentés törlése</value>
+  </data>
+  <data name="EditServiceOrderMaterial" xml:space="preserve">
+    <value>Anyag szerkesztése</value>
+  </data>
+  <data name="DeleteServiceOrderMaterial" xml:space="preserve">
+    <value>Anyag törlése</value>
+  </data>
+  <data name="EditServiceOrderNotification" xml:space="preserve">
+    <value>Szerviz hibajelentés szerkesztése</value>
+  </data>
+  <data name="DeleteServiceOrderNotification" xml:space="preserve">
+    <value>Szerviz hibajelentés törlése</value>
+  </data>
+  <data name="EditServiceOrderDispatch" xml:space="preserve">
+    <value>Szervizrendelés kiszállás szerkesztése</value>
+  </data>
+  <data name="DeleteServiceOrderDispatch" xml:space="preserve">
+    <value>Szervizrendeléshez kapcsolt kiszállás törlése</value>
+  </data>
+  <data name="AppointmentConfirmation" xml:space="preserve">
+    <value>Találkozó megerősítése</value>
+  </data>
+  <data name="AppointmentConfirmationHint" xml:space="preserve">
+    <value>Itt találhatóak a rendelés kapcsolattartói. Találkozó megerősítő E-mail küldése vagy telefonhívás és találkozó megerősítése szóban.</value>
+  </data>
+  <data name="AppointmentEmptyState" xml:space="preserve">
+    <value>Nem található kapcsolattartó ehhez a rendeléshez.</value>
+  </data>
+  <data name="AppointmentRequest" xml:space="preserve">
+    <value>Találkozó kérés</value>
+  </data>
+  <data name="AppointmentRequestHint" xml:space="preserve">
+    <value>Itt találhatóak a rendelés kapcsolattartói. Találkozó kérő E-mail küldése vagy telefonhívás és találkozó kérése szóban.</value>
+  </data>
+  <data name="ChooseJob" xml:space="preserve">
+    <value>Kiválaszt</value>
+  </data>
+  <data name="DeselectJob" xml:space="preserve">
+    <value>Kiválasztás törlése</value>
+  </data>
+  <data name="CreateCost" xml:space="preserve">
+    <value>További költség létrehozása</value>
+  </data>
+  <data name="CurrentServiceOrderTime" xml:space="preserve">
+    <value>Aktuális munka</value>
+  </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>Törölt</value>
+  </data>
+  <data name="DispatchCompletion" xml:space="preserve">
+    <value>Kiszállás befejezése</value>
+  </data>
+  <data name="DispatchIsAlreadySignedByCustomerAlert" xml:space="preserve">
+    <value>Ez a kiszállás jelenleg csak részlegesen szerkeszthető, mert az ügyfél már aláírta.</value>
+  </data>
+  <data name="DispatchIsClosedAlert" xml:space="preserve">
+    <value>Ez a kiszállás már nem szerkeszthető, mert már le lett zárva.</value>
+  </data>
+  <data name="DispatchIsRejectedAlert" xml:space="preserve">
+    <value>Ez a kiszállás már nem szerkeszthető, mert vissza lett utasítva.</value>
+  </data>
+  <data name="DispatchNotInProgressYetAlert" xml:space="preserve">
+    <value>Néhány funkció jelenleg nem elérhető, mert a kiszállás nincs 'Feldolgozás alatt' státuszban.</value>
+  </data>
+  <data name="DueDispatches" xml:space="preserve">
+    <value>Esedékes kiszállások</value>
+  </data>
+  <data name="EditCost" xml:space="preserve">
+    <value>További költségek szerkesztése</value>
+  </data>
+  <data name="NewDispatches" xml:space="preserve">
+    <value>Új kiszállások</value>
+  </data>
+  <data name="NoServiceOrderDocumentsInfo" xml:space="preserve">
+    <value>Nincs dokumentum hozzárendelve ehhez a rendeléshez.</value>
+  </data>
+  <data name="NoServiceOrderTimes" xml:space="preserve">
+    <value>Nincs felvett munka</value>
+  </data>
+  <data name="ReleaseDispatchImmediately" xml:space="preserve">
+    <value>Kiadás azonnal</value>
+  </data>
+  <data name="ReleaseDispatchImmediatelyInfo" xml:space="preserve">
+    <value>A találkozó azonnal meg lesz erősítve és elkezdheti a munkát.</value>
+  </data>
+  <data name="Reschedule" xml:space="preserve">
+    <value>Újratervezés</value>
+  </data>
+  <data name="RuleViolation.TimeAsStringRequiredFormatText" xml:space="preserve">
+    <value>Megfelelő formátum: óó:pp.</value>
+  </data>
+  <data name="ScheduleDispatch" xml:space="preserve">
+    <value>Kiszállás tervezése</value>
+  </data>
+  <data name="ServiceContractStatusSet" xml:space="preserve">
+    <value>Szervizszerződés státusza megváltozott. Új státusz: {0}</value>
+  </data>
+  <data name="ServiceOrderDeletedMessage" xml:space="preserve">
+    <value>A jelenlegi kiszálláshoz tartozó szervizrendelés törölve lett. Ön vissza lesz irányítva a kiszállások listájához.</value>
+  </data>
+  <data name="ServiceOrderDispatchDeletedMessage" xml:space="preserve">
+    <value>A jelenleg megnyitott kiszállás törölve lett. Ön vissza lesz irányítva a kiszállások listájához.</value>
+  </data>
+  <data name="ServiceOrderTimes" xml:space="preserve">
+    <value>Munkák</value>
+  </data>
+  <data name="TodaysDispatches" xml:space="preserve">
+    <value>Napi munkák</value>
+  </data>
+  <data name="TodaysDispatchesEmptySlate" xml:space="preserve">
+    <value>Nincs mára több függő kiszállás.</value>
+  </data>
+  <data name="ViewDispatch" xml:space="preserve">
+    <value>Kiszállás mutatása</value>
+  </data>
+  <data name="NotAllowedToEditOrder" xml:space="preserve">
+    <value>Ön nem jogosult ennek a rendelésnek a szerkesztésére</value>
+  </data>
+  <data name="T_Date" xml:space="preserve">
+    <value>Időpont</value>
+  </data>
+  <data name="DispatchConfirmed" xml:space="preserve">
+    <value>A találkozó megerősítve</value>
+  </data>
+  <data name="GenerateServiceOrder" xml:space="preserve">
+    <value>Korai szolgáltatásrendelés létrehozása</value>
+  </data>
+  <data name="CrmService_MaintenancePlan" xml:space="preserve">
+    <value>Karbantartási tervek</value>
+  </data>
+  <data name="CrmService_ServiceContractAddressRelationship" xml:space="preserve">
+    <value>{CrmService_ServiceContract}, {Crm_Address}</value>
+  </data>
+  <data name="NoInstallationPositionsInfo" xml:space="preserve">
+    <value>{ThisInstallation} berendezés még nem tartalmaz alkatrészt.</value>
+  </data>
+  <data name="ServiceOrderMaterialEmptySlate" xml:space="preserve">
+    <value>Nem áll rendelkezésre anyag/költség</value>
+  </data>
+  <data name="CrmService_InstallationAddressRelationship" xml:space="preserve">
+    <value>{Installation}-{Address}-{Relationships}</value>
+  </data>
+  <data name="ServiceOrderTimePostingEmptySlate" xml:space="preserve">
+    <value>Nincs elérhető időbeosztás</value>
+  </data>
+  <data name="CrmService_InstallationPos" xml:space="preserve">
+    <value>{Material} ({Installation})</value>
+  </data>
+  <data name="ServiceOrderTimeEmptySlate" xml:space="preserve">
+    <value>Nincs elérhető munka</value>
+  </data>
+  <data name="SchedulingInformation" xml:space="preserve">
+    <value>Tervezés</value>
+  </data>
+  <data name="RejectRemark" xml:space="preserve">
+    <value>megjegyzés az elutasításhoz</value>
+  </data>
+  <data name="ReadyForScheduling" xml:space="preserve">
+    <value>Készen áll az ütemezésre</value>
+  </data>
+  <data name="InstallationId" xml:space="preserve">
+    <value>Telepítési azonosító</value>
+  </data>
+  <data name="SelectTechnicianToSeeDates" xml:space="preserve">
+    <value>Kérem válasszon egy technikust, hogy láthassa a dátum áttekintést.</value>
+  </data>
+  <data name="ServiceOrderTemplate" xml:space="preserve">
+    <value>Szervizrendelés sablon</value>
+  </data>
+  <data name="ServiceOrderTemplates" xml:space="preserve">
+    <value>Szervizrendelés sablonok</value>
+  </data>
+  <data name="NoServiceOrderTemplates" xml:space="preserve">
+    <value>Nincs elérhető szerviz rendelés sablon.</value>
+  </data>
+  <data name="CreateServiceOrderTemplates" xml:space="preserve">
+    <value>Szerviz rendelés sablon létrehozása</value>
+  </data>
+  <data name="NewServiceOrderTemplate" xml:space="preserve">
+    <value>{ServiceOrderTemplate} létrehozása</value>
+  </data>
+  <data name="EstimatedDuration" xml:space="preserve">
+    <value>Becsült időtartam</value>
+  </data>
+  <data name="ServiceCaseTemplate" xml:space="preserve">
+    <value>Szervizeset sablon</value>
+  </data>
+  <data name="ServiceCaseTemplates" xml:space="preserve">
+    <value>Szervizeset sablonok</value>
+  </data>
+  <data name="BasicInformationServiceCase" xml:space="preserve">
+    <value>{BasicInformation} ({ServiceCase})</value>
+  </data>
+  <data name="CreateServiceCaseTemplate" xml:space="preserve">
+    <value>{ServiceCaseTemplate} létrehozása</value>
+  </data>
+  <data name="OriginatingServiceOrder" xml:space="preserve">
+    <value>Kezdeményező szervizrendelés</value>
+  </data>
+  <data name="OriginatingServiceOrderTime" xml:space="preserve">
+    <value>Kezdeményező munka</value>
+  </data>
+  <data name="CompletionDate" xml:space="preserve">
+    <value>Teljesítés dátuma</value>
+  </data>
+  <data name="CompletionUser" xml:space="preserve">
+    <value>Teljesítette</value>
+  </data>
+  <data name="CompletionServiceOrder" xml:space="preserve">
+    <value>Befejező szervizrendelés</value>
+  </data>
+  <data name="AddToServiceOrder" xml:space="preserve">
+    <value>Szervizrendeléshez rendelés</value>
+  </data>
+  <data name="AddToServiceOrderTime" xml:space="preserve">
+    <value>Munkához rendelés</value>
+  </data>
+  <data name="JobPerServiceCase" xml:space="preserve">
+    <value>Szervizmunka szervizesetenként</value>
+  </data>
+  <data name="CannotCreateServiceOrderForMultipleInstallationsInOrderPerInstallationMode" xml:space="preserve">
+    <value>Nem hozható létre szervizrendelés több eszközaktához</value>
+  </data>
+  <data name="StatusNotSettable" xml:space="preserve">
+    <value>A kiválasztott státusz nem megfelelő hozzá:
+{0}</value>
+  </data>
+  <data name="AndXAdditional" xml:space="preserve">
+    <value>további {0}</value>
+  </data>
+  <data name="CompanyServiceOrdersEmptyState" xml:space="preserve">
+    <value>Nem található szervizrendelés ehhez a céghez</value>
+  </data>
+  <data name="InstallationServiceOrdersEmptyState" xml:space="preserve">
+    <value>Nem található szervizrendelés ehhez az eszközhöz</value>
+  </data>
+  <data name="ServiceContractServiceOrdersEmptyState" xml:space="preserve">
+    <value>Nem található szervizrendelés ehhez a szervizszerződéshez</value>
+  </data>
+  <data name="InstallationServiceCasesEmptyState" xml:space="preserve">
+    <value>Nem található szervizeset a {ThisInstallation} eszközaktához.</value>
+  </data>
+  <data name="CompleteJobWithOpenServiceCasesConfirmation" xml:space="preserve">
+    <value>Vannak nyitott státuszú szervizesetek ehhez az eszközaktához. Teljesíti mindenképp?</value>
+  </data>
+  <data name="NoServiceCasesAddedToServiceOrder" xml:space="preserve">
+    <value>Ehhez a szervizrendeléshez nem volt szervizeset rendelve</value>
+  </data>
+  <data name="CrmService_ServiceCase" xml:space="preserve">
+    <value>Szervizesetek</value>
+  </data>
+  <data name="CrmService_ServiceCaseTemplate" xml:space="preserve">
+    <value>Szervizeset sablonok</value>
+  </data>
+  <data name="MyDispatches" xml:space="preserve">
+    <value>Kiszállásaim</value>
+  </data>
+  <data name="MaintenanceOrderGenerated" xml:space="preserve">
+    <value>Karbantartási rendelés generálva {0} szerviz szerződésből</value>
+  </data>
+  <data name="ServiceCaseCreatedNote" xml:space="preserve">
+    <value>Szolgáltatási eset létrehozva</value>
+  </data>
+  <data name="ServiceObjectCategory" xml:space="preserve">
+    <value>Szervizobjektum kategóriák</value>
+  </data>
+  <data name="NoCausingItemPreviousSerialNoReason" xml:space="preserve">
+    <value>Felelős cíkk hiányzó régi szériaszámának okai</value>
+  </data>
+  <data name="NoCausingItemSerialNoReason" xml:space="preserve">
+    <value>Felelős cíkk hiányzó szériaszámának okai</value>
+  </data>
+  <data name="InstallationAddressRelationshipType" xml:space="preserve">
+    <value>{Installation} cím típus</value>
+  </data>
+  <data name="ServiceOrderInvoiceReason" xml:space="preserve">
+    <value>Szerviz rendelés számla okai</value>
+  </data>
+  <data name="SparePartsBudgetInvoiceType" xml:space="preserve">
+    <value>Alkatrész-költségvetés számlázási típusok</value>
+  </data>
+  <data name="ServiceOrderNoInvoiceReason" xml:space="preserve">
+    <value>Szerviz rendelés számlamentesség okai</value>
+  </data>
+  <data name="ServiceContractStatus" xml:space="preserve">
+    <value>Szervizszerződés státuszok</value>
+  </data>
+  <data name="ServiceContractLimitType" xml:space="preserve">
+    <value>Szervizszerződés limit típusok</value>
+  </data>
+  <data name="MaintenanceOrder" xml:space="preserve">
+    <value>Karbantartási rendelés</value>
+  </data>
+  <data name="SparePartsBudgetTimeSpanUnit" xml:space="preserve">
+    <value>Alkatrész időegységek</value>
+  </data>
+  <data name="SeeAllUsersServiceOrders" xml:space="preserve">
+    <value>Összes felhasználó szervizrendelésének megtekintése</value>
+  </data>
+  <data name="SeeAllUsersDispatches" xml:space="preserve">
+    <value>Összes felhasználó kiszállásainak megtekintése</value>
+  </data>
+  <data name="AddInstallationPosition" xml:space="preserve">
+    <value>Berendezés alkatrész hozzáadása</value>
+  </data>
+  <data name="ServiceCaseTemplateEmptySlate" xml:space="preserve">
+    <value>Nincs elérhető Szervizeset sablon</value>
+  </data>
+  <data name="ServiceData" xml:space="preserve">
+    <value>Szolgáltatási törzsadatok</value>
+  </data>
+  <data name="ServiceProcessing" xml:space="preserve">
+    <value>Szerviz feldolgozás</value>
+  </data>
+  <data name="RuleViolation.ServiceOrderMustBeInPlannableState" xml:space="preserve">
+    <value>A szervizrendelésnek tervezhető státuszban kell lennie.</value>
+  </data>
+  <data name="EmptyTimes" xml:space="preserve">
+    <value>Nincs időjelentés hozzáadva ehhez a rendeléshez</value>
+  </data>
+  <data name="EmptyMaterials" xml:space="preserve">
+    <value>Nincs anyag hozzáadva ehhez a rendeléshez</value>
+  </data>
+  <data name="EmptyTimesAndMaterials" xml:space="preserve">
+    <value>Nincs anyag és időjelentés hozzáadva ehhez a rendeléshez</value>
+  </data>
+  <data name="SN_new" xml:space="preserve">
+    <value>SN új</value>
+  </data>
+  <data name="SN_old" xml:space="preserve">
+    <value>SN régi</value>
+  </data>
+  <data name="DispatchCompleted" xml:space="preserve">
+    <value>Kiszállás teljesítve</value>
+  </data>
+  <data name="DispatchCompletedBy" xml:space="preserve">
+    <value>Kiszállás teljesítve {0} által {1} időpontban.</value>
+  </data>
+  <data name="ServiceOrderDispatchCompletedNote" xml:space="preserve">
+    <value>Kiszállás teljesülés</value>
+  </data>
+  <data name="CrmService_ServiceOrderDispatchReportRecipient" xml:space="preserve">
+    <value>Riport címzettek</value>
+  </data>
+  <data name="ServiceCaseDraftCreatedNotification" xml:space="preserve">
+    <value>Szervíz eset vázlat elkészült</value>
+  </data>
+  <data name="DispatchLocationMissingWarning" xml:space="preserve">
+    <value>Nem adta meg a kiszállás helyét. Ezért a távolság nem kerül kiszámításra!</value>
+  </data>
+  <data name="NonWMArticleWarning" xml:space="preserve">
+    <value>Nem raktáron felügyelt cikkre váltva a meglévő utánrendelési tétele törlődik.</value>
+  </data>
+  <data name="IsCostLumpSum" xml:space="preserve">
+    <value>A költségek egyösszegűek</value>
+  </data>
+  <data name="IsMaterialLumpSum" xml:space="preserve">
+    <value>Az anyag egyösszegű</value>
+  </data>
+  <data name="IsTimeLumpSum" xml:space="preserve">
+    <value>Az idő egyösszegű</value>
+  </data>
+  <data name="LumpSum" xml:space="preserve">
+    <value>Átalány</value>
+  </data>
+  <data name="ContainsLumpSumPositions" xml:space="preserve">
+    <value>Egyes {0} típusú tételek átalányösszeg részeként biztosítottak.</value>
+  </data>
+  <data name="ServiceOrderCategory" xml:space="preserve">
+    <value>Szervizrendelés típusa</value>
+  </data>
+  <data name="ServiceOrderDetails" xml:space="preserve">
+    <value>Szervizrendelés részletei</value>
+  </data>
+  <data name="ReplenishmentOrderMessageBody" xml:space="preserve">
+    <value>Egy utánrendelés lezárásra került {0} napon {1} által.</value>
+  </data>
+  <data name="DefaultGreeting" xml:space="preserve">
+    <value>Tisztelt Hölgyem/Uram,</value>
+  </data>
+  <data name="MaterialArticleDeleted" xml:space="preserve">
+    <value>A jelenleg megnyitott anyaghoz tartozó cikk törlésre került.</value>
+  </data>
+  <data name="ServiceObjectId" xml:space="preserve">
+    <value>Szervizobjektum</value>
+  </data>
+  <data name="ServiceOrderTemplateId" xml:space="preserve">
+    <value>Szerviz rendelés sablon</value>
+  </data>
+  <data name="AffectedInstallationKey" xml:space="preserve">
+    <value>Érintett berendezés</value>
+  </data>
+  <data name="ServiceContractId" xml:space="preserve">
+    <value>Szervizszerződés</value>
+  </data>
+  <data name="GetNextFiveGenerations" xml:space="preserve">
+    <value>Következő 5 karbantartási dátum megjelenítése</value>
+  </data>
+  <data name="PrePlanned" xml:space="preserve">
+    <value>előre eltervezett</value>
+  </data>
+  <data name="StatisticsKey" xml:space="preserve">
+    <value>Statisztikai kulcs</value>
+  </data>
+  <data name="StatisticsKeyProductType" xml:space="preserve">
+    <value>Termék típus</value>
+  </data>
+  <data name="ProductTypeKey" xml:space="preserve">
+    <value>Termék típus</value>
+  </data>
+  <data name="StatisticsKeyMainAssembly" xml:space="preserve">
+    <value>Főkategória</value>
+  </data>
+  <data name="MainAssemblyKey" xml:space="preserve">
+    <value>Főkategória</value>
+  </data>
+  <data name="StatisticsKeySubAssembly" xml:space="preserve">
+    <value>Alkategória</value>
+  </data>
+  <data name="SubAssemblyKey" xml:space="preserve">
+    <value>Alkategória</value>
+  </data>
+  <data name="StatisticsKeyAssemblyGroup" xml:space="preserve">
+    <value>Alkatrész</value>
+  </data>
+  <data name="AssemblyGroupKey" xml:space="preserve">
+    <value>Alkatrész</value>
+  </data>
+  <data name="StatisticsKeyFaultImage" xml:space="preserve">
+    <value>Hiba típusa</value>
+  </data>
+  <data name="StatisticsKeyFaultImageKey" xml:space="preserve">
+    <value>Hiba típusa</value>
+  </data>
+  <data name="StatisticsKeyRemedy" xml:space="preserve">
+    <value>Jogorvoslat</value>
+  </data>
+  <data name="StatisticsKeyCause" xml:space="preserve">
+    <value>A hiba oka</value>
+  </data>
+  <data name="StatisticsKeyWeighting" xml:space="preserve">
+    <value>Súlyozás</value>
+  </data>
+  <data name="StatisticsKeyCauser" xml:space="preserve">
+    <value>Felelős</value>
+  </data>
+  <data name="CrmService_StatisticsKeyProductType" xml:space="preserve">
+    <value>Termék típus</value>
+  </data>
+  <data name="CrmService_StatisticsKeyMainAssembly" xml:space="preserve">
+    <value>Főkategória</value>
+  </data>
+  <data name="CrmService_StatisticsKeySubAssembly" xml:space="preserve">
+    <value>Alkategória</value>
+  </data>
+  <data name="CrmService_StatisticsKeyAssemblyGroup" xml:space="preserve">
+    <value>Alkatrész</value>
+  </data>
+  <data name="CrmService_StatisticsKeyFaultImage" xml:space="preserve">
+    <value>Hiba típusa</value>
+  </data>
+  <data name="CrmService_StatisticsKeyRemedy" xml:space="preserve">
+    <value>Jogorvoslat</value>
+  </data>
+  <data name="CrmService_StatisticsKeyCause" xml:space="preserve">
+    <value>A hiba oka</value>
+  </data>
+  <data name="CrmService_StatisticsKeyWeighting" xml:space="preserve">
+    <value>Súlyozás</value>
+  </data>
+  <data name="CrmService_StatisticsKeyCauser" xml:space="preserve">
+    <value>Felelős</value>
+  </data>
+  <data name="MaintenancePlan" xml:space="preserve">
+    <value>Karbantartási tervek</value>
+  </data>
+  <data name="DispatchNo" xml:space="preserve">
+    <value>Kiszállás sorsz.</value>
+  </data>
+  <data name="CustomErrorMessage" xml:space="preserve">
+    <value>Egyedi hibaüzenet</value>
+  </data>
+  <data name="ErrorMessageSelection" xml:space="preserve">
+    <value>Hibaüzenet kiválasztása</value>
+  </data>
+  <data name="CanBeAddedAfterCustomerSignature" xml:space="preserve">
+    <value>Hozzáadható aláírás után</value>
+  </data>
+  <data name="CanBeEditedAfterCustomerSignature" xml:space="preserve">
+    <value>Szerkeszthető az aláírás után</value>
+  </data>
+  <data name="IsDefaultForServiceOrderTimes" xml:space="preserve">
+    <value>Alapértelmezett szervizfeladatokhoz</value>
+  </data>
+  <data name="IsHidden" xml:space="preserve">
+    <value>Elrejtés szolgáltatások hozzáadásakor</value>
+  </data>
+  <data name="ShowDistanceInput" xml:space="preserve">
+    <value>Utazási típus megjelenítése</value>
+  </data>
+  <data name="subPositions" xml:space="preserve">
+    <value>al Pozíciók </value>
+  </data>
+  <data name="BillOfMaterial" xml:space="preserve">
+    <value>Anyagjegyzék </value>
+  </data>
+  <data name="GroupItem" xml:space="preserve">
+    <value>tételcsoportot</value>
+  </data>
+  <data name="ThisGroupItem" xml:space="preserve">
+    <value>a {GroupItem}</value>
+  </data>
+  <data name="NoSubInstallationPositionsInfo" xml:space="preserve">
+    <value>{ThisGroupItem} berendezés még nem tartalmaz alkatrészt.</value>
+  </data>
+  <data name="T_IsInstalled" xml:space="preserve">
+    <value>Telepítve van</value>
+  </data>
+  <data name="InstalledPositions" xml:space="preserve">
+    <value>Telepített pozíciók</value>
+  </data>
+  <data name="AllPositions" xml:space="preserve">
+    <value>Minden pozíció</value>
+  </data>
+  <data name="BatchNo" xml:space="preserve">
+    <value>Tételszám</value>
+  </data>
+  <data name="Lot" xml:space="preserve">
+    <value>LOT</value>
+  </data>
+  <data name="OpenInstallation" xml:space="preserve">
+    <value>Megnyitása {Installation}</value>
+  </data>
+  <data name="RelatedInstallation" xml:space="preserve">
+    <value>Kapcsolódó {Installation}</value>
+  </data>
+  <data name="SN" xml:space="preserve">
+    <value>SN</value>
+  </data>
+  <data name="ExpandAll" xml:space="preserve">
+    <value>Minden bővítése</value>
+  </data>
+  <data name="CollapseAll" xml:space="preserve">
+    <value>Összes összecsukása</value>
+  </data>
+  <data name="RelatedInstallationPositionText" xml:space="preserve">
+    <value>Ez a pozíció a telepítéshez kapcsolódik</value>
+  </data>
+  <data name="WarrantySupplier" xml:space="preserve">
+    <value>Garancia a szállítónál</value>
+  </data>
+  <data name="WarrantyCustomer" xml:space="preserve">
+    <value>Garancia az ügyfélnél</value>
+  </data>
+  <data name="ScheduledDispatchesTooltip" xml:space="preserve">
+    <value>Beütemezett, de még el nem indított küldemények megjelenítése</value>
+  </data>
+  <data name="TimePostingsTooltip" xml:space="preserve">
+    <value>Szolgáltatási megbízásokból származó időkönyvelések megjelenítése</value>
+  </data>
+  <data name="AddInstallationRelationship" xml:space="preserve">
+    <value>Telepítés hozzáadása</value>
+  </data>
+  <data name="ShowDistanceInputInTimePostingHint" xml:space="preserve">
+    <value>Lehetővé teszi a technikus számára, hogy utazással kapcsolatos adatokat rögzítsen a szervizrendelés időbeosztásaiban.</value>
+  </data>
+  <data name="AddPersonRelationship" xml:space="preserve">
+    <value>Személy hozzáadása</value>
+  </data>
+  <data name="ServiceArticleIsHiddenInTimePostingHint" xml:space="preserve">
+    <value>A szervizcikk elrejtése a technikus elől szervizidő-jelentés létrehozása/szerkesztésekor.</value>
+  </data>
+  <data name="InstallationCompanyRelationships" xml:space="preserve">
+    <value>Telepítés-cég kapcsolatok</value>
+  </data>
+  <data name="EmailSelection" xml:space="preserve">
+    <value>email kiválasztás</value>
+  </data>
+  <data name="InstallationPersonRelationships" xml:space="preserve">
+    <value>Telepítés-személy kapcsolatok</value>
+  </data>
+  <data name="IncompleteServiceOrderHistoryHint" xml:space="preserve">
+    <value>Lehetséges, hogy a lista nem teljes. A kliens beállításai alapján a legutóbbi {0} nap lezárt szervizrendelés előzményei szinkronizálódnak. Ezt a &lt;a class="alert-link" href="#/Main/Account/UserProfile?tab=tab-replication-groups"&gt;szinkronizációs beállításoknál&lt;/a&gt; módosíthatja.</value>
+  </data>
+  <data name="CrmService_InstallationCompanyRelationship" xml:space="preserve">
+    <value>Telepítés-cég kapcsolat</value>
+  </data>
+  <data name="UpcomingDispatches" xml:space="preserve">
+    <value>Munkalista</value>
+  </data>
+  <data name="CrmService_InstallationCompanyRelationshipType" xml:space="preserve">
+    <value>Telepítés-cég kapcsolat típus</value>
+  </data>
+  <data name="CrmService_InstallationPersonRelationship" xml:space="preserve">
+    <value>Telepítés-személy kapcsolat</value>
+  </data>
+  <data name="CrmService_InstallationPersonRelationshipType" xml:space="preserve">
+    <value>Telepítés-személy kapcsolat típus</value>
+  </data>
+  <data name="InstallationAddressRelationships" xml:space="preserve">
+    <value>Telepítés-cím kapcsolatok</value>
+  </data>
+  <data name="AddAddressRelationship" xml:space="preserve">
+    <value>Cím kapcsolat hozzáadása</value>
+  </data>
+  <data name="RelatedServiceCases" xml:space="preserve">
+    <value>Kapcsolódó szervízesetek</value>
+  </data>
+  <data name="SeeRelatedServiceCases" xml:space="preserve">
+    <value>Lásd kapcsolódó szervízesetek</value>
+  </data>
+  <data name="ReportScheduledMaterial" xml:space="preserve">
+    <value>Tervezett anyag/költség jelentése</value>
+  </data>
+  <data name="PostProcessing" xml:space="preserve">
+    <value>Utófeldolgozás</value>
+  </data>
+  <data name="DispatchWasRejected" xml:space="preserve">
+    <value>A {0} {Dispatch} elutasítva {1} számára.</value>
+  </data>
+  <data name="RelatedDispatchesForOrder" xml:space="preserve">
+    <value>Szervizrendeléshez kapcsolódó kiszállítások</value>
+  </data>
+  <data name="InstallationUnderWarranty" xml:space="preserve">
+    <value>A {0} {Installation} még garanciális.</value>
+  </data>
+  <data name="ValidMaintenanceContractForTheCustomer" xml:space="preserve">
+    <value>Az ügyfél érvényes karbantartási szerződéssel rendelkezik.</value>
+  </data>
+  <data name="NoTimesReportedForDispatch" xml:space="preserve">
+    <value>A {1} kiszállás {2} dátummal nem rendelkezik {0} technikus által lejelentett idővel.</value>
+  </data>
+  <data name="ServiceCasesWithoutAssignment" xml:space="preserve">
+    <value>{ServiceCases} hozzárendelés nélkül</value>
+  </data>
+  <data name="CrmService_ServiceOrderExpensePosting" xml:space="preserve">
+    <value>Megrendelés specifikus költségek</value>
+  </data>
+  <data name="ExpensePostings" xml:space="preserve">
+    <value>Költségek</value>
+  </data>
+  <data name="ThereAreNoExpensePostings" xml:space="preserve">
+    <value>Jelenleg nincsenek költségek.</value>
+  </data>
+  <data name="NoUsedExpenses" xml:space="preserve">
+    <value>Nincs elszámolt költség</value>
+  </data>
+  <data name="IsServiceOrderExpense" xml:space="preserve">
+    <value>A szervizhívások költségtételei</value>
+  </data>
+  <data name="CrmService_ErrorType" xml:space="preserve">
+    <value>Hiba típusa</value>
+  </data>
+  <data name="DaysToNotifyBeforeExpiration" xml:space="preserve">
+    <value>Értesítsen ennyi nappal lejárat előtt</value>
+  </data>
+  <data name="CrmService_ServiceOrderErrorType" xml:space="preserve">
+    <value>{ServiceOrder} - hiba típusa</value>
+  </data>
+  <data name="CrmService_ServiceOrderErrorCause" xml:space="preserve">
+    <value>{ServiceOrder} - A hiba oka</value>
+  </data>
+  <data name="IsConfirmed" xml:space="preserve">
+    <value>Megerősítve</value>
+  </data>
+  <data name="IsSuspected" xml:space="preserve">
+    <value>Feltételezett</value>
+  </data>
+  <data name="IsMainErrorType" xml:space="preserve">
+    <value>Fő hibatípus</value>
+  </data>
+  <data name="AddErrorCause" xml:space="preserve">
+    <value>Hiba okának hozzáadása</value>
+  </data>
+  <data name="AddErrorType" xml:space="preserve">
+    <value>Hibatípus hozzáadása</value>
+  </data>
+  <data name="EditErrorCause" xml:space="preserve">
+    <value>Hiba oka szerkesztése</value>
+  </data>
+  <data name="EditErrorType" xml:space="preserve">
+    <value>Hiba típusának szerkesztése</value>
+  </data>
+  <data name="ErrorCauses" xml:space="preserve">
+    <value>A hibák okai</value>
+  </data>
+  <data name="ErrorType" xml:space="preserve">
+    <value>A hiba típusa</value>
+  </data>
+  <data name="ErrorTypes" xml:space="preserve">
+    <value>hibatípusok</value>
+  </data>
+  <data name="SkillsEmptyStateTitle" xml:space="preserve">
+    <value>Nincsenek képességek</value>
+  </data>
+  <data name="SkillsEmptyState" xml:space="preserve">
+    <value>Nincsenek képességek felvéve ehhez a felhasználóhoz</value>
+  </data>
+  <data name="NoErrorTypes" xml:space="preserve">
+    <value>Nincs rögzített hiba</value>
+  </data>
+  <data name="SkillKey" xml:space="preserve">
+    <value>Képesség</value>
+  </data>
+  <data name="ThereAreNoErrorTypes" xml:space="preserve">
+    <value>Jelenleg nincsenek hibák.</value>
+  </data>
+  <data name="ThereAreNoErrorCauses" xml:space="preserve">
+    <value>Jelenleg nincsenek hibaforrások.</value>
+  </data>
+  <data name="ViewServiceOrder" xml:space="preserve">
+    <value>Szervizrendelés megtekintése</value>
+  </data>
+  <data name="InfoForTechnician" xml:space="preserve">
+    <value>Információk a technikusnak</value>
+  </data>
+  <data name="AssignedTechnician" xml:space="preserve">
+    <value>Hozzárendelt technikus</value>
+  </data>
+  <data name="RuleViolation.QuantityForArticleWithSerialOneOrZero" xml:space="preserve">
+    <value>A sorozatszámmal ellátott cikk mennyisége csak nulla vagy egy lehet.</value>
+  </data>
+  <data name="NoServiceOrdersAddedToServiceCase" xml:space="preserve">
+    <value>Nem található szervizrendelés ehhez a {ThisServiceCase}</value>
+  </data>
+  <data name="Supplier" xml:space="preserve">
+    <value>Szállító</value>
+  </data>
+  <data name="CustomArticle" xml:space="preserve">
+    <value>Egyedi cikk</value>
+  </data>
+  <data name="InstallationRelationships" xml:space="preserve">
+    <value>Telepítési kapcsolatok</value>
+  </data>
+  <data name="OrArticleSelection" xml:space="preserve">
+    <value>vagy cikk választás</value>
+  </data>
+  <data name="ServiceCaseResponsibleUserChanged" xml:space="preserve">
+    <value>Felelős felhasználó beállítva a következőre: {0}</value>
+  </data>
+  <data name="StatisticsKeyCauseKey" xml:space="preserve">
+    <value>A hiba oka</value>
+  </data>
+  <data name="InitiatorPhone" xml:space="preserve">
+    <value>A kezdeményező telefonszáma</value>
+  </data>
+  <data name="InitiatorPersonPhone" xml:space="preserve">
+    <value>A kezdeményező személy telefonszáma</value>
+  </data>
+  <data name="ErrorCauseConfirmed" xml:space="preserve">
+    <value>A hiba oka megerősítést nyert: {0}</value>
+  </data>
+  <data name="ErrorTypeConfirmed" xml:space="preserve">
+    <value>A hiba megerősítést nyert: {0}</value>
+  </data>
+  <data name="ServiceOrderErrorCauseConfirmedNote" xml:space="preserve">
+    <value>A hiba oka megerosítve</value>
+  </data>
+  <data name="ServiceOrderErrorTypeConfirmedNote" xml:space="preserve">
+    <value>Hiba megerosítve</value>
+  </data>
+  <data name="NoInstallation" xml:space="preserve">
+    <value>Nincs {Installation}</value>
+  </data>
+  <data name="NoServiceCaseInstallationInfo" xml:space="preserve">
+    <value>Ehhez a {ServiceCase} hez nincs {Installation} hozzárendelve.</value>
+  </data>
+  <data name="ResponsibleUserSetToBy" xml:space="preserve">
+    <value>Felelős felhasználót állított be: {0} {1}</value>
+  </data>
+  <data name="ServiceCaseInformationChangedNote" xml:space="preserve">
+    <value>A szervizeset adatai megváltoztak</value>
+  </data>
+  <data name="ServiceCaseInformationChangedBy" xml:space="preserve">
+    <value>A szervizeset adatait módosította: {0} {1}</value>
+  </data>
+  <data name="ServiceCaseUserGroupChanged" xml:space="preserve">
+    <value>A felelős felhasználói csoport a következőre módosult: {0}</value>
+  </data>
+  <data name="ServiceCasePriorityChanged" xml:space="preserve">
+    <value>A szolgáltatási eset prioritása megváltozott a következőre: {0}</value>
+  </data>
+  <data name="ServiceCaseCategoryChanged" xml:space="preserve">
+    <value>A szolgáltatási eset kategóriája a következőre módosult: {0}</value>
+  </data>
+  <data name="ServiceCaseServiceObjectChanged" xml:space="preserve">
+    <value>Szolgáltatásobjektum módosítva erre: {0}</value>
+  </data>
+  <data name="ServiceCaseAffectedCompanyChanged" xml:space="preserve">
+    <value>Az érintett vállalat a következőre módosult: {0}</value>
+  </data>
+  <data name="ServiceCaseContactPersonChanged" xml:space="preserve">
+    <value>A kapcsolattartó személy megváltozott a következőre: {0}</value>
+  </data>
+  <data name="ServiceCaseAffectedInstallationChanged" xml:space="preserve">
+    <value>Az érintett eszközfájl a következőre módosult: {0}</value>
+  </data>
+  <data name="ServiceObjectServiceCasesEmptyState" xml:space="preserve">
+    <value>Ehhez a {ServiceObject}-hez nem kapcsolódik {ServiceCases}</value>
+  </data>
+  <data name="ServiceObjectServiceContractsEmptyState" xml:space="preserve">
+    <value>Ehhez a {ServiceObject}-hez nem kapcsolódik {ServiceContracts}</value>
+  </data>
+  <data name="ServiceObjectServiceOrdersEmptyState" xml:space="preserve">
+    <value>Ehhez a {ServiceObject}-hez nem kapcsolódik {ServiceOrders}</value>
+  </data>
+  <data name="InstallMaterialConfirmation" xml:space="preserve">
+    <value>Tényleg szeretné telepíteni ezt az anyagot?</value>
+  </data>
+  <data name="GracePeriodInDays" xml:space="preserve">
+    <value>Türelmi idő (napok)</value>
+  </data>
+  <data name="PrematureDate" xml:space="preserve">
+    <value>Előzetes dátum</value>
+  </data>
+  <data name="PrematureTime" xml:space="preserve">
+    <value>Előzetes időpont</value>
+  </data>
+  <data name="ScheduleFollowUpDispatch" xml:space="preserve">
+    <value>Terve utólagos küldés</value>
+  </data>
+  <data name="ScheduleFollowUpOrder" xml:space="preserve">
+    <value>Terve {FollowUpServiceOrder}</value>
+  </data>
+  <data name="Preparation" xml:space="preserve">
+    <value>Előkészítés</value>
+  </data>
+  <data name="Scheduling" xml:space="preserve">
+    <value>Ütemezés</value>
+  </data>
+  <data name="CancelDispatch" xml:space="preserve">
+    <value>Feladás törlése</value>
+  </data>
+  <data name="CancellationReason" xml:space="preserve">
+    <value>A lemondás oka</value>
+  </data>
+  <data name="DispatchIsCancelledAlert" xml:space="preserve">
+    <value>Ezt a küldeményt már nem lehet szerkeszteni, mert törölték.</value>
+  </data>
+  <data name="DispatchCancellationEmailIntroduction" xml:space="preserve">
+    <value>a küldeményt törölték, és nem dolgoznak tovább rajta.</value>
+  </data>
+  <data name="FollowingMaterialsHaveBeenUsed" xml:space="preserve">
+    <value>A következő anyagokat használták:</value>
+  </data>
+  <data name="NoMaterialsHaveBeenUsed" xml:space="preserve">
+    <value>Nem használtak fel semmilyen anyagot.</value>
+  </data>
+  <data name="FollowingTimesHaveBeenPosted" xml:space="preserve">
+    <value>A következő időpontokat írták ki:</value>
+  </data>
+  <data name="NoTimesHaveBeenPosted" xml:space="preserve">
+    <value>Időt nem írtak ki.</value>
+  </data>
+  <data name="DispatchStatusSetTo" xml:space="preserve">
+    <value>A feladási státusz {0}-ra lett állítva.</value>
+  </data>
+  <data name="CrmService_ServiceOrderDispatchCancellationReason" xml:space="preserve">
+    <value>A canelláció okai</value>
+  </data>
+  <data name="LotsTotalQuantityValidationMessage" xml:space="preserve">
+    <value>{Quantity} meg kell egyeznie a tételek összmennyiségével</value>
+  </data>
+  <data name="Batches" xml:space="preserve">
+    <value>Tételek</value>
+  </data>
+  <data name="CloseDate" xml:space="preserve">
+    <value>Feladás Zárás dátuma</value>
+  </data>
+  <data name="IsInitiatorBelongsToCustomer" xml:space="preserve">
+    <value>A kezdeményező a tulajdonoshoz tartozik?</value>
+  </data>
+  <data name="IsInitiatorNotBelongsToCustomer" xml:space="preserve">
+    <value>A kezdeményező nem a tulajdonoshoz tartozik?</value>
+  </data>
+  <data name="MyTeamDispatches" xml:space="preserve">
+    <value>Az én csapatom {Dispatches}</value>
+  </data>
+  <data name="AppointmentConfirmationBody" xml:space="preserve">
+    <value>Tisztelt Hölgyem/Uram,%0D%0A%0D%0A
+
+Ezúton megerősítjük a fent említett szerviz kiszállás időpontját az alábbiak szerint:%0D%0A%0D%0A
+
+{0} {1} óra%0D%0A</value>
+  </data>
+  <data name="AppointmentConfirmationSubject" xml:space="preserve">
+    <value>{AppointmentConfirmation}: {0}: kiszállás {1} {2} időpontban</value>
+  </data>
+  <data name="AppointmentRequestBody" xml:space="preserve">
+    <value>Tisztelt Hölgyem/Uram,%0D%0A%0D%0A
+
+A fent említett projektben történő szerviz kiszálláshoz az alábbi időpontot tudjuk felajánlani:%0D%0A%0D%0A
+
+{0} {1} óra%0D%0A%0D%0A
+Kérjük, erősítsék meg ezt az időpontot 3 napon belül, különben másnak adjuk át.%0D%0A</value>
+  </data>
+  <data name="AppointmentRequestSubject" xml:space="preserve">
+    <value>{AppointmentRequest}: {0}: kiszállás {1} {2} időpontban</value>
+  </data>
+  <data name="NoMaintenanceOrderLookup" xml:space="preserve">
+    <value>Nincs olyan szervízrendelés típus, ami karbantartásként van megjelölve. </value>
+  </data>
+  <data name="InvalidTimePostings" xml:space="preserve">
+    <value>Érvénytelen {TimePosting}</value>
+  </data>
+  <data name="TimeZone" xml:space="preserve">
+    <value>Időzóna</value>
+  </data>
+  <data name="DefaultInvoicingType" xml:space="preserve">
+    <value>Alapértelmezett számlázási típus</value>
+  </data>
+  <data name="CreateInvoice" xml:space="preserve">
+    <value>Számla készítése</value>
+  </data>
+  <data name="DispatchReopened" xml:space="preserve">
+    <value>Kiszállás újranyitva</value>
+  </data>
+  <data name="DispatchReopenedBy" xml:space="preserve">
+    <value>Kiszállás újranyitva {0} {1} által</value>
+  </data>
+  <data name="InvoicePreplannedCosts" xml:space="preserve">
+    <value>Válassza ki a számlázás előre megtervezett költségeit</value>
+  </data>
+  <data name="InvoicePreplannedMaterials" xml:space="preserve">
+    <value>Válassza ki a számlázás előre tervezett anyagát</value>
+  </data>
+  <data name="InvoicePreplannedTimePostings" xml:space="preserve">
+    <value>Előre tervezett időbejegyzések számlázása</value>
+  </data>
+  <data name="InvoiceUsedCosts" xml:space="preserve">
+    <value>Válassza ki a számlázáshoz felhasznált költségeket</value>
+  </data>
+  <data name="InvoiceUsedMaterials" xml:space="preserve">
+    <value>Válassza ki a számlázáshoz használt anyagot</value>
+  </data>
+  <data name="InvoiceUsedTimePostings" xml:space="preserve">
+    <value>Válassza ki a számlázáshoz használt időbeli hozzászólásokat</value>
+  </data>
+  <data name="OtherDispatches" xml:space="preserve">
+    <value>Többi kiszállás</value>
+  </data>
+  <data name="ServiceOrderDispatchReopenedNote" xml:space="preserve">
+    <value>Kiszállás újranyitva</value>
+  </data>
+  <data name="ServiceOrderMaterialTypeInvoice" xml:space="preserve">
+    <value>Számla</value>
+  </data>
+  <data name="ServiceOrderMaterialTypePreplanned" xml:space="preserve">
+    <value>Előre tervezett</value>
+  </data>
+  <data name="ServiceOrderMaterialTypeUsed" xml:space="preserve">
+    <value>Felhasznált</value>
+  </data>
+  <data name="ServiceOrderTimePostingTypeInvoice" xml:space="preserve">
+    <value>Számla</value>
+  </data>
+  <data name="ServiceOrderTimePostingTypePreplanned" xml:space="preserve">
+    <value>Előre tervezett</value>
+  </data>
+  <data name="ServiceOrderTimePostingTypeUsed" xml:space="preserve">
+    <value>Felhasznált</value>
+  </data>
+  <data name="ThisDispatch" xml:space="preserve">
+    <value>Ez a kiszállás</value>
+  </data>
+  <data name="ServiceOrderTimeDispatches" xml:space="preserve">
+    <value>Feladatok</value>
+  </data>
+  <data name="NoCompanyServiceCasesInfo" xml:space="preserve">
+    <value>Ehhez a vállalathoz nem találtak szolgáltatási eseteket</value>
+  </data>
+  <data name="ClosedDispatchesTooltip" xml:space="preserve">
+    <value>Lezárt kiszállások mutatása</value>
+  </data>
+  <data name="UpcomingDispatchesTooltip" xml:space="preserve">
+    <value>Aktuális kiszállások mutatása</value>
+  </data>
+  <data name="NoRecipientFound" xml:space="preserve">
+    <value>Nincsenek címzettek</value>
+  </data>
+  <data name="ServiceOrderStatusKeyNotDefined" xml:space="preserve">
+    <value>Szervizrendelés státusz nincs megadva ehhez a visszautasítási okhoz: {0}</value>
+  </data>
+  <data name="EditTimePostingWarningWhenDispatchClosed" xml:space="preserve">
+    <value>A kiszállást az ügyfél már aláírta. Kérjük, legyen óvatos az időjelentés szerkesztésekor.</value>
+  </data>
+  <data name="EditMaterialWarningWhenDispatchClosed" xml:space="preserve">
+    <value>A kiszállást az ügyfél már aláírta. Kérjük, legyen óvatos az anyagok szerkesztésekor.</value>
+  </data>
+  <data name="Relink" xml:space="preserve">
+    <value>Átmozgat</value>
+  </data>
+  <data name="RelinkServiceOrderTimePostingToOpenDispatch" xml:space="preserve">
+    <value>Az időjelentés átmozgatása egy nyitott kiszállásra</value>
+  </data>
+  <data name="TimePostingRelinkedMessage" xml:space="preserve">
+    <value>Az időbejegyzés sikeresen át lett mozgatva a kiválasztott nyitott kiszálláshoz.</value>
+  </data>
+  <data name="ChangeServiceOrderStatusPrompt" xml:space="preserve">
+    <value>Biztosan le szeretné zárni ezt a szervizmegrendelést?? Ezáltal a hozzá tartozó kiszállásokat a technikus nem tudja elkezdeni.</value>
+  </data>
+  <data name="MaterialAndCost" xml:space="preserve">
+    <value>Anyag/Költség</value>
+  </data>
+  <data name="CompleteServiceOrderPrompt" xml:space="preserve">
+    <value>Biztosan le szeretné Befejezve ezt a szervizmegrendelést??</value>
+  </data>
+  <data name="PreselectPositionsForInvoicingBackgroundInfo" xml:space="preserve">
+    <value>A számlázási modelljétől (átalányösszeg vagy idő és erőfeszítés) függően válassza ki a következő elemtípusok közül melyiket választja. Ezenkívül az egyes tételek hozzáadhatók vagy eltávolíthatók a listáról a számlázás céljából.</value>
+  </data>
+  <data name="PreselectPositionsForInvoicing" xml:space="preserve">
+    <value>A számlázási tételek előválasztása</value>
+  </data>
+  <data name="AvailablePositionsForInvoicing" xml:space="preserve">
+    <value>Rendelkezésre álló pozíciók</value>
+  </data>
+  <data name="MaintenanceOrderTypeAlreadyExists" xml:space="preserve">
+    <value>A rendszerben már van egy vagy több szervizrendelés-típus, amely karbantartásként van megjelölve: {1}</value>
+  </data>
+  <data name="CrmService_ErrorCauseTypeRelationship" xml:space="preserve">
+    <value>hiba oka-típus kapcsolat</value>
+  </data>
+  <data name="CrmService_ServiceOrderStatisticsKey" xml:space="preserve">
+    <value>Szervizrendelés Statisztikai kulcs</value>
+  </data>
+  <data name="CrmService_ServiceOrderTimeDispatch" xml:space="preserve">
+    <value>Feladat</value>
+  </data>
+  <data name="AddInvoicePosition" xml:space="preserve">
+    <value>Számlapozíció hozzáadása</value>
+  </data>
+</root>

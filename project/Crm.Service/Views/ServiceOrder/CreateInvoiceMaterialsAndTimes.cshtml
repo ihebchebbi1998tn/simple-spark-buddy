@@ -1,0 +1,71 @@
+@using Crm.Library.Globalization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+<collapsible-block params="id: 'material-times'">
+	<collapsible-block-header params="customCss: 'bgm-white'">
+		<span>@(Html.Localize("Material")) &amp; @(Html.Localize("Times"))</span>
+	</collapsible-block-header>
+	<collapsible-block-content>
+
+		<div>
+			<label class="fg-label control-label">
+				<span data-bind="translatedText: 'PreselectPositionsForInvoicing'" style="white-space: pre-line; word-break: break-word;"></span>
+			</label>
+			<br>
+			<span data-bind="translatedText: 'PreselectPositionsForInvoicingBackgroundInfo'" style="white-space: pre-line; word-break: break-word;">
+			</span>
+		</div>
+
+		<!-- ko with: $root -->
+		<!-- ko if: preplannedCostsPresent()-->
+		<form-element params="value: invoicePreplannedCosts, caption: 'InvoicePreplannedCosts', type: 'checkbox'"></form-element>
+		<!-- /ko -->
+		<!-- ko if: costsPresent()-->
+		<form-element params="value: invoiceUsedCosts, caption: 'InvoiceUsedCosts', type: 'checkbox'"></form-element>
+		<!-- /ko -->
+		<!-- ko if: preplannedMaterialsPresent()-->
+		<form-element params="value: invoicePreplannedMaterials, caption: 'InvoicePreplannedMaterials', type: 'checkbox'"></form-element>
+		<!-- /ko -->
+		<!-- ko if: materialsPresent()-->
+		<form-element params="value: invoiceUsedMaterials, caption: 'InvoiceUsedMaterials', type: 'checkbox'"></form-element>
+		<!-- /ko -->
+		<!-- ko if: preplannedTimePostingsPresent()-->
+		<form-element params="value: invoicePreplannedTimePostings, caption: 'InvoicePreplannedTimePostings', type: 'checkbox'"></form-element>
+		<!-- /ko -->
+		<!-- ko if: timePostingsPresent()-->
+		<form-element params="value: invoiceUsedTimePostings, caption: 'InvoiceUsedTimePostings', type: 'checkbox'"></form-element>
+		<!-- /ko -->
+
+		<hr/>
+
+		<h3 class="f-15 p-t-10" data-bind="translatedText: 'AvailablePositionsForInvoicing'"></h3>
+
+		<div data-bind="let: { $root: serviceOrderMaterials }">
+			<div data-bind="with: $root">
+				<div class="generic-list listview lv-bordered bulk-selection">
+					<div class="lv-body">
+						<div data-bind="foreach: items">
+							@await Html.PartialAsync("../ServiceOrderMaterialList/MaterialItemTemplate")
+						</div>
+						<span data-bind="translatedText: 'NoMaterialsHaveBeenUsed', visible: items().length === 0"></span>
+					</div>
+				</div>
+				@await Html.PartialAsync("Material/GenericListPreloader")
+			</div>
+		</div>
+		<hr/>
+		<div data-bind="let: { $root: serviceOrderTimePostings }">
+			<div data-bind="with: $root">
+				<div class="generic-list listview lv-bordered bulk-selection">
+					<div class="lv-body">
+						<div data-bind="foreach: items">
+							@await Html.PartialAsync("../ServiceOrderTimePostingList/MaterialItemTemplate")
+						</div>
+						<span data-bind="translatedText: 'NoTimesHaveBeenPosted', visible: items().length === 0"></span>
+					</div>
+				</div>
+				@await Html.PartialAsync("Material/GenericListPreloader")
+			</div>
+		</div>
+		<!-- /ko -->
+	</collapsible-block-content>
+</collapsible-block>

@@ -1,0 +1,28 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl<CrmModel>
+@using Main.ViewModels
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+
+<div role="tabpanel" class="tab-pane" id="tab-teams" data-bind="with: tabs()['tab-teams']">
+	<div class="content-header lv-bordered">
+		<div class="lv-header-alt generic-list-header main-section listview">
+			<div class="card-header d-flex flex-auto">
+				<div class="caption d-flex flex-auto">
+					<h2>&nbsp;</h2>
+				</div>
+			</div>
+		</div>
+		<floating-action-button params="position: 'top', showWhenDropdownIsToggled: true" data-route="Crm.Service.Team/ArticleUserGroupRelationship/EditTemplate" data-toggle="modal" data-target="#modal" params="title: 'Assign'"></floating-action-button>
+	</div>
+	<empty-state-box params="mood: 'sad', title: 'AssignedTeams', text: 'NoAssignedTeams'" data-bind="visible: items().length === 0 && !isFiltered()">
+	</empty-state-box>
+	<div class="generic-list listview lv-bordered">
+		<div class="lv-body">
+			<div data-bind="foreach: items">
+				@await Html.PartialAsync("MaterialArticleUserGroup")
+			</div>
+		</div>
+	</div>
+	@await Html.PartialAsync("MaterialPaging")
+</div>

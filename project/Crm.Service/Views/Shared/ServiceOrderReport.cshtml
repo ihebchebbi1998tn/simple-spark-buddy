@@ -1,0 +1,12 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+ @await Html.PartialAsync("DispatchReportTranslations")
+
+<div class="dispatch-report">
+	@await Html.PartialAsync("Report/Header") 
+	@await Html.PartialAsync("DispatchReportTitle") 
+	@await Html.PartialAsync("DispatchReportContactDetails") 
+	@await Html.PartialAsync("DispatchReportServiceOrderDetails") 
+	@await Html.PartialAsync("DispatchReportGroups") 
+	@await Html.PartialAsync("Report/Footer")
+</div>

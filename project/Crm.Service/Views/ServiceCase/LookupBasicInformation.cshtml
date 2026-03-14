@@ -1,0 +1,10 @@
+<!-- ko if: database.CrmService_ServiceCaseStatus && $data.innerInstance instanceof database.CrmService_ServiceCaseStatus.CrmService_ServiceCaseStatus -->
+<div>
+	<small class="f-500" data-bind="text: window.Helper.String.getTranslatedString('Groups') + ': '"></small>
+	<small data-bind="text: Groups() ? Groups().split(',').map(x => Helper.String.getTranslatedString(x, x)) : Helper.String.getTranslatedString('Unspecified')"></small>
+</div>
+<div>
+	<small class="f-500" data-bind="text: window.Helper.String.getTranslatedString('SettableStatuses') + ': '"></small>
+	<small data-bind="text: SettableStatuses() || Helper.String.getTranslatedString('Unspecified')"></small>
+</div>
+<!-- /ko -->

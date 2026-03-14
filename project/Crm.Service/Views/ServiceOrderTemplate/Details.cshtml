@@ -1,0 +1,140 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Modularization.Extensions
+@using Crm.Library.Globalization.Extensions
+
+<ul class="top-menu">
+	@Html.PluginRenderActions("ServiceOrderTemplateDetailsTopMenu")
+</ul>
+
+<div class="container">
+	<div id="profile-main" class="divided-detail">
+		<div class="pm-overview c-overflow hide-print card w-100" tabindex="4">
+			<div class="panel-heading active">
+				<div class="card-header p-20">
+					<div class="panel-title max-width-100">
+						<div class="d-flex flex-v-center f-17 c-black">
+							<div>
+								<div data-bind="text: $root.title"></div>
+								<div class="f-13 m-t-5">
+									<span data-bind="text: $root.additionalTitle"></span>
+								</div>
+							</div>
+							<div class="m-l-auto">
+								<status-chooser params="currentStatus: $root.serviceOrderTemplate().StatusKey, statuses: $root.lookups.serviceOrderStatuses.$array.filter(x => x.Key !== null), canSetStatus: $root.canSetStatus"></status-chooser>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-8">
+				<div class="card detail-main-block">
+					<div class="pm-overview">
+						<ul class="tab-nav morph" role="tablist" tabindex="1">
+							@Html.PluginRenderActions("ServiceOrderTemplateDetailsTabHeader")
+						</ul>
+					</div>
+					<div class="pm-body clearfix">
+						<div class="tab-content">
+							@Html.PluginRenderActions("ServiceOrderTemplateDetailsTab")
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="card detail-side-block">
+							<collapsible-block params="id: 'scheduling-info'">
+								<collapsible-block-header params="icon: 'calendar-note'">
+									<span>@(Html.Localize("SchedulingInformation"))</span>
+								</collapsible-block-header>
+								<collapsible-block-content>
+									<pmb-block params="context: { serviceOrderTemplate: $root.serviceOrderTemplate }, condition: $root.serviceOrderTemplateIsEditable, onSave: $root.onSaveScheduling">
+										<pmbb-view>
+											<!-- ko with: serviceOrderTemplate -->
+											<pmbb-view-entry params="caption: 'Priority'">
+												<span data-bind="if: PriorityKey, lookupValue: PriorityKey, lookups: $root.lookups.servicePriorities"></span>
+												<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: PriorityKey"></span>
+											</pmbb-view-entry>
+											<pmbb-view-entry params="caption: 'Usergroup'">
+												<!-- ko if: UserGroup -->
+												<span data-bind="text: UserGroup().Name"></span>
+												<!-- /ko -->
+												<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: UserGroup"></span>
+											</pmbb-view-entry>
+											<pmbb-view-entry params="caption: 'ResponsibleUser'">
+												<!-- ko if: ResponsibleUserUser -->
+												<span data-bind="text: Helper.User.getDisplayName(ResponsibleUserUser)"></span>
+												<!-- /ko -->
+												<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ResponsibleUserUser"></span>
+											</pmbb-view-entry>
+											<pmbb-view-entry params="caption: 'Skills'">
+												<!-- ko if: RequiredSkillKeys().length > 0 -->
+												<span data-bind="text: $root.getSkillsFromKeys(RequiredSkillKeys()).map(function(x){ return x.text; }).join(', ')"></span>
+												<!-- /ko -->
+												<span class="c-gray" data-bind="translatedText: 'Unspecified', if: RequiredSkillKeys().length === 0"></span>
+											</pmbb-view-entry>
+											<pmbb-view-entry params="caption: 'Assets'">
+												<!-- ko if: RequiredAssetKeys().length > 0 -->
+												<span data-bind="text: $root.getAssetsFromKeys(RequiredAssetKeys()).map(function(x){ return x.text; }).join(', ')"></span>
+												<!-- /ko -->
+												<span class="c-gray" data-bind="translatedText: 'Unspecified', if: RequiredAssetKeys().length === 0"></span>
+											</pmbb-view-entry>
+											<pmbb-view-entry params="caption: 'PreferredTechnicianUsergroup'">
+												<!-- ko if: PreferredTechnicianUsergroupObject -->
+												<span data-bind="text: PreferredTechnicianUsergroupObject().Name"></span>
+												<!-- /ko -->
+												<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: PreferredTechnicianUsergroupObject"></span>
+											</pmbb-view-entry>
+											<pmbb-view-entry params="caption: 'PreferredTechnician'">
+												<!-- ko if: PreferredTechnicianUser -->
+												<span data-bind="text: Helper.User.getDisplayName(PreferredTechnicianUser)"></span>
+												<!-- /ko -->
+												<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: PreferredTechnicianUser"></span>
+											</pmbb-view-entry>
+											@Html.PluginRenderActions("ServiceOrderTemplateDetailsSchedulingView")
+											<!-- /ko -->
+										</pmbb-view>
+										<pmbb-edit>
+											<!-- ko with: serviceOrderTemplate -->
+											<pmbb-edit-entry params="caption: 'Priority', validationElement: PriorityKey">
+												<select name="PriorityKey" class="form-control" data-bind="select2autocompleter: { data: PriorityKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_ServicePriority'), placeholder: $parent.placeholder}">
+												</select>
+											</pmbb-edit-entry>
+											<pmbb-edit-entry params="caption: 'Usergroup', validationElement: UserGroupKey">
+												<select class="form-control" data-bind="select2autocompleter: { data: UserGroupKey, autocompleteOptions: { orderBy: ['Name'], table: 'Main_Usergroup', customFilter: Helper.User.filterUsergroupQuery, placeholder: $parent.placeholder, mapDisplayObject: function(ug){ return { id: ug.Id, item: ug, text: ug.Name }; }, onSelect: function(value) { UserGroup(value ? value.asKoObservable() : null); } } }">
+												</select>
+											</pmbb-edit-entry>
+											<pmbb-edit-entry params="caption: 'ResponsibleUser', validationElement: ResponsibleUser">
+												<select class="form-control" data-bind="select2autocompleter: { data: ResponsibleUser, autocompleteOptions: { orderBy: ['LastName'], table: 'Main_User', mapDisplayObject: Helper.User.mapForSelect2Display, placeholder: $parent.placeholder, customFilter: function (query, term) { return Helper.User.filterUserQuery(query, term, UserGroupKey()); }, onSelect: function(value) { ResponsibleUserUser(value ? value.asKoObservable() : null); } } }">
+												</select>
+											</pmbb-edit-entry>
+											<pmbb-edit-entry params="caption: 'Skills'">
+												<select class="form-control" multiple="multiple" data-bind="select2autocompleter: { data: RequiredSkillKeys, autocompleteOptions: { table: 'Main_Skill', customFilter: Helper.Lookup.queryLookup, mapDisplayObject: Helper.Lookup.mapLookupForSelect2Display, getElementByIdQuery: Helper.Lookup.getLookupByKeyQuery, placeholder: $parent.placeholder } }">
+												</select>
+											</pmbb-edit-entry>
+											<pmbb-edit-entry params="caption: 'PreferredTechnicianUsergroup', validationElement: PreferredTechnicianUsergroupKey">
+												<select class="form-control" data-bind="select2autocompleter: { data: PreferredTechnicianUsergroupKey, autocompleteOptions: { orderBy: ['Name'], table: 'Main_Usergroup', customFilter: Helper.User.filterUsergroupQuery, mapDisplayObject: Helper.User.mapUsergroupForSelect2Display, getElementByIdQuery: Helper.User.filterUsergroupQueryById, placeholder: $parent.placeholder, onSelect: function(value) { PreferredTechnicianUsergroupObject(value); } } }">
+												</select>
+											</pmbb-edit-entry>
+											<pmbb-edit-entry params="caption: 'PreferredTechnician', validationElement: PreferredTechnician">
+												<select class="form-control" data-bind="select2autocompleter: { data: PreferredTechnician, autocompleteOptions: { orderBy: ['LastName'], table: 'Main_User', mapDisplayObject: Helper.User.mapForSelect2Display, customFilter: $root.preferredTechnicianFilter.bind($parentContext.$parentContext.$parent), placeholder: $parent.placeholder, onSelect: function(value) { PreferredTechnicianUser(value ? value.asKoObservable() : null); } } }">
+												</select>
+											</pmbb-edit-entry>
+											@Html.PluginRenderActions("ServiceOrderTemplateDetailsSchedulingEdit")
+											<!-- /ko -->
+										</pmbb-edit>
+									</pmb-block>
+								</collapsible-block-content>
+							</collapsible-block>
+						</div>
+					</div>
+				</div>
+				@Html.PluginRenderActions("MaterialServiceOrderTemplateSidebarExtensions")
+			</div>
+		</div>
+	</div>
+</div>

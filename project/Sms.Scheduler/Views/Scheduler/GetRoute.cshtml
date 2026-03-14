@@ -1,0 +1,84 @@
+@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<div class="modal-header card-header ch-alt">
+	<button type="button" class="close" data-dismiss="modal" aria-label="@(Html.Localize("Close"))">
+	<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title">@(Html.Localize("GetRoute"))</h4>
+</div>
+<div class="modal-body card-body card-padding">
+	<label class="control-label">
+		<span>@(Html.Localize("RouteOptions"))</span>
+	</label>
+	<form role="form" action="#">
+		<div class="container p-0">
+			<div class="row">
+				<div class="col-sm-6">
+					<form-element params="value: useTechnicianHomeAddressAsOrigin, caption: 'RouteTechnicianHomeAddressAsOrigin', type: 'checkbox'"></form-element>
+					<form-element params="value: useTechnicianHomeAddressAsFinalDestination, caption: 'RouteTechnicianHomeAddressAsFinalDestination', type: 'checkbox'"></form-element>
+				</div>
+				<div class="col-sm-6">
+					<form-element params="value: getRoutePerDay, caption: 'RoutePerDay', type: 'checkbox'"></form-element>
+				</div>
+			</div>
+		</div>
+	</form>
+	<label class="control-label">
+		<span>@(Html.Localize("TimePeriod"))</span>
+	</label>
+	<form role="form" action="#">
+		<div class="container p-0">
+			<div class="row">
+				<div class="col-sm-6">
+					<form-element params="value: startDate, caption: 'StartDate', type: 'datePicker', datePickerOptions: { pickDateTime: false, config: { stepping: parseInt(Sms.Scheduler.Settings.WorkingTime.MinutesInterval) } }"></form-element>
+				</div>
+				<div class="col-sm-6">
+					<form-element params="value: endDate, caption: 'EndDate', type: 'datePicker', datePickerOptions: { pickDateTime: false, config: { stepping: parseInt(Sms.Scheduler.Settings.WorkingTime.MinutesInterval) } }"></form-element>
+				</div>
+			</div>
+		</div>
+	</form>
+	<label class="control-label">
+		<span>@(Html.Localize("Resources"))</span>
+	</label>
+	<!-- ko foreach: routeData() -->
+	<form name="route-data-editor" role="form" action="#">
+		<div class="d-flex">
+			<div style="flex: 1">
+				<div class="row">
+					<div class="col-sm-3 col-xs-12">
+						<form-element id="technician" params="value: technician, type: 'select'">
+							<select name="technician" class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { customFilter: $root.resourceFilter.bind($root), table: 'Main_User', mapDisplayObject: Helper.User.mapForSelect2Display, placeholder: $root.placeholder } }"></select>
+						</form-element>
+					</div>
+				</div>
+			</div>
+			<div class="m-l-20 d-flex">
+				<div class="d-flex" style="align-items: center">
+					<a href="#" class="btn btn-sm btn-danger waves-effect" data-bind="click: () => $root.removeRouteData($data), tooltip: true" title="@(Html.Localize("Remove"))">
+						<i class="zmdi zmdi-minus"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+		<hr class="m-t-0 m-b-1 visible-xs">
+	</form>
+	<!-- /ko -->
+	<div style="position: relative" class="p-b-10">
+		<a href="#" class="btn btn-sm btn-success waves-effect add-element" data-bind="click: $root.addRouteData.bind($root), style: { top: routeData().length === 0 ? 0 : -10 }, visible: $root.routeData().length < 5" style="position: absolute;" title="@(Html.Localize("Add"))">
+			<i class="zmdi zmdi-plus"></i>
+		</a>
+	</div>
+	<div data-bind="validationElement: $root.routeData" class="m-t-30">
+		<small class="help-block pre-line" data-bind="validationMessage: $root.routeData"></small>
+	</div>
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect"  data-dismiss="modal" data-bind="click: cancel, disable: loading">
+		@(Html.Localize("Cancel"))
+	</button>
+	<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: save, disable: loading">
+		@(Html.Localize("Save"))
+	</button>
+</div>

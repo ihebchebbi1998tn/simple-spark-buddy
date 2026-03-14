@@ -1,0 +1,9 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+<!-- ko requiredPermission: { name: 'Delete', group: 'ServiceOrderErrorCause' } -->
+<li data-bind="visible: $root.tabs()['tab-error']().errorCauseCanBeDeleted($data)">
+	<a href="#" data-bind="click: () => $root.tabs()['tab-error']().deleteServiceOrderErrorCause($data)">
+		@(Html.Localize("Delete"))
+	</a>
+</li>
+<!-- /ko -->

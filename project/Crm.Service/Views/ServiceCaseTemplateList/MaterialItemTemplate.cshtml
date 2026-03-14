@@ -1,0 +1,37 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Modularization.Extensions
+
+<div id="{{Id}}" class="lv-item media">
+	<div class="media-body">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="lv-title">
+					<!-- ko requiredPermission: { name: 'Read', group: 'ServiceCaseTemplate' } -->
+					<a href="#/Crm.Service/ServiceCaseTemplate/DetailsTemplate/{{Id}}">
+						<span data-bind="text: Name"></span>
+					</a>
+					<!-- /ko -->
+					<!-- ko noRequiredPermission: { name: 'Read', group: 'ServiceCaseTemplate' } -->
+					<span data-bind="text: Name"></span>
+					<!-- /ko -->
+					<small class="c-gray" data-bind="lookupValue: CategoryKey, lookups: $parent.lookups.serviceCaseCategories"></small>
+				</div>
+			</div>
+		</div>
+		<div class="row media-body">
+			<div class="col-xs-6">
+				@Html.PluginRenderActions("ServiceCaseTemplateItemExtensions")
+				<ul class="lv-attrs">
+					<!-- ko if: ResponsibleUserUser -->
+					<li>
+						<i class="zmdi zmdi-account-o"></i>
+						<span data-bind="text: Helper.User.getDisplayName(ResponsibleUserUser)"></span>
+					</li>
+					<!-- /ko -->
+					@Html.PluginRenderActions("ServiceCaseTemplateItemAttributes")
+				</ul>
+			</div>
+			<lv-actions>@Html.PluginRenderActions("ServiceCaseTemplateItemTemplateActions")</lv-actions>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,20 @@
+﻿@inherits Crm.Library.Modularization.CrmViewPage
+@{Layout = "~/Views/Shared/Layout/ApplicationLayout.cshtml";}
+@using Crm.Library.Modularization.Extensions
+
+@section TitleContent {
+
+	<title>Test Title</title>
+
+}
+
+@section MainContent {
+
+	Test Content
+	@Html.PluginRenderActions("TestRenderAction")
+	@await Html.PartialAsync("Partial1")
+	@await Html.PartialAsync("Partial2")
+	@await Html.PartialAsync("Partial3")
+	@await Html.PartialAsync("Partial4")
+
+}

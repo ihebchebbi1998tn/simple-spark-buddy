@@ -1,0 +1,154 @@
+﻿@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div role="tabpanel" class="tab-pane animated fadeIn" id="tab-details">
+	<pmb-block params="icon: 'equalizer', caption: 'General', context: { user: user }, onAfterSave: onAfterSave.bind($root), onCancel: onCancel.bind($root), onSave: onSave.bind($root)">
+		<pmbb-view>
+			<!-- ko with: user -->
+			<pmbb-view-entry params="caption: 'Firstname'">
+				<span data-bind="text: FirstName"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'LastName'">
+				<span data-bind="text: LastName"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'EMail'">
+				<a href="mailto:{{Email}}" data-bind="text: Email" target="_blank"></a>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'OpenIdIdentifier'">
+				<span data-bind="text: OpenIdIdentifier"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: OpenIdIdentifier"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'AdName'">
+				<span data-bind="text: AdName"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: AdName"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'GeneralToken'">
+				<span data-bind="text: GeneralToken"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: GeneralToken"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'PersonnelId'">
+				<span data-bind="text: PersonnelId"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: PersonnelId"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'IdentificationNo'">
+				<span data-bind="text: IdentificationNo"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: IdentificationNo"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'MasterRecordNo'">
+				<span data-bind="text: MasterRecordNo"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: MasterRecordNo"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'DefaultLanguageKey'">
+				<span data-bind="if: DefaultLanguageKey, lookupValue: DefaultLanguageKey, lookups: $root.lookups.languages"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: DefaultLanguageKey"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'Locale'">
+				<!-- ko if: DefaultLocale -->
+				<span data-bind="text: Helper.Culture.getDisplayName(DefaultLocale())"></span>
+				<!-- /ko -->
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: DefaultLocale"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'TimeZoneName'">
+				<span data-bind="text: window.Helper.Date.getTimeZoneWithUtcText(TimeZoneName), if: TimeZoneName"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: TimeZoneName"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'DischargeDate'">
+				<span data-bind="if: DischargeDate, dateText: DischargeDate"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: DischargeDate"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'Roles'">
+			 <!-- ko foreach: Roles().sort((a, b) => a.Name().localeCompare(b.Name())) -->
+				<!-- ko if: $data.Name() !== 'Administrator' -->
+				<a data-bind="attr:{'href':' #/Main/Role/Details/' + $data.UId() }">
+					<span data-bind="text: $index() !== $parent.Roles().length -1  ? $data.Name() + ', ' :  $data.Name()"></span>
+				</a>
+				<!-- /ko -->
+				<!-- ko if: $data.Name() === 'Administrator' -->
+					<span data-bind="text: $index() !== $parent.Roles().length -1 ? $data.Name() + ', ' :  $data.Name()"></span>
+				<!-- /ko -->
+			<!-- /ko -->
+				<span data-bind="translatedText: 'NoRolesAssigned', visible: Roles().length === 0"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'UserGroups'">
+				<span data-bind="text: Helper.User.getUsergroupsDisplay(UsergroupObjects)"></span>
+				<span data-bind="translatedText: 'NoUsergroupsAssigned', visible: Helper.User.areUsergroupsVisible(UsergroupObjects)"></span>
+			</pmbb-view-entry>
+			<!-- ko ifnot: window.Main.Settings.UseOpenIdAuthentication -->
+			<!-- ko if: window.AuthorizationManager.currentUserHasPermission('UserAdmin::ManageMultiFactorAuthentication') || window.AuthorizationManager.currentUserHasPermission('UserAdmin::ResetUserTotp') -->
+			<pmbb-view-entry params="caption: 'TotpAuthentication'">
+				<div>
+					<!-- ko if: TotpIsSetUp() -->
+					<!-- ko if: window.AuthorizationManager.currentUserHasPermission('UserAdmin::ResetUserTotp') -->
+					<button type="button" id="totp-remove" class="btn btn-xs btn-danger f-13 waves-effect p-t-0 p-b-0" data-bind="click: $root.resetTotp, translatedText: 'RemoveAuthenticator'">
+					</button>
+					<!-- /ko -->
+					<!-- ko ifnot: window.AuthorizationManager.currentUserHasPermission('UserAdmin::ResetUserTotp') -->
+					<span data-bind="translatedText: 'IsSetUp'"></span>
+					<!-- /ko -->
+					<!-- /ko -->
+					<!-- ko ifnot: TotpIsSetUp() -->
+					<span data-bind="translatedText: 'IsNotSetUp'"></span>
+					<!-- /ko -->
+				</div>
+			</pmbb-view-entry>
+			<!-- /ko -->
+			<!-- /ko -->
+			@Html.PluginRenderActions("UserDetailsGeneralView")
+			<!-- /ko -->
+		</pmbb-view>
+		<pmbb-edit>
+			<!-- ko with: user -->
+			<pmbb-edit-entry params="caption: 'Firstname', validationElement: FirstName">
+				<input type="text" class="form-control" data-bind="value: FirstName">
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'LastName', validationElement: LastName">
+				<input type="text" class="form-control" data-bind="value: LastName">
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'EMail', validationElement: Email">
+				<input type="email" class="form-control" data-bind="value: Email">
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'OpenIdIdentifier', validationElement: OpenIdIdentifier">
+				<input type="text" class="form-control" data-bind="value: OpenIdIdentifier">
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'AdName', validationElement: AdName">
+				<input type="text" class="form-control" data-bind="value: AdName">
+			</pmbb-edit-entry>
+			<p class="alert alert-warning" data-bind="translatedText: 'ChangeEmailAddressRequiresPasswordResetWarning', visible: Main.Settings.UseActiveDirectoryAuthenticationService === false && Email() !== $root.user().Email()"></p>
+			<pmbb-edit-entry params="caption: 'PersonnelId', validationElement: PersonnelId">
+				<input type="text" class="form-control" data-bind="value: PersonnelId">
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'IdentificationNo', validationElement: IdentificationNo">
+				<input type="text" class="form-control" data-bind="value: IdentificationNo">
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'MasterRecordNo', validationElement: MasterRecordNo">
+				<input type="text" class="form-control" data-bind="value: MasterRecordNo">
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'DefaultLanguageKey', validationElement: DefaultLanguageKey">
+				<select class="form-control" data-bind="select2autocompleter: { data: DefaultLanguageKey, autocompleteOptions: { customFilter: Helper.User.languageFilter, table: 'Main_Language', mapDisplayObject: Helper.Lookup.mapLookupForSelect2Display, getElementByIdQuery: Helper.Lookup.getLookupByKeyQuery, onSelect: function(value) { if(value && $root.user().DefaultLanguageKey() && value.Key != $root.user().DefaultLanguageKey()) {DefaultLocale(null)}} }, placeholder: $parent.placeholder }">
+				</select>
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'Locale', validationElement: DefaultLocale">
+				<select class="form-control" data-bind="select2autocompleter: { data: $root.locales, optionsText: Helper.Culture.getDisplayName, placeholder: $parent.placeholder }, value: DefaultLocale, disable: !DefaultLanguageKey()"></select>
+			</pmbb-edit-entry>
+			<pmbb-edit-entry id="TimeZoneName" params="caption: 'TimeZoneName', validationElement: TimeZoneName">
+				<select class="form-control" data-bind="select2autocompleter: Helper.Date.getTimeZoneSelect2Options(), value: TimeZoneName">
+				</select>
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'DischargeDate', validationElement: DischargeDate">
+				<input type="text" class="form-control date-picker" data-bind="datePicker: DischargeDate" placeholder="@(Html.Localize("ClickHere"))">
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'Roles', validationElement: RoleIds">
+				<select name="Roles" class="form-control" multiple="multiple" data-bind="select2autocompleter: { data: $root.getRolesFromIds.call($root, $root.roleIds()), autocompleteOptions: { orderBy: ['Name'], table: 'Main_PermissionSchemaRole', mapDisplayObject: Helper.User.mapRoleForSelect2Display, placeholder: $parent.placeholder } }, selectedOptions: $root.roleIds">
+				</select>
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'UserGroups', validationElement: UsergroupIds">
+				<select name="Usergroups" class="form-control" multiple="multiple" data-bind="select2autocompleter: { data: $root.getUsergroupsFromIds.call($root, UsergroupIds()), autocompleteOptions: { orderBy: ['Name'], table: 'Main_Usergroup', customFilter: Helper.User.filterUsergroupQuery, mapDisplayObject: Helper.User.mapUsergroupForSelect2Display, placeholder: $parent.placeholder } }, selectedOptions: UsergroupIds">
+				</select>
+			</pmbb-edit-entry>
+			@Html.PluginRenderActions("UserDetailsGeneralEdit")
+			<!-- /ko -->
+		</pmbb-edit>
+	</pmb-block>
+	@Html.PluginRenderActions("UserDetailsTabExtensions")
+</div>

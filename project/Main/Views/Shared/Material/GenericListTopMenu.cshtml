@@ -1,0 +1,16 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl<Main.ViewModels.GenericListViewModel>
+@using Crm.Library.Modularization.Extensions
+@using Crm.Library.Globalization.Extensions
+
+<ul class="top-menu section-menu actions">
+	@Html.PluginRenderActions($"{Model.ControllerName}TopMenu")
+	<li class="keep-in-place" data-bind="visible: true, tooltip: true" data-placement="bottom">
+		<a id="open-generic-list-filter" data-trigger="#right-nav" href="#" data-route="@(Model?.FilterRoute ?? $"{Model.PluginName}/{Model.ControllerName}/FilterTemplate")">
+			<i class="tm-icon zmdi zmdi-filter-list"></i>
+			<!-- ko if: $data && $data.isFiltered && $data.isFiltered() -->
+			<i class="tmn-counts" data-bind="text: $data.filteredProperties().length"></i>
+			<!-- /ko -->
+			<div class="small">@(Html.Localize("Filter"))</div>
+		</a>
+	</li>
+</ul>

@@ -1,0 +1,32 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl<Main.ViewModels.CrmModelItem<FilterDefinition>>
+@using Crm.Library.EntityConfiguration
+@using Crm.Library.Globalization.Extensions
+
+@{
+	var filterDefinition = (CollectionAutoCompleterFilterDefinition)Model.Item;
+	var caption = filterDefinition.Caption ?? filterDefinition.PropertyInfo.Name;
+	var properties = "[]";
+	if (filterDefinition.AutoCompleterFilterDefinition.FilterFunction == null)
+	{
+		properties = $"[{String.Join(", ", filterDefinition.AutoCompleterFilterDefinition.FilterProperties.Select(x => $"'{x?.Name}'"))}]";
+	}
+	else if (filterDefinition.AutoCompleterFilterDefinition.DisplayProperty != null)
+	{
+		properties = $"['{filterDefinition.AutoCompleterFilterDefinition.DisplayProperty.Name}']";
+	}
+	var customFilter = filterDefinition.AutoCompleterFilterDefinition.FilterFunction ?? "function(query, term) { if (!term) { return query; } var filterString = " + properties + ".map(function(p) { return 'it.' + p + '.contains(this.term) === true'; }).join(' || '); return query.filter(filterString, { term: term }); }";
+	var displayFunction = filterDefinition.AutoCompleterFilterDefinition.DisplayFunction ?? "function(x){ return " + properties + ".map(function(p){ return x[p]; }).filter(Boolean).join(' - ') }";
+	var idPropertyName = filterDefinition.AutoCompleterFilterDefinition.ValueProperty.Name;
+	var mapDisplayObject = "function(x){ return { id: x." + idPropertyName + ", item: x, text: (" + displayFunction + ")(x) }; }";
+	var modelPath = filterDefinition.GetModelPath();
+	var read = $"function() {{ var value = ko.unwrap(this.getFilter('{modelPath}')); return value && value.Operator ? value.Value : value; }}";
+	var write = $"function(newValue) {{ this.getFilter('{modelPath}').extend({{ filterOperator: {{ operator: {{ type: 'some', collectionName: '{modelPath}', collectionProperty: '{filterDefinition.CollectionIdProperty.Name}' }}, additionalProperties: {{caption: '{caption}'}} }} }})(newValue); }}";
+	var autocompleteInput = $"ko.pureComputed({{ read: {read}, write: {write} }}, $data)";
+	var onSelect = $"function (item) {{ if(item){{ $root.getFilter('{filterDefinition.GetModelPath()}')().displayedValue = {displayFunction}(item) }} }}";
+}
+<div class="filter-element form-group" id="@(filterDefinition.GetModelPath().ToLower().Replace(".", "-") + "-filter")">
+	<p class="m-b-5">@(Html.Localize(caption))</p>
+	<select class="form-control" data-bind="select2autocompleter: { autocompleteOptions: { customFilter: @(customFilter), orderBy: @(properties), table: '@(filterDefinition.AutoCompleterFilterDefinition.TableName)', mapDisplayObject: @(mapDisplayObject), onSelect: @(onSelect), noneOption: 'none-filter-value', placeholder: Helper.String.getTranslatedString('All') } }, value: @(autocompleteInput)">
+	</select>
+</div>
+

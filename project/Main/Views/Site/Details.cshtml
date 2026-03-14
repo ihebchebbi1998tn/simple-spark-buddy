@@ -1,0 +1,100 @@
+﻿@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<ul class="top-menu">
+	<li>
+		<a href="#/Main/Site/Edit">
+			@(Html.Localize("Edit"))
+		</a>
+	</li>
+</ul>
+
+<div class="container">
+	<div id="profile-main" class="divided-detail">
+		<div class="pm-overview c-overflow hide-print card w-100" tabindex="4">
+			<block>
+				<block-header>
+					<span data-bind="text: $root.title"></span>
+				</block-header>
+				<block-content>
+					<div class="row">
+						<!-- ko with: $root.site -->
+						<div data-bind="css: ExtensionValues().MaterialLogoBase64() ? 'col-lg-6' : 'col-lg-12'">
+							<pmb-block params="context: { site: $data }, condition: false">
+								<pmbb-view>
+									<div class="row">
+										<!-- ko with: $root.site -->
+										<div class="col-lg-2 col-md-4">
+											<pmbb-view-entry params="caption: 'Name'">
+												<span data-bind="text: Name"></span>
+												<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: Name"></span>
+											</pmbb-view-entry>
+										</div>
+										<!-- ko with: ExtensionValues -->
+										<div class="col-lg-3 col-md-4">
+											<pmbb-view-entry params="caption: 'Host'">
+												<a data-bind="text: Host" href="{{Host}}" target="_blank"></a>
+												<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: Host"></span>
+											</pmbb-view-entry>
+										</div>
+										<div class="col-lg-2 col-md-4">
+											<pmbb-view-entry params="caption: 'Language'">
+												<span data-bind="text: DefaultLanguageKey"></span>
+												<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: DefaultLanguageKey"></span>
+											</pmbb-view-entry>
+										</div>
+										<div class="col-lg-2 col-md-4">
+											<pmbb-view-entry params="caption: 'Locale'">
+												<span data-bind="text: DefaultLocale"></span>
+												<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: DefaultLocale"></span>
+											</pmbb-view-entry>
+										</div>
+										<div class="col-lg-2 col-md-8">
+											<pmbb-view-entry params="caption: 'Country'">
+												<span data-bind="text: $root.country"></span>
+												<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: $root.country"></span>
+											</pmbb-view-entry>
+										</div>
+										<div class="col-lg-12 col-md-12">
+											<pmbb-view-entry params="caption: 'Plugins'">
+												<span data-bind="text: $root.activePlugins().join(', ')"></span>
+											</pmbb-view-entry>
+										</div>
+										<!-- /ko -->
+										<!-- /ko -->
+									</div>
+								</pmbb-view>
+							</pmb-block>
+						</div>
+						<!-- ko if: ExtensionValues().MaterialLogoBase64 -->
+						<div class="col-lg-6">
+							<div class="p-15">
+								<img class="img-responsive" data-bind="attr: { src: 'data:image/png;base64,' + ExtensionValues().MaterialLogoBase64() }" />
+							</div>
+						</div>
+						<!-- /ko -->
+						<!-- /ko -->
+					</div>
+					<div class="flex-block">
+						<!-- ko with: $root -->
+						@Html.PluginRenderActions("MaterialSiteHeaderExtensions")
+						<!-- /ko -->
+					</div>
+				</block-content>
+			</block>
+		</div>
+		<div class="card detail-main-block">
+			<div class="pm-overview">
+				<ul class="tab-nav morph" role="tablist" tabindex="1">
+					@Html.PluginRenderActions("SiteTabHeader")
+				</ul>
+			</div>
+			<div class="pm-body clearfix">
+				<div class="tab-content">
+					@Html.PluginRenderActions("SiteTab")
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

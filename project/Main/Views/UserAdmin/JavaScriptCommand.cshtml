@@ -1,0 +1,26 @@
+﻿@using Crm.Library.Globalization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div class="modal-header card-header ch-alt">
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title">JavaScript</h4>
+</div>
+<div class="modal-body card-body card-padding">
+	<form>
+		<div class="form-group m-b-0">
+			<div class="fg-line">
+				<textarea class="form-control" data-bind="value: javascript, autosize: true" style="font-family: monospace, monospace; white-space: pre;"></textarea>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-dismiss="modal">
+		@(Html.Localize("Cancel"))
+	</button>
+	<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: send, disable: loading">
+		@(Html.Localize("Send"))
+	</button>
+</div>

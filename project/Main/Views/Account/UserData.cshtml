@@ -1,0 +1,164 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl<Main.ViewModels.UserEditViewModel>
+@using Crm.Library.Globalization
+@using Crm.Library.Globalization.Extensions
+@using Main.Extensions
+@using Main.Model.Lookups
+
+@{ var user = Model.Item;
+	var isAuthenticated = Model.User != null;
+	var systemLanguages = LookupManager.Instance.List<Language>(user.DefaultLanguageKey).Where(x => x.IsSystemLanguage);
+	var timeZone = user.TimeZoneName ?? TimeZoneInfo.Local.Id;
+	var useActiveDirectory = !Model.PasswordResetSupported;
+	var passwordKey = $"{(isAuthenticated ? "New" : string.Empty)}Password";
+	var confirmPasswordKey = $"Confirm{(isAuthenticated ? "New" : string.Empty)}Password";
+}
+
+@(Html.RuleViolationMessageRegion("UnknownError"))
+@(Html.RenderAsHidden(user, x => x.Id,
+		x => x.UserId,
+		x => x.Discharged,
+		x => x.IsActive,
+		x => x.DischargeDate,
+		x => x.PersonnelId,
+		x => x.LastLoginDate,
+		x => x.AdName,
+		x => x.OpenIdIdentifier))
+@if (!useActiveDirectory && !user.IsTransient()) { 
+	@(Html.RenderAsHidden(user, u => u.Email))
+ } 
+
+<div class="container w-100 p-0 m-0 text-left">
+	<div class="row p-0 m-0">
+		<div class="col-lg-6 m-b-10">
+			<div class="form-group @(Model.BlockHasAnyError("FirstName") ? "has-error" : null)">
+				<div class="fg-line">
+					<label class="fg-label control-label">
+						<span>@(Html.Localize("FirstName")) @Html.RequiredMarker()</span>
+					</label>
+					@Html.TextBox("FirstName", user.FirstName, new { @class = "form-control" })
+				</div>
+				<small class="help-block pre-line">@(Html.RuleViolationMessageRegion("FirstName"))</small>
+			</div>
+		</div>
+		<div class="col-lg-6 m-b-10">
+			<div class="form-group @(Model.BlockHasAnyError("LastName") ? "has-error" : null)">
+				<div class="fg-line">
+					<label class="fg-label control-label">
+						<span>@(Html.Localize("LastName")) @Html.RequiredMarker()</span>
+					</label>
+					@Html.TextBox("LastName", user.LastName, new { @class = "form-control" })
+				</div>
+				<small class="help-block pre-line">@(Html.RuleViolationMessageRegion("LastName"))</small>
+			</div>
+		</div>
+	</div>
+	<div class="row m-0 p-0">
+		<div class="col-lg-6 m-b-10">
+			<div class="form-group @(Model.BlockHasAnyError("Email") ? "has-error" : null)">
+				<div class="fg-line">
+					<label class="fg-label control-label">
+						<span>@(Html.Localize("Email")) @Html.RequiredMarker()</span>
+					</label>
+					@Html.TextBox("Email", user.Email, new { @class = "form-control" })
+				</div>
+				<small class="help-block pre-line">@(Html.RuleViolationMessageRegion("Email"))</small>
+			</div>
+		</div>
+		<div class="col-lg-6 m-b-10">
+			<div class="form-group @(Model.BlockHasAnyError("DefaultLanguageKey") ? "has-error" : null)">
+				<div class="fg-line">
+					<label class="fg-label control-label">
+					<span>@(Html.Localize("DefaultLanguageKey"))</span>
+					</label>
+					@Html.DropDownList("DefaultLanguageKey", systemLanguages, x => x.Key, x => x.Value)
+				</div>
+			</div>
+			<small class="help-block pre-line">@(Html.RuleViolationMessageRegion("DefaultLanguageKey"))</small>
+		</div>
+	</div>
+	<div class="row m-0 p-0">
+		<div class="col-lg-6 m-b-10">
+			<div class="form-group @(Model.BlockHasAnyError("DefaultLocale") ? "has-error" : null)">
+				<div class="fg-line">
+					<label class="fg-label control-label">
+						<span>@(Html.Localize("Locale"))</span>
+					</label>
+					<select class="form-control" id="DefaultLocale" name="DefaultLocale" data-value="@(user.DefaultLocale)">
+						<option value="">@(Html.Localize("PleaseSelect"))</option>
+					</select>
+				</div>
+				<small class="help-block pre-line">@(Html.RuleViolationMessageRegion("DefaultLocale"))</small>
+			</div>
+		</div>
+		<div class="col-lg-6 m-b-10">
+			<div class="form-group @(Model.BlockHasAnyError("TimeZoneName") ? "has-error" : null)">
+				<div class="fg-line">
+					<label class="fg-label control-label">
+						<span>@(Html.Localize("TimeZoneName"))</span>
+					</label>
+					@Html.DropDownList("TimeZoneName", TimeZoneInfo.GetSystemTimeZones(), x => x.Id, x => x.DisplayName, TimeZoneInfo.FindSystemTimeZoneById(timeZone))
+				</div>
+				<small class="help-block pre-line">@(Html.RuleViolationMessageRegion("TimeZoneName"))</small>
+			</div>
+		</div>
+	</div>
+@if (!useActiveDirectory)
+{
+	@if (isAuthenticated && !String.IsNullOrWhiteSpace(user.Password))
+	{
+		<div class="row m-0 p-0">
+			<div class="col-lg-12">
+				<div class="form-group @(Model.BlockHasAnyError("OldPassword") ? "has-error" : null)">
+					<div for="OldPassword" class="fg-line">
+						<label class="fg-label control-label">
+						<span>@(Html.Localize("OldPassword"))</span>
+						</label>
+						@(Html.Password("OldPassword", null, new { autocomplete = "off", @class = "form-control" }))
+					</div>
+					<small class="help-block pre-line">@(Html.RuleViolationMessageRegion("OldPassword"))</small>
+				</div>
+			</div>
+		</div>
+	}
+	<div class="row m-0 p-0">
+		<div class="col-lg-6 m-b-10">
+			<div class="form-group @(Model.BlockHasAnyError(passwordKey) ? " has-error" : null)">
+				<div for="@passwordKey" class="fg-line">
+					<label class="fg-label control-label">
+						<span>@(Html.Localize(passwordKey)) @Html.RequiredMarker()</span>
+					</label>
+					@(Html.Password(passwordKey, null, new { autocomplete = "off", @class = "form-control" }))
+				</div>
+				<small class="help-block pre-line">@(Html.RuleViolationMessageRegion(passwordKey))</small>
+			</div>
+		</div>
+		<div class="col-lg-6 m-b-10">
+			<div class="form-group @(Model.BlockHasAnyError(confirmPasswordKey) ? "has-error" : null)">
+				<div for="@confirmPasswordKey" class="fg-line">
+					<label class="fg-label control-label">
+						<span>@(Html.Localize(confirmPasswordKey))</span>
+					</label>
+					@(Html.Password(confirmPasswordKey, null, new { autocomplete = "off", @class = "form-control" }))
+				</div>
+				<small class="help-block pre-line">@(Html.Localize("PasswordHint", Model.MinPasswordLength))</small>
+				<small class="help-block pre-line">@(Html.RuleViolationMessageRegion(confirmPasswordKey))</small>
+			</div>
+		</div>
+	</div>
+} else {
+	<div class="row m-0 p-0">
+		<div class="col-lg-12">
+			<div class="form-group">
+				<div for="Password" class="fg-line">
+					<label class="fg-label control-label">
+						<span>@(Html.Localize("Password"))</span>
+					</label>
+					<p class="alert alert-info">
+						@(Html.Localize("AdAuthPasswordChangeNotSupported"))
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+</div>

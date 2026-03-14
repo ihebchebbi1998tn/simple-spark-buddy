@@ -1,0 +1,9 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<li >
+	<a href="#" data-route="Crm/Address/EditTemplate/?contactId={{serviceObject().Id}}&name={{serviceObject().Name}}" data-toggle="modal" data-target="#lgModal" data-bind="click: function () { $('.tab-nav a[href=\'#tab-details\']').tab('show'); }">
+		<i class="zmdi zmdi-playlist-plus"></i>
+		@(Html.Localize("AddAddress"))
+	</a>
+</li>

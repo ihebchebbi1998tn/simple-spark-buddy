@@ -1,0 +1,22 @@
+@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Modularization.Extensions
+
+<!-- ko if: isFiltered()-->
+<div class="d-flex flex-v-center flex-wrap m-t-10 filter-values" style="gap: 5px;" data-bind="foreach: filteredProperties">
+	<button class="btn btn-default btn-icon-text border-round dropdown-toggle filter-value disabled" data-toggle="dropdown"
+	        aria-expanded="false">
+		<span class="d-flex flex-v-center">
+			<span class="d-flex flex-v-center">
+				<i class="zmdi zmdi-filter-list f-15"></i>
+			</span>
+			<span class="m-l-5">
+				<span data-bind="text: caption"></span>
+				<span data-bind="visible: $data.displayedValue">:</span>
+				<span data-bind="text: $data.displayedValue"></span>
+			</span>
+		</span>
+		<i class="zmdi zmdi-close border-round bg-primary text-primary circle-icon-right" data-bind="click: () => $parent.resetSingleFilter($data.name)"></i>
+	</button>
+</div>
+<!-- /ko -->
+@Html.PluginRenderActions("GenericListHeaderFilteredPropertiesExtensions")

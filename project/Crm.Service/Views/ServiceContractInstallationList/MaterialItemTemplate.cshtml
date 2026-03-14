@@ -1,0 +1,49 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl<Main.ViewModels.CrmModel>
+@using Crm.Library.Modularization.Extensions
+@using Crm.Library.Globalization.Extensions
+
+<div id="{{Id}}" class="lv-item media">
+	<div class="media-body">
+		<div class="row">
+			<div class="col-sm-5">
+				<div class="lv-title" data-bind="with: Child">
+					<!-- ko requiredPermission: { name: 'Read', group: 'Installation' } --> 
+					<a href="#/Crm.Service/Installation/DetailsTemplate/{{Id}}">
+						<span data-bind="text: Helper.Installation.getDisplayName($data)"></span>
+					</a>
+					<!-- /ko -->
+					<!-- ko noRequiredPermission: { name: 'Read', group: 'Installation' } -->
+					<span data-bind="text: Helper.Installation.getDisplayName($data)"></span>
+					<!-- /ko -->
+					<small class="c-gray" data-bind="lookupValue: InstallationTypeKey, lookups: $parentContext.$parent.lookups.installationTypes"></small>
+				</div>
+				<small class="small" data-bind="text: Information"></small>
+				<ul class="lv-attrs">
+					<li>
+						@(Html.Localize("TimeAllocation")):
+						<span data-bind="durationText: TimeAllocation"></span>
+					</li>
+					@Html.PluginRenderActions("ServiceContractInstallationRelationshipItemTemplateAttributes")
+				</ul>
+				@Html.PluginRenderActions("ServiceContractInstallationRelationshipItemTemplateExtensions")
+			</div>
+		</div>
+		<lv-actions>
+			<!-- ko requiredPermission: { name: 'SaveInstallationRelationship', group: 'ServiceContract' } -->
+			<li>
+				<a href="#" data-route="Crm.Service/ServiceContractInstallationRelationship/EditTemplate/{{Id}}" data-toggle="modal" data-target="#modal">
+					@(Html.Localize("Edit"))
+				</a>
+			</li>
+			<!-- /ko -->
+			<!-- ko requiredPermission: { name: 'RemoveInstallationRelationship', group: 'ServiceContract' } -->
+			<li>
+				<a href="#" data-bind="click: $parentContext.$parentContext.$parent.deleteRelationship">
+					@(Html.Localize("Remove"))
+				</a>
+			</li>
+			<!-- /ko -->
+			@Html.PluginRenderActions("ServiceContractInstallationRelationshipItemTemplateActions")
+		</lv-actions>
+	</div>
+</div>

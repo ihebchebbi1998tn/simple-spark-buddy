@@ -1,0 +1,18 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div class="lv-item media with-checkbox" data-bind="visible: !$parent.permissionFilter() || PermissionName.toLowerCase().indexOf($parent.permissionFilter().toLowerCase()) !== -1">
+	<div class="checkbox pull-left">
+		<label>
+			<input type="checkbox" data-bind="checked: $parent.selectedPermissions, value: $data"><i class="input-helper"></i>
+		</label>
+	</div>
+	<div class="media-body">
+		<div class="lv-title" data-bind="text: PermissionName, css: $root.getPermissionColorForSelection(PermissionName.split('::')[0], PermissionName.split('::')[1])"></div>
+		<div data-bind="visible: ImportedBy.filter(x => $root.permissions().indexOf(x) !== -1).length > 0">
+			<small data-bind="text: Helper.String.getTranslatedString('PermissionImportedBy').replace('{0}', ImportedBy.filter(x => $root.permissions().indexOf(x) !== -1).join(', '))"></small>
+		</div>
+		<div data-bind="visible: ImportedPermissions.length > 0">
+			<small data-bind="text: Helper.String.getTranslatedString('PermissionImports').replace('{0}', ImportedPermissions.join(', '))"></small>
+		</div>
+	</div>
+</div>

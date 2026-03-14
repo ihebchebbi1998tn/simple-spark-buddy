@@ -1,0 +1,203 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Extensions
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div class="container">
+	<div class="card">
+		<!-- ko if: !window.Crm.Service.Settings.InstallationNoIsCreateable && !window.Crm.Service.Settings.InstallationNoIsGenerated -->
+		<div class="alert alert-warning" data-bind="text: window.Helper.String.getTranslatedString('InconsistentNumberCreationSettingWarning').replace('{0}', window.Helper.String.getTranslatedString('InstallationNo'))"></div>
+		<!-- /ko -->
+		<form role="form" data-bind="with: installation" class="root-form">
+			<collapsible-block params="id: 'main-data'" class="morph">
+				<collapsible-block-header params="customCss: 'bg-white', swapIcons: true">
+					<span>@(Html.Localize("MainData"))</span>
+				</collapsible-block-header>
+				<collapsible-block-content params="context: { installation: $root.installation }">
+					<!-- ko with: installation -->
+					@Html.PluginRenderActions("InstallationCreateFormMainDataTop")
+					<div class="flex-input-row">
+						<!-- ko if: window.Crm.Service.Settings.InstallationNoIsCreateable && (!window.Helper.Offline || window.Helper.Offline.status === 'online') -->
+						<div>
+							<form-element params="value: InstallationNo, caption: 'InstallationNo', type: 'text'"></form-element>
+						</div>
+						<!-- /ko -->
+						<div>
+							<form-element params="value: LegacyInstallationId, caption: 'T_SerialNr', type: 'text'"></form-element>
+						</div>
+					</div>
+					<div class="flex-input-row">
+						<div>
+							<form-element params="value: Description, caption: 'Description', type: 'text'"></form-element>
+						</div>
+					</div>
+					<div class="flex-input-row">
+						<div>
+							<form-element id="LocationContactId" params="value: LocationContactId, caption: 'InstallationParentName', type: 'select2'">
+								<div class="input-group">
+									<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Name'], table: 'Crm_Company', mapDisplayObject: Helper.Company.mapForSelect2Display, customFilter: Helper.Company.getSelect2Filter.bind($data), onSelect: $root.onLocationContactSelect.bind($root), placeholder: placeholder } }">
+									</select>
+									<!-- ko component: { name: "generic-list-selection", params: { value: value, controller: 'CompanyList', plugin: 'Crm', caption: caption, customFilter: Helper.Company.getSelect2Filter.bind($data), onSelect: $root.onLocationContactSelect.bind($root) } } -->
+									<!-- /ko -->
+								</div>
+							</form-element>
+						</div>
+						<div>
+							<form-element id="LocationPersonId" params="value: LocationPersonId, caption: 'ContactPerson', type: 'select2', disable: !LocationContactId()">
+								<div class="input-group">
+									<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Surname', 'Firstname'], table: 'Crm_Person', customFilter: (query, term) => $root.contactPersonFilter(query, term, $parent), mapDisplayObject: Helper.Person.mapForSelect2Display, placeholder: placeholder } }, disable: disable">
+									</select>
+									<!-- ko component: { name: "generic-list-selection", params: { value: value, controller: 'PersonList', plugin: 'Crm', caption: caption, disable: disable, customFilter: (query) => $root.contactPersonFilter(query, null, $parent) } } -->
+									<!-- /ko -->
+								</div>
+							</form-element>
+						</div>
+					</div>
+					<div class="flex-input-row">
+						<div>
+							<!-- ko ifnot: $root.addAddress() -->
+							<form-element id="LocationAddressKey" params="value: LocationAddressKey, caption: 'InstallationContact', type: 'select2', disable: !LocationContactId()">
+								<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Name1', 'Name2', 'Name3', 'ZipCode', 'City', 'Street'], table: 'Crm_Address', customFilter: (query, term) => $root.locationAddressFilter(query, term, $parent), mapDisplayObject: Helper.Address.mapForSelect2Display, placeholder: placeholder } }, disable: disable">
+								</select>
+							</form-element>
+							<!-- ko requiredPermission: { name: 'Create', group: 'Company' } -->
+							<div class="m-b-15" data-bind="visible: LocationContactId()" style="margin-top: -10px">
+								@(Html.Localize("or"))
+								<a href="#" data-bind="click: $root.toggleAddAddress">
+									@(Html.Localize("AddAddress"))
+								</a>
+							</div>
+							<!-- /ko -->
+							<!-- /ko -->
+							<!-- ko if: $root.addAddress() && LocationContactId() -->
+							<p class="control-label m-b-5">
+								@(Html.Localize("Address"))
+							</p>
+							<address-editor params="contactId: $data.LocationContactId(), addressId: LocationAddressKey(), onLoad: $root.onLoadAddressEditor.bind($root), cloneAddress: true, onDispose: $root.onDisposeAddressEditor.bind($root)"></address-editor>
+							<p>
+								@(Html.Localize("or"))
+								<a href="#" data-bind="click: $root.toggleAddAddress">
+									@(Html.Localize("AddressSelection"))
+								</a>
+							</p>
+							<!-- /ko -->
+						</div>
+					</div>
+					<div class="flex-input-row">
+						<div>
+							<form-element params="value: ExactPlace, caption: 'ExactPlace', type: 'text'"></form-element>
+						</div>
+						<div>
+							<form-element params="value: Room, caption: 'Room', type: 'text'"></form-element>
+						</div>
+					</div>
+					@Html.PluginRenderActions("InstallationCreateFormMainDataBottom")
+					<!-- /ko -->
+				</collapsible-block-content>
+			</collapsible-block>
+			<div class="top-separator"></div>
+			<collapsible-block params="id: 'extended-data'" class="morph">
+				<collapsible-block-header params="customCss: 'bg-white', swapIcons: true">
+					<span>@(Html.Localize("ExtendedData"))</span>
+				</collapsible-block-header>
+				<collapsible-block-content params="context: { installation: $root.installation }">
+					<!-- ko with: installation -->
+					@Html.PluginRenderActions("InstallationCreateFormExtendedDataTop")
+					<div class="flex-input-row">
+						<div>
+							<form-element id="StatisticsKeyProductTypeKey" params="value: StatisticsKeyProductTypeKey, caption: 'StatisticsKeyProductType', type: 'select2'">
+								<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_StatisticsKeyProductType'), placeholder: placeholder }">
+								</select>
+							</form-element>
+						</div>
+						<div>
+							<form-element id="InstallationTypeKey" params="value: InstallationTypeKey, caption: 'InstallationType', type: 'select2'">
+								<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_InstallationType'), placeholder: placeholder }">
+								</select>
+							</form-element>
+						</div>
+						<div>
+							<form-element id="StatusKey" params="value: StatusKey, caption: 'InstallationStatus', type: 'select2'">
+								<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_InstallationHeadStatus'), placeholder: placeholder }">
+								</select>
+							</form-element>
+						</div>
+					</div>
+					<!-- ko requiredPermission: { name: 'ServiceObject', group: 'WebAPI' } -->
+					<div class="flex-input-row">
+						<div>
+							<form-element id="ServiceObjectId" params="value: FolderId, caption: 'ServiceObject', type: 'select2'">
+								<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['ObjectNo'], table: 'CrmService_ServiceObject', mapDisplayObject: Helper.ServiceObject.mapForSelect2Display, placeholder: placeholder } }">
+								</select>
+							</form-element>
+						</div>
+					</div>
+					<!-- /ko -->
+					<div class="flex-input-row">
+						<div>
+							<form-element id="ManufacturerKey" params="value: ManufacturerKey, caption: 'Manufacturer', type: 'select2'">
+								<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_Manufacturer'), placeholder: placeholder }">
+								</select>
+							</form-element>
+						</div>
+						<div>
+							<form-element params="value: ManufactureDate, caption: 'ManufactureDate', type: 'datePicker', datePickerOptions: { config: { stepping: parseInt(Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval) } }"></form-element>
+						</div>
+					</div>
+					<div class="flex-input-row">
+						<div>
+							<form-element id="PreferredUser" params="value: PreferredUser, caption: 'PreferredUser', type: 'select2'">
+								<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['LastName'], table: 'Main_User', mapDisplayObject: Helper.User.mapForSelect2Display, customFilter: Helper.User.filterUserQuery, placeholder: placeholder } }">
+								</select>
+							</form-element>
+						</div>
+						<div>
+							<form-element id="ResponsibleUser" params="value: ResponsibleUser, caption: 'ResponsibleUser', type: 'select2'">
+								<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['LastName'], table: 'Main_User', mapDisplayObject: Helper.User.mapForSelect2Display, customFilter: Helper.User.filterUserQuery, placeholder: placeholder } }">
+								</select>
+							</form-element>
+						</div>
+					</div>
+					<div class="flex-input-row">
+						<div>
+							<form-element params="value: KickOffDate, caption: 'KickoffDate', type: 'datePicker', datePickerOptions: { config: { stepping: parseInt(Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval) } }"></form-element>
+						</div>
+						<div>
+							<form-element params="value: ExternalReference, caption: 'ExternalReference', type: 'text'"></form-element>
+						</div>
+					</div>
+					<div class="flex-input-row">
+						<div>
+							<form-element params="value: WarrantyFrom, caption: 'WarrantyFrom', type: 'datePicker', datePickerOptions: { config: { stepping: parseInt(Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval) } }"></form-element>
+						</div>
+						<div>
+							<form-element params="value: WarrantyUntil, caption: 'WarrantyUntil', type: 'datePicker', datePickerOptions: { config: { stepping: parseInt(Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval) } }"></form-element>
+						</div>
+					</div>
+					<div class="flex-input-row">
+						<div>
+							<form-element params="value: BackgroundInfo, caption: 'BackgroundInfo', type: 'textarea'"></form-element>
+						</div>
+					</div>
+					@Html.PluginRenderActions("InstallationCreateFormExtendedDataBottom")
+					<!-- /ko -->
+				</collapsible-block-content>
+			</collapsible-block>
+			<!-- ko requiredPermission: { name: 'Edit', group: 'Visibility' } -->
+			<div class="top-separator"></div>
+			<collapsible-block params="id: 'visibility', collapsed: true" class="morph">
+				<collapsible-block-header params="customCss: 'bg-white', swapIcons: true">
+					<span>@(Html.Localize("Visibility"))</span>
+				</collapsible-block-header>
+				<collapsible-block-content>
+					<!-- ko with: $root.visibilityViewModel -->
+					@Html.RenderAction("Selection", "Visibility", new { plugin = "Main" })
+					<!-- /ko -->
+				</collapsible-block-content>
+			</collapsible-block>
+			<!-- /ko -->
+			@Html.PluginRenderActions("InstallationCreateForm")
+		</form>
+		@await Html.PartialAsync("CreateFormFooter")
+	</div>
+</div>

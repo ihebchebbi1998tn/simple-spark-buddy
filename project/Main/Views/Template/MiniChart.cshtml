@@ -1,0 +1,19 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div class="bgm-{{color}}">
+	<a href="{{url}}">
+		<div class="mini-charts-item" data-bind="mProgress: loading">
+			<div class="clearfix">
+				<div class="count">
+					<small>{{caption}}</small>
+					<!-- ko if: loading -->
+					<h2>&nbsp;</h2>
+					<!-- /ko -->
+					<!-- ko ifnot: loading -->
+					<h2>{{count}}</h2>
+					<!-- /ko -->
+				</div>
+			</div>
+		</div>
+	</a>
+</div>

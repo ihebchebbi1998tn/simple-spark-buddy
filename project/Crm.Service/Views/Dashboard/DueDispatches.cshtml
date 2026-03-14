@@ -1,0 +1,5 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div class="col-sm">
+	<mini-chart params="caption: 'DueDispatches', count: Helper.Dispatch.getDueDispatchesCount, color: 'red', url: '#/Crm.Service/ServiceOrderDispatchList/IndexTemplate?status=upcoming'"></mini-chart>
+</div>

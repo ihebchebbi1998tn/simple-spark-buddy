@@ -1,0 +1,42 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Extensions;
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div role="tabpanel" class="tab-pane animated fadeIn" id="tab-service-contracts" data-bind="with: tabs()['tab-service-contracts']">
+	<div class="content-header">
+		@Html.RenderAction("GenericListHeader", "ServiceContractList", new { plugin = "Crm.Service" })
+		<!-- ko requiredPermission: { name: 'Create', group: 'ServiceContract' } -->
+		<floating-action-button params="position: 'top', showWhenDropdownIsToggled: true">
+			<li data-bind="with: $root">
+				<a data-mfb-label="@(Html.Localize("CreateServiceContract"))" href="#/Crm.Service/ServiceContract/CreateTemplate?serviceObjectId={{$root.serviceObject().Id()}}">
+					<i class="zmdi zmdi-plus"></i>
+				</a>
+			</li>
+		</floating-action-button>
+		<!-- /ko -->
+	</div>
+	<ul class="top-menu">
+		@Html.PluginRenderActions("ServiceObjectServiceContractsTabTopMenu")
+	</ul>
+	<empty-state-box params="mood: 'sad', title: 'ServiceContracts', text: 'ServiceObjectServiceContractsEmptyState'" data-bind="visible: items().length === 0 && !isFiltered()">
+	</empty-state-box>
+	<div class="generic-list listview lv-bordered">
+		<div class="lv-body">
+			<div data-bind="foreach: items">
+				@await Html.PartialAsync("GenericListItemGroup")
+				@await Html.PartialAsync("../ServiceContractList/MaterialItemTemplate")
+			</div>
+			<!-- ko if: items().length === 0 && isFiltered() -->
+			<div id="generic-list-empty-state" class="lv-item media">
+				<div class="row media-body">
+					<div class="col-xs-12">
+						<small class="lv-small">@(Html.Localize("NoRecordsForSearchCriteria"))</small>
+					</div>
+				</div>
+			</div>
+			<!-- /ko -->
+		</div>
+	</div>
+	@await Html.PartialAsync("Material/GenericListPreloader")
+</div>

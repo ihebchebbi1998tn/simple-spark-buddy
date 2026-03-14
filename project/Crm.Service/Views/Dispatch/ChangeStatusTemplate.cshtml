@@ -1,0 +1,93 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<div class="modal-header card-header ch-alt" data-bind="with: dispatch">
+	<button type="button" class="close" data-dismiss="modal" aria-label="@(Html.Localize("Close"))">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title">@(Html.Localize("DispatchCompletion"))</h4>
+</div>
+	<!-- ko if: checkForEmptyTimesOrMaterials() -->
+	<div id="empty-times-or-materials-hint" class="alert" data-bind="class: $root.showError() ? 'alert-danger' : 'alert-warning'" role="alert">
+		<h4 data-bind="translatedText: 'Hint'"></h4>
+		<p data-bind="text: emptyTimesOrMaterialsMessage"></p>
+	</div>
+	<!-- /ko -->
+<div class="modal-body card-body card-padding">
+	<form role="form" action="#" data-bind="with: dispatch">
+
+
+		<!-- ko if: $root.dispatchValidatorErrors().length > 0 -->
+		<div class="alert alert-danger animated tada" role="alert">
+			@(Html.Localize("CannotCompleteThisDispatchYet"))
+		</div>
+		<!-- ko foreach: $root.dispatchValidatorErrors() -->
+		<p data-bind="text: $data.message"></p>
+		<ul>
+			<!-- ko foreach: $data.links -->
+			<li>
+				<a href="#" data-bind="attr: { 'data-route': $data.url + '?dispatchId=' + $data.routeValues.dispatch().Id() }, visible: $data.condition()" data-toggle="modal" data-target="#lgModal">
+					<span data-bind="text: $data.text"></span>
+				</a>
+				<span data-bind="text: $data.text, visible: !$data.condition()"></span>
+			</li>
+			<!-- /ko -->
+		</ul>
+		<!-- /ko -->
+		<!-- /ko -->
+
+		<!-- ko ifnot: $root.formDisabled -->
+		<div data-bind="validationElement: SignatureJson">
+			<div data-bind="validationElement: StatusKey">
+				<label class="fg-label control-label">
+					@(Html.Localize("ServiceOrderDispatchStatus")) <span class="required">*</span>
+				</label>
+				<!-- ko foreach: $root.lookups.serviceOrderDispatchStatuses.$array -->
+				<!-- ko if: Key -->
+				<div class="radio m-b-15">
+					<label>
+						<input type="radio" data-bind="checked: $parent.StatusKey, checkedValue: Key">
+						<i class="input-helper"></i>
+						<span data-bind="text: Value"></span>
+					</label>
+				</div>
+				<!-- /ko -->
+				<!-- /ko -->
+				<small class="help-block" data-bind="validationMessage: SignatureJson"></small>
+				<small class="help-block" data-bind="validationMessage: StatusKey"></small>
+			</div>
+		</div>
+
+
+		<!-- ko if: $root.displayRequiredOperationsInput -->
+		<form-element params="value: RequiredOperations, caption: 'RequiredOperations', type: 'textarea'"></form-element>
+		<!-- /ko -->
+
+		<form-element params="value: FollowUpServiceOrder, caption: 'FollowUpServiceOrderNeeded', type: 'checkbox'"></form-element>
+		<!-- ko if: FollowUpServiceOrder -->
+		<form-element params="value: FollowUpServiceOrderRemark, caption: 'Remark', type: 'textarea'"></form-element>
+		<!-- /ko -->
+
+		<!-- ko if: ServiceOrder().Installation -->
+		<!-- ko with: ServiceOrder().Installation -->
+		<form-element id="StatusKey" params="value: StatusKey, caption: 'InstallationStatus', type: 'select'">
+			<select name="StatusKey" class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_InstallationHeadStatus'), placeholder: placeholder}">
+			</select>
+		</form-element>
+		<!-- /ko -->
+		<!-- /ko -->
+
+		<!-- /ko -->
+
+	</form>
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-bind="click: Helper.Database.clearTrackedEntities" data-dismiss="modal">
+		@(Html.Localize("Cancel"))
+	</button>
+	<!-- ko ifnot: $root.formDisabled -->
+	<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: save, disable: loading">
+		@(Html.Localize("Save"))
+	</button>
+	<!-- /ko -->
+</div>

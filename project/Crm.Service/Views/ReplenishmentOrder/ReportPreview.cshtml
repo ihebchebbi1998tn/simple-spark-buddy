@@ -1,0 +1,17 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-label="@(Html.Localize("Close"))">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title">@(Html.Localize("Report"))</h4>
+</div>
+<div class="modal-body">
+	@await Html.PartialAsync("ReplenishmentOrderReport") 
+</div>
+<div class="modal-footer">
+	<button class="btn btn-float bgm-blue m-btn" data-action="print" data-bind="click: function () { window.print(); }">
+		<i class="zmdi zmdi-print"></i>
+	</button>
+</div>

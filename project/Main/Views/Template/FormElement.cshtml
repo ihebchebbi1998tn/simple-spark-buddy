@@ -1,0 +1,234 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<!-- ko if: type === 'select' -->
+<div class="form-group" data-bind="validationElement: value">
+	<div class="fg-line select">
+		<p class="control-label m-b-5" data-bind="css: { 'text-muted': disable }, visible: caption">
+			<span data-bind="text: caption"></span>
+			<span class="required" data-bind="visible: isRequired">*</span>
+		</p>
+		<!-- ko template: { nodes: $componentTemplateNodes } --><!-- /ko -->
+	</div>
+	<small class="help-block pre-line" data-bind="validationMessage: value"></small>
+</div>
+<!-- /ko -->
+<!-- ko if: type === 'select2' -->
+<div class="form-group" data-bind="validationElement: value">
+	<p class="control-label m-b-5" data-bind="css: { 'text-muted': disable }, visible: caption">
+		<span data-bind="text: caption"></span>
+		<span class="required" data-bind="visible: isRequired">*</span>
+	</p>
+	<!-- ko template: { nodes: $componentTemplateNodes } -->
+	<!-- /ko -->
+	<small class="help-block" data-bind="validationMessage: value"></small>
+</div>
+<!-- /ko -->
+<!-- ko if: type === 'email' || type === 'text' || type === 'password' || type === 'money' || type === 'number' || type === 'textarea' || !type -->
+<div class="form-group" data-bind="validationElement: value">
+	<div class="fg-line">
+		<label class="fg-label control-label" data-bind="css: { 'text-muted': disable }, visible: caption">
+			<span data-bind="text: caption"></span>
+			<span class="required" data-bind="visible: isRequired">*</span>
+		</label>
+		<!-- ko if: type === 'text' || type === 'password' -->
+		<input class="form-control fg-input" data-bind="value: value, attr: { maxlength: maxLength, name: name, placeholder: placeholder, type: type }, disable: disable, hasFocus: hasFocus">
+		<!-- /ko -->
+		<!-- ko if: type === 'textarea' -->
+		<textarea class="form-control fg-input" data-bind="value: value, autosize: true, attr: { maxlength: maxLength, name: name, placeholder: placeholder }, disable: disable"></textarea>
+		<!-- /ko -->
+		<!-- ko if: type === 'money' || type === 'number' -->
+		<input type="number" step="any" class="form-control fg-input" data-bind="value: value, attr: { name: name, placeholder: placeholder, step: quantityStep, min: min }, disable: disable">
+		<!-- /ko -->
+		<!-- ko if: type === 'email' -->
+		<input type="email" class="form-control fg-input" data-bind="value: value, attr: { name: name, placeholder: placeholder }, disable: disable">
+		<!-- /ko -->
+		<!-- ko template: { nodes: $componentTemplateNodes } --><!-- /ko -->
+	</div>
+	<small class="help-block pre-line" data-bind="validationMessage: value"></small>
+</div>
+<!-- /ko -->
+<!-- ko if: type === 'datePicker' || type === 'timePicker' -->
+<div class="form-group has-feedback" data-bind="validationElement: value">
+	<!-- ko if: caption -->
+	<label class="control-label" data-bind="css: { 'text-muted': disable }">
+		<span data-bind="text: caption"></span>
+		<span class="required" data-bind="visible: isRequired">*</span>
+	</label>
+	<!-- /ko -->
+	<div class="dtp-container fg-line">
+		<input type="text" class="form-control date-picker" data-bind="datePicker: value, datePickerOptions: datePickerOptions, attr: { name: name }, disable: disable, attr.placeholder: placeholder()!=''?placeholder : Helper.String.getTranslatedString('ClickHere')" >
+	</div>
+	<span class="zmdi form-control-feedback" data-bind="css: { 'zmdi-calendar': type === 'datePicker', 'zmdi-time-interval': type === 'durationPicker', 'zmdi-time': type === 'timePicker' }"></span>
+	<small class="help-block pre-line" data-bind="validationMessage: value"></small>
+</div>
+<!-- /ko -->
+<!-- ko if: type === 'durationPicker' -->
+<div class="form-group has-feedback" data-bind="validationElement: value">
+	<!-- ko if: caption -->
+	<label class="control-label" data-bind="css: { 'text-muted': disable }">
+		<span data-bind="text: caption"></span>
+		<span class="required" data-bind="visible: isRequired">*</span>
+	</label>
+	<!-- /ko -->
+	<div class="dtp-container fg-line">
+		<div class="dropdown">
+			<input type="text" class="form-control date-picker" data-toggle="dropdown" aria-expanded="true" data-bind="durationInput: value, datePickerOptions: datePickerOptions, attr: { name: name }, disable: disable, attr.placeholder: placeholder()!=''?placeholder : Helper.String.getTranslatedString('ClickHere')">
+			<div class="bootstrap-datetimepicker-widget dropdown-menu bottom" onclick="event.stopPropagation()" style="inset: 35px auto auto 0px;">
+    			<ul class="list-unstyled">
+    				<li class="picker-switch accordion-toggle">
+    					<table class="table-condensed">
+    						<tbody>
+                            <tr>
+	                            <td>
+		                            <a data-action="clear" title="Clear"><span class="zmdi zmdi-delete"></span></a>
+	                            </td>
+	                            <td>
+		                            <a data-action="close" title="Close"><span class="zmdi zmdi-close"></span></a>
+	                            </td>
+                            </tr>
+    						</tbody>
+    					</table>
+    				</li>
+    				<li>
+    					<div class="timepicker">
+    						<div class="timepicker-picker">
+    							<table class="table-condensed">
+    								<tbody>
+    								<tr>
+    									<td>
+    										<a href="#" tabindex="-1" class="btn" data-bind="click: incrementHours">
+    											<span class="glyphicon glyphicon-chevron-up"></span>
+    										</a>
+    									</td><td class="separator"></td>
+    									<td>
+    										<a href="#" tabindex="-1" class="btn" data-bind="click: incrementMinutes">
+    											<span class="glyphicon glyphicon-chevron-up"></span>
+    										</a>
+    									</td>
+    								</tr>
+    								<tr>
+    									<td>
+    										<span class="timepicker-hour" data-bind="text: hours"></span>
+    									</td><td class="separator">:</td>
+    									<td>
+    										<span class="timepicker-minute" data-bind="text: minutes"></span>
+    									</td>
+    								</tr>
+    								<tr>
+    									<td>
+    										<a href="#" tabindex="-1" class="btn" data-bind="click: decrementHours">
+    											<span class="glyphicon glyphicon-chevron-down"></span>
+    										</a>
+    									</td><td class="separator"></td>
+    									<td>
+    										<a href="#" tabindex="-1" class="btn" data-bind="click: decrementMinutes">
+    											<span class="glyphicon glyphicon-chevron-down"></span>
+    										</a>
+    									</td>
+    								</tr>
+    								</tbody>
+    							</table>
+    						</div>
+    					</div>
+    				</li>
+    			</ul>
+    		</div>
+		</div>
+	</div>
+	<span class="zmdi form-control-feedback zmdi-time-interval"></span>
+	<small class="help-block pre-line" data-bind="validationMessage: value"></small>
+</div>
+<!-- /ko -->
+<!-- ko if: type === 'checkbox' -->
+<div class="form-group" data-bind="validationElement: value">
+	<div class="checkbox m-b-15">
+		<label>
+			<input type="checkbox" data-bind="checked: value, attr: { name: name }, disable: disable">
+			<i class="input-helper"></i>
+			<span data-bind="css: { 'text-muted': disable }, visible: caption">
+				<span data-bind="text: caption"></span>
+				<span class="required" data-bind="visible: isRequired">*</span>
+			</span>
+		</label>
+	</div>
+	<small class="help-block pre-line" data-bind="validationMessage: value"></small>
+</div>
+<!-- /ko -->
+<!-- ko if: type === 'fileResource' -->
+<div class="form-group" data-bind="validationElement: ko.unwrap(value).Length">
+	<div class="fg-line" data-bind="visible: caption">
+		<label class="fg-label control-label">
+			<span data-bind="text: caption"></span>
+		</label>
+	</div>
+	<!--ko if: window.Modernizr.touch-->
+	<!-- ko with: value -->
+	<div class="fileinput fileinput-new" data-provides="fileinput">
+		<span class="btn btn-primary btn-file m-r-10">
+			<span class="fileinput-new">@(Html.Localize("SelectFile"))</span>
+			<span class="fileinput-exists">@(Html.Localize("Change"))</span>
+			<input type="file" data-bind="fileInput: { name: Filename, contentType: ContentType, size: Length, content: Content }, attr: { accept: $parent.accept }">
+		</span>
+		<span class="fileinput-filename pre-line word-break-word"></span>
+		<a href="#" class="close fileinput-exists" data-dismiss="fileinput">&times;</a>
+	</div>
+	<!-- /ko -->
+	<!-- /ko -->
+	<!--ko ifnot: window.Modernizr.touch-->
+	<div class="dropzone" data-bind="dropzone: { name: name() || 'dropzone', url: '#', fileResource: value, acceptFile: accept, maxFiles: 1, loading: $data.loading }">
+	</div>
+
+	<!-- ko with: value -->
+	<div class="tv-comments m-t-15" data-bind="visible: Filename() !== null">
+		<ul class="tvc-lists listview">
+			<li class="media lv-item">
+				<span class="tvh-user pull-left">
+					<i class="zmdi zmdi-hc-2x zmdi-file"></i>
+				</span>
+				<div class="media-body">
+					<strong class="d-block">
+						<span data-bind="text: Filename"></span>
+					</strong>
+					<small class="c-gray" data-bind="fileSize: Length"></small>
+				</div>
+				<div class="lv-actions actions dropdown">
+						<a href="#" data-toggle="dropdown">
+							<i class="zmdi zmdi-more-vert"></i>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-right">
+							<li>
+								<a href="#" data-bind="attr: { id: ($component.name() || 'dropzone') + '-removeFileResource' }">
+									@(Html.Localize("Remove"))
+								</a>
+							</li>
+						</ul>
+					</div>
+				<div class="has-error">
+					<small class="help-block" data-bind="validationMessage: Length"></small>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<!-- /ko -->
+	<div class="preloader pl-lg centered" data-bind="visible: $component.loading()">
+		<svg class="pl-circular" viewBox="25 25 50 50">
+			<circle class="plc-path" cx="50" cy="50" r="20"></circle>
+		</svg>
+	</div>	
+	<!-- /ko -->
+</div>
+<!-- /ko -->
+<!-- ko if: type === 'slider' -->
+<div class="form-group" data-bind="validationElement: value">
+	<div class="fg-line">
+		<label class="fg-label control-label m-b-10" data-bind="css: { 'text-muted': disable }, visible: caption">
+			<span data-bind="text: caption"></span>
+		</label>
+		<div class="m-l-5 input-slider form-slider" data-bind="slider: { value: value, options: sliderOptions }">
+		</div>
+		<span class="help-block pre-line" data-bind="text: tooltip"></span>
+		<small class="help-block pre-line" data-bind="validationMessage: value"></small>
+	</div>
+</div>
+<!-- /ko -->

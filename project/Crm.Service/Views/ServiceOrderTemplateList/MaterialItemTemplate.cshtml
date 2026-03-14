@@ -1,0 +1,49 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div id="{{Id}}" class="lv-item media">
+	<div class="lv-avatar pull-left" data-bind="text: Helper.ServiceOrder.getTypeAbbreviation($data, $parent.lookups.serviceOrderTypes), style: { backgroundColor: Helper.Lookup.getLookupColor($parent.lookups.serviceOrderTypes, $data.TypeKey) }, visible: !$parent.selectedItems || $parent.selectedItems().length === 0"></div>
+	<div class="media-body">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="lv-title">
+					<!-- ko requiredPermission: { name: 'Read', group: 'ServiceOrderTemplate' } -->
+					<a href="#/Crm.Service/ServiceOrderTemplate/Details/{{Id}}">
+						<span data-bind="text: OrderNo"></span>
+					</a>
+					<!-- /ko -->
+					<!-- ko noRequiredPermission: { name: 'Read', group: 'ServiceOrderTemplate' } -->
+					<span data-bind="text: OrderNo"></span>
+					<!-- /ko -->
+					<small class="c-gray" data-bind="lookupValue: TypeKey, lookups: $root.lookups.serviceOrderTypes"></small>
+				</div>
+				<div data-bind="text: ErrorMessage"></div>
+				<ul class="lv-attrs">
+					<!-- ko if: UserGroup -->
+					<li data-bind="with: UserGroup">
+						<i class="zmdi zmdi-accounts-outline"></i>
+						<span data-bind="text: Name"></span>
+					</li>
+					<!-- /ko -->
+					<!-- ko if: ResponsibleUserUser -->
+					<li>
+						<i class="zmdi zmdi-account-o"></i>
+						<span data-bind="text: Helper.User.getDisplayName(ResponsibleUserUser)"></span>
+					</li>
+					<!-- /ko -->
+					<li data-bind="visible: PriorityKey">
+						<i class="zmdi zmdi-circle" data-bind="style: { color: Helper.Lookup.getLookupColor($root.lookups.servicePriorities, $data.PriorityKey) }"></i>
+						@(Html.Localize("Priority")):
+						<span data-bind="lookupValue: PriorityKey, lookups: $root.lookups.servicePriorities"></span>
+					</li>
+					@Html.PluginRenderActions("ServiceOrderTemplateItemTemplateAttributes")
+				</ul>
+				@Html.PluginRenderActions("ServiceOrderTemplateItemTemplateExtensions")
+			</div>
+			<lv-actions>
+				@Html.PluginRenderActions("ServiceOrderTemplateItemTemplateActions")
+			</lv-actions>
+		</div>
+	</div>
+</div>

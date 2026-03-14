@@ -1,0 +1,127 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<pmb-block params="icon: 'calendar-note', caption: 'SchedulingInformation', context: { serviceOrder: serviceOrder }, condition: serviceOrderIsEditable, onInit: onInitScheduling, onSave: onSaveScheduling">
+	<pmbb-view>
+		<!-- ko with: serviceOrder -->
+		<pmbb-view-entry params="caption: 'Priority'">
+			<span data-bind="if: PriorityKey, lookupValue: PriorityKey, lookups: $root.lookups.servicePriorities"></span>
+			<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: PriorityKey"></span>
+		</pmbb-view-entry>
+		<pmbb-view-entry params="caption: 'Usergroup'">
+			<!-- ko if: UserGroup -->
+			<span data-bind="text: UserGroup().Name"></span>
+			<!-- /ko -->
+			<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: UserGroup"></span>
+		</pmbb-view-entry>
+		<pmbb-view-entry params="caption: 'ResponsibleUser'">
+			<!-- ko if: ResponsibleUserUser -->
+			<span data-bind="text: Helper.User.getDisplayName(ResponsibleUserUser)"></span>
+			<!-- /ko -->
+			<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ResponsibleUserUser"></span>
+		</pmbb-view-entry>
+		<pmbb-view-entry params="caption: 'Assets'">
+        	<!-- ko if: RequiredAssetKeys().length > 0 -->
+        	<span data-bind="text: $root.getAssetsFromKeys(RequiredAssetKeys()).map(function(x){ return x.text; }).join(', ')"></span>
+        	<!-- /ko -->
+        	<span class="c-gray" data-bind="translatedText: 'Unspecified', if: RequiredAssetKeys().length === 0"></span>
+        </pmbb-view-entry>
+		<pmbb-view-entry params="caption: 'PreferredTechnicianUsergroup'">
+			<!-- ko if: PreferredTechnicianUsergroupObject -->
+			<span data-bind="text: PreferredTechnicianUsergroupObject().Name"></span>
+			<!-- /ko -->
+			<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: PreferredTechnicianUsergroupObject"></span>
+		</pmbb-view-entry>
+		<pmbb-view-entry params="caption: 'PreferredTechnician'">
+			<!-- ko if: PreferredTechnicianUser -->
+			<span data-bind="text: Helper.User.getDisplayName(PreferredTechnicianUser)"></span>
+			<!-- /ko -->
+			<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: PreferredTechnicianUser"></span>
+		</pmbb-view-entry>
+		<pmbb-view-entry params="caption: 'Reported'">
+			<span data-bind="dateText: Reported"></span>
+			<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: Reported"></span>
+		</pmbb-view-entry>
+		<pmbb-view-entry params="caption: 'Deadline'">
+			<span data-bind="dateText: Deadline"></span>
+			<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: Deadline"></span>
+		</pmbb-view-entry>
+		<pmbb-view-entry params="caption: 'Planned'">
+			<!-- ko if: Planned -->
+			<span data-bind="dateText: { value: moment.utc(ko.unwrap($data.Planned)).local(true).toDate() }"></span>
+			<!-- /ko -->
+			<!-- ko if: PlannedTime -->
+			<span data-bind="durationText: PlannedTime"></span>
+			<!-- /ko -->
+			<span class="c-red" data-bind="if: PlannedDateFix">@(Html.Localize("Fix"))</span>
+			<!-- ko ifnot: Planned() || PlannedTime() || PlannedDateFix() -->
+			<span class="c-gray" data-bind="translatedText: 'Unspecified'"></span>
+			<!-- /ko -->
+		</pmbb-view-entry>
+		<pmbb-view-entry params="caption: 'PrematureDate'">
+			<!-- ko if: PrematureDate -->
+			<span data-bind="dateText: { value: moment.utc(ko.unwrap($data.PrematureDate)).local(true).toDate() }"></span>
+			<!-- /ko -->
+			<!-- ko if: PrematureTime -->
+			<span data-bind="durationText: PrematureTime"></span>
+			<!-- /ko -->
+			<!-- ko ifnot: PrematureDate() || PrematureTime() -->
+			<span class="c-gray" data-bind="translatedText: 'Unspecified'"></span>
+			<!-- /ko -->
+		</pmbb-view-entry>
+		<pmbb-view-entry params="caption: 'LastActivity'">
+			<span data-bind="dateText: LastActivity"></span>
+			<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: LastActivity"></span>
+		</pmbb-view-entry>
+		<!-- /ko -->
+	</pmbb-view>
+	<pmbb-edit>
+		<!-- ko with: serviceOrder -->
+		<pmbb-edit-entry params="caption: 'Priority', validationElement: PriorityKey">
+			<select name="PriorityKey" class="form-control" data-bind="select2autocompleter: { data: PriorityKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_ServicePriority'), placeholder: $parent.placeholder}">
+			</select>
+		</pmbb-edit-entry>
+		<pmbb-edit-entry params="caption: 'Usergroup', validationElement: UserGroupKey">
+			<select class="form-control" data-bind="select2autocompleter: { data: UserGroupKey, autocompleteOptions: { orderBy: ['Name'], table: 'Main_Usergroup', customFilter: Helper.User.filterUsergroupQuery, placeholder: $parent.placeholder, mapDisplayObject: function(ug){ return { id: ug.Id, item: ug, text: ug.Name }; }, onSelect: $root.onUsergroupSelect.bind($parentContext.$parentContext.$parent) } }">
+			</select>
+		</pmbb-edit-entry>
+		<pmbb-edit-entry params="caption: 'ResponsibleUser', validationElement: ResponsibleUser">
+			<select class="form-control" data-bind="select2autocompleter: { data: ResponsibleUser, autocompleteOptions: { orderBy: ['LastName'], table: 'Main_User', mapDisplayObject: Helper.User.mapForSelect2Display, placeholder: $parent.placeholder, customFilter: function (query, term) { return Helper.User.filterUserQuery(query, term, UserGroupKey()); }, onSelect: function(value) { ResponsibleUserUser(value ? value.asKoObservable() : null); } } }">
+			</select>
+		</pmbb-edit-entry>
+		<pmbb-edit-entry params="caption: 'Asset'">
+        	<select class="form-control" multiple="multiple" data-bind="select2autocompleter: { data: RequiredAssetKeys, autocompleteOptions: { table: 'Main_Asset', customFilter: Helper.Lookup.queryLookup, mapDisplayObject: Helper.Lookup.mapLookupForSelect2Display, getElementByIdQuery: Helper.Lookup.getLookupByKeyQuery, placeholder: $parent.placeholder } }">
+        	</select>
+        </pmbb-edit-entry>
+		<pmbb-edit-entry params="caption: 'PreferredTechnicianUsergroup', validationElement: PreferredTechnicianUsergroupKey">
+			<select class="form-control" data-bind="select2autocompleter: { data: PreferredTechnicianUsergroupKey, autocompleteOptions: { orderBy: ['Name'], table: 'Main_Usergroup', customFilter: Helper.User.filterUsergroupQuery, mapDisplayObject: Helper.User.mapUsergroupForSelect2Display, getElementByIdQuery: Helper.User.filterUsergroupQueryById, placeholder: $parent.placeholder, onSelect: $root.onPreferredTechnicianUsergroupSelect.bind($parentContext.$parentContext.$parent) } }">
+			</select>
+		</pmbb-edit-entry>
+		<pmbb-edit-entry params="caption: 'PreferredTechnician', validationElement: PreferredTechnician">
+			<select class="form-control" data-bind="select2autocompleter: { data: PreferredTechnician, autocompleteOptions: { orderBy: ['LastName'], table: 'Main_User', mapDisplayObject: Helper.User.mapForSelect2Display, customFilter: $root.preferredTechnicianFilter.bind($parentContext.$parentContext.$parent), placeholder: $parent.placeholder, onSelect: function(value) { PreferredTechnicianUser(value ? value.asKoObservable() : null); } } }">
+			</select>
+		</pmbb-edit-entry>
+		<pmbb-edit-entry params="caption: 'Reported', validationElement: Reported">
+			<input type="text" class="form-control date-picker" data-bind="datePicker: Reported, datePickerOptions: { config: { maxDate: new Date() } }" placeholder="@(Html.Localize("ClickHere"))">
+		</pmbb-edit-entry>
+		<pmbb-edit-entry params="caption: 'Deadline', validationElement: Deadline">
+			<input type="text" class="form-control date-picker" data-bind="datePicker: Deadline" placeholder="@(Html.Localize("ClickHere"))">
+		</pmbb-edit-entry>
+		<pmbb-edit-entry params="caption: 'Planned', validationElement: Planned">
+			<input type="text" class="form-control date-picker" data-bind="datePicker: Planned" placeholder="@(Html.Localize("ClickHere"))">
+		</pmbb-edit-entry>
+		<pmbb-edit-entry params="caption: 'PlannedTime', validationElement: PlannedTime">
+			<input type="text" class="form-control date-picker" data-bind="datePicker: PlannedTime, datePickerOptions: { pickDuration: true }" placeholder="@(Html.Localize("ClickHere"))">
+		</pmbb-edit-entry>
+		<pmbb-edit-entry params="caption: 'PlannedDateFix', validationElement: PlannedDateFix">
+			<input type="checkbox" class="form-control" data-bind="checked: PlannedDateFix">
+		</pmbb-edit-entry>
+		<pmbb-edit-entry params="caption: 'PrematureDate', validationElement: PrematureDate">
+			<input type="text" class="form-control date-picker" data-bind="datePicker: PrematureDate" placeholder="@(Html.Localize("ClickHere"))">
+		</pmbb-edit-entry>
+		<pmbb-edit-entry params="caption: 'PrematureTime', validationElement: PrematureTime">
+			<input type="text" class="form-control date-picker" data-bind="datePicker: PrematureTime, datePickerOptions: { pickDuration: true }" placeholder="@(Html.Localize("ClickHere"))">
+		</pmbb-edit-entry>
+		<!-- /ko -->
+	</pmbb-edit>
+</pmb-block>

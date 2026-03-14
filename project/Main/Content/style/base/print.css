@@ -1,0 +1,109 @@
+﻿/*
+	Print stylesheet. Remove the items that are redundant on a paper.
+*/
+
+body {
+	margin: 0;
+}
+
+i.zmdi {
+	display: inline-block !important;
+}
+
+i.zmdi:before {
+	color: #5e5e5e !important;
+}
+
+#add-note-form,
+#mainnav,
+#missing-translations,
+#mobile-nav,
+#system,
+#contact-search,
+#primary_action_button,
+#project-contacts .entry > .right,
+input,
+.secondary-action,
+.controls, .bulk-control, .bulk-controls,
+.edit, .sidebar-info-box,
+.info-box,
+.returntoremember,
+.whitebox-subheader .right,
+.header .right,
+.caption .right,
+.tag-select,
+.btn,
+.hide-print,
+a[onclick],
+a[href='#'],
+.actions,
+#tab-buttons,
+.pager,
+.whitebox-header .right,
+.ui-datepicker-trigger,
+.required-marker,
+i
+{
+    display: none !important;
+}
+
+i[class^="icon-"] {
+	display: inline !important;
+}
+i.fa {
+	display: inline !important;
+}
+
+.other-address,
+#sidebar #accordion .closed .entry,
+#sidebar,
+#sidebar .box
+{
+	visibility: visible;
+	display: block;
+	margin-left: 0;
+	border: none !important;
+}
+
+#col, #sidebar {
+    width: 100% !important;
+}
+
+.tab-content,
+.only-in-print
+{
+    display: block !important;
+}
+
+h1, h2, h3, h4 {
+	display: block;
+	border: none !important;
+	border-bottom: 1px #ddd !important;
+	font-weight: bold;
+}
+
+#sidebar .box .header {
+	font-size: 18px !important;
+	float: left !important;
+}
+
+.closed.btn {
+	height: auto !important;
+	background: none !important;
+	background-color: #fff !important;
+	color: #000 !important;
+}
+
+.page-break {
+	 display: block; 
+	 page-break-before: always;
+}
+
+.description {
+	font-weight: bold !important;
+	font-weight: bolder !important;
+}
+
+* {
+	box-shadow: none !important;
+}

@@ -1,0 +1,229 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<ul class="top-menu">
+	@Html.PluginRenderActions("DispatchDetailsTopMenu")
+</ul>
+
+<div class="container">
+	<div id="profile-main" class="divided-detail">
+		<div class="pm-overview c-overflow hide-print card w-100" data-bind="css: { 'hide-mobile': currentTabId() === 'tab-report' && window.client.isMobileDevice() }" tabindex="4">
+			<block>
+				<block-header>
+					<div class="min-title-width">
+						<!-- ko with: $root.dispatch -->
+						<!-- ko if: DispatchNo() !== null -->
+						<span data-bind="text: DispatchNo"></span>
+						<!-- /ko -->
+						<!-- ko if: DispatchNo() === null -->
+						<!-- ko requiredPermission: { name: 'Read', group: 'ServiceOrder' } -->
+						<a href="#/Crm.Service/ServiceOrder/DetailsTemplate/{{$root.serviceOrder().Id()}}">
+							<span class="OrderNoText" data-bind="text: $root.serviceOrder().OrderNo()"></span>
+						</a>
+						<!-- /ko -->
+						<!-- ko noRequiredPermission: { name: 'Read', group: 'ServiceOrder' } -->
+						<span class="OrderNoText" data-bind="text: $root.serviceOrder().OrderNo()"></span>
+						<!-- /ko -->
+						<div class="f-13 m-t-5">
+							<span data-bind="lookupValue: $root.serviceOrder().TypeKey(), lookups: $root.lookups.serviceOrderTypes"></span>
+						</div>
+						<!-- /ko -->
+						<!-- /ko -->
+						<!-- ko if: $root.dispatch().DispatchNo() !== null -->
+						<!-- ko with: $root.serviceOrder -->
+						<!-- ko requiredPermission: { name: 'Read', group: 'ServiceOrder' } -->
+						<a href="#/Crm.Service/ServiceOrder/DetailsTemplate/{{Id}}">
+							<span class="OrderNoText" data-bind="text: OrderNo"></span>
+						</a>
+						<!-- /ko -->
+						<!-- ko noRequiredPermission: { name: 'Read', group: 'ServiceOrder' } -->
+						<span class="OrderNoText" data-bind="text: OrderNo"></span>
+						<!-- /ko -->
+						<div class="f-13 m-t-5">
+							<span data-bind="lookupValue: TypeKey, lookups: $root.lookups.serviceOrderTypes"></span>
+						</div>
+						<!-- /ko -->
+						<!-- /ko -->
+					</div>
+					<div class="m-l-auto">
+						<!-- ko RequiredPermission: { name: 'ConfirmReleased', group: 'Dispatch' } -->
+						<!-- ko if: $root.dispatch().StatusKey() === 'Read' || ($root.dispatch().StatusKey() === 'Released' && AuthorizationManager.isAuthorizedForAction('Dispatch', 'CreateForOtherUsers')) -->
+						<button id="work-on-dispatch" type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: $root.workOnDispatch">
+							<i class="zmdi zmdi-thumb-up m-r-5"></i>
+							@(Html.Localize("WorkOnDispatch"))
+						</button>
+						<!-- /ko -->
+						<!-- /ko -->
+						<!-- ko if: $root.dispatch().StatusKey() === "ClosedComplete"  -->
+						<div class="m-l-auto">
+							<status-chooser params="currentStatus: $root.dispatch().StatusKey, statuses: $root.lookups.serviceOrderDispatchStatuses.$array.filter(x => x.Key !== null), canSetStatus: () => false"></status-chooser>
+						</div>
+						<!-- /ko -->
+					</div>
+				</block-header>
+				<block-content>
+					<!-- ko with: $root -->
+					<!-- ko if: statusAlert -->
+					<div class="alert alert-warning" role="alert">
+						<h4 data-bind="translatedText: 'Hint'"></h4>
+						<p data-bind="translatedText: statusAlert"></p>
+					</div>
+					<!-- /ko -->
+					<!-- /ko -->
+					<!-- ko with: $root.dispatch -->
+					<!-- ko if: ["ClosedNotComplete", "CancelledNotComplete"].includes(StatusKey()) -->
+					<div class="alert alert-danger" role="alert">
+						<p>@Html.Localize("FollowUpDispatchRequired")</p>
+						<!-- ko if: RequiredOperations -->
+						<small data-bind="text: RequiredOperations"></small>
+						<!-- /ko -->
+					</div>
+					<!-- /ko -->
+					<!-- ko if: FollowUpServiceOrder() -->
+					<div class="alert alert-danger" role="alert">
+						<p>@Html.Localize("FollowUpServiceOrderNeeded")</p>
+						<!-- ko if: FollowUpServiceOrderRemark -->
+						<small data-bind="text: FollowUpServiceOrderRemark"></small>
+						<!-- /ko -->
+					</div>
+					<!-- /ko -->
+					<!-- /ko -->
+					<div class="flex-block">
+						<!-- ko with: $root.dispatch -->
+						<div class="pmo-block">
+							<span data-bind="dateText: { value: Date, timeZone: TimeZone, pattern: { datetime: 'short' } }"></span>
+							<!-- ko if: !Helper.Date.isTimeZoneSame(TimeZone) && $root.getLocalTimeZoneText($data) -->
+							<i>(<span data-bind="text: Helper.Date.getUtcOffsetString(TimeZone, Date)"></span>)</i> 
+							<a href="#" tabindex="0" role="button" data-bind="popover: { content: $root.getLocalTimeZoneText($data), placement: 'auto right', html: true }, tooltip: true" title="@(Html.Localize("Hint"))">
+								<i class="f-20 zmdi zmdi-info-outline"></i>
+							</a>
+							<!-- /ko -->
+							<span> - </span>
+							<span data-bind="dateText: { value: EndDate, pattern: { datetime: 'short' } }"></span>
+							<!-- ko if: !Helper.Date.isTimeZoneSame(TimeZone) && $root.getLocalTimeZoneText($data) -->
+							<i>(<span data-bind="text: Helper.Date.getUtcOffsetString(TimeZone, EndDate)"></span>)</i> 
+							<a href="#" tabindex="0" role="button" data-bind="popover: { content: $root.getLocalTimeZoneText($data), placement: 'auto right', html: true }, tooltip: true" title="@(Html.Localize("Hint"))">
+								<i class="f-20 zmdi zmdi-info-outline"></i>
+							</a>
+							<!-- /ko -->
+							<small class="c-red" data-bind="visible: IsFixed">@(Html.Localize("Fix"))</small>
+							<div>
+								<i class="zmdi zmdi-time-interval"></i> <span data-bind="durationText: window.Helper.Dispatch.calculateDuration($data).toISOString()"></span>
+							</div>
+						</div>
+						<!-- /ko -->
+						<!-- ko with: $root.dispatch -->
+						<!-- ko if: DispatchedUser() && (!$root.userGroup || !$root.userGroup()) -->
+						<div class="pmo-block pmo-contact">
+							<h4>@(Html.Localize("Technician"))</h4>
+							<ul>
+								<li>
+									<i class="zmdi zmdi-account"></i>
+									<span data-bind="text: Helper.User.getDisplayName(DispatchedUser)"></span>
+								</li>
+								<!-- ko if: $root.vehicles().length > 0 -->
+								<li>
+									<i class="zmdi zmdi-car"></i>
+									<!-- ko foreach: $root.vehicles -->
+									<a data-bind="attr: { href: '#/Crm.Article/Article/DetailsTemplate/' + $data.Id }">
+										<span data-bind="text: Helper.Article.getArticleAutocompleteDisplay($data, $root.currentUser().DefaultLanguageKey)"></span><br />
+									</a>
+									<!-- /ko -->
+								</li>
+								<!-- /ko -->
+								<!-- ko if: $root.tools().length > 0 -->
+								<li>
+									<i class="zmdi zmdi-wrench"></i>
+									<!-- ko foreach: $root.tools -->
+									<a data-bind="attr: { href: '#/Crm.Article/Article/DetailsTemplate/' + $data.Id }">
+										<span data-bind="text: Helper.Article.getArticleAutocompleteDisplay($data, $root.currentUser().DefaultLanguageKey)"></span><br />
+									</a>
+									<!-- /ko -->
+								</li>
+								<!-- /ko -->
+							</ul>
+						</div>
+						<!-- /ko -->
+						<!-- /ko -->
+
+
+
+						<!-- ko with: $root -->
+						@Html.PluginRenderActions("MaterialDispatchHeaderExtensions")
+						<!-- /ko -->
+					</div>
+				</block-content>
+			</block>
+		</div>
+		<div class="row">
+			<div class="col-lg-8">
+				<div class="card detail-main-block">
+					<div class="pm-overview">
+						<ul class="tab-nav morph" role="tablist" tabindex="1">
+							@Html.PluginRenderActions("DispatchDetailsMaterialTabHeader")
+						</ul>
+					</div>
+					<div class="pm-body clearfix">
+						<div class="tab-content">
+							@Html.PluginRenderActions("DispatchDetailsMaterialTab")
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<!-- ko requiredPermission: { name: 'TasksBlock', group: 'Dispatch' } -->
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="card detail-side-block">
+							<task-list-block params="parentViewModel: $root">
+							</task-list-block>
+						</div>
+					</div>
+				</div>
+				<!-- /ko -->
+				<div class="row">
+					<div class="col-lg-12 col-md-6">
+						<div class="card detail-side-block">
+							<collapsible-block params="id: 'initiator'">
+								<collapsible-block-header params="icon: 'city-alt'">
+									<span>@(Html.Localize("Initiator"))</span>
+								</collapsible-block-header>
+								<collapsible-block-content>
+									@await Html.PartialAsync("ServiceOrderMaterialDetails/DetailsTabInitiator")
+								</collapsible-block-content>
+							</collapsible-block>
+						</div>
+					</div>
+					<div class="col-lg-12 col-md-6">
+						<div class="card detail-side-block">
+							<collapsible-block params="id: 'dispatch-location'">
+								<collapsible-block-header params="icon: 'pin-drop'">
+									<span>@(Html.Localize("DispatchLocation"))</span>
+								</collapsible-block-header>
+								<collapsible-block-content>
+									<pmb-block params="context: { dispatch: $root.dispatch, serviceOrder: $root.serviceOrder }, condition: window.Helper.Dispatch.dispatchIsEditable($root.dispatch()), onCancel: $root.onLocationPmbCancel.bind($root)">
+										@await Html.PartialAsync("ServiceOrderMaterialDetails/DetailsLocation")
+									</pmb-block>
+								</collapsible-block-content>
+							</collapsible-block>
+						</div>
+					</div>
+					<div class="col-lg-12 col-md-6">
+						<div class="card detail-side-block">
+							<collapsible-block params="id: 'dispatch-recipients'">
+								<collapsible-block-header params="icon: 'email'">
+									<span>@(Html.Localize("Recipients"))</span>
+								</collapsible-block-header>
+								<collapsible-block-content>
+										@await Html.PartialAsync("ServiceOrderMaterialDetails/DetailsTabRecipient")
+								</collapsible-block-content>
+							</collapsible-block>
+						</div>
+					</div>
+				</div>
+				@Html.PluginRenderActions("MaterialDispatchSidebarExtensions")
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,116 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div role="tabpanel" class="tab-pane animated fadeIn" id="tab-positions" data-bind="with: tabs()['tab-positions']">
+	<div class="content-header placeholder">
+		<div class="lv-header-alt generic-list-header main-section listview">
+			<div class="card-header d-flex flex-auto">
+				<div class="caption d-flex flex-auto">
+					<h2>
+						<!-- ko if: levelPage() > 0 && !loading()-->
+						<div id="return-to-tree-view" class="lv-avatar bgm-gray search-back col-xs-2" data-bind="click: backToPreviousView">
+							<a href="#" class=" c-white" data-bind="tooltip: true" title="@(Html.Localize("Back"))">
+								<i class="zmdi zmdi-arrow-back"></i>
+							</a>
+						</div>
+						<ol class="breadcrumb p-t-0 m-b-0 m-t-5 p-l-20 col-xs-9" style=" border-bottom: 0px;">
+							<!-- ko foreach: parents-->
+							<li class="breadcrumb-item" data-bind="tabBreadcrumb:{text: ItemNo()+' - '+Description(), index: $index(), length: $parent.parents().length, position: $data},tooltip: true">
+							</li>
+							<!-- /ko -->
+						</ol>
+						<!-- /ko -->
+					</h2>
+					<!-- ko if: bookmarks().length > 0 -->
+					<div class="dropdown">
+						<button id="bookmark-dropdown" class="btn btn-default btn-icon-text waves-effect border-round dropdown-toggle" data-toggle="dropdown"
+										aria-expanded="false">
+							<span class="d-flex flex-v-center">
+								<span class="d-flex flex-v-center">
+									<i class="zmdi zmdi-bookmark f-15"></i>
+								</span>
+								<!-- ko if: bookmark -->
+								<span class="m-l-5" data-bind="text: bookmark().Name"></span>
+								<!-- /ko -->
+							</span>
+							<i class="zmdi zmdi-chevron-up border-round bg-primary text-primary circle-icon-right"></i>
+							<i class="zmdi zmdi-chevron-down border-round bg-primary text-primary circle-icon-right"></i>
+						</button>
+						<ul class="dropdown-menu dropdown-menu-left" data-bind="foreach: bookmarks.indexKeys.Category()">
+							<!-- ko foreach: $parent.bookmarks.index.Category()[$data] -->
+							<li data-bind="attr: { 'class': $data.Key.toLowerCase() + '-filter' }, css: { 'active': $parentContext.$parent.bookmark() === $data }">
+								<a href="#" data-bind="click: $parentContext.$parent.toggleBookmark">
+									<span data-bind="text: Name"></span>
+								</a>
+							</li>
+							<!-- /ko -->
+						</ul>
+					</div>
+					<!-- /ko -->
+				</div>
+				<ul class="top-menu section-menu actions generic-list-actions">
+					<li data-bind="visible: true, tooltip: true" data-placement="bottom">
+						<a id="open-generic-list-filter" data-trigger="#right-nav" href="#" data-route="@("Crm.Service/InstallationPositionList/FilterTemplate")">
+							<i class="tm-icon zmdi zmdi-filter-list"></i>
+							<div class="small">@(Html.Localize("Filter"))</div>
+						</a>
+					</li>
+					<!-- ko if: items().length > 0 -->
+					<li id="close-expand-all">
+						<a href="#" data-toggle="dropdown" aria-expanded="true">
+							<i class="zmdi zmdi-more-vert"></i>
+							<div class="small">@(Html.Localize("More_Upper"))</div>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-right">
+							<li>
+								<a href="#" data-bind="click: $root.tabs()['tab-positions']().expandAllPositions.bind($root.tabs()['tab-positions']())">
+									@(Html.Localize("ExpandAll"))
+								</a>
+							</li>
+							<li>
+								<a href="#" data-bind="click: $root.tabs()['tab-positions']().closeAllPositions.bind($root.tabs()['tab-positions']())">
+									@(Html.Localize("CollapseAll"))
+								</a>
+							</li>
+						</ul>
+					</li>
+					<!-- /ko -->
+				</ul>
+			</div>
+		</div>
+		<!-- ko requiredPermission: { name: 'Create', group: 'InstallationPosition' } -->
+		<floating-action-button params="position: 'top', showWhenDropdownIsToggled: true">
+			<li data-bind="with: $root">
+				<a id="add-installation-position" href="#" data-mfb-label="@(Html.Localize("AddInstallationPosition"))" data-route="Crm.Service/InstallationPosition/EditTemplate/?installationId={{$root.installation().Id()}}" data-toggle="modal" data-target="#lgModal">
+					<i class="zmdi zmdi-plus"></i>
+				</a>
+			</li>
+		</floating-action-button>
+		<!-- /ko -->
+	</div>
+	<empty-state-box params="mood: 'sad', title: 'Material', text: 'NoInstallationPositionsInfo'" data-bind="visible: items().length === 0 && !isFiltered()">
+	</empty-state-box>
+	@Html.PluginRenderActions("MaterialGenericListResourceExtensions")
+	<div class="generic-list listview lv-bordered">
+		<div class="panel-group m-b-5 p-r-10" id="position-group-accordion" role="tablist" aria-multiselectable="true">
+			@await Html.PartialAsync("../InstallationPositionList/MaterialItemTemplate")
+			<div class="lv-body" data-bind="visible: !loading()">
+				<!-- ko template: { name: 'position-group-template', foreach: items } -->
+				<!-- /ko -->
+			</div>
+			<!-- ko if: items().length === 0 && isFiltered() -->
+			<div id="generic-list-empty-state" class="lv-item media">
+				<div class="row media-body">
+					<div class="col-xs-12">
+						<small class="lv-small">@(Html.Localize("NoRecordsForSearchCriteria"))</small>
+					</div>
+				</div>
+			</div>
+			<!-- /ko -->
+		</div>
+	</div>
+	<!-- ko if: (levelPage()===0 || ( levelPage()>0 && !!$parent.Article)) && !loading()-->
+	@await Html.PartialAsync("../InstallationPositionList/InstallationPositionsMaterialPaging")
+	<!-- /ko -->
+</div>

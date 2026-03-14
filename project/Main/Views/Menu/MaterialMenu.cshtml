@@ -1,0 +1,86 @@
+﻿@using Crm.Library.Extensions
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Menu
+@using Main.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl<Main.ViewModels.CrmModelList<Crm.Library.Modularization.Menu.MenuEntry>>
+
+@functions
+{
+	public string GetAttributeString(MenuEntry entry)
+	{
+		return entry.HtmlAttributes?.Where(x => x.Key != "target").Select(x => $"{x.Key}=\"{x.Value}\"").Join(" ") ?? string.Empty;
+	}
+}
+
+@foreach (var menu in Model.List.Where(x => x.Category == null).GroupBy(r => r.Title).Select(g => g.First()).OrderByDescending(r => r.Priority).ThenBy(x => Html.Localize(x.Title)))
+{
+	var submenus = Model.List.Where(x => String.Equals(x.Category, menu.Title, StringComparison.InvariantCultureIgnoreCase)).ToList();
+	@if (submenus.Any())
+	{
+		<li class="sub-menu" @Html.Raw(GetAttributeString(menu))>
+			<a href="#">
+				@if (menu.IconClass != null)
+				{
+					<i class="@(menu.IconClass)"></i>
+				}
+				@(Html.Localize(menu.Title))
+			</a>
+			<ul style="display: none;">
+				@foreach (var submenu in submenus.OrderByDescending(x => x.Priority).ThenBy(x => Html.Localize(x.Title)))
+				{
+					@foreach (var menuRequiredPermission in submenu.RequiredPermissions)
+					{
+						<!-- ko requiredPermission: '@(menuRequiredPermission)' -->
+					}
+					<li @Html.Raw(GetAttributeString(submenu))>
+						@if (submenu.HtmlAttributes?.TryGetValue("target", out var target) == true && Equals(target, "_blank"))
+						{
+							@(Html.Link(Html.Localize(submenu.Title), Url.MenuEntry(submenu, Model.User), submenu.HtmlAttributes))
+						}
+						else
+						{
+							@(Html.Link(Html.Localize(submenu.Title), "#" + submenu.Url.RemovePrefix("~")))
+						}
+					</li>
+					@foreach (var menuRequiredPermission in submenu.RequiredPermissions)
+					{
+						<!-- /ko -->
+					}
+				}
+			</ul>
+		</li>
+	}
+	else if (!String.IsNullOrWhiteSpace(menu.Url))
+	{
+		@foreach (var menuRequiredPermission in menu.RequiredPermissions)
+		{
+			<!-- ko requiredPermission: '@(menuRequiredPermission)' -->
+		}
+		<li @Html.Raw(GetAttributeString(menu))>
+			@if (menu.HtmlAttributes?.TryGetValue("target", out var target) == true && Equals(target, "_blank"))
+			{
+				<a href="@(Url.MenuEntry(menu, Model.User))" target="_blank">
+					@if (menu.IconClass != null)
+					{
+						<i class="@(menu.IconClass)"></i>
+					}
+					@(Html.Localize(menu.Title))
+				</a>
+			}
+			else
+			{
+				<a href="#@(menu.Url.RemovePrefix("~"))">
+					@if (menu.IconClass != null)
+					{
+						<i class="@(menu.IconClass)"></i>
+					}
+					@(Html.Localize(menu.Title))
+				</a>
+			}
+		</li>
+		@foreach (var menuRequiredPermission in menu.RequiredPermissions)
+		{
+			<!-- /ko -->
+		}
+	}
+}

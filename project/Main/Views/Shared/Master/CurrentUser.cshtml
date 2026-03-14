@@ -1,0 +1,8 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl<Main.ViewModels.CrmModel>
+
+@if (Model?.User != null) { 
+	<meta id="meta.CurrentUser" name="CurrentUser" content="@(Model.User.Id)"/>
+	if (Model.User.AuthData != null) {
+		<meta id="meta.CurrentUser.BaseDomainId" name="CurrentUser.BaseDomainId" content="@(Model.User.AuthData.DomainId)"/>
+	}
+}

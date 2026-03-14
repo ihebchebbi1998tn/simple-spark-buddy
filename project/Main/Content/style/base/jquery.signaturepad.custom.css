@@ -1,0 +1,32 @@
+.sigPad {
+	width: 100%;
+}
+
+.sigWrapper {
+	border: 0;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+}
+
+.pad {
+	border: 1px solid #000;
+}
+
+.current .pad {
+	cursor: url("images/pen.cur"), crosshair;
+    cursor: url("images/pen.cur") 16 16, crosshair;	
+}
+
+/* revert signaturepad styles that override jquery mobile styles */
+.sigPad button {
+  font-weight: 400;
+  font-size: 1px;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.sigPad button:hover {
+  background-color: #ffffff;
+  color: #000000;
+}

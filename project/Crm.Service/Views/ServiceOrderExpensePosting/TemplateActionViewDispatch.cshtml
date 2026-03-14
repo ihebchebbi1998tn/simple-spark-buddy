@@ -1,0 +1,14 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<!-- ko if: window.database.CrmService_ServiceOrderExpensePosting -->
+<!-- ko if: $data.innerInstance instanceof database.CrmService_ServiceOrderExpensePosting.CrmService_ServiceOrderExpensePosting-->
+<li data-bind="requiredPermission: { name: 'Read', group: 'Dispatch' }, visible: DispatchId() && canViewCurrentUser">
+	<a data-bind="attr: { href: '#/Crm.Service/Dispatch/DetailsTemplate/' + DispatchId() }, translatedText: 'ViewDispatch'">
+	</a>
+</li>
+<li data-bind="requiredPermission: { name: 'Read', group: 'ServiceOrder' }, visible: !DispatchId()">
+	<a data-bind="attr: { href: '#/Crm.Service/ServiceOrder/DetailsTemplate/' + ServiceOrder().Id() }, translatedText: 'ViewServiceOrder'">
+	</a>
+</li>
+<!-- /ko -->
+<!-- /ko -->

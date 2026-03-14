@@ -1,0 +1,10 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<!-- ko if: $root.article().ArticleTypeKey() == "Tool" || $root.article().ArticleTypeKey() == "Vehicle" -->
+<li role="presentation">
+	<a class="col-xs-4" href="#tab-teams" aria-controls="tab-teams" role="tab" data-toggle="tab" aria-expanded="false">
+		@(Html.Localize("AssignedTeams"))
+	</a>
+</li>
+<!-- /ko -->

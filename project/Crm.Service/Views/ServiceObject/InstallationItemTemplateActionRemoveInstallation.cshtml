@@ -1,0 +1,10 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<!-- ko if: $parentContext.$parentContext.$parent.removeInstallation -->
+<li>
+	<a href="#" data-bind="click: $parentContext.$parentContext.$parent.removeInstallation">
+		@(Html.Localize("Remove"))
+	</a>
+</li>
+<!-- /ko -->

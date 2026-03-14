@@ -1,0 +1,1 @@
+import "../Content/ts/sqlite3-websql-polyfill";

@@ -1,0 +1,25 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl<Main.ViewModels.GenericListViewModel>
+@using Crm.Library.Globalization.Extensions
+@using Main.Offline.Extensions
+
+<div id="search-results" class="crm-search-results" style="display:none" data-bind="visible: true">
+	@using (Html.TemplateVisible("pageState().Items().length == 0"))
+	   { 
+		<h2>@(Model.EmptySlate)</h2>
+	 } 
+						
+@using (Html.TemplateVisible("pageState().TotalItemCount() > 0"))
+   { 
+		<div class="paging clearfix">
+			<div class="pageState" data-bind="text: pageState().FirstIndexOnPage() + '-' + pageState().LastIndexOnPage() + ' @(Html.Localize("of")) ' +  pageState().TotalItemCount()"></div>
+			<div class="pager" data-bind="visible: pageState().TotalPageCount() > 1">
+				<a href="#" id="previous-page" class="btn btn-default btn-sm" data-bind="visible: pageState().HasPreviousPage()">
+					@(Html.Localize("PreviousPager"))
+				</a>
+				<a href="#" id="next-page" class="btn btn-default btn-sm" data-bind="visible: pageState().HasNextPage()">
+					@(Html.Localize("NextPager"))
+				</a>
+			</div>
+		</div>
+	 } 
+</div>

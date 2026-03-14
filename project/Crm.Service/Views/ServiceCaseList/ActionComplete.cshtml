@@ -1,0 +1,16 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<!-- ko if: $parentContext.$parentContext.$parent instanceof Crm.Service.ViewModels.DispatchDetailsServiceCasesTabViewModel -->
+<!-- ko if: window.Helper.Dispatch.dispatchIsEditable($root.dispatch()) -->
+<!-- ko if: $data.StatusKey() !== $parentContext.$parentContext.$parent.completedStatus -->
+<!-- ko requiredPermission: { name: 'Edit', group: 'ServiceCase' } -->
+<li>
+	<a href="#" data-bind="click: $parentContext.$parentContext.$parent.complete">
+		@(Html.Localize("Complete"))
+	</a>
+</li>
+<!-- /ko -->
+<!-- /ko -->
+<!-- /ko -->
+<!-- /ko -->

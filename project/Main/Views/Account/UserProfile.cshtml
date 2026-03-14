@@ -1,0 +1,60 @@
+﻿@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div class="container">
+	<div id="profile-main" class="divided-detail">
+		<div class="row">
+			<div class="col-lg-10">
+				<div class="card detail-main-block">
+					<div class="pm-overview">
+						<ul class="tab-nav morph" role="tablist" tabindex="1">
+							@Html.PluginRenderActions("UserProfileTabHeader")
+						</ul>
+					</div>
+					<div class="pm-body clearfix">
+						<div class="tab-content">
+							@Html.PluginRenderActions("UserProfileTab")
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-2">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="card detail-side-block">
+							<collapsible-block params="id: 'avatar'">
+								<collapsible-block-header>
+									<div>
+										<div data-bind="text: $root.title"></div>
+										<div class="f-13 m-t-5">
+											<span data-bind="text: $root.additionalTitle"></span>
+										</div>
+									</div>
+								</collapsible-block-header>
+								<collapsible-block-content>
+									<!-- ko with: $root -->
+									<div class="pmo-pic user-avatar">
+										<a href="#" data-toggle="modal" data-target="#modal" data-route="Main/Account/UserAvatar">
+											<!-- ko if: avatarUrl -->
+											<img class="img-responsive" data-bind="attr: { src: avatarUrl }" />
+											<!-- /ko -->
+											<!-- ko ifnot: avatarUrl -->
+											<img class="img-responsive" src="@(Url.Content("~/Plugins/Main/Content/img/avatar.jpg"))" />
+											<!-- /ko -->
+										</a>
+										<a href="#" class="pmop-edit" data-toggle="modal" data-target="#modal" data-route="Main/Account/UserAvatar">
+											<i class="zmdi zmdi-camera"></i> <span class="hidden-xs">@(Html.Localize("Edit"))</span>
+										</a>
+									</div>
+									<!-- /ko -->
+								</collapsible-block-content>
+							</collapsible-block>
+						</div>
+					</div>
+				</div>
+				@Html.PluginRenderActions("MaterialUserProfileSidebarExtensions")
+			</div>
+		</div>
+	</div>
+</div>

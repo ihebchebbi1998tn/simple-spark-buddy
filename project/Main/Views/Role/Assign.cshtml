@@ -1,0 +1,25 @@
+﻿@using Crm.Library.Globalization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div class="modal-header card-header ch-alt">
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title" data-bind="text: Helper.String.getTranslatedString('AssignUserToRole').replace('{0}', Helper.String.getTranslatedString(role().Name(), role().Name()))"></h4>
+</div>
+<div class="modal-body card-body card-padding">
+	<form>
+		<form-element id="Users" params="value: usernames, caption: 'Users', type: 'select'">
+			<select name="Users" class="form-control" multiple="multiple" data-bind="select2autocompleter: { data: $root.getUsersFromUsernames.call($root, $root.usernames()), autocompleteOptions: { orderBy: ['LastName'], table: 'Main_User', mapDisplayObject: Helper.User.mapForSelect2Display, customFilter: Helper.User.filterUserQuery, placeholder: placeholder } }, selectedOptions: $root.usernames">
+			</select>
+		</form-element>
+	</form>
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-bind="click: Helper.Database.clearTrackedEntities" data-dismiss="modal">
+		@(Html.Localize("Cancel"))
+	</button>
+	<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: assign, disable: loading">
+		@(Html.Localize("Save"))
+	</button>
+</div>

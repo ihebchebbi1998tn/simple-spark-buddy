@@ -1,0 +1,16 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<!-- ko ifnot: $componentTemplateNodes.length -->
+<a class="btn btn-float btn-primary m-btn waves-effect waves-circle waves-float animated bounceIn" data-bind="attr: { href: href, title: title }">
+	<i class="zmdi" data-bind="css: 'zmdi-' + icon"></i>
+</a>
+<!-- /ko -->
+<!-- ko if: $componentTemplateNodes.length -->
+<ul class="mfb-zoomin" data-mfb-toggle="hover" data-bind="css: position === 'top' ? 'mfb-component--tr' : position === 'bottom' ? 'mfb-component--br' : ''">
+	<li class="mfb-component__wrap">
+		<ul class="mfb-component__list">
+			<!-- ko template: { nodes: $componentTemplateNodes, afterRender: mfbAfterRender.bind($data) } --><!-- /ko --> 
+		</ul>
+	</li>
+</ul>
+<!-- /ko -->

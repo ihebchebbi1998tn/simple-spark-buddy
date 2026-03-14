@@ -1,0 +1,10 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<!-- ko requiredPermission: { name: 'Create', group: 'ServiceOrderErrorType' } -->
+<li data-bind="with: $parent, visible: $parent.errorTypesCanBeAdded">
+	<a id="add-service-order-error-type" href="#" data-mfb-label="@(Html.Localize("AddErrorType"))" data-route="Crm.Service/ServiceOrderErrorType/EditTemplate/" data-toggle="modal" data-target="#lgModal">
+		<i class="zmdi zmdi-plus"></i>
+	</a>
+</li>
+<!-- /ko -->

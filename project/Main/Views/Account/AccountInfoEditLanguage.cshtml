@@ -1,0 +1,13 @@
+﻿<pmbb-edit-entry id="Language" params="caption: 'Language', validationElement: DefaultLanguageKey">
+
+	<select class="form-control" data-bind="select2autocompleter: { data: DefaultLanguageKey, autocompleteOptions: { customFilter: Helper.User.languageFilter, table: 'Main_Language', mapDisplayObject: Helper.Lookup.mapLookupForSelect2Display, getElementByIdQuery: Helper.Lookup.getLookupByKeyQuery, onSelect: function(value) { if(value && $root.accountInfo().DefaultLanguageKey() && value.Key != $root.accountInfo().DefaultLanguageKey()) {DefaultLocale(null)}} }, placeholder: $parent.placeholder }">
+	</select>
+</pmbb-edit-entry>
+<pmbb-edit-entry id="DefaultLocale" params="caption: 'Locale', validationElement: DefaultLocale">
+	<select class="form-control" data-bind="select2autocompleter: { data: $root.locales, optionsText: Helper.Culture.getDisplayName, placeholder: $parent.placeholder }, value: DefaultLocale, disable: !DefaultLanguageKey()">
+	</select>
+</pmbb-edit-entry>
+<pmbb-edit-entry id="TimeZoneName" params="caption: 'TimeZoneName', validationElement: TimeZoneName">
+	<select class="form-control" data-bind="select2autocompleter: Helper.Date.getTimeZoneSelect2Options(), value: TimeZoneName">
+	</select>
+</pmbb-edit-entry>

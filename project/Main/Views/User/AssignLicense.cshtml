@@ -1,0 +1,37 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<div class="modal-header card-header ch-alt">
+	<button type="button" class="close" data-dismiss="modal" aria-label="@(Html.Localize("Close"))">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title">
+		@(Html.Localize("License"))
+	</h4>
+</div>
+<div class="modal-body card-body card-padding">
+	<!-- ko ifnot: revoke -->
+	<!-- ko ifnot: canAssignLicense -->
+	<div class="alert alert-danger" data-bind="translatedText: { key: 'NotEnoughLicenseError', args: [$root.usersWithoutLicenseCount(), $root.availableUserLicenses()] }"></div>
+	<!-- /ko -->
+	<!-- ko if: canAssignLicense -->
+	@(Html.Localize("AssignLicenseToUsers"))
+	<!-- /ko -->
+	<!-- /ko -->
+	<!-- ko if: revoke -->
+	@(Html.Localize("RevokeLicenseFromUsers"))
+	<!-- /ko -->
+	<!-- ko foreach: $root.displayUsernames() -->
+	<div data-bind="text: $data"></div>
+	<!-- /ko -->
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-dismiss="modal" data-bind="click: cancel">
+		@(Html.Localize("Cancel"))
+	</button>
+	<!-- ko if: canAssignLicense() || revoke() -->
+	<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: () => bulk() ? bulkSave() : save(), disable: loading">
+		@(Html.Localize("Confirm"))
+	</button>
+	<!-- /ko -->
+</div>

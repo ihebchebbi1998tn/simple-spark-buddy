@@ -1,0 +1,37 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<pmb-block params="icon: 'file-text', caption: 'ReportBarcode', context: { barcode: $root.barcode }, condition: false">
+	<pmbb-view>
+		<!-- ko with: barcode -->
+		<dl class="dl-horizontal">
+			<dt data-bind="translatedText: 'Preview'"></dt>
+			<dd>
+				<barcode params="format: format, 
+									value: value">
+				</barcode>
+			</dd>
+		</dl>
+		<pmbb-view-entry params="caption: 'ShowOnServiceReport'">
+			<span data-bind="translatedText: showOnServiceReport() ? 'Yes' : 'No'"></span>
+		</pmbb-view-entry>
+		<pmbb-view-entry params="caption: 'ShowOnChecklistPDF'">
+			<span data-bind="translatedText: showOnChecklistPdf() ? 'Yes' : 'No'"></span>
+		</pmbb-view-entry>
+		<pmbb-view-entry params="caption: 'PrintOnly'">
+			<span data-bind="translatedText: printOnly() ? 'Yes' : 'No'"></span>
+		</pmbb-view-entry>
+		<pmbb-view-entry params="caption: 'Prefix'">
+			<span data-bind="text: prefix"></span>
+			<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: prefix"></span>
+		</pmbb-view-entry>
+		<pmbb-view-entry params="caption: 'Root'">
+			<span data-bind="text: rootDisplay"></span>
+			<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: root"></span>
+		</pmbb-view-entry>
+		<pmbb-view-entry params="caption: 'Suffix'">
+			<span data-bind="text: suffix"></span>
+			<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: suffix"></span>
+		</pmbb-view-entry>
+		<!-- /ko -->
+	</pmbb-view>
+</pmb-block>

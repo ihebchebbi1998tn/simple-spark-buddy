@@ -1,0 +1,6 @@
+<!-- ko if: $root.table === "CrmService_ServiceContractStatus" -->
+<form-element params="value: SettableStatuses, caption: 'SettableStatuses', type: 'select'">
+	<select class="form-control" multiple="multiple" data-bind="select2autocompleter: { data: ko.pureComputed({ read: () => (value() || '').split(',').filter(Boolean), write: (newValue) => value(newValue.join(',') || null) }), autocompleteOptions: { customFilter: (query, term) => Helper.Lookup.queryLookup(query.filter(it => it.Key !== this.key, { key: $root.lookup().Key() }), term), table: 'CrmService_ServiceContractStatus', mapDisplayObject: Helper.Lookup.mapLookupForSelect2Display, getElementByIdQuery: Helper.Lookup.getLookupByKeyQuery }, placeholder: Helper.String.getTranslatedString('Unspecified') }">
+	</select>
+</form-element>
+<!-- /ko -->

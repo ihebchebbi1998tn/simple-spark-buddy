@@ -1,0 +1,230 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Extensions
+@using Crm.Library.Globalization.Extensions
+
+<div id="modal-timeposting-title" class="modal-header card-header ch-alt" data-bind="with: serviceOrderTimePosting">
+	<button type="button" class="close" data-dismiss="modal" aria-label="@(Html.Localize("Close"))">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title" data-bind="visible: innerInstance.entityState === 20">@(Html.Localize("CreateTimePosting"))</h4>
+	<h4 class="modal-title" data-bind="visible: innerInstance.entityState !== 20">@(Html.Localize("EditServiceOrderTimePosting"))</h4>
+	<h4 class="modal-title" data-bind="visible: $root.prePlanned"> (@(Html.Localize("PrePlanned")))</h4>
+</div>
+<div class="modal-body card-body card-padding">
+	<form role="form" action="#" data-bind="with: serviceOrderTimePosting">
+		<!-- ko if: ["SignedByCustomer", "ClosedNotComplete", "ClosedComplete"].indexOf(ServiceOrderDispatch()?.StatusKey()) !== -1 -->
+		<div class="alert alert-warning" role="alert">
+			<p data-bind="translatedText: 'EditTimePostingWarningWhenDispatchClosed'"></p>
+		</div>
+		<!-- /ko -->
+		<div class="row" data-bind="if: $root.showDispatchSelection">
+			<div class="col-md-12" >
+				<form-element id="DispatchId" params="value: DispatchId, caption: 'ServiceOrderDispatch', type: 'select2'">
+					@Html.RenderAction("AutocompleteTemplate", "ServiceOrderDispatchList", new { plugin = "Crm.Service" })
+					<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { table: 'CrmService_ServiceOrderDispatch', customFilter: $root.dispatchFilter.bind($root), joins: ['ServiceOrder', 'ServiceOrder.Company', 'ServiceOrder.Installation', 'ServiceOrder.ServiceObject'], mapDisplayObject: Helper.Dispatch.mapForSelect2Display, onSelect: $root.onDispatchSelect.bind($root), templateResultId: 'dispatch-autocomplete-template', placeholder: placeholder } }">
+					</select>
+				</form-element>
+			</div>
+		</div>
+		<div class="row">
+			<div data-bind="css: window.Crm.Service.Settings.ServiceContract.MaintenanceOrderGenerationMode === 'JobPerInstallation' ? 'col-md-6' : 'col-md-12'">
+				<form-element id="ArticleId" params="value: ArticleId, caption: 'ServiceTime', disable: !$parent.canEditArticle()">
+					<select name="ArticleId" class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Article.getArticleSelect2Options($root), placeholder: placeholder}, disable: disable" >
+					</select>
+				</form-element>
+			</div>
+			<div class="col-md-6">
+				<form-element params="value: ServiceOrderTimeId, caption: 'ServiceOrderTime', disable: !$parent.isJobEditable()" data-bind="visible: window.Crm.Service.Settings.ServiceContract.MaintenanceOrderGenerationMode === 'JobPerInstallation'">
+				<select name="ServiceOrderTimeId" class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { table: 'CrmService_ServiceOrderTime', orderBy: ['PosNo'], joins: Helper.ServiceOrderTime.getAutocompleteJoins(), customFilter: $root.getServiceOrderTimeAutocompleteFilter.bind($root), mapDisplayObject: function (o) { return { id: o.Id, item: o, text: Helper.ServiceOrderTime.getAutocompleteDisplay(o) }; }, onSelect: $root.onJobSelected.bind($root), placeholder: $root.isJobEditable() ? Helper.String.getTranslatedString('PleaseSelect') : ' ' } }, disable: disable" >
+				</select>
+			</form-element>
+			</div>
+		</div>
+		<!-- ko if: $root.showTechnicianSelection() && !$root.prePlanned() -->
+		<div class="row">
+			<!-- ko requiredPermission: { name: 'CreateAllUsersTimePostings', group: 'ServiceOrder' } -->
+			<!-- ko if: $root.showUserGroupAndRoleSelection() -->
+			<div class="col-md-4">
+				<form-element id="UsernameUserGroup" params="value: $root.userGroupId, caption: 'Technician-UserGroup', disable: !$root.enableUserGroupSelection()">
+					<select name="UsernameUserGroup" class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Name'], table: 'Main_Usergroup', customFilter: Helper.User.filterUsergroupQuery, mapDisplayObject: Helper.User.mapUsergroupForSelect2Display, placeholder: placeholder } }, disable: disable">
+					</select>
+				</form-element>
+			</div>
+			<div class="col-md-4">
+				<form-element id="UsernameRole" params="value: $root.roleId, caption: 'Technician-Role'">
+					<select name="UsernameRole" class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Name'], table: 'Main_PermissionSchemaRole', mapDisplayObject: Helper.User.mapRoleForSelect2Display, placeholder: placeholder } }">
+					</select>
+				</form-element>
+			</div>
+			<!-- /ko -->
+			<!-- ko if: innerInstance.entityState === window.$data.EntityState.Added && $root.multipleTechnicianSelection() -->
+			<div class="col-md-4">
+				<form-element id="Username" params="value: $root.selectedUsernames, caption: 'Technician'">
+					<select name="Username" multiple="multiple" class="form-control" data-bind="select2autocompleter: { data: $root.selectedUsernames ,autocompleteOptions: { orderBy: ['LastName'], table: 'Main_User', mapDisplayObject: Helper.User.mapForSelect2Display, getElementByIdQuery: Helper.User.getUsersByIds, placeholder: placeholder, customFilter: function (query,term) { return Helper.User.filterUserQuery(query,term,$root.userGroupId(),$root.roleId()).filter(function (it) { return it.Discharged === false; }); }} }">
+					</select>
+				</form-element>
+			</div>
+			<!-- /ko -->
+			<!-- ko if: (innerInstance.entityState !== window.$data.EntityState.Added) || !$root.multipleTechnicianSelection()  -->
+			<div class="col-md-4">
+				<form-element id="Username" params="value: Username, caption: 'Technician'">
+					<select name="Username" class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['LastName'], table: 'Main_User', mapDisplayObject: Helper.User.mapForSelect2Display, placeholder: placeholder, customFilter: function (query,term) { return Helper.User.filterUserQuery(query,term,$root.userGroupId(),$root.roleId()).filter(function (it) { return it.Discharged === false; }); }} }">
+					</select>
+				</form-element>
+			</div>
+			<!-- /ko -->
+			<!-- /ko -->
+		</div>
+		<!-- /ko -->
+		<div class="row">
+			<div class="col-md-4">
+				<form-element id="TravelTypeKey" params="value: TravelTypeKey, caption: 'TravelType', type: 'select'" data-bind="visible: $parent.showKilometerSelection()">
+					<select name="TravelTypeKey" class="form-control" data-bind="select2autocompleter: { data: value, default: Helper.Lookup.getLookupValue($root.lookups.travelType, TravelTypeKey), autocompleteOptions: Helper.PerDiem.autocompleterOptionsToPerDiemLookups( 'CrmPerDiem_TravelType' , $root.onSelectTravelType.bind($root)) }, disable: disable">
+					</select>
+				</form-element>
+			</div>
+			<!-- ko if: $root.showDriverTypeSelection -->
+			<div class="col-md-4">
+				<form-element id="DriverTypeKey" params="value: DriverTypeKey, caption: 'DriverType', type: 'select'">
+					<select name="DriverTypeKey" class="form-control" data-bind="select2autocompleter: { data: value, default: Helper.Lookup.getLookupValue($root.lookups.driverType, DriverTypeKey), autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmPerDiem_DriverType'), placeholder: placeholder}, disable: disable">
+					</select>
+				</form-element>
+			</div>
+			<!-- /ko -->
+			<!-- ko if: $root.showLicensePlateSelection -->
+			<div class="col-md-4" data-bind="visible: !$root.customLicensePlate()">
+				<form-element id="LicensePlate" params="value: $root.selectedVehicleId, caption: 'LicensePlate', type: 'select'">
+					<select data-bind="select2autocompleter: { autocompleteOptions: { orderBy: ['LicensePlate'], table: 'CrmArticle_Article', customFilter: $root.getVehicleSelect2Filter.bind($root), mapDisplayObject: function (c) { return { id: c.Id, text: c.LicensePlate, item: c }}, onResult: $root.onVehicleResult.bind($root), onSelect: $root.onVehicleSelect.bind($root), placeholder: placeholder, noResults: Helper.String.getTranslatedString('NoAssignedArticles') }, data: value }"></select>
+				</form-element>
+				<div style="margin-top: -10px">
+					@(Html.Localize("or"))
+					<a href="#" data-bind="click: $root.toggleCustomLicensePlate">
+						@(Html.Localize("CustomLicensePlate"))
+					</a>
+				</div>
+			</div>
+			<div class="col-md-4" data-bind="visible: $root.customLicensePlate()">
+				<form-element params="value: LicensePlate, caption: 'LicensePlate', type: 'textarea'"></form-element>
+				@(Html.Localize("or"))
+				<a href="#" data-bind="click: $root.toggleCustomLicensePlate">
+					@(Html.Localize("LicensePlateSelection"))
+				</a>
+			</div>
+			<!-- /ko -->
+		</div>
+		<!-- ko ifnot: $root.prePlanned -->
+		<!-- ko if: Crm.PerDiem.Settings.TimeEntry.ShowTimeZone -->
+		<div class="row">
+			<div class="col-xs-6">
+				<form-element params="value: From, caption: 'From', type: 'timePicker', datePickerOptions: { pickDateTime: true, timeZone: TimeZoneFrom, config: { minDate: $root.minDate(), maxDate: $root.maxDate(), stepping: parseInt(Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval) } }"></form-element>
+			</div>
+			<div class="col-xs-6">
+				<form-element params="value: TimeZoneFrom, caption: 'TimeZoneName', type: 'select'">
+					<select class="form-control" data-bind="select2autocompleter: Helper.Date.getTimeZoneSelect2Options(), value: value"></select>
+				</form-element>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6">
+				<form-element params="value: To, caption: 'To', type: 'timePicker', datePickerOptions: {  pickDateTime: true, timeZone: TimeZoneTo, config: { minDate: $root.minDate(), maxDate: $root.maxDate(), stepping: parseInt(Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval) } }"></form-element>
+			</div>
+			<div class="col-xs-6">
+				<form-element params="value: TimeZoneTo, caption: 'TimeZoneName', type: 'select'">
+					<select class="form-control" data-bind="select2autocompleter: Helper.Date.getTimeZoneSelect2Options(), value: value"></select>
+				</form-element>
+			</div>
+		</div>
+		<!-- /ko -->
+		<!-- ko ifnot: Crm.PerDiem.Settings.TimeEntry.ShowTimeZone -->
+		<div class="row">
+			<div class="col-xs-6">
+				<form-element params="value: From, caption: 'From', type: 'timePicker', datePickerOptions: { pickDateTime: true, timeZone: TimeZoneFrom, config: { minDate: $root.minDate(), maxDate: $root.maxDate(), stepping: parseInt(Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval) } }"></form-element>
+			</div>
+			<div class="col-xs-6">
+				<form-element params="value: To, caption: 'To', type: 'timePicker', datePickerOptions: {  pickDateTime: true, timeZone: TimeZoneTo, config: { minDate: $root.minDate(), maxDate: $root.maxDate(), stepping: parseInt(Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval) } }"></form-element>
+			</div>
+		</div>
+		<!-- /ko -->
+		<div class="row">
+			<div class="col-md-4 col-xs-6">
+				<form-element params="value: Duration, caption: $root.getDurationLabel(), name: 'Duration', type: 'durationPicker',  datePickerOptions: { config: { stepping: parseInt(Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval) } }"></form-element>
+			</div>
+			<div class="col-md-3 col-xs-6">
+				<button class="btn btn-default btn-sm" name="AllDay" data-bind="click: $parent.setAllDay, hidden: $parent.isAllDay">
+					@(Html.Localize("AllDay"))
+				</button>
+			</div>
+		</div>
+		<!-- /ko -->
+		<!-- ko if: $root.prePlanned -->
+		<div class="row">
+			<div class="col-md-3 col-xs-6">
+				<form-element params="value: Duration, caption: $root.getDurationLabel(), name: 'PlannedDuration', type: 'durationPicker', max: moment.duration('24:00').add(-window.Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval, 'm')"></form-element>
+			</div>
+		</div>
+		<!-- /ko -->
+		<!-- ko if: $root.showKilometerSelection -->
+		<!-- ko if: Crm.PerDiem.Settings.TimeEntry.ShowTimeZone -->
+		<div class="row">
+			<div class="col-xs-6">
+				<form-element params="value: BorderCrossingTime, caption: 'BorderCrossing', type: 'timePicker', datePickerOptions: { pickDateTime: true, timeZone: BorderCrossingTimeZone, config: { minDate: $root.minDate(), maxDate: $root.maxDate(), stepping: parseInt(Crm.PerDiem.Settings.TimeEntry.MinutesInterval) } }"></form-element>
+			</div>
+			<div class="col-xs-6">
+				<form-element params="value: BorderCrossingTimeZone, caption: 'TimeZoneName', type: 'select'">
+					<select class="form-control" data-bind="select2autocompleter: Helper.Date.getTimeZoneSelect2Options(), value: value"></select>
+				</form-element>
+			</div>
+		</div>
+		<!-- /ko -->
+		<div class="row">
+			<div class="col-md-3">
+				<form-element params="value: LocationFrom, caption: 'LocationFrom', type: 'textarea'"></form-element>
+			</div>
+			<div class="col-md-3">
+				<form-element params="value: LocationTo, caption: 'LocationTo', type: 'textarea'"></form-element>
+			</div>
+			<div class="col-md-3">
+				<form-element params="value: Distance, caption: 'Distance', type: 'number'"></form-element>
+			</div>
+			<div class="col-md-3">
+				<form-element id="DistanceUnitKey" params="value: DistanceUnitKey, caption: 'DistanceUnit', type: 'select'">
+					<select name="DistanceUnitKey" class="form-control" data-bind="select2autocompleter: { data: value, default: Helper.Lookup.getLookupValue($root.lookups.distanceUnits, DistanceUnitKey), autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmPerDiem_DistanceUnit'), placeholder: placeholder}, disable: disable">
+					</select>
+				</form-element>
+			</div>
+		</div>
+		<!-- /ko -->
+		<div class="row">
+			<div class="col-md-6">
+				<form-element params="value: InternalRemark, caption: 'InternalRemark', type: 'textarea'"></form-element>
+			</div >
+			<div class="col-md-6">
+				<form-element params="value: Description, caption: 'ExternalRemark', type: 'textarea'"></form-element>
+			</div >
+		</div>
+	</form>
+	<!-- ko if: $root.invalidPostings -->
+	<div class="alert alert-danger animated tada" role="alert">
+		@(Html.Localize("InvalidTimePostings"))
+	</div>
+	<ul>
+		<!-- ko foreach: $root.additionalTimePostingsValidatorErrors() -->
+		<li>
+			<span style="display: inline-block">
+				<i class="zmdi zmdi-account-circle"></i>
+				<strong data-bind="text: $data.username"></strong>
+				<span data-bind="text: $data.message"></span>
+			</span>
+		</li>
+		<!-- /ko -->
+	</ul>
+	<!-- /ko -->
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-bind="click: Helper.Database.clearTrackedEntities" data-dismiss="modal">
+		@(Html.Localize("Cancel"))
+	</button>
+	<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: save, disable: loading">
+		@(Html.Localize("Save"))
+	</button>
+</div>

@@ -1,0 +1,54 @@
+﻿@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div class="container">
+	<div class="card generic-list">
+		<div class="lv-header-alt generic-list-header main-section listview">
+			<div class="card-header d-flex flex-auto">
+				<div class="caption d-flex flex-auto">
+					<h2>@(Html.Localize("BackgroundServices"))</h2>
+					<!-- ko if: isFiltered()-->
+						<div class="d-flex flex-v-center flex-wrap m-t-10 filter-values" style="gap: 5px;" data-bind="foreach: filteredProperties">
+							<button class="btn btn-default btn-icon-text border-round dropdown-toggle filter-value disabled" data-toggle="dropdown" aria-expanded="false">
+								<span class="d-flex flex-v-center">
+									<span class="d-flex flex-v-center">
+										<i class="zmdi zmdi-filter-list f-15"></i>
+									</span>
+									<span class="m-l-5">
+										<span data-bind="text: caption"></span>
+										<span data-bind="visible: $data.displayedValue">:</span>
+										<span data-bind="text: $data.displayedValue"></span>
+									</span>
+								</span>
+								<i class="zmdi zmdi-close border-round bg-primary text-primary circle-icon-right" data-bind="click: () => $parent.resetFilter()"></i>
+							</button>
+						</div>
+					<!-- /ko -->
+				</div>
+				<ul class="card-header top-menu section-menu actions">
+					@Html.PluginRenderActions("BackgroundServiceTopMenu")
+				</ul>
+			</div>
+		</div>
+		<div class="listview lv-bordered">
+			<div class="lv-body row map-container">
+				<div class="col-xs-12">
+					<div data-bind="foreach: allJobs">
+						<job-details params="data: $data"></job-details>
+					</div>
+					<div id="generic-list-empty-state" class="lv-item media">
+						<div class="row media-body">
+							<div class="col-xs-12">
+								<small class="lv-small" data-bind="visible: noMatchingRecords, translatedText: 'NoRecordsForSearchCriteria'"></small>
+								<!-- ko if: $root.allJobs().length === 0  && $root.isFiltered() === false -->
+								<small class="lv-small" data-bind="translatedText: 'NoRecordFoundBackgroundServices'"></small>
+								<!-- /ko -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

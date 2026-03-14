@@ -1,0 +1,60 @@
+﻿@using Crm.Library.Globalization.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div class="modal-header card-header ch-alt">
+	<button type="button" class="close" data-dismiss="modal" aria-label="@(Html.Localize("Close"))">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title">
+		@(Html.Localize("CheckYourAuthenticatorAppToScanQr"))
+	</h4>
+</div>
+<div class="modal-body card-body card-padding">
+	<div class="flex-center">
+		<barcode params="format: barcodeFormat, value: newAuthorizationUri(), width: 250"></barcode>
+	</div>
+	<div class="m-t-10">
+		<b>@(Html.Localize("CannotScanQrCode"))</b>
+	</div>
+	<div class="d-flex p-t-0 p-b-0 p-l-10 p-r-10" style="border: 1px solid #e0e0e0; background-color: #fbfbfb;">
+		<input type="text" id="authorization-key" class="form-control" readonly data-bind="value: newAuthorizationKey"
+			style="border: 0; background-color: #fbfbfb !important; color: #6f6f6f; font-weight: bold;" />
+		<div data-bind="visible: window.isSecureContext">
+			<a href="#" title="@(Html.Localize("CopyToClipboard"))" data-bind="click: copyAuthorizationUriToClipboard">
+				<i class="f-19 zmdi zmdi-copy c-black" style="margin-top: 8px"></i>
+			</a>
+		</div>
+	</div>
+	<div class="m-t-20">
+		<b>@(Html.Localize("OneTimePassword"))</b>
+	</div>
+	<div data-bind="foreach: tokenParts" class="d-flex f-19" 
+		style="gap: 10px; justify-content: space-between; align-items: center;">
+		<input type="text" maxlength="1" autocomplete="off" class="form-control totp-token-input" placeholder=" "
+			data-bind="value: $data.value, hasFocus: $data.isFocused,
+				attr: { 'data-initial-focus': $index() === 0 ? '' : null },
+				style: { border: $data.isFocused() ? '2px solid #cce9ff' : '1px solid #e0e0e0' },
+				event: { textInput: $parent.onTokenInputTextInput, keyup: $parent.onTokenInputKeyUp,
+					cut: $parent.onTokenInputCut, copy: $parent.onTokenInputCopy, paste: $parent.onTokenInputPaste }"
+			style="font-weight: bold; text-align: center; background-color: #fbfbfb; caret-color: transparent;" />
+		<!-- ko if: $index() === 2 -->
+		-
+		<!-- /ko -->
+	</div>
+	<div class="m-t-5">
+		<div class="has-error" data-bind="visible: resultErrors()">
+			<!-- ko foreach: resultErrors -->
+			<div class="control-label" data-bind="text: $data">
+			</div>
+			<!-- /ko -->
+		</div>
+	</div>
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-dismiss="modal">
+		@(Html.Localize("Cancel"))
+	</button>
+	<button type="button" id="save-totp-auth" class="btn btn-lg btn-success f-13 waves-effect" data-bind="click: save, disable: loading() || !tokenIsValid()">
+		@(Html.Localize("Save"))
+	</button>
+</div>

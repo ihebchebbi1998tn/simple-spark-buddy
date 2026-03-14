@@ -1,0 +1,8 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<li  data-bind="if: $root.serviceOrder().StatusKey() === 'ReadyForScheduling' || $root.serviceOrder().StatusKey() === 'PartiallyCompleted'">
+	<a id="serviceorder-schedule" href="#" data-toggle="modal" data-target="#lgModal" href="#" data-route="Crm.Service/Dispatch/Schedule/@(Guid.Empty)?serviceOrderId={{$root.serviceOrder().Id}}&returnUrl=/Crm.Service/ServiceOrder/DetailsTemplate/{{$root.serviceOrder().Id}}&tab=tab-dispatches">
+		@(Html.Localize("ScheduleDispatch"))
+	</a>
+</li>

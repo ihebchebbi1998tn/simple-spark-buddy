@@ -1,0 +1,10 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<!-- ko if: $root.serviceOrderIsEditable -->
+<li data-bind="with: $root">
+	<a href="#" data-mfb-label="@(Html.Localize("CreateDispatch"))" data-route="Crm.Service/Dispatch/Schedule/00000000-0000-0000-0000-000000000000?serviceOrderId={{serviceOrder().Id}}&username={{serviceOrder().PreferredTechnician() || ''}}" data-toggle="modal" data-target="#lgModal">
+		<i class="zmdi zmdi-plus"></i>
+	</a>
+</li>
+<!-- /ko -->
