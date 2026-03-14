@@ -1,0 +1,29 @@
+{
+  "sidebar": {
+    "overview": "لوحة التحكم",
+    "search": "البحث عن مرشحين",
+    "orders": "طلباتي",
+    "offers": "عروضنا",
+    "profile": "ملف المركز",
+    "performance": "الأداء",
+    "campaigns": "الحملات الجارية",
+    "users": "إدارة المستخدمين",
+    "leadImport": "استيراد العملاء المحتملين",
+    "myDashboard": "لوحتي",
+    "myAccount": "حسابي",
+    "backToHome": "العودة للرئيسية",
+    "logout": "تسجيل الخروج",
+    "navigation": "التنقل",
+    "logoutSuccess": "تم تسجيل الخروج بنجاح",
+    "logoutMessage": "إلى اللقاء!"
+  },
+  "header": {
+    "recruiterSpace": "فضاء المجنّد",
+    "myAccount": "حسابي"
+  },
+  "roles": {
+    "super_admin": "مدير أعلى",
+    "admin": "مدير",
+    "charge": "مسؤول التوظيف"
+  }
+}

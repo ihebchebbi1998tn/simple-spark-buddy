@@ -1,0 +1,37 @@
+{
+  "badge": "Recruiter Space",
+  "title": "The platform that transforms",
+  "titleHighlight": "sourcing",
+  "titleEnd": "into decisions.",
+  "subtitle": "We don't deliver files. We deliver a complete infrastructure: smart sourcing, automated distribution, real-time tracking, and decision support for your teams.",
+  "simulateBtn": "Simulate my pool",
+  "accessBtn": "Access the platform",
+  "included": "What's included",
+  "features": [
+    "Real-time talent pool simulator",
+    "Compatibility batches",
+    "Instant budget estimation",
+    "Pay per result (PPI)",
+    "Performance bonus included",
+    "Prioritized shortlists"
+  ],
+  "whyUs": "Why us",
+  "whyUsTitle": "Why choose CallCenterMatch?",
+  "whyUsSubtitle": "A platform designed to optimize every step of your recruitment.",
+  "advantages": [
+    { "title": "Smart sourcing", "description": "Our AI identifies the most compatible profiles with your recruitment criteria." },
+    { "title": "Automated distribution", "description": "Leads are automatically distributed to your recruitment officers." },
+    { "title": "Real-time tracking", "description": "Live dashboards to manage your recruitment campaigns." },
+    { "title": "Decision support", "description": "Scoring, prioritized shortlists and instant budget estimation." }
+  ],
+  "startNow": "Start now",
+  "readyToRecruit": "Ready to recruit efficiently?",
+  "requestAccess": "Request access",
+  "trySimulator": "Try the simulator",
+  "faqTitle": "Frequently asked questions",
+  "faqSubtitle": "Everything you need to know before starting.",
+  "ctaTitle": "Ready to join the adventure?",
+  "ctaSubtitle": "Whether you're a recruiter or a candidate, we have a place for you.",
+  "iAmRecruiter": "I'm a recruiter",
+  "iAmCandidate": "I'm a candidate"
+}

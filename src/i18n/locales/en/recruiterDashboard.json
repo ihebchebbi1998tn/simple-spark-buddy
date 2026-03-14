@@ -1,0 +1,29 @@
+{
+  "sidebar": {
+    "overview": "Dashboard",
+    "search": "Candidate Search",
+    "orders": "My Orders",
+    "offers": "Our Offers",
+    "profile": "Center Profile",
+    "performance": "Performance",
+    "campaigns": "Active Campaigns",
+    "users": "User Management",
+    "leadImport": "Import Leads",
+    "myDashboard": "My Dashboard",
+    "myAccount": "My Account",
+    "backToHome": "Back to Home",
+    "logout": "Logout",
+    "navigation": "Navigation",
+    "logoutSuccess": "Logged out successfully",
+    "logoutMessage": "See you soon!"
+  },
+  "header": {
+    "recruiterSpace": "Recruiter Space",
+    "myAccount": "My Account"
+  },
+  "roles": {
+    "super_admin": "Super Admin",
+    "admin": "Administrator",
+    "charge": "Recruitment Officer"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "registerTitle": "Choisissez votre profil",
+  "loginTitle": "Connectez-vous",
+  "registerDesc": "Sélectionnez votre rôle pour commencer votre inscription.",
+  "loginDesc": "Sélectionnez votre rôle pour accéder à votre espace.",
+  "iAmCandidate": "Je suis candidat",
+  "iAmRecruiter": "Je suis recruteur",
+  "registerCandidate": "Créer mon profil gratuitement",
+  "loginCandidate": "Accéder à mon espace candidat",
+  "registerRecruiter": "Demander un accès",
+  "loginRecruiter": "Accéder à mon espace recruteur"
+}

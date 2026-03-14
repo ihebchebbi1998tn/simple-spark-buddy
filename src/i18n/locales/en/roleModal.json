@@ -1,0 +1,12 @@
+{
+  "registerTitle": "Choose your profile",
+  "loginTitle": "Log in",
+  "registerDesc": "Select your role to start your registration.",
+  "loginDesc": "Select your role to access your space.",
+  "iAmCandidate": "I'm a candidate",
+  "iAmRecruiter": "I'm a recruiter",
+  "registerCandidate": "Create my profile for free",
+  "loginCandidate": "Access my candidate space",
+  "registerRecruiter": "Request access",
+  "loginRecruiter": "Access my recruiter space"
+}

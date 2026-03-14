@@ -1,0 +1,34 @@
+{
+  "badge": "FAQ",
+  "title": "Frequently asked questions",
+  "subtitle": "Answers to your most common questions.",
+  "pageTitle": "Frequently Asked",
+  "pageTitleHighlight": "Questions",
+  "pageSubtitle": "Quickly find answers to your most common questions",
+  "faqs": [
+    {
+      "question": "Do candidates pay anything?",
+      "answer": "No. Candidate registration is completely free. Our priority is to help you find the right job."
+    },
+    {
+      "question": "Is a CV required?",
+      "answer": "No. Our profile is designed to showcase your skills without a CV. You can add one if you wish."
+    },
+    {
+      "question": "How is my data protected?",
+      "answer": "Recruiter access is strictly verified, confidential data is protected. We never share your information."
+    },
+    {
+      "question": "What types of profiles are you looking for?",
+      "answer": "Customer support, sales, customer service, back-office... All call center professions."
+    },
+    {
+      "question": "How do recruiters contact me?",
+      "answer": "Through the platform. You receive a notification and choose whether to follow up."
+    },
+    {
+      "question": "Can I edit my profile?",
+      "answer": "Yes, at any time, directly in your candidate space."
+    }
+  ]
+}

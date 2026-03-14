@@ -1,0 +1,68 @@
+{
+  "steps": ["Identité", "Localisation", "Langues", "Dispo", "Expérience", "Préférences"],
+  "firstName": "Prénom",
+  "lastName": "Nom",
+  "phone": "Téléphone",
+  "title": "Civilité",
+  "mrs": "Madame",
+  "mr": "Monsieur",
+  "city": "Ville",
+  "postalCode": "Code postal",
+  "selectCity": "Sélectionnez votre ville",
+  "mainLanguage": "Langue principale",
+  "bilingual": "Bilingue ?",
+  "yes": "Oui",
+  "no": "Non",
+  "select": "Sélectionnez",
+  "availability": "Disponibilité",
+  "jobType": "Type de poste",
+  "experience": "Expérience en centre d'appels",
+  "beginner": "Débutant",
+  "desiredPosition": "Poste souhaité",
+  "workMode": "Mode de travail",
+  "preferredSector": "Secteur préféré",
+  "previous": "← Précédent",
+  "next": "Suivant →",
+  "finalize": "✅ Finaliser mon inscription",
+  "dataSaved": "Données enregistrées ✓",
+  "dataSavedDesc": "Finalisez votre inscription pour accéder à votre espace.",
+  "missingFields": "Champs manquants",
+  "missingField": "Champ manquant",
+  "identityRequired": "Prénom, nom et téléphone sont obligatoires.",
+  "cityRequired": "Veuillez sélectionner votre ville.",
+  "languageRequired": "Veuillez sélectionner votre langue principale.",
+  "availabilityRequired": "Veuillez remplir disponibilité et type de poste.",
+  "experienceRequired": "Veuillez remplir expérience et poste souhaité.",
+  "workModeRequired": "Veuillez choisir un mode de travail.",
+  "languages": {
+    "francais": "Français",
+    "anglais": "Anglais",
+    "arabe": "Arabe",
+    "espagnol": "Espagnol",
+    "italien": "Italien",
+    "allemand": "Allemand"
+  },
+  "availabilityOptions": {
+    "immediate": "Immédiate",
+    "2_weeks": "Sous 2 semaines",
+    "1_month": "Sous 1 mois"
+  },
+  "workTimeOptions": {
+    "full": "Plein temps",
+    "part": "Temps partiel",
+    "any": "Indifférent"
+  },
+  "workModeOptions": {
+    "onsite": "Présentiel",
+    "remote": "Télétravail",
+    "hybrid": "Hybride",
+    "any": "Indifférent"
+  },
+  "sectorOptions": {
+    "telecom": "Télécom",
+    "bank": "Banque",
+    "ecommerce": "E-commerce",
+    "energy": "Énergie",
+    "any": "Indifférent"
+  }
+}

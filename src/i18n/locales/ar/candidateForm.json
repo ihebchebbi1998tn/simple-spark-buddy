@@ -1,0 +1,68 @@
+{
+  "steps": ["الهوية", "الموقع", "اللغات", "التوفر", "الخبرة", "التفضيلات"],
+  "firstName": "الاسم الأول",
+  "lastName": "اسم العائلة",
+  "phone": "الهاتف",
+  "title": "اللقب",
+  "mrs": "سيدة",
+  "mr": "سيد",
+  "city": "المدينة",
+  "postalCode": "الرمز البريدي",
+  "selectCity": "اختر مدينتك",
+  "mainLanguage": "اللغة الرئيسية",
+  "bilingual": "ثنائي اللغة؟",
+  "yes": "نعم",
+  "no": "لا",
+  "select": "اختر",
+  "availability": "التوفر",
+  "jobType": "نوع الوظيفة",
+  "experience": "خبرة في مراكز الاتصال",
+  "beginner": "مبتدئ",
+  "desiredPosition": "المنصب المطلوب",
+  "workMode": "طريقة العمل",
+  "preferredSector": "القطاع المفضل",
+  "previous": "← السابق",
+  "next": "التالي →",
+  "finalize": "✅ إنهاء التسجيل",
+  "dataSaved": "تم حفظ البيانات ✓",
+  "dataSavedDesc": "أنهِ تسجيلك للوصول إلى مساحتك.",
+  "missingFields": "حقول ناقصة",
+  "missingField": "حقل ناقص",
+  "identityRequired": "الاسم الأول واسم العائلة والهاتف مطلوبة.",
+  "cityRequired": "يرجى اختيار مدينتك.",
+  "languageRequired": "يرجى اختيار لغتك الرئيسية.",
+  "availabilityRequired": "يرجى ملء التوفر ونوع الوظيفة.",
+  "experienceRequired": "يرجى ملء الخبرة والمنصب المطلوب.",
+  "workModeRequired": "يرجى اختيار طريقة العمل.",
+  "languages": {
+    "francais": "الفرنسية",
+    "anglais": "الإنجليزية",
+    "arabe": "العربية",
+    "espagnol": "الإسبانية",
+    "italien": "الإيطالية",
+    "allemand": "الألمانية"
+  },
+  "availabilityOptions": {
+    "immediate": "فورياً",
+    "2_weeks": "خلال أسبوعين",
+    "1_month": "خلال شهر"
+  },
+  "workTimeOptions": {
+    "full": "دوام كامل",
+    "part": "دوام جزئي",
+    "any": "غير مهم"
+  },
+  "workModeOptions": {
+    "onsite": "حضوري",
+    "remote": "عن بعد",
+    "hybrid": "مختلط",
+    "any": "غير مهم"
+  },
+  "sectorOptions": {
+    "telecom": "اتصالات",
+    "bank": "بنوك",
+    "ecommerce": "تجارة إلكترونية",
+    "energy": "طاقة",
+    "any": "غير مهم"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "badge": "Process",
+  "title": "How does it work?",
+  "subtitle": "A simple process, on both sides.",
+  "tabCandidate": "Candidate side",
+  "tabRecruiter": "Recruiter side",
+  "candidateSteps": [
+    { "title": "I create my profile", "description": "2 minutes, no CV. I describe my strengths, needs and expectations." },
+    { "title": "I become visible", "description": "My profile is visible to recruiters looking for my skills." },
+    { "title": "AI assists me", "description": "AI helps me be seen by the right recruiters." },
+    { "title": "I get contacted", "description": "No more unanswered applications. Recruiters come to me." }
+  ],
+  "recruiterSteps": [
+    { "title": "I simulate my pool", "description": "I discover available profiles in real time based on my criteria." },
+    { "title": "I discover profiles", "description": "Matching candidates are suggested to me." },
+    { "title": "AI assists me", "description": "AI analyzes profiles to help me make the right choices." },
+    { "title": "I contact and follow up", "description": "I connect with candidates and manage my recruitments." }
+  ],
+  "btnCandidate": "See candidate journey",
+  "btnRecruiter": "See recruiter journey"
+}
